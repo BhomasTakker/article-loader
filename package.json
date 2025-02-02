@@ -1,0 +1,38 @@
+{
+	"name": "article-loader",
+	"version": "1.0.0",
+	"description": "rss and html meta loader to add data to db. Used for datatattat",
+	"homepage": "https://github.com/BhomasTakker/article-loader#readme",
+	"bugs": {
+		"url": "https://github.com/BhomasTakker/article-loader/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/BhomasTakker/article-loader.git"
+	},
+	"license": "ISC",
+	"author": "tom.thomas.bakker@gmail.com",
+	"type": "commonjs",
+	"main": "index.js",
+	"scripts": {
+		"build": "rimraf dist && npx tsc",
+		"prestart": "npm run build",
+		"start": "node dist/index.js",
+		"preserve": "npm run build",
+		"serve": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\""
+	},
+	"dependencies": {
+		"concurrently": "^9.1.2",
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"mongoose": "^8.9.6",
+		"rimraf": "^6.0.1",
+		"rss-parser": "^3.13.0",
+		"typescript": "^5.7.3"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.0",
+		"@types/node": "^22.13.0",
+		"nodemon": "^3.1.9"
+	}
+}
