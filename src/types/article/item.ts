@@ -1,5 +1,72 @@
 export type UnknownObject = Record<string, unknown>;
+// [1]     link: 'https://www.bbc.com/news/videos/c2d3zgkxwwpo',
+// [1]     pubDate: 'Thu, 30 Jan 2025 13:14:45 GMT',
+// [1]     content: 'Three Israelis and five Thai nationals comprised the latest group of hostages released since the Gaza ceasefire was announced.',
+// [1]     contentSnippet: 'Three Israelis and five Thai nationals comprised the latest group of hostages released since the Gaza ceasefire was announced.',
+// [1]     guid: 'https://www.bbc.com/news/videos/c2d3zgkxwwpo#3',
+// [1]     isoDate: '2025-01-30T13:14:45.000Z'
 
+export type RSSEnclosure = {
+	type: string;
+	length: string;
+	url: string;
+};
+
+export type RSSImage = {
+	url: string;
+	title: string;
+	link: string;
+};
+
+export type RSSSource = {
+	url: string;
+};
+export type RSSItem = {
+	title: string;
+	description: string;
+	author?: string;
+	category?: string;
+	content?: string;
+	contentSnippet?: string;
+	creator?: string;
+	guid?: string;
+	isoDate?: string;
+	link: string;
+	pubDate?: string;
+	source?: string;
+	comments?: [];
+	image?: RSSImage;
+	enclosure?: RSSEnclosure;
+
+	categories?: string[];
+};
+
+export type RSSChannelType = {
+	generator?: string;
+	webMaster?: string;
+	title: string;
+	cloud?: string;
+	copyright?: string;
+	description: string;
+	docs?: string;
+	feedUrl?: string;
+	language?: string;
+	lastBuildDate?: string;
+	link: string;
+	managingEditor?: string;
+	paginationLinks?: string;
+	pubDate?: string;
+	rating?: string;
+	image?: RSSImage;
+	skipDays?: string;
+	skipHours?: string;
+	textInput?: string;
+	ttl?: string;
+
+	items?: RSSItem[];
+};
+
+///////////////////////////////
 export type BaseInfo = {
 	title: string;
 	src: string; // URL format

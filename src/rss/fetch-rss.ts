@@ -1,10 +1,13 @@
 import Parser from "rss-parser";
-import { UnknownObject } from "../types/article/item";
+import { RSSItem, UnknownObject } from "../types/article/item";
+import { fetchArticles } from "../articles/fetch-articles";
 
 type DataResponse = {
-	items: object[];
+	items: RSSItem[];
 } & UnknownObject;
 
+// This could probably be better but it works for now
+// and only resets state when all are loaded or otherwise completed
 export const RSSFetch = async (endpoint: string) => {
 	const parser = new Parser({
 		// Todo:- Config
@@ -27,8 +30,20 @@ export const fetchRss = async (urls: string[], callback: Callback) => {
 	urls.forEach(async (url) => {
 		try {
 			const prom = RSSFetch(url) as Promise<DataResponse>;
-			prom.then((data) => {
+			prom.then(async (data) => {
 				// console.log(data);
+				// stript items from data
+				const items = data?.items || [];
+				if (items.length === 0) {
+					console.log("No items for this feed", { url, data });
+				}
+
+				// here
+				// We want to convert the response to a collection
+				// and save it to the db under it's path
+				// That way we can easily fetch it from the front end
+
+				await fetchArticles(items);
 			});
 			prom.catch((error: Error) => {
 				// This should stop the crash but we need to remove null from promise list
