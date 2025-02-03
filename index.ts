@@ -1,24 +1,21 @@
-import express from "express";
 import { connectToMongoDB } from "./src/lib/mongo/db";
-import { fetchRss } from "./src/rss/fetch-rss";
-import { Service, ServiceState } from "./src/service";
-import { COLLECTIONS } from "./sources/collections";
+import { fetchCollections } from "./src/cron/main-rss-cron";
+import { createCron, CRON_TIMES } from "./src/cron/create-cron";
+import { NEWS_ARTICLES_COLLECTION } from "./sources/news/articles_collections";
+import { NEWS_VIDEOS_COLLECTION } from "./sources/news/video_collections";
+
 require("dotenv").config();
-
-const port = process.env.PORT;
-
-const app = express();
 
 const startServer = async () => {
 	await connectToMongoDB();
 
-	const service = Service.getInstance();
-	const state = service.getState();
-
-	if (state === ServiceState.ready) {
-		service.setState(ServiceState.running);
-		fetchRss(COLLECTIONS, () => service.setState(ServiceState.ready));
-	}
+	createCron({
+		time: CRON_TIMES.minutes_5,
+		fetchFn: fetchCollections([
+			...NEWS_ARTICLES_COLLECTION,
+			...NEWS_VIDEOS_COLLECTION,
+		]),
+	});
 };
 
 startServer();
