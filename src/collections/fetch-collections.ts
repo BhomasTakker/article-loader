@@ -7,13 +7,13 @@ import { getCollection } from "./get-collection";
 import { RSSArticleCollection } from "../types/rss";
 
 // Pass in the collections object
-export const fetchCollections = (urls: string[]) => () => {
+export const fetchCollections = (urls: string[]) => async () => {
 	const service = Service.getInstance();
 	const state = service.getState();
 
 	if (state === ServiceState.ready) {
 		service.setState(ServiceState.running);
-		fetchRss<(CollectionItem | null)[], RSSArticleCollection>({
+		await fetchRss<(CollectionItem | null)[], RSSArticleCollection>({
 			urls,
 			callback: () => {
 				service.setState(ServiceState.ready);
