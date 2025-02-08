@@ -44,7 +44,7 @@ const fetchMainNewsCollectionsFn = fetchCollections([
 ]);
 
 const fetchMainYoutubeNewsCollectionsFn = fetchCollections([
-	...NEWS_ARTICLES_COLLECTION,
+	...NEWS_VIDEOS_COLLECTION,
 ]);
 
 app.get("/", async (req, res) => {

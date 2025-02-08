@@ -6,10 +6,6 @@ import {
 } from "../lib/mongo/actions/article";
 import { getMeta } from "../html/get-meta";
 
-// Potentially a withDb Thing or other
-type GetArticleItem = Partial<CollectionItem> & Pick<CollectionItem, "src">;
-// not here   title: 'Chaos and celebrations as eight more hostages released by Hamas',
-
 const convertRssItem = (data: RSSItem) => {
 	const {
 		title,
@@ -88,7 +84,6 @@ export const getArticle = async (item: RSSItem) => {
 	};
 
 	try {
-		// console.log("Save");
 		await saveOrCreateArticleBySrc(newArticle);
 	} catch (err) {
 		console.log("getArticle Error");
