@@ -11,7 +11,7 @@ import { TEST_BSKY } from "./sources/bluesky/profiles";
 
 import express from "express";
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 4000;
 
 require("dotenv").config();
 
@@ -29,32 +29,50 @@ require("dotenv").config();
 const startServer = async () => {
 	await connectToMongoDB();
 
-	// createCron({
-	// 	time: CRON_TIMES.seconds_10,
-	// 	fetchFn: fetchCollections([
-	// 		...NEWS_VIDEOS_COLLECTION,
-	// 		...NEWS_ARTICLES_COLLECTION,
-	// 	]),
-	// });
-
-	// createCron({
-	// 	time: CRON_TIMES.minutes_15,
-	// 	fetchFn: fetchCollections([
-	// 		...NEWS_ARTICLES_COLLECTION,
-	// 		...NEWS_VIDEOS_COLLECTION,
-	// 	]),
-	// });
+	createCron({
+		time: CRON_TIMES.minutes_15,
+		fetchFn: fetchCollections([
+			...NEWS_ARTICLES_COLLECTION,
+			...NEWS_VIDEOS_COLLECTION,
+		]),
+	});
 };
 
 // startServer();
-const fetchCollectionsFn = fetchCollections([
-	...NEWS_VIDEOS_COLLECTION,
+const fetchMainNewsCollectionsFn = fetchCollections([
 	...NEWS_ARTICLES_COLLECTION,
 ]);
+
+const fetchMainYoutubeNewsCollectionsFn = fetchCollections([
+	...NEWS_ARTICLES_COLLECTION,
+]);
+
 app.get("/", async (req, res) => {
-	await connectToMongoDB();
-	await fetchCollectionsFn();
-	res.send("Hello World!");
+	res.send("I guess manual trigger? - Add sources, etc.");
+});
+
+app.get("/fetch-news", async (req, res) => {
+	try {
+		await connectToMongoDB();
+		// We shuld load sources lists from a db so we can add
+		// That way when a user specifies a source we can add it to a list and refetch it periodically
+		await fetchMainNewsCollectionsFn();
+		res.send("Success");
+	} catch (error) {
+		console.log(error);
+		res.send("Error");
+	}
+});
+
+app.get("/fetch-youtube-news", async (req, res) => {
+	try {
+		await connectToMongoDB();
+		await fetchMainYoutubeNewsCollectionsFn();
+		res.send("Success");
+	} catch (error) {
+		console.log(error);
+		res.send("Error");
+	}
 });
 
 app.listen(port, () => {
