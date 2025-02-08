@@ -1,41 +1,30 @@
-import { DataResponse, RSSItem } from "../types/article/item";
+import Parser from "rss-parser";
+import { RSSItem, UnknownObject } from "../types/article/item";
+import { fetchArticles } from "../articles/fetch-articles";
 import { RSSParse } from "./parse-rss";
 
-type FetchRSS<T, G> = {
-	urls: string[];
-	callback: Callback;
-	itemsCallback: (items: RSSItem[]) => Promise<T>;
-	feedCallback: (url: string, items: DataResponse) => Promise<G>;
-};
-
-// This could probably be better but it works for now
-// and only resets state when all are loaded or otherwise completed
+type DataResponse = {
+	items: RSSItem[];
+} & UnknownObject;
 
 type Callback = () => void;
 
-// pass in fetchArticles as an items callback
-export const fetchRss = async <T, G>({
-	urls,
-	callback,
-	feedCallback,
-	itemsCallback,
-}: FetchRSS<T, G>) => {
+export const fetchNoSave = async (urls: string[], callback: Callback) => {
 	const fetches: Promise<DataResponse>[] = [];
 
 	urls.forEach(async (url) => {
 		try {
 			const prom = RSSParse(url) as Promise<DataResponse>;
-			// could just pass a single callbck?
 			prom.then(async (data) => {
-				// console.log(data);
-				// stript items from data
 				const items = data?.items || [];
 				if (items.length === 0) {
 					console.log("No items for this feed", { url, data });
 				}
 
-				await feedCallback(url, data);
-				await itemsCallback(items);
+				const { items: items2, ...rest } = data;
+				const newData = { ...rest };
+
+				console.log("RSS Data", newData);
 			});
 			prom.catch((error: Error) => {
 				// This should stop the crash but we need to remove null from promise list
