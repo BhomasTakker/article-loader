@@ -1,9 +1,5 @@
-import { HydratedDocument } from "mongoose";
-import {
-	getArticleCollectionByFeed,
-	saveOrCreateArticleCollectionByFeed,
-} from "../lib/mongo/actions/articleCollection";
-import { DataResponse, RSSImage } from "../types/article/item";
+import { saveOrCreateArticleCollectionByFeed } from "../lib/mongo/actions/articleCollection";
+import { DataResponse } from "../types/article/item";
 import { RSSArticleCollection } from "../types/rss";
 
 // i.e. then add anything we need?
@@ -39,9 +35,6 @@ export const getCollection = async (
 	// above is convert rss to collection
 	const { feed, ...rest } = convertRssToCollection(rssFeed);
 
-	console.log("feed", feed);
-
-	// updtateOrCreatesaveOrCreateArticleBySrc
 	const { message, result } = await saveOrCreateArticleCollectionByFeed({
 		...rest,
 		feed: url,

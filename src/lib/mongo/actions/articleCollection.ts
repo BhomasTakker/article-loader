@@ -20,8 +20,6 @@ export const saveOrCreateArticleCollectionByFeed = async (
 			}
 		);
 
-		console.log(res);
-
 		return { result: res, message: "Saved Article Collection!" };
 	} catch (err) {
 		console.error(err);
