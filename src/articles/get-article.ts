@@ -51,22 +51,23 @@ export const getArticle = async (item: RSSItem) => {
 		// console.log("article in db return");
 		// We should check if we have any additional data
 		// Then update the article
-
+		console.log(`Already stored ${src}`);
 		return JSON.parse(JSON.stringify(article)) as CollectionItem;
 	}
 
 	const meta = await getMeta(src);
 	if (!meta) {
-		console.log("no meta loaded");
+		console.log(`No meta loaded for ${src}`);
 		return null;
 	}
 	const { title, description, image, imageAlt, type } = meta;
 
 	if (!title || !image) {
-		console.log("failed check ", { title, image });
+		// console.log("failed check ", { title, image });
 		// We need a better or proper check here
 		// based on type / we may not always expect an image
 		// BlueSky post or some such
+		console.log(`Check Failed - Do not save ${src}`);
 		return null;
 	}
 
@@ -85,8 +86,9 @@ export const getArticle = async (item: RSSItem) => {
 
 	try {
 		await saveOrCreateArticleBySrc(newArticle);
+		console.log(`Created New Article ${src}`);
 	} catch (err) {
-		console.log("getArticle Error");
+		console.log(`Article Load Error ${src}`);
 	}
 
 	return newArticle as CollectionItem;

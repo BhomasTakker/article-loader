@@ -20,10 +20,13 @@ export const saveOrCreateArticleCollectionByFeed = async (
 			}
 		);
 
+		console.log(`Saved Article Collection: ${feed}`);
+
 		return { result: res, message: "Saved Article Collection!" };
 	} catch (err) {
-		console.error(err);
+		// console.error(err);
 		// throw?
+		console.log(`Error Article Collection: ${feed}`);
 		return { message: "Error saving article collection" };
 	}
 };
