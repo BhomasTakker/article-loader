@@ -37,19 +37,23 @@ const startServer = async () => {
 	// 	]),
 	// });
 
-	createCron({
-		time: CRON_TIMES.minutes_15,
-		fetchFn: fetchCollections([
-			...NEWS_ARTICLES_COLLECTION,
-			...NEWS_VIDEOS_COLLECTION,
-		]),
-	});
+	// createCron({
+	// 	time: CRON_TIMES.minutes_15,
+	// 	fetchFn: fetchCollections([
+	// 		...NEWS_ARTICLES_COLLECTION,
+	// 		...NEWS_VIDEOS_COLLECTION,
+	// 	]),
+	// });
 };
 
-startServer();
-
-app.get("/", (req, res) => {
-	fetchCollections([...NEWS_VIDEOS_COLLECTION, ...NEWS_ARTICLES_COLLECTION])();
+// startServer();
+const fetchCollectionsFn = fetchCollections([
+	...NEWS_VIDEOS_COLLECTION,
+	...NEWS_ARTICLES_COLLECTION,
+]);
+app.get("/", async (req, res) => {
+	await connectToMongoDB();
+	await fetchCollectionsFn();
 	res.send("Hello World!");
 });
 
