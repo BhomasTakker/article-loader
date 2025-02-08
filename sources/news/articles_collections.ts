@@ -9,7 +9,10 @@
 // 	"https://feeds.bbci.co.uk/news/technology/rss.xml",
 // 	"https://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
 // ];
-
+export const TEST_COLLECTION = [
+	"https://feeds.bbci.co.uk/news/world/rss.xml",
+	"https://feeds.bbci.co.uk/news/uk/rss.xml",
+];
 // Look at london economis say
 // We are not taking sources correctly from RSS 1.0?
 /////
@@ -26,7 +29,7 @@ export const WORLD_MAIN = [
 	"https://theconversation.com/uk/world/articles.atom",
 	"https://rss.dw.com/rdf/rss-en-world",
 	// dpuble check this is okay with the query! / we may be stripping that off?
-	"https://www.euronews.com/rss?format=mrss&level=theme&name=news,",
+	"https://www.euronews.com/rss?format=mrss&level=theme&name=news",
 ];
 
 export const UK_MAIN = [

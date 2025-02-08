@@ -6,6 +6,21 @@ export type UnknownObject = Record<string, unknown>;
 // [1]     guid: 'https://www.bbc.com/news/videos/c2d3zgkxwwpo#3',
 // [1]     isoDate: '2025-01-30T13:14:45.000Z'
 
+export type DataResponse = {
+	items: RSSItem[];
+	link?: string;
+	title?: string;
+	feed?: string;
+	description?: string;
+	lastBuildDate?: string;
+	language?: string;
+	webMaster?: string;
+	pubDate?: string;
+	generator?: string;
+	image?: RSSImage;
+	ttl?: string;
+} & UnknownObject;
+
 export type RSSEnclosure = {
 	type: string;
 	length: string;
