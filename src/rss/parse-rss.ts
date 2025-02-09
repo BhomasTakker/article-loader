@@ -3,7 +3,7 @@ import { UnknownObject } from "../types/article/item";
 
 export const RSSParse = async (
 	endpoint: string,
-	customFields: UnknownObject | undefined
+	customFields?: UnknownObject
 ) => {
 	const parser = new Parser({
 		// Todo:- Config
