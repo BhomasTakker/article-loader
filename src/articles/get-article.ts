@@ -41,6 +41,7 @@ const convertRssItem = (data: RSSItem) => {
 
 // We're doing unnecessary work here
 // convert to required format
+// get article data from meta
 export const getArticle = async (item: RSSItem) => {
 	const { src, details = {} } = convertRssItem(item);
 

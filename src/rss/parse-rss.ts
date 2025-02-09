@@ -1,8 +1,13 @@
 import Parser from "rss-parser";
+import { UnknownObject } from "../types/article/item";
 
-export const RSSParse = async (endpoint: string) => {
+export const RSSParse = async (
+	endpoint: string,
+	customFields: UnknownObject | undefined
+) => {
 	const parser = new Parser({
 		// Todo:- Config
+		customFields,
 		timeout: 2000,
 	});
 	// if error do something!

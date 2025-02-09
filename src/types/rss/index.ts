@@ -1,7 +1,7 @@
-import { RSSImage } from "../article/item";
+import { RSSImage, RSSItem } from "../article/item";
 
 export type RSSArticleCollection = {
-	items: string[];
+	items: string[] | RSSItem[];
 	link?: string;
 	title?: string;
 	feed?: string;

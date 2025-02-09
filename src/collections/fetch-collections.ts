@@ -1,25 +1,36 @@
-import { get } from "mongoose";
-import { fetchArticles } from "../articles/fetch-articles";
 import { fetchRss } from "../rss/fetch-rss";
 import { Service, ServiceState } from "../service";
-import { CollectionItem, DataResponse } from "../types/article/item";
-import { getCollection } from "./get-collection";
-import { RSSArticleCollection } from "../types/rss";
+import { DataResponse, RSSItem } from "../types/article/item";
+
+type FetchCollectionsProps<T, G> = {
+	urls: string[];
+	itemsCallback: (items: RSSItem[]) => Promise<T>;
+	feedCallback: (url: string, items: DataResponse) => Promise<G>;
+	customFields?: Record<string, unknown>;
+};
 
 // Pass in the collections object
-export const fetchCollections = (urls: string[]) => async () => {
-	const service = Service.getInstance();
-	const state = service.getState();
+export const fetchCollections =
+	<T, G>({
+		urls,
+		itemsCallback,
+		feedCallback,
+		customFields,
+	}: FetchCollectionsProps<T, G>) =>
+	async () => {
+		const service = Service.getInstance();
+		const state = service.getState();
 
-	if (state === ServiceState.ready) {
-		service.setState(ServiceState.running);
-		await fetchRss<(CollectionItem | null)[], RSSArticleCollection>({
-			urls,
-			callback: () => {
-				service.setState(ServiceState.ready);
-			},
-			itemsCallback: fetchArticles,
-			feedCallback: getCollection,
-		});
-	}
-};
+		if (state === ServiceState.ready) {
+			service.setState(ServiceState.running);
+			await fetchRss<T, G>({
+				urls,
+				callback: () => {
+					service.setState(ServiceState.ready);
+				},
+				itemsCallback,
+				feedCallback,
+				customFields,
+			});
+		}
+	};
