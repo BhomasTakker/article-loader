@@ -1,4 +1,4 @@
-import { DataResponse, RSSItem } from "../types/article/item";
+import { DataResponse, RSSItem, UnknownObject } from "../types/article/item";
 import { RSSParse } from "./parse-rss";
 
 type FetchRSS<T, G> = {
@@ -6,6 +6,7 @@ type FetchRSS<T, G> = {
 	callback: Callback;
 	itemsCallback: (items: RSSItem[]) => Promise<T>;
 	feedCallback: (url: string, items: DataResponse) => Promise<G>;
+	customFields?: UnknownObject | undefined;
 };
 
 // This could probably be better but it works for now
@@ -19,12 +20,13 @@ export const fetchRss = async <T, G>({
 	callback,
 	feedCallback,
 	itemsCallback,
+	customFields,
 }: FetchRSS<T, G>) => {
 	const fetches: Promise<DataResponse>[] = [];
 
 	urls.forEach(async (url) => {
 		try {
-			const prom = RSSParse(url) as Promise<DataResponse>;
+			const prom = RSSParse(url, customFields) as Promise<DataResponse>;
 			// could just pass a single callbck?
 			prom.then(async (data) => {
 				// console.log(data);
@@ -38,7 +40,6 @@ export const fetchRss = async <T, G>({
 				await itemsCallback(items);
 			});
 			prom.catch((error: Error) => {
-				// This should stop the crash but we need to remove null from promise list
 				console.error("Error fetching rss");
 			});
 			////////////////////////////////////

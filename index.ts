@@ -10,6 +10,9 @@ import { fetchNoSave } from "./src/rss/fetch-dont-save";
 import { TEST_BSKY } from "./sources/bluesky/profiles";
 
 import express from "express";
+import { getCollection } from "./src/collections/get-collection";
+import { fetchArticles } from "./src/articles/fetch-articles";
+import { fetchYoutubeArticles } from "./src/articles/fetch-youtube-articles";
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -31,21 +34,30 @@ const startServer = async () => {
 
 	createCron({
 		time: CRON_TIMES.minutes_15,
-		fetchFn: fetchCollections([
-			...NEWS_ARTICLES_COLLECTION,
-			...NEWS_VIDEOS_COLLECTION,
-		]),
+		fetchFn: fetchCollections({
+			urls: [...NEWS_ARTICLES_COLLECTION, ...NEWS_VIDEOS_COLLECTION],
+			feedCallback: getCollection,
+			itemsCallback: fetchArticles,
+		}),
 	});
 };
 
 // startServer();
-const fetchMainNewsCollectionsFn = fetchCollections([
-	...NEWS_ARTICLES_COLLECTION,
-]);
+const fetchMainNewsCollectionsFn = fetchCollections({
+	urls: [...NEWS_ARTICLES_COLLECTION],
+	feedCallback: getCollection,
+	itemsCallback: fetchArticles,
+});
 
-const fetchMainYoutubeNewsCollectionsFn = fetchCollections([
-	...NEWS_VIDEOS_COLLECTION,
-]);
+const fetchMainYoutubeNewsCollectionsFn = fetchCollections({
+	urls: [...NEWS_VIDEOS_COLLECTION],
+	feedCallback: getCollection,
+	itemsCallback: fetchYoutubeArticles,
+	customFields: {
+		// item: [["media:group", "media", { keepArray: false }]],
+		item: ["media:group"],
+	},
+});
 
 app.get("/", async (req, res) => {
 	res.send("I guess manual trigger? - Add sources, etc.");
