@@ -36,7 +36,7 @@ const convertYouTubeRssItemToArticle = (item: YouTubeRSSItem) => {
 	const newItem = {
 		title,
 		src: link,
-		description: description || "",
+		description: description || mediaDescription,
 		guid: id,
 		variant: "video",
 		type: "youtube",
