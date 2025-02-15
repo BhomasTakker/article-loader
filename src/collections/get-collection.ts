@@ -42,3 +42,16 @@ export const getCollection = async (
 
 	return Promise.resolve(result);
 };
+
+// simple fix - should be set at the 'url' data level
+export const getYoutubeCollection = async (
+	url: string,
+	rssFeed: DataResponse
+): Promise<RSSArticleCollection> => {
+	const { message, result } = await saveOrCreateArticleCollectionByFeed({
+		...rssFeed,
+		feed: url,
+	});
+
+	return Promise.resolve(result);
+};

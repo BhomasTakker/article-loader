@@ -21,6 +21,13 @@ export const TEST_COLLECTION = [
 //
 //doesn't want to happen
 // https://www.democracynow.org/democracynow.rss
+
+// BBC Top Stories
+// https://feeds.bbci.co.uk/news/rss.xml
+
+// hell of a good resource - go through etc
+// We should at least collate lists for each major area
+//https://rss.feedspot.com/world_news_rss_feeds/
 export const WORLD_MAIN = [
 	"https://feeds.bbci.co.uk/news/world/rss.xml",
 	"https://feeds.skynews.com/feeds/rss/world.xml",
