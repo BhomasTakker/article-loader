@@ -10,7 +10,10 @@ import { fetchNoSave } from "./src/rss/fetch-dont-save";
 import { TEST_BSKY } from "./sources/bluesky/profiles";
 
 import express from "express";
-import { getCollection } from "./src/collections/get-collection";
+import {
+	getCollection,
+	getYoutubeCollection,
+} from "./src/collections/get-collection";
 import { fetchArticles } from "./src/articles/fetch-articles";
 import { fetchYoutubeArticles } from "./src/articles/fetch-youtube-articles";
 const app = express();
@@ -51,7 +54,7 @@ const fetchMainNewsCollectionsFn = fetchCollections({
 
 const fetchMainYoutubeNewsCollectionsFn = fetchCollections({
 	urls: [...NEWS_VIDEOS_COLLECTION],
-	feedCallback: getCollection,
+	feedCallback: getYoutubeCollection,
 	itemsCallback: fetchYoutubeArticles,
 	customFields: {
 		// item: [["media:group", "media", { keepArray: false }]],
