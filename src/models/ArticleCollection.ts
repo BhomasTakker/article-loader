@@ -29,7 +29,7 @@ const ArticleCollectionSchema = new Schema<RSSArticleCollection>({
 		type: String,
 	},
 	items: {
-		type: [String],
+		type: [Object], // change to RSSItem
 		required: [true, "Please provide items."],
 	},
 	lastBuildDate: {
