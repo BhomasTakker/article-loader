@@ -1,8 +1,12 @@
+import { ExtraData } from "../../sources/news/articles/types";
 import { saveOrCreateArticleBySrc } from "../lib/mongo/actions/article";
 import { CollectionItem, RSSItem } from "../types/article/item";
+import { ProviderItem } from "../types/article/provider";
+import { FetchArticles } from "./fetch-articles";
 
 type Items = RSSItem[];
 
+// extend and add youtube specific fields
 export type YouTubeRSSItem = {
 	title: string;
 	link: string;
@@ -21,8 +25,18 @@ export type YouTubeRSSItem = {
 		}[];
 	};
 };
+
+type ConvertYouTubeRssItemToArticle = {
+	item: YouTubeRSSItem;
+	extraData?: ExtraData;
+	provider?: ProviderItem;
+};
 // need update type etc
-const convertYouTubeRssItemToArticle = (item: YouTubeRSSItem) => {
+const convertYouTubeRssItemToArticle = ({
+	item,
+	extraData,
+	provider,
+}: ConvertYouTubeRssItemToArticle) => {
 	// console.log({ item });
 	const media = item["media:group"];
 	const mediaTitle = media["media:title"][0];
@@ -67,9 +81,16 @@ const saveArticle = async (item: CollectionItem) => {
 	}
 };
 
-export const fetchYoutubeArticles = async (items: Items) => {
+export const fetchYoutubeArticles = async ({
+	items,
+	extraData,
+	provider,
+}: FetchArticles) => {
 	const data = items.map((item, i) => {
-		return saveArticle(convertYouTubeRssItemToArticle(item as YouTubeRSSItem));
+		const newItem: YouTubeRSSItem = item as YouTubeRSSItem;
+		return saveArticle(
+			convertYouTubeRssItemToArticle({ item: newItem, extraData, provider })
+		);
 	});
 
 	return Promise.all(data);

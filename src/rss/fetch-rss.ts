@@ -1,11 +1,23 @@
-import { DataResponse, RSSItem, UnknownObject } from "../types/article/item";
+import { ArticleSource, ExtraData } from "../../sources/news/articles/types";
+import { FetchArticles } from "../articles/fetch-articles";
+import { GetCollection } from "../collections/get-collection";
+import { getArticleProviderByName } from "../lib/mongo/actions/article-provider";
+import { DataResponse, UnknownObject } from "../types/article/item";
+import { ProviderItem } from "../types/article/provider";
 import { RSSParse } from "./parse-rss";
 
 type FetchRSS<T, G> = {
 	urls: string[];
+	extraData?: ExtraData;
+	sources?: ArticleSource[];
 	callback: Callback;
-	itemsCallback: (items: RSSItem[]) => Promise<T>;
-	feedCallback: (url: string, items: DataResponse) => Promise<G>;
+	itemsCallback: ({ items, extraData, provider }: FetchArticles) => Promise<T>;
+	feedCallback: ({
+		url,
+		rssFeed,
+		extraData,
+		provider,
+	}: GetCollection) => Promise<G>;
 	customFields?: UnknownObject | undefined;
 };
 
@@ -17,6 +29,8 @@ type Callback = () => void;
 // pass in fetchArticles as an items callback
 export const fetchRss = async <T, G>({
 	urls,
+	sources = [],
+	extraData,
 	callback,
 	feedCallback,
 	itemsCallback,
@@ -24,20 +38,26 @@ export const fetchRss = async <T, G>({
 }: FetchRSS<T, G>) => {
 	const fetches: Promise<DataResponse>[] = [];
 
-	urls.forEach(async (url) => {
+	console.log("extraData", { extraData });
+
+	sources.forEach(async ({ name, src }) => {
 		try {
-			const prom = RSSParse(url, customFields) as Promise<DataResponse>;
+			const prom = RSSParse(src, customFields) as Promise<DataResponse>;
+			// get Provider
+			const provider = (await getArticleProviderByName(
+				name
+			)) as unknown as ProviderItem;
 			// could just pass a single callbck?
 			prom.then(async (data) => {
-				// console.log(data);
-				// stript items from data
 				const items = data?.items || [];
 				if (items.length === 0) {
-					console.log("No items for this feed", { url, data });
+					console.log("No items for this feed", { src, data });
 				}
 
-				await feedCallback(url, data);
-				await itemsCallback(items);
+				// passin extra data - and do what we will in the finctions with it
+				// pass provider!!!!
+				await feedCallback({ url: src, rssFeed: data, extraData, provider });
+				await itemsCallback({ items, extraData, provider });
 			});
 			prom.catch((error: Error) => {
 				console.error("Error fetching rss");

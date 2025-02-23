@@ -5,26 +5,33 @@ import {
 	saveOrCreateArticleBySrc,
 } from "../lib/mongo/actions/article";
 import { getMeta } from "../html/get-meta";
+import { ExtraData } from "../../sources/news/articles/types";
+import { ProviderItem } from "../types/article/provider";
 
 const convertRssItem = (data: RSSItem) => {
 	const {
 		title,
 		// content potentially more likely to have html
-		content,
+
 		description,
 		author,
 		category,
 		link,
 		pubDate,
 		enclosure,
+		// What is?
+		content,
 		contentSnippet,
 	} = data;
 	const { url = "" } = enclosure || {};
+	const contentEncoded = data["content:encoded"];
 
 	return {
 		title: title,
 		src: link,
-		description: contentSnippet || content || description,
+		// feels wrong to use contentSnippet and content
+		description: description || contentEncoded, //contentSnippet || content || description,
+		contentEncoded,
 		guid: "",
 		variant: "article",
 		details: {
@@ -39,20 +46,39 @@ const convertRssItem = (data: RSSItem) => {
 	} as CollectionItem;
 };
 
+export type GetArticle = {
+	item: RSSItem;
+	extraData?: ExtraData;
+	provider?: ProviderItem;
+};
 // We're doing unnecessary work here
 // convert to required format
 // get article data from meta
-export const getArticle = async (item: RSSItem) => {
+export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 	const { src, details = {} } = convertRssItem(item);
+	const { region, language, categories = [] } = extraData || {};
+
+	// Do elsewhere and prbably check performance.....
+	const mergedCategories = new Set([
+		...(details.categories || []),
+		...categories,
+	]);
+	const mergedDetails = {
+		...details,
+		region,
+		language,
+		categories: Array.from(mergedCategories),
+	};
 
 	const article = (await getArticleBySrc(
 		src
 	)) as HydratedDocument<CollectionItem>;
 	if (article) {
+		// check if need update
 		// console.log("article in db return");
 		// We should check if we have any additional data
 		// Then update the article
-		console.log(`Already stored ${src}`);
+		// console.log(`Already stored ${src}`);
 		return JSON.parse(JSON.stringify(article)) as CollectionItem;
 	}
 
@@ -64,7 +90,6 @@ export const getArticle = async (item: RSSItem) => {
 	const { title, description, image, imageAlt, type } = meta;
 
 	if (!title || !image) {
-		// console.log("failed check ", { title, image });
 		// We need a better or proper check here
 		// based on type / we may not always expect an image
 		// BlueSky post or some such
@@ -78,16 +103,17 @@ export const getArticle = async (item: RSSItem) => {
 		description: description || "",
 		guid: "",
 		variant: type || "",
-		details,
+		details: mergedDetails,
 		avatar: {
 			src: image,
 			alt: imageAlt || "",
 		},
+		...extraData,
+		provider,
 	};
 
 	try {
 		await saveOrCreateArticleBySrc(newArticle);
-		console.log(`Created New Article ${src}`);
 	} catch (err) {
 		console.log(`Article Load Error ${src}`);
 	}

@@ -1,18 +1,20 @@
+import { SourceObject } from "../../sources/news/articles/types";
+import { FetchArticles } from "../articles/fetch-articles";
 import { fetchRss } from "../rss/fetch-rss";
 import { Service, ServiceState } from "../service";
-import { DataResponse, RSSItem } from "../types/article/item";
+import { GetCollection } from "./get-collection";
 
 type FetchCollectionsProps<T, G> = {
-	urls: string[];
-	itemsCallback: (items: RSSItem[]) => Promise<T>;
-	feedCallback: (url: string, items: DataResponse) => Promise<G>;
+	sources?: SourceObject[];
+	itemsCallback: ({}: FetchArticles) => Promise<T>;
+	feedCallback: ({}: GetCollection) => Promise<G>;
 	customFields?: Record<string, unknown>;
 };
 
 // Pass in the collections object
 export const fetchCollections =
 	<T, G>({
-		urls,
+		sources = [],
 		itemsCallback,
 		feedCallback,
 		customFields,
@@ -21,16 +23,27 @@ export const fetchCollections =
 		const service = Service.getInstance();
 		const state = service.getState();
 
+		const promises: Promise<void>[] = [];
+
 		if (state === ServiceState.ready) {
 			service.setState(ServiceState.running);
-			await fetchRss<T, G>({
-				urls,
-				callback: () => {
-					service.setState(ServiceState.ready);
-				},
-				itemsCallback,
-				feedCallback,
-				customFields,
+
+			sources.forEach((source) => {
+				const { sources, ...rest } = source;
+				const prom = fetchRss<T, G>({
+					urls: [],
+					sources,
+					callback: () => {
+						service.setState(ServiceState.ready);
+					},
+					itemsCallback,
+					feedCallback,
+					customFields,
+					extraData: rest,
+				});
+				promises.push(prom);
 			});
 		}
+
+		await Promise.all(promises);
 	};

@@ -28,8 +28,10 @@ const ArticleCollectionSchema = new Schema<RSSArticleCollection>({
 	link: {
 		type: String,
 	},
+	// no sure how to handle this
+	// We want to save different item types?
 	items: {
-		type: [String],
+		type: [Schema.Types.Mixed as any],
 		required: [true, "Please provide items."],
 	},
 	lastBuildDate: {
@@ -40,6 +42,11 @@ const ArticleCollectionSchema = new Schema<RSSArticleCollection>({
 	},
 	feed: {
 		type: String,
+	},
+	provider: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: [true, "Please provide a provider."],
+		ref: "ArticleProvider",
 	},
 });
 

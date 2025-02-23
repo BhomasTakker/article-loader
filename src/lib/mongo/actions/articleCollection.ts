@@ -1,5 +1,6 @@
 import ArticleCollection from "../../../models/ArticleCollection";
 import { RSSArticleCollection } from "../../../types/rss";
+import { getArticleProviderByDomain } from "./article-provider";
 
 export const getArticleCollectionByFeed = async (feed: string) => {
 	return await ArticleCollection.findOne({ feed }).lean();
@@ -8,7 +9,7 @@ export const getArticleCollectionByFeed = async (feed: string) => {
 export const saveOrCreateArticleCollectionByFeed = async (
 	collection: RSSArticleCollection
 ) => {
-	const { feed } = collection;
+	const { feed, link = "" } = collection;
 
 	try {
 		const res = await ArticleCollection.findOneAndUpdate(
@@ -24,9 +25,6 @@ export const saveOrCreateArticleCollectionByFeed = async (
 
 		return { result: res, message: "Saved Article Collection!" };
 	} catch (err) {
-		// console.error(err);
-		// throw?
-		console.log(`Error Article Collection: ${feed}`);
 		return { message: "Error saving article collection" };
 	}
 };
