@@ -1,8 +1,12 @@
 import { RSSImage, RSSItem } from "../article/item";
 import { ProviderItem } from "../article/provider";
 
+type StrippedItem = {
+	link: string;
+};
+
 export type RSSArticleCollection = {
-	items: string[] | RSSItem[];
+	items: StrippedItem[] | RSSItem[];
 	link?: string;
 	title?: string;
 	feed?: string;

@@ -18,7 +18,8 @@ const convertRssToCollection = (rssData: DataResponse) => {
 		lastBuildDate,
 		image,
 	} = rssData || {};
-	const strippedItems = items.map((item) => item.link);
+	const strippedItems = items.map((item) => ({ link: item.link }));
+
 	return {
 		items: strippedItems,
 		link,
