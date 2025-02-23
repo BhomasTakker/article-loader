@@ -21,6 +21,8 @@ const DetailsSchema = new Schema(
 		modified: {
 			type: Date,
 		},
+		region: String,
+		language: String,
 	},
 	{ _id: false }
 );
@@ -61,6 +63,12 @@ const ArticleSchema = new Schema<CollectionItem>(
 		},
 		details: DetailsSchema,
 		avatar: AvatarSchema,
+		provider: {
+			type: mongoose.Schema.Types.ObjectId,
+			required: [true, "Please provide a provider."],
+			ref: "ArticleProvider",
+		},
+		///// Extra types?
 	},
 	{ timestamps: true }
 );

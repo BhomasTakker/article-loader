@@ -1,3 +1,5 @@
+import { ProviderItem } from "./provider";
+
 export type UnknownObject = Record<string, unknown>;
 // [1]     link: 'https://www.bbc.com/news/videos/c2d3zgkxwwpo',
 // [1]     pubDate: 'Thu, 30 Jan 2025 13:14:45 GMT',
@@ -36,9 +38,12 @@ export type RSSImage = {
 export type RSSSource = {
 	url: string;
 };
+
+// Add content:encoded
 export type RSSItem = {
 	title: string;
 	description: string;
+	["content:encoded"]?: string;
 	author?: string;
 	category?: string;
 	content?: string;
@@ -113,4 +118,5 @@ export type Pagination = {
 export type CollectionItem = BaseInfo & {
 	details?: Details;
 	avatar?: Avatar;
+	provider?: ProviderItem;
 };

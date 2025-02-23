@@ -1,5 +1,6 @@
 import Article from "../../../models/Article";
 import { CollectionItem } from "../../../types/article/item";
+import { getArticleProviderByDomain } from "./article-provider";
 
 export const getArticleBySrc = async (src: string) => {
 	return await Article.findOne({ src }).lean();
