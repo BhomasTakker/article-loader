@@ -87,13 +87,19 @@ export type RSSChannelType = {
 };
 
 ///////////////////////////////
+type Temp = {
+	rating?: string;
+	views?: string;
+};
+
 export type BaseInfo = {
 	title: string;
 	src: string; // URL format
 	description: string;
 	guid: string;
 	variant: string; // union
-};
+	collectionType?: string;
+} & Temp;
 
 export type Details = {
 	docs?: string[];

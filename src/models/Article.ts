@@ -61,12 +61,22 @@ const ArticleSchema = new Schema<CollectionItem>(
 			type: String,
 			default: "",
 		},
+		collectionType: {
+			type: String,
+			default: "",
+		},
 		details: DetailsSchema,
 		avatar: AvatarSchema,
 		provider: {
 			type: mongoose.Schema.Types.ObjectId,
 			required: [true, "Please provide a provider."],
 			ref: "ArticleProvider",
+		},
+		rating: {
+			type: String,
+		},
+		views: {
+			type: String,
 		},
 		///// Extra types?
 	},

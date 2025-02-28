@@ -43,6 +43,10 @@ const ArticleCollectionSchema = new Schema<RSSArticleCollection>({
 	feed: {
 		type: String,
 	},
+	collectionType: {
+		type: String,
+		default: "",
+	},
 	provider: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: [true, "Please provide a provider."],

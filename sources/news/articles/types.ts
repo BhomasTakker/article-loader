@@ -10,6 +10,7 @@ export type SourceObject = {
 	categories: string[];
 	region: string;
 	language: string;
+	collectionType: string;
 	sources: ArticleSource[];
 };
 
