@@ -43,6 +43,7 @@ const convertRssItem = (data: RSSItem) => {
 			src: url,
 			alt: title,
 		},
+		collectionType: "",
 	} as CollectionItem;
 };
 
@@ -55,6 +56,7 @@ export type GetArticle = {
 // convert to required format
 // get article data from meta
 export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
+	// We're not doing anything with converted item - we're just getting the src and details
 	const { src, details = {} } = convertRssItem(item);
 	const { region, language, categories = [] } = extraData || {};
 

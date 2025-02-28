@@ -1,7 +1,8 @@
 import { NewsSources } from "../sources";
 
 export const UK_VIDEO = {
-	categories: ["news"],
+	categories: [],
+	collectionType: "news",
 	region: "UK",
 	language: "en",
 	sources: [

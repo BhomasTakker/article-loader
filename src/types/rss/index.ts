@@ -14,4 +14,5 @@ export type RSSArticleCollection = {
 	lastBuildDate?: string;
 	image?: RSSImage;
 	provider?: ProviderItem;
+	collectionType?: string;
 };
