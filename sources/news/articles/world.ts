@@ -2,7 +2,8 @@ import { NewsSources } from "../sources";
 
 // https://rss.feedspot.com/world_news_rss_feeds/
 export const WORLD = {
-	categories: ["news"],
+	categories: [],
+	collection: "news",
 	region: "world",
 	language: "en",
 	sources: [

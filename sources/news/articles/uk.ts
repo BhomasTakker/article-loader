@@ -1,8 +1,8 @@
 import { NewsSources } from "../sources";
 
 export const UK = {
-	categories: ["news"],
-	// news should be more type?
+	categories: [],
+	collection: "news",
 	region: "UK",
 	language: "en",
 	sources: [

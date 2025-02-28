@@ -3,7 +3,8 @@ import { NewsSources } from "../sources";
 // More sources than region
 // We are largely all world news
 export const US_VIDEO = {
-	categories: ["news"],
+	categories: [],
+	collection: "news",
 	region: "US",
 	language: "en",
 	sources: [
