@@ -25,3 +25,8 @@ export const saveOrCreateArticleBySrc = async (article: CollectionItem) => {
 		return { message: "Error saving article" };
 	}
 };
+
+export const getArticleExists = async (src: string) => {
+	const exists = await Article.exists({ src });
+	return exists;
+};
