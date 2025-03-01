@@ -1,20 +1,20 @@
-import { connectToMongoDB } from "./src/lib/mongo/db";
-import { fetchCollections } from "./src/collections/fetch-collections";
+import { connectToMongoDB } from "../src/lib/mongo/db";
+import { fetchCollections } from "../src/collections/fetch-collections";
 
 import express from "express";
 import {
 	getCollection,
 	getYoutubeCollection,
-} from "./src/collections/get-collection";
-import { fetchArticles } from "./src/articles/fetch-articles";
-import { fetchYoutubeArticles } from "./src/articles/fetch-youtube-articles";
-import { updateArticleProviders } from "./src/article-providers/update-article-providers";
-import { UK } from "./sources/news/articles/uk";
-import { US } from "./sources/news/articles/us";
-import { WORLD } from "./sources/news/articles/world";
-import { UK_VIDEO } from "./sources/news/videos/uk";
-import { US_VIDEO } from "./sources/news/videos/us";
-import { WORLD_VIDEO } from "./sources/news/videos/world";
+} from "../src/collections/get-collection";
+import { fetchArticles } from "../src/articles/fetch-articles";
+import { fetchYoutubeArticles } from "../src/articles/fetch-youtube-articles";
+import { updateArticleProviders } from "../src/article-providers/update-article-providers";
+import { UK } from "../sources/news/articles/uk";
+import { US } from "../sources/news/articles/us";
+import { WORLD } from "../sources/news/articles/world";
+import { UK_VIDEO } from "../sources/news/videos/uk";
+import { US_VIDEO } from "../sources/news/videos/us";
+import { WORLD_VIDEO } from "../sources/news/videos/world";
 const app = express();
 const port = process.env.PORT || 4000;
 

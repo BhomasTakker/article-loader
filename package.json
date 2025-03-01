@@ -15,9 +15,10 @@
 	"type": "commonjs",
 	"main": "index.js",
 	"scripts": {
-		"build": "rimraf dist && npx tsc",
-		"prestart": "npm run build",
-		"start": "node dist/index.js",
+		"devbuild": "rimraf dist && npx tsc",
+		"predevstart": "npm run devbuild",
+		"devstart": "node dist/index.js",
+		"start": "node api/index.ts",
 		"preserve": "npm run build",
 		"serve": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\""
 	},
