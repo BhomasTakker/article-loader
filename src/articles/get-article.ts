@@ -1,7 +1,5 @@
-import { HydratedDocument } from "mongoose";
 import { CollectionItem, RSSItem } from "../types/article/item";
 import {
-	getArticleBySrc,
 	getArticleExists,
 	saveOrCreateArticleBySrc,
 } from "../lib/mongo/actions/article";
@@ -116,7 +114,7 @@ export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 		saveOrCreateArticleBySrc(newArticle);
 		// logMemoryUsage();
 	} catch (err) {
-		console.log(`Article Load Error ${src}`);
+		// console.log(`Article Load Error ${src}`);
 	}
 
 	return null; //newArticle as CollectionItem;
