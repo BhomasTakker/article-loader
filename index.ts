@@ -11,7 +11,7 @@ import {
 import { fetchArticles } from "./src/articles/fetch-articles";
 import { fetchYoutubeArticles } from "./src/articles/fetch-youtube-articles";
 import { updateArticleProviders } from "./src/article-providers/update-article-providers";
-import { UK_1, UK_2 } from "./sources/news/articles/uk";
+import { TEST, UK_1, UK_2 } from "./sources/news/articles/uk";
 import { US_1, US_2, US_3, US_4 } from "./sources/news/articles/us";
 import {
 	WORLD_1,
@@ -77,6 +77,10 @@ const fetchCollection = async (req: any, res: any, src: any) => {
 		res.send("Error");
 	}
 };
+
+app.get("/test", async (req, res) => {
+	await fetchCollection(req, res, TEST);
+});
 
 // Do this by sending some body data or query params
 // take id and load sources

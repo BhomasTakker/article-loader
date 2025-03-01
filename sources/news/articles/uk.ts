@@ -1,5 +1,30 @@
 import { NewsSources } from "../sources";
 
+export const TEST = {
+	categories: [],
+	collectionType: "news",
+	region: "UK",
+	language: "en",
+	sources: [
+		{
+			name: NewsSources.BBC,
+			src: "https://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
+		},
+		{
+			name: NewsSources.BBC,
+			src: "https://feeds.bbci.co.uk/news/topics/cmj34zmwm1zt/rss.xml",
+		},
+		{
+			name: NewsSources.BBC,
+			src: "https://feeds.bbci.co.uk/news/world/australia/rss.xml",
+		},
+		{
+			name: NewsSources.BBC,
+			src: "https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml",
+		},
+	],
+};
+
 export const UK_1 = {
 	categories: [],
 	collectionType: "news",
