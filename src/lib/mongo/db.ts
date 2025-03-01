@@ -2,6 +2,8 @@
 // Importing mongoose library along with Connection type from it
 import mongoose, { Connection } from "mongoose";
 
+require("dotenv").config();
+
 // Declaring a variable to store the cached database connection
 let cachedConnection: Connection | null = null;
 
