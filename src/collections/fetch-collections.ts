@@ -28,9 +28,9 @@ export const fetchCollections =
 		if (state === ServiceState.ready) {
 			service.setState(ServiceState.running);
 
-			sources.forEach((source) => {
+			sources.forEach(async (source) => {
 				const { sources, ...rest } = source;
-				const prom = fetchRss<T, G>({
+				const prom = await fetchRss<T, G>({
 					urls: [],
 					sources,
 					callback: () => {
@@ -41,9 +41,9 @@ export const fetchCollections =
 					customFields,
 					extraData: rest,
 				});
-				promises.push(prom);
+				// promises.push(prom);
 			});
 		}
 
-		await Promise.all(promises);
+		// await Promise.all(promises);
 	};

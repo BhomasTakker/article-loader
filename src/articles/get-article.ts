@@ -7,6 +7,7 @@ import {
 import { getMeta } from "../html/get-meta";
 import { ExtraData } from "../../sources/news/articles/types";
 import { ProviderItem } from "../types/article/provider";
+import { logMemoryUsage } from "../lib/mem";
 
 const convertRssItem = (data: RSSItem) => {
 	const {
@@ -58,7 +59,7 @@ export type GetArticle = {
 export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 	// We're not doing anything with converted item - we're just getting the src and details
 	const { src, details = {} } = convertRssItem(item);
-	const { region, language, categories = [] } = extraData || {};
+	const { region, language, categories = [], collectionType } = extraData || {};
 
 	// Do elsewhere and prbably check performance.....
 	const mergedCategories = new Set([
@@ -81,15 +82,16 @@ export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 		// We should check if we have any additional data
 		// Then update the article
 		// console.log(`Already stored ${src}`);
-		return JSON.parse(JSON.stringify(article)) as CollectionItem;
+		return null; //JSON.parse(JSON.stringify(article)) as CollectionItem;
 	}
 
-	const meta = await getMeta(src);
-	if (!meta) {
-		console.log(`No meta loaded for ${src}`);
-		return null;
-	}
-	const { title, description, image, imageAlt, type } = meta;
+	const { title, description, image, imageAlt, type } =
+		(await getMeta(src)) || {};
+	// if (!title) {
+	// 	console.log(`No meta loaded for ${src}`);
+	// 	return null;
+	// }
+	// const { title, description, image, imageAlt, type } = meta;
 
 	if (!title || !image) {
 		// We need a better or proper check here
@@ -111,14 +113,16 @@ export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 			alt: imageAlt || "",
 		},
 		...extraData,
+		collectionType,
 		provider,
 	};
 
 	try {
-		await saveOrCreateArticleBySrc(newArticle);
+		saveOrCreateArticleBySrc(newArticle);
+		// logMemoryUsage();
 	} catch (err) {
 		console.log(`Article Load Error ${src}`);
 	}
 
-	return newArticle as CollectionItem;
+	return null; //newArticle as CollectionItem;
 };

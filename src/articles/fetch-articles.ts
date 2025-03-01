@@ -16,9 +16,13 @@ export const fetchArticles = async ({
 	extraData,
 	provider,
 }: FetchArticles) => {
-	const data = items.map((item, i) => {
-		return getArticle({ item, extraData, provider });
+	// const data = items.map((item, i) => {
+	// 	return getArticle({ item, extraData, provider });
+	// });
+
+	items.forEach((item) => {
+		getArticle({ item, extraData, provider });
 	});
 
-	return Promise.all(data);
+	return Promise.resolve();
 };

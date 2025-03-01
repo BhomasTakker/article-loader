@@ -1,6 +1,6 @@
 import { NewsSources } from "../sources";
 
-export const UK = {
+export const UK_1 = {
 	categories: [],
 	collectionType: "news",
 	region: "UK",
@@ -50,6 +50,15 @@ export const UK = {
 			name: NewsSources.HUFFPOST,
 			src: "https://www.huffingtonpost.co.uk/feeds/index.xml",
 		},
+	],
+};
+
+export const UK_2 = {
+	categories: [],
+	collectionType: "news",
+	region: "UK",
+	language: "en",
+	sources: [
 		{
 			name: NewsSources.DAILY_RECORD,
 			src: "https://www.dailyrecord.co.uk/news/?service=rss",
@@ -95,12 +104,5 @@ export const UK = {
 			name: NewsSources.GB_NEWS,
 			src: "https://www.gbnews.com/feeds/news/uk.rss",
 		},
-		// {
-		// 	name: "Irish Times",
-		// 	origin: "Ireland",
-		// 	description: "The Irish Times is an Irish daily broadsheet newspaper.",
-		// 	url: "https://www.irishtimes.com/",
-		// 	src: "https://www.irishtimes.com/arc/outboundfeeds/feed-irish-news/?from=0&size=20",
-		// },
 	],
 };

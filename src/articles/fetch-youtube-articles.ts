@@ -77,8 +77,8 @@ const convertYouTubeRssItemToArticle = ({
 
 const saveArticle = async (item: CollectionItem) => {
 	const { src } = item;
-	const { result, message } = await saveOrCreateArticleBySrc(item);
-	if (result) {
+	const { message } = await saveOrCreateArticleBySrc(item);
+	if (message === "Saved Article!") {
 		console.log(`Saved ${src}`);
 		return item;
 	} else {
