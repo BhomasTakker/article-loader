@@ -1,6 +1,6 @@
 import { NewsSources } from "../sources";
 
-export const US = {
+export const US_1 = {
 	categories: [],
 	collectionType: "news",
 	region: "US",
@@ -38,6 +38,15 @@ export const US = {
 			name: NewsSources.NPR,
 			src: "https://www.npr.org/rss/rss.php?id=1001",
 		},
+	],
+};
+
+export const US_2 = {
+	categories: [],
+	collectionType: "news",
+	region: "US",
+	language: "en",
+	sources: [
 		{
 			name: NewsSources.NEW_YORK_TIMES,
 			src: "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
@@ -78,10 +87,20 @@ export const US = {
 			name: NewsSources.NEW_YORK_POST,
 			src: "https://nypost.com/us-news/feed/",
 		},
+	],
+};
+
+export const US_3 = {
+	categories: [],
+	collectionType: "news",
+	region: "US",
+	language: "en",
+	sources: [
 		{
 			name: NewsSources.THE_HILL,
 			src: "http://thehill.com/rss/syndicator/19110",
 		},
+
 		{
 			name: NewsSources.POLITICO,
 			src: "https://www.politico.com/rss/politicopicks.xml",
@@ -90,11 +109,6 @@ export const US = {
 			name: NewsSources.VOX,
 			// https://www.vox.com/rss/politics/index.xml
 			src: "https://www.vox.com/rss/index.xml",
-		},
-		{
-			name: NewsSources.BUZZFEED,
-			src: "https://www.buzzfeednews.com/us.xml",
-			src2: "https://www.buzzfeed.com/uk/.xml?country=us",
 		},
 		{
 			name: NewsSources.THE_ATLANTIC,
@@ -120,9 +134,18 @@ export const US = {
 			name: NewsSources.METRO,
 			src: "https://metro.co.uk/news/us/feed/",
 		},
+	],
+};
+
+export const US_4 = {
+	categories: [],
+	collectionType: "news",
+	region: "US",
+	language: "en",
+	sources: [
 		{
 			name: NewsSources.DAILY_MAIL,
-			src: "https://www.dailymail.co.uk/ushome/index.html",
+			src: "https://www.dailymail.co.uk/ushome/index.rss",
 		},
 		{
 			name: NewsSources.THE_PINK_NEWS,

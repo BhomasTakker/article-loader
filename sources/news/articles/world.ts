@@ -1,7 +1,6 @@
 import { NewsSources } from "../sources";
 
-// https://rss.feedspot.com/world_news_rss_feeds/
-export const WORLD = {
+export const WORLD_1 = {
 	categories: [],
 	collectionType: "news",
 	region: "world",
@@ -31,14 +30,14 @@ export const WORLD = {
 			name: NewsSources.NEW_YORK_TIMES,
 			src: "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
 		},
-		{
-			name: NewsSources.WASHINGTON_POST,
-			src: "http://feeds.washingtonpost.com/rss/world",
-		},
-		{
-			name: NewsSources.ARAB_NEWS,
-			src: "https://www.arabnews.com/taxonomy/term/3/feed",
-		},
+		// {
+		// 	name: NewsSources.WASHINGTON_POST,
+		// 	src: "http://feeds.washingtonpost.com/rss/world",
+		// },
+		// {
+		// 	name: NewsSources.ARAB_NEWS,
+		// 	src: "https://www.arabnews.com/taxonomy/term/3/feed",
+		// },
 		{
 			name: NewsSources.CNBC,
 			src: "https://www.cnbc.com/id/100727362/device/rss/rss.html",
@@ -47,6 +46,15 @@ export const WORLD = {
 			name: NewsSources.ABC,
 			src: "https://abcnews.go.com/abcnews/internationalheadlines",
 		},
+	],
+};
+
+export const WORLD_2 = {
+	categories: [],
+	collectionType: "news",
+	region: "world",
+	language: "en",
+	sources: [
 		{
 			name: NewsSources.FOX,
 			src: "https://feeds.foxnews.com/foxnews/world",
@@ -75,14 +83,6 @@ export const WORLD = {
 			name: NewsSources.WALL_STREET_JOURNAL,
 			src: "https://feeds.a.dj.com/rss/RSSWorldNews.xml",
 		},
-		// {
-		//   name: 'The Atlantic',
-		//   url: 'https://www.theatlantic.com/world/',
-		//   description: 'World news and analysis from The Atlantic.',
-		//   category: 'world',
-		//   provider: 'The Atlantic',
-		//   src: 'https://www.theatlantic.com/feed/all/',
-		// },
 		{
 			name: NewsSources.THE_CONVERSATION,
 			src: "https://theconversation.com/global/articles.atom",
@@ -95,10 +95,19 @@ export const WORLD = {
 			name: NewsSources.FRANCE_24,
 			src: "https://www.france24.com/en/rss",
 		},
-		{
-			name: NewsSources.US_NEWS,
-			src: "https://www.usnews.com/rss/news/world",
-		},
+	],
+};
+
+export const WORLD_3 = {
+	categories: [],
+	collectionType: "news",
+	region: "world",
+	language: "en",
+	sources: [
+		// {
+		// 	name: NewsSources.US_NEWS,
+		// 	src: "https://www.usnews.com/rss/news/world",
+		// },
 		{
 			name: NewsSources.GLOBAL_NEWS,
 			src: "https://globalnews.ca/world/feed/",
@@ -120,10 +129,6 @@ export const WORLD = {
 			src: "https://www.washingtontimes.com/rss/headlines/news/world/",
 		},
 		{
-			name: NewsSources.USA_TODAY,
-			src: "https://rssfeeds.usatoday.com/usatoday-NewsTopStories",
-		},
-		{
 			name: NewsSources.SUN,
 			src: "https://www.thesun.co.uk/news/worldnews/feed/",
 		},
@@ -135,6 +140,15 @@ export const WORLD = {
 			name: NewsSources.DAILY_MAIL,
 			src: "https://www.dailymail.co.uk/news/worldnews/index.rss",
 		},
+	],
+};
+
+export const WORLD_4 = {
+	categories: [],
+	collectionType: "news",
+	region: "world",
+	language: "en",
+	sources: [
 		{
 			name: NewsSources.HUFFPOST,
 			src: "https://www.huffpost.com/section/world-news/feed",
@@ -142,10 +156,6 @@ export const WORLD = {
 		{
 			name: NewsSources.SYDNEY_MORNING_HERALD,
 			src: "https://www.smh.com.au/rss/world.xml",
-		},
-		{
-			name: NewsSources.GLOBE_AND_MAIL,
-			src: "https://www.theglobeandmail.com/world/?service=rss",
 		},
 		{
 			name: NewsSources.TORONTO_STAR,
@@ -160,10 +170,10 @@ export const WORLD = {
 			name: NewsSources.SOUTH_CHINA_MORNING_POST,
 			src: "https://www.scmp.com/rss/4/feed",
 		},
-		{
-			name: NewsSources.STRAITS_TIMES,
-			src: "https://www.straitstimes.com/news/world/rss.xml",
-		},
+		// {
+		// 	name: NewsSources.STRAITS_TIMES,
+		// 	src: "https://www.straitstimes.com/news/world/rss.xml",
+		// },
 		{
 			name: NewsSources.TIMES_OF_INDIA,
 			src: "https://timesofindia.indiatimes.com/rssfeeds/296589292.cms",
@@ -176,6 +186,15 @@ export const WORLD = {
 			name: NewsSources.SEATLE_TIMES,
 			src: "https://www.seattletimes.com/nation-world/feed/",
 		},
+	],
+};
+
+export const WORLD_5 = {
+	categories: [],
+	collectionType: "news",
+	region: "world",
+	language: "en",
+	sources: [
 		{
 			name: NewsSources.RT,
 			src: "https://www.rt.com/rss/news/",
@@ -204,10 +223,10 @@ export const WORLD = {
 			name: NewsSources.EXPRESS,
 			src: "https://feeds.feedburner.com/daily-express-world-news",
 		},
-		{
-			name: NewsSources.EURONEWS,
-			src: "https://www.euronews.com/rss?level=theme&name=news",
-		},
+		// {
+		// 	name: NewsSources.EURONEWS,
+		// 	src: "https://www.euronews.com/rss?level=theme&name=news",
+		// },
 		{
 			name: NewsSources.VOX,
 			src: "https://www.vox.com/rss/world-politics/index.xml",
@@ -216,10 +235,15 @@ export const WORLD = {
 			name: NewsSources.CHANNEL_NEWS_ASIA,
 			src: "https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml",
 		},
-		{
-			name: NewsSources.NEWS_24,
-			src: "https://www.news24.com/news24/TopStories/rss",
-		},
+	],
+};
+
+export const WORLD_6 = {
+	categories: [],
+	collectionType: "news",
+	region: "world",
+	language: "en",
+	sources: [
 		{
 			name: NewsSources.THE_DIPLOMAT,
 			src: "https://thediplomat.com/feed/",
@@ -227,19 +251,6 @@ export const WORLD = {
 		{
 			name: NewsSources.MOSCOW_TIMES,
 			src: "https://www.themoscowtimes.com/rss/news",
-		},
-		// {
-		//   name: 'The New Yorker',
-		//   origin: 'USA',
-		//   url: 'https://www.newyorker.com/news',
-		//   description: 'World news and headlines from The New Yorker.',
-		//   category: 'world',
-		//   provider: 'The New Yorker',
-		//   src: 'https://www.newyorker.com/feed/news',
-		// },
-		{
-			name: NewsSources.THE_NEW_HUMANITARIAN,
-			src: "https://www.thenewhumanitarian.org/rss",
 		},
 		{
 			name: NewsSources.RAW_STORY,
@@ -261,9 +272,7 @@ export const WORLD = {
 			name: NewsSources.SPUTNIK,
 			src: "https://sputniknews.com/export/rss2/archive/index.xml",
 		},
-		{
-			name: NewsSources.BUZZFEED,
-			src: "https://www.buzzfeednews.com/world.xml",
-		},
 	],
 };
+
+// https://rss.feedspot.com/world_news_rss_feeds/

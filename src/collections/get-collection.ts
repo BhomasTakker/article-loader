@@ -1,4 +1,5 @@
 import { ExtraData } from "../../sources/news/articles/types";
+import { logMemoryUsage } from "../lib/mem";
 import { saveOrCreateArticleCollectionByFeed } from "../lib/mongo/actions/articleCollection";
 import { DataResponse } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
@@ -43,19 +44,21 @@ export const getCollection = async ({
 	rssFeed,
 	extraData,
 	provider,
-}: GetCollection): Promise<RSSArticleCollection> => {
+}: GetCollection): Promise<null> => {
 	const { feed, ...rest } = convertRssToCollection(rssFeed);
 
 	// Need mush categories etc together
 
-	const { message, result } = await saveOrCreateArticleCollectionByFeed({
+	saveOrCreateArticleCollectionByFeed({
 		...rest,
 		...extraData,
 		provider,
 		feed: url,
 	});
 
-	return Promise.resolve(result);
+	// logMemoryUsage();
+
+	return Promise.resolve(null);
 };
 
 // simple fix - should be set at the 'url' data level

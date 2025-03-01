@@ -9,7 +9,7 @@ export const saveOrCreateArticleBySrc = async (article: CollectionItem) => {
 	const { src } = article;
 
 	try {
-		const res = await Article.findOneAndUpdate(
+		await Article.findOneAndUpdate(
 			{ src }, // find
 			article, // update
 			{
@@ -18,7 +18,7 @@ export const saveOrCreateArticleBySrc = async (article: CollectionItem) => {
 			}
 		);
 
-		return { result: res, message: "Saved Article!" };
+		return { message: "Saved Article!" };
 	} catch (err) {
 		console.error(err);
 		// throw?
