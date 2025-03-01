@@ -2,6 +2,7 @@ import { HydratedDocument } from "mongoose";
 import { CollectionItem, RSSItem } from "../types/article/item";
 import {
 	getArticleBySrc,
+	getArticleExists,
 	saveOrCreateArticleBySrc,
 } from "../lib/mongo/actions/article";
 import { getMeta } from "../html/get-meta";
@@ -73,18 +74,12 @@ export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 		categories: Array.from(mergedCategories),
 	};
 
-	const article = (await getArticleBySrc(
-		src
-	)) as HydratedDocument<CollectionItem>;
-	if (article) {
-		// check if need update
-		// console.log("article in db return");
-		// We should check if we have any additional data
-		// Then update the article
-		// console.log(`Already stored ${src}`);
-		return null; //JSON.parse(JSON.stringify(article)) as CollectionItem;
+	const exists = await getArticleExists(src);
+	if (exists) {
+		return null;
 	}
 
+	// console.log(`Loading ${src}`);
 	const { title, description, image, imageAlt, type } =
 		(await getMeta(src)) || {};
 	// if (!title) {
@@ -97,7 +92,7 @@ export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 		// We need a better or proper check here
 		// based on type / we may not always expect an image
 		// BlueSky post or some such
-		console.log(`Check Failed - Do not save ${src}`);
+		// console.log(`Check Failed - Do not save ${src}`);
 		return null;
 	}
 
