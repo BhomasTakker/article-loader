@@ -46,7 +46,7 @@ const convertYouTubeRssItemToArticle = ({
 	const rating = mediaCommunity["media:starRating"][0].$.average;
 	const views = mediaCommunity["media:statistics"][0].$.views;
 
-	const { region, language, categories = [] } = extraData || {};
+	const { region, language, categories = [], collectionType } = extraData || {};
 
 	const { title, description, link, pubDate, author, id, isoDate } = item;
 	const newItem = {
@@ -70,6 +70,7 @@ const convertYouTubeRssItemToArticle = ({
 			language,
 		},
 		provider,
+		collectionType,
 	};
 
 	return newItem;
