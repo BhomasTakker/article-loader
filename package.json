@@ -19,6 +19,9 @@
 		"predev:start": "npm run build",
 		"dev:start": "nodemon dist/index.js",
 		"start": "node dist/index.js",
+		"aws:stop": "pm2 stop article-loader",
+		"preaws:start": "npm run build",
+		"aws:start": "pm2 start dist/index.js --name article-loader",
 		"postinstall": "tsc",
 		"preserve": "npm run build",
 		"serve": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\""

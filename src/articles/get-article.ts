@@ -77,14 +77,8 @@ export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 		return null;
 	}
 
-	// console.log(`Loading ${src}`);
 	const { title, description, image, imageAlt, type } =
 		(await getMeta(src)) || {};
-	// if (!title) {
-	// 	console.log(`No meta loaded for ${src}`);
-	// 	return null;
-	// }
-	// const { title, description, image, imageAlt, type } = meta;
 
 	if (!title || !image) {
 		// We need a better or proper check here
@@ -117,5 +111,5 @@ export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 		// console.log(`Article Load Error ${src}`);
 	}
 
-	return null; //newArticle as CollectionItem;
+	return null;
 };
