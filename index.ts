@@ -25,6 +25,14 @@ import { UK_VIDEO } from "./sources/news/videos/uk";
 import { US_VIDEO } from "./sources/news/videos/us";
 import { WORLD_VIDEO } from "./sources/news/videos/world";
 import { logMemoryUsage } from "./src/lib/mem";
+import { newsDataHubSearch } from "./src/api/newsdatahub";
+import { gNewsHeadlines, gNewsSearch } from "./src/api/gnews";
+import { newsAPIHeadlines, newsAPISearch } from "./src/api/news-api";
+import { sourcesMap } from "./sources/news/map";
+import { fetchAPI } from "./src/api/fetch-api";
+import { gNewsCallback, GNewsResult } from "./src/api/gnews/callback";
+import { newsAPICallback } from "./src/api/news-api/callback";
+import { newsDataHubCallback } from "./src/api/newsdatahub/callback";
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -51,22 +59,11 @@ const fetchMainYoutubeNewsCollectionsFn = fetchCollections({
 
 app.get("/", async (req, res) => {
 	logMemoryUsage();
+	// we want a ui for management and triggering etc
 	res.send("I guess manual trigger? - Add sources, etc.");
 });
 
-// app.get("/fetch-news", async (req, res) => {
-// 	try {
-// 		await connectToMongoDB();
-// 		// We shuld load sources lists from a db so we can add
-// 		// That way when a user specifies a source we can add it to a list and refetch it periodically
-// 		await fetchMainNewsCollectionsFn(UK_1)();
-// 		res.send("Success");
-// 	} catch (error) {
-// 		console.log(error);
-// 		res.send("Error");
-// 	}
-// });
-
+// separate routes into more sensible files
 const fetchCollection = async (req: any, res: any, src: any) => {
 	try {
 		await connectToMongoDB();
@@ -78,10 +75,18 @@ const fetchCollection = async (req: any, res: any, src: any) => {
 	}
 };
 
-app.get("/test", async (req, res) => {
-	await fetchCollection(req, res, TEST);
+app.get("/fetch-news", async (req, res) => {
+	const params = req.query;
+	const { src = "" } = params || {};
+	const srcObject = sourcesMap.get(src.toString());
+	if (!srcObject) {
+		res.send(`Error:- ${params}`);
+		return;
+	}
+	await fetchCollection(req, res, srcObject);
 });
 
+// Do better / with aws we'll be getting silly
 // Do this by sending some body data or query params
 // take id and load sources
 // load data
@@ -159,6 +164,58 @@ app.get("/update-providers", async (req, res) => {
 	}
 });
 
+////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+// For speed and ease we will create new endpoints for aws
+// We will create a better way of doing this later
+// for now it is enough that we determine what we trigger and when
+// either by endpoing or env file var
+////////////////////////////////////////////////////////
+app.get("/newsdatahub/search", async (req, res) => {
+	const params = req.query;
+	const result = await fetchAPI({
+		fetchFn: () => newsDataHubSearch(params),
+		itemsCallback: newsDataHubCallback(params),
+	});
+	res.send(result);
+});
+
+app.get("/gnews/search", async (req, res) => {
+	const params = req.query;
+	const result = await fetchAPI<GNewsResult>({
+		fetchFn: () => gNewsSearch(params),
+		itemsCallback: gNewsCallback(params),
+	});
+	res.send(result);
+});
+
+app.get("/gnews/headlines", async (req, res) => {
+	const params = req.query;
+	const result = await fetchAPI({
+		fetchFn: () => gNewsHeadlines(params),
+		itemsCallback: gNewsCallback(params),
+	});
+	res.send(result);
+});
+
+app.get("/newsAPI/search", async (req, res) => {
+	const params = req.query;
+	const result = await fetchAPI({
+		fetchFn: () => newsAPISearch(params),
+		itemsCallback: newsAPICallback(params),
+	});
+	res.send(result);
+});
+
+app.get("/newsAPI/headlines", async (req, res) => {
+	const params = req.query;
+	const result = await fetchAPI({
+		fetchFn: () => newsAPIHeadlines(params),
+		itemsCallback: newsAPICallback(params),
+	});
+	res.send(result);
+});
+////////////////////////////////////////////////////////
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
 });
