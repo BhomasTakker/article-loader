@@ -61,6 +61,7 @@ import {
 	rt,
 	sabc,
 	seatleTimes,
+	sheffieldTribune,
 	skyNews,
 	southChinaMorningPost,
 	sputnik,
@@ -79,15 +80,20 @@ import {
 	theFederalist,
 	theHill,
 	theIntercept,
+	theLiverpoolPost,
+	theManchesterMill,
 	theMoscowTimes,
 	theNewHumanitarian,
 	theNewYorker,
 	theOnion,
 	thePinkNews,
+	theStar,
 	theSun,
+	theTimes,
 	theWorld,
 	time,
 	timesofindia,
+	tldr,
 	torontoStar,
 	trt,
 	un,
@@ -112,6 +118,7 @@ export const NewsSources = {
 	EVENING_STANDARD: "The Evening Standard",
 	SUN: "The Sun",
 	SKY: "Sky News",
+	TIMES: "Times",
 	INDEPENDENT: "The Independent",
 	HUFFPOST: "The Huffington Post",
 	DAILY_RECORD: "The Daily Record",
@@ -210,6 +217,14 @@ export const NewsSources = {
 	AFP: "AFP",
 	TRT: "TRT",
 	SABC: "SABC",
+
+	TLDR: "TLDR News",
+
+	//
+	THE_STAR: "The Star",
+	SHEFFIELD_TRIBUNE: "The Sheffield Tribune",
+	LIVERPOOL_POST: "The Liverpool Post",
+	MANCHESTER_MILL: "The Manchester Mill",
 } as const;
 
 // We can type better
@@ -318,4 +333,12 @@ export const newsSourcesMap = new Map<string, any>([
 	[NewsSources.AFP, afp],
 	[NewsSources.TRT, trt],
 	[NewsSources.SABC, sabc],
+
+	[NewsSources.THE_STAR, theStar],
+	[NewsSources.SHEFFIELD_TRIBUNE, sheffieldTribune],
+	[NewsSources.LIVERPOOL_POST, theLiverpoolPost],
+	[NewsSources.MANCHESTER_MILL, theManchesterMill],
+
+	[NewsSources.TIMES, theTimes],
+	[NewsSources.TLDR, tldr],
 ]);
