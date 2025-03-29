@@ -23,9 +23,8 @@ const config = {
 	anyCommandsRequired: {},
 	cron: [
 		// {
-		// We should probably add a check to this!
-		// 	time: CRON_TIMES.seconds_30,
-		// 	fetchFn: fetchPodcasts([BITES_UK, BITES_US, BITES_WORLD]),
+		// 	time: CRON_TIMES.minutes_1,
+		// 	fetchFn: fetchPodcasts([NEWS_WORLD]),
 		// 	onComplete: () => {},
 		// },
 		{
@@ -34,25 +33,25 @@ const config = {
 			onComplete: () => {},
 		},
 		{
-			time: "0 */6 * * *",
+			time: "5 */6 * * *",
 			fetchFn: fetchPodcasts([NEWS_UK]),
 			onComplete: () => {},
 		},
 
 		{
-			time: "5 */6 * * *",
+			time: "10 */6 * * *",
 			fetchFn: fetchPodcasts([NEWS_US_1]),
 			onComplete: () => {},
 		},
 
 		{
-			time: "10 */6 * * *",
+			time: "20 */6 * * *",
 			fetchFn: fetchPodcasts([NEWS_US_2]),
 			onComplete: () => {},
 		},
 
 		{
-			time: "15 */6 * * *",
+			time: "25 */6 * * *",
 			fetchFn: fetchPodcasts([NEWS_WORLD]),
 			onComplete: () => {},
 		},
