@@ -7,7 +7,7 @@ type Items = RSSItem[];
 
 export type FetchArticles = {
 	items: Items;
-	extraData?: ExtraData;
+	extraData?: ExtraData | UnknownObject;
 	provider?: ProviderItem;
 	collectionData?: UnknownObject;
 };

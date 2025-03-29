@@ -22,11 +22,12 @@ const config = {
 	id: "News Bites",
 	anyCommandsRequired: {},
 	cron: [
-		{
-			time: CRON_TIMES.seconds_30,
-			fetchFn: fetchPodcasts([BITES_UK, BITES_US, BITES_WORLD]),
-			onComplete: () => {},
-		},
+		// {
+		// We should probably add a check to this!
+		// 	time: CRON_TIMES.seconds_30,
+		// 	fetchFn: fetchPodcasts([BITES_UK, BITES_US, BITES_WORLD]),
+		// 	onComplete: () => {},
+		// },
 		{
 			time: CRON_TIMES.minutes_15,
 			fetchFn: fetchPodcasts([BITES_UK, BITES_US, BITES_WORLD]),

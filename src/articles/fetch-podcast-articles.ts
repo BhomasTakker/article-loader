@@ -59,9 +59,11 @@ export type PodcastRSSItem = {
 	};
 };
 
+type PodcastExtraData = ExtraData & { collectionTitle: string };
+
 type ConvertPodcastRssItemToArticle = {
 	item: PodcastRSSItem;
-	extraData?: ExtraData;
+	extraData?: PodcastExtraData;
 	provider?: ProviderItem;
 	collectionData?: PodcastRSSCollection;
 };
@@ -113,7 +115,13 @@ const convertPodcastRssItemToArticle = ({
 
 	const { description: collectionDescription, title: collectionTitle } =
 		collectionData || {};
-	const { region, language, categories = [], collectionType } = extraData || {};
+	const {
+		region,
+		language,
+		categories = [],
+		collectionType,
+		collectionTitle: seriesTitle,
+	} = extraData || {};
 
 	const { title, description, pubDate, enclosure, guid } = item;
 
@@ -129,8 +137,12 @@ const convertPodcastRssItemToArticle = ({
 			src: image || "",
 			alt: collectionTitle || "",
 		},
-		// We need to convert strings to numbers etc
-		duration: convertDurationToSeconds(duration),
+		media: {
+			duration: convertDurationToSeconds(duration),
+			format: "podcast",
+			type: enclosure.type || "audio/mpeg",
+			collectionTitle: seriesTitle,
+		},
 		details: {
 			published: pubDate,
 			publishers: [author],
@@ -156,7 +168,7 @@ export const fetchPodcastArticles = async ({
 		return saveArticle(
 			convertPodcastRssItemToArticle({
 				item: newItem,
-				extraData,
+				extraData: extraData as PodcastExtraData,
 				provider,
 				collectionData: collectionData as PodcastRSSCollection,
 			})

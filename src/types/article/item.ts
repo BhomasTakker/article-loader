@@ -131,4 +131,5 @@ export type CollectionItem = BaseInfo & {
 	details?: Details;
 	avatar?: Avatar;
 	provider?: ProviderItem;
+	media?: Media;
 };
