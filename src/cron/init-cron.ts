@@ -26,8 +26,7 @@ type CronJob = {
 	onComplete?: () => void;
 	sources?: SourceObject[];
 };
-
-const config = {
+const testConfig = {
 	id: "News Bites",
 	anyCommandsRequired: {},
 	cron: [
@@ -37,6 +36,13 @@ const config = {
 			onComplete: () => {},
 			sources: [NEWS_US_1],
 		},
+	],
+};
+
+const config = {
+	id: "News",
+	anyCommandsRequired: {},
+	cron: [
 		{
 			time: "0,15,30,45 * * * *",
 			fetchFn: fetchPodcasts,
