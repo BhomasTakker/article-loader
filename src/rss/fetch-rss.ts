@@ -61,6 +61,7 @@ export const fetchRss = async <T, G>({
 
 				// passin extra data - and do what we will in the finctions with it
 				// pass provider!!!!
+				// if we haven't updated then don't do anything. somehow
 				await feedCallback({ url: src, rssFeed: data, extraData, provider });
 				const collectionData = { ...data, items: null };
 				await itemsCallback({

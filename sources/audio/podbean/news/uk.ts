@@ -26,7 +26,7 @@ export const BITES_UK = {
 	],
 };
 
-export const NEWS_UK = {
+export const NEWS_UK_1 = {
 	categories: [],
 	collectionType: "news",
 	region: "UK",
@@ -58,6 +58,15 @@ export const NEWS_UK = {
 			collectionTitle: "Today In Focus",
 			src: "https://www.theguardian.com/news/series/todayinfocus/podcast.xml",
 		},
+	],
+};
+
+export const NEWS_UK_2 = {
+	categories: [],
+	collectionType: "news",
+	region: "UK",
+	language: "en",
+	sources: [
 		{
 			name: "The Rest is Politics",
 			collectionTitle: "The Rest is Politics",

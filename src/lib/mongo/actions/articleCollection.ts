@@ -12,6 +12,7 @@ export const saveOrCreateArticleCollectionByFeed = async (
 	const { feed, link = "" } = collection;
 
 	try {
+		logMemoryUsage();
 		const res = await ArticleCollection.findOneAndUpdate(
 			{ feed }, // find
 			collection, // update
@@ -20,7 +21,9 @@ export const saveOrCreateArticleCollectionByFeed = async (
 				upsert: true, // Make this update into an upsert
 			}
 		);
-
+		logMemoryUsage();
+		// if _updatedAt is old then we can assume that the collection is not new
+		// We don't need to load the collection addingto db etc
 		// logMemoryUsage();
 		console.log(`Saved Article Collection: ${feed}`);
 

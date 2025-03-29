@@ -1,8 +1,17 @@
+const isLoggingEnabld = process.env.LOG_MEMORY_USAGE === "true" || false;
+
+let highestRss = 0;
+
 export const logMemoryUsage = () => {
+	if (!isLoggingEnabld) {
+		return;
+	}
 	const formatMemoryUsage = (data: any) =>
 		`${Math.round((data / 1024 / 1024) * 100) / 100} MB`;
 
 	const memoryData = process.memoryUsage();
+
+	highestRss = Math.max(highestRss, memoryData.rss);
 
 	const memoryUsage = {
 		rss: `${formatMemoryUsage(
@@ -18,4 +27,5 @@ export const logMemoryUsage = () => {
 	};
 
 	console.log(memoryUsage);
+	console.log(`Highest RSS: ${formatMemoryUsage(highestRss)}}`);
 };

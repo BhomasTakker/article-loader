@@ -1,4 +1,5 @@
 import { CronJob } from "cron";
+import { SourceObject } from "../../sources/news/articles/types";
 
 // https://crontab.cronhub.io/
 
@@ -21,13 +22,19 @@ type CRON_TIMES = (typeof CRON_TIMES)[keyof typeof CRON_TIMES];
 
 type CreatCron = {
 	time: CRON_TIMES;
-	fetchFn: () => void;
+	fetchFn: (sources: SourceObject[]) => () => void;
 	onComplete?: () => void;
+	sources?: SourceObject[];
 };
-export const createCron = ({ time, fetchFn, onComplete }: CreatCron) => {
+export const createCron = ({
+	time,
+	fetchFn,
+	onComplete,
+	sources,
+}: CreatCron) => {
 	new CronJob(
 		time, // cronTime
-		fetchFn, // onTick
+		fetchFn(sources || []), // onTick
 		onComplete, // onComplete
 		true // start
 		// We should use the object notation and pass in a options
