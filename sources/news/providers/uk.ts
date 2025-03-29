@@ -194,3 +194,56 @@ export const gbNews = {
 	rating: 45,
 	leaning: 0.7,
 };
+
+export const theStar = {
+	origin: "UK",
+	name: "The Star",
+	description: "The Star is a British regional daily newspaper for Sheffield.",
+	url: "https://www.thestar.co.uk/",
+	rating: 80,
+	leaning: 0,
+};
+
+export const sheffieldTribune = {
+	origin: "UK",
+	name: "The Sheffield Tribune",
+	description: "The Sheffield Tribune is a British regional daily newspaper.",
+	url: "https://www.sheffieldtribune.co.uk/",
+	rating: 80,
+	leaning: 0,
+};
+
+export const tldr = {
+	origin: "UK",
+	name: "TLDR",
+	description: "TLDR is a British news website.",
+	url: "https://tldrnews.co.uk/",
+	rating: 75,
+	leaning: 0,
+};
+export const theTimes = {
+	origin: "UK",
+	name: "The Times",
+	description: "The Times is a British daily national newspaper.",
+	url: "https://www.thetimes.com/",
+	rating: 75,
+	leaning: 0.1,
+};
+
+export const theLiverpoolPost = {
+	origin: "UK",
+	name: "The Liverpool Post",
+	description: "The Liverpool Post is a British regional daily newspaper.",
+	url: "https://www.livpost.co.uk/",
+	rating: 80,
+	leaning: 0,
+};
+
+export const theManchesterMill = {
+	origin: "UK",
+	name: "The Manchester Mill",
+	description: "The Manchester Mill is a British regional daily newspaper.",
+	url: "https://manchestermill.co.uk/",
+	rating: 80,
+	leaning: 0,
+};

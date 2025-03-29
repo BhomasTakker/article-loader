@@ -1,5 +1,9 @@
 import { CronJob } from "cron";
 
+// every 15 minutes stggered by a minute
+// There will be a formula for this somewhere
+// 1,16,31,46 * * * *
+
 export const CRON_TIMES = {
 	seconds_10: "*/10 * * * * *",
 	minutes_15: "*/15 * * * *",
