@@ -1,4 +1,5 @@
 import { ExtraData } from "../../sources/news/articles/types";
+import { logMemoryUsage } from "../lib/mem";
 import { CollectionItem } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
@@ -175,5 +176,8 @@ export const fetchPodcastArticles = async ({
 		);
 	});
 
-	return Promise.all(data);
+	logMemoryUsage();
+	const results = await Promise.all(data);
+	logMemoryUsage();
+	return results; //Promise.all(data);
 };

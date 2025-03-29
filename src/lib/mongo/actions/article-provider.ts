@@ -13,11 +13,8 @@ export const saveOrCreateArticleProviderByName = async (
 	provider: ProviderItem
 ) => {
 	const { name } = provider;
-
-	console.log("provider", provider);
-
 	try {
-		const res = await ArticleProvider.findOneAndUpdate(
+		ArticleProvider.updateOne(
 			{ name }, // find
 			provider, // update
 			{
