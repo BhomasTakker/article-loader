@@ -318,3 +318,12 @@ export const newYorkTimes = {
 	rating: 85,
 	leaning: -0.1,
 };
+
+export const theEconomist = {
+	origin: "USA",
+	name: "The Economist",
+	description: "The Economist is an American newspaper.",
+	url: "https://www.economist.com/",
+	rating: 85,
+	leaning: 0,
+};

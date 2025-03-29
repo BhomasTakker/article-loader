@@ -30,6 +30,7 @@ export const fetchCollections =
 
 			sources.forEach(async (source) => {
 				const { sources, ...rest } = source;
+				// why are we awaiting here?
 				const prom = await fetchRss<T, G>({
 					urls: [],
 					sources,

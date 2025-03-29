@@ -10,6 +10,10 @@ import { initRssRoutes } from "./routes/rss-routes";
 const app = express();
 const port = process.env.PORT || 4000;
 
+const isRssRoute = process.env.RSS_ROUTE || false;
+const isApiRoute = process.env.API_ROUTE || false;
+const isCron = process.env.CRON || false;
+
 require("dotenv").config();
 
 logMemoryUsage();
@@ -36,9 +40,9 @@ app.get("/update-providers", async (req, res) => {
 });
 
 // setup crtain routes / jobs etc depending on settings etc
-initRssRoutes(app);
-initApiRoutes(app);
-initCronJobs();
+isRssRoute && initRssRoutes(app);
+isApiRoute && initApiRoutes(app);
+isCron && initCronJobs();
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);

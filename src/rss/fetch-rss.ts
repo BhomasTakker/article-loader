@@ -11,7 +11,12 @@ type FetchRSS<T, G> = {
 	extraData?: ExtraData;
 	sources?: ArticleSource[];
 	callback: Callback;
-	itemsCallback: ({ items, extraData, provider }: FetchArticles) => Promise<T>;
+	itemsCallback: ({
+		items,
+		extraData,
+		provider,
+		collectionData,
+	}: FetchArticles) => Promise<T>;
 	feedCallback: ({
 		url,
 		rssFeed,
@@ -30,7 +35,7 @@ type Callback = () => void;
 export const fetchRss = async <T, G>({
 	urls,
 	sources = [],
-	extraData,
+	extraData = {},
 	callback,
 	feedCallback,
 	itemsCallback,
@@ -40,7 +45,7 @@ export const fetchRss = async <T, G>({
 
 	console.log("extraData", { extraData });
 
-	sources.forEach(async ({ name, src }) => {
+	sources.forEach(async ({ name, src, ...rest }) => {
 		try {
 			const prom = RSSParse(src, customFields) as Promise<DataResponse>;
 			// get Provider
@@ -57,7 +62,14 @@ export const fetchRss = async <T, G>({
 				// passin extra data - and do what we will in the finctions with it
 				// pass provider!!!!
 				await feedCallback({ url: src, rssFeed: data, extraData, provider });
-				await itemsCallback({ items, extraData, provider });
+				const collectionData = { ...data, items: null };
+				await itemsCallback({
+					items,
+					// merge data from both individual source AND rss 'group'
+					extraData: { ...extraData, ...rest },
+					provider,
+					collectionData,
+				});
 			});
 			prom.catch((error: Error) => {
 				console.error("Error fetching rss");

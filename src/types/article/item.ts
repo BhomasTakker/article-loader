@@ -88,8 +88,12 @@ export type RSSChannelType = {
 
 ///////////////////////////////
 type Temp = {
+	// youtube
 	rating?: string;
 	views?: string;
+
+	// itunes podcast
+	duration?: number;
 };
 
 export type BaseInfo = {
@@ -99,6 +103,8 @@ export type BaseInfo = {
 	guid: string;
 	variant: string; // union
 	collectionType?: string;
+	// use for youtube, podcast/mp3, etc?
+	format?: string;
 } & Temp;
 
 export type Details = {

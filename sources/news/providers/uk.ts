@@ -247,3 +247,21 @@ export const theManchesterMill = {
 	rating: 80,
 	leaning: 0,
 };
+
+export const ft = {
+	origin: "UK",
+	name: "Financial Times",
+	description: "The Financial Times is a British daily newspaper.",
+	url: "https://www.ft.com/",
+	rating: 75,
+	leaning: 0.1,
+};
+
+export const novara = {
+	origin: "UK",
+	name: "Novara Media",
+	description: "Novara Media is a British independent media company.",
+	url: "https://novaramedia.com/",
+	rating: 85,
+	leaning: -0.4,
+};

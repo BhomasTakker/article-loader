@@ -16,3 +16,15 @@ export type RSSArticleCollection = {
 	provider?: ProviderItem;
 	collectionType?: string;
 };
+
+export type RSSPodcastCollection = {
+	items: StrippedItem[] | RSSItem[];
+	link?: string;
+	title?: string;
+	feed?: string;
+	description?: string;
+	lastBuildDate?: string;
+	image?: RSSImage;
+	provider?: ProviderItem;
+	collectionType?: string;
+};

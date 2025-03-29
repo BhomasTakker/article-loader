@@ -1,6 +1,6 @@
 import ArticleCollection from "../../../models/ArticleCollection";
 import { RSSArticleCollection } from "../../../types/rss";
-import { getArticleProviderByDomain } from "./article-provider";
+import { logMemoryUsage } from "../../mem";
 
 export const getArticleCollectionByFeed = async (feed: string) => {
 	return await ArticleCollection.findOne({ feed }).lean();
@@ -21,6 +21,7 @@ export const saveOrCreateArticleCollectionByFeed = async (
 			}
 		);
 
+		// logMemoryUsage();
 		console.log(`Saved Article Collection: ${feed}`);
 
 		return { result: res, message: "Saved Article Collection!" };
