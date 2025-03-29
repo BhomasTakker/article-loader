@@ -76,31 +76,6 @@ export const NEWS_US_1 = {
 			collectionTitle: "Pod Save America",
 			src: "https://feeds.simplecast.com/dxZsm5kX",
 		},
-		{
-			name: NewsSources.NBC,
-			collectionTitle: "Dateline NBC",
-			src: "https://podcastfeeds.nbcnews.com/dateline",
-		},
-		{
-			name: "The Daily Show",
-			collectionTitle: "The Daily Sohw: Ears Edition",
-			src: "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e5e49f91-be9b-42f1-a426-ae3c00026e8b/04b51c34-8028-49a3-b42f-ae3c00026e95/podcast.rss",
-		},
-		{
-			name: "Apple News Today",
-			collectionTitle: "Apple News Today",
-			src: "https://rss.art19.com/apple-news-daily",
-		},
-		{
-			name: "On the Media",
-			collectionTitle: "On the Media",
-			src: "https://feeds.simplecast.com/o4jAFXaw",
-		},
-		{
-			name: NewsSources.VOX,
-			collectionTitle: "Today, Explained",
-			src: "https://feeds.megaphone.fm/VMP5705694065",
-		},
 	],
 };
 
@@ -130,6 +105,49 @@ export const NEWS_US_2 = {
 			collectionTitle: "The New Yorker: Politics and More",
 			src: "https://feeds.simplecast.com/TRuO_SRo",
 		},
+	],
+};
+
+export const NEWS_US_3 = {
+	categories: [],
+	collectionType: "news",
+	region: "US",
+	language: "en",
+	sources: [
+		{
+			name: NewsSources.NBC,
+			collectionTitle: "Dateline NBC",
+			src: "https://podcastfeeds.nbcnews.com/dateline",
+		},
+		{
+			name: "The Daily Show",
+			collectionTitle: "The Daily Sohw: Ears Edition",
+			src: "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e5e49f91-be9b-42f1-a426-ae3c00026e8b/04b51c34-8028-49a3-b42f-ae3c00026e95/podcast.rss",
+		},
+		{
+			name: "Apple News Today",
+			collectionTitle: "Apple News Today",
+			src: "https://rss.art19.com/apple-news-daily",
+		},
+		{
+			name: "On the Media",
+			collectionTitle: "On the Media",
+			src: "https://feeds.simplecast.com/o4jAFXaw",
+		},
+		{
+			name: NewsSources.VOX,
+			collectionTitle: "Today, Explained",
+			src: "https://feeds.megaphone.fm/VMP5705694065",
+		},
+	],
+};
+
+export const NEWS_US_4 = {
+	categories: [],
+	collectionType: "news",
+	region: "US",
+	language: "en",
+	sources: [
 		{
 			name: NewsSources.THE_BULWARK,
 			collectionTitle: "The Bulwark Podcast",

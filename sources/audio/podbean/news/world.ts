@@ -30,7 +30,7 @@ export const BITES_WORLD = {
 	],
 };
 
-export const NEWS_WORLD = {
+export const NEWS_WORLD_1 = {
 	categories: [],
 	collectionType: "news",
 	region: "US",
@@ -58,6 +58,15 @@ export const NEWS_WORLD = {
 			collectionTitle: "Ukrainecast",
 			src: "https://podcasts.files.bbci.co.uk/p0bqztzm.rss",
 		},
+	],
+};
+
+export const NEWS_WORLD_2 = {
+	categories: [],
+	collectionType: "news",
+	region: "US",
+	language: "en",
+	sources: [
 		{
 			name: "Pod Save the World",
 			collectionTitle: "Pod Save the World",

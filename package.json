@@ -21,7 +21,7 @@
 		"start": "node dist/index.js",
 		"aws:stop": "pm2 stop article-loader",
 		"preaws:start": "npm run build",
-		"aws:start": "pm2 start dist/index.js --name article-loader",
+		"aws:start": "pm2 start dist/index.js --name article-loader --max-memory-restart 800M",
 		"postinstall": "tsc",
 		"preserve": "npm run build",
 		"serve": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\""

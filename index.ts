@@ -10,9 +10,9 @@ import { initRssRoutes } from "./routes/rss-routes";
 const app = express();
 const port = process.env.PORT || 4000;
 
-const isRssRoute = process.env.RSS_ROUTE || false;
-const isApiRoute = process.env.API_ROUTE || false;
-const isCron = process.env.CRON || false;
+const isRssRoute = process.env.RSS_ROUTE === "true" || false;
+const isApiRoute = process.env.API_ROUTE === "true" || false;
+const isCron = process.env.CRON === "true" || false;
 
 require("dotenv").config();
 
