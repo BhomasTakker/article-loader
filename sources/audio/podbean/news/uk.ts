@@ -8,7 +8,7 @@ export const BITES_UK = {
 	sources: [
 		{
 			// upto 5 per day - 5 minutes
-			collectionTitle: NewsSources.SKY,
+			collectionTitle: "SKY News Bulletins",
 			name: NewsSources.SKY,
 			src: "http://a.365dm.com/api/apple/v1/audio/news-bulletin",
 		},
