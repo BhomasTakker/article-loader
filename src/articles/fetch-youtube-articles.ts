@@ -1,8 +1,8 @@
 import { ExtraData } from "../../sources/news/articles/types";
-import { saveOrCreateArticleBySrc } from "../lib/mongo/actions/article";
-import { CollectionItem, RSSItem } from "../types/article/item";
+import { RSSItem } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
+import { saveArticle } from "./save";
 
 type Items = RSSItem[];
 
@@ -37,7 +37,6 @@ const convertYouTubeRssItemToArticle = ({
 	extraData,
 	provider,
 }: ConvertYouTubeRssItemToArticle) => {
-	// console.log({ item });
 	const media = item["media:group"];
 	const mediaTitle = media["media:title"][0];
 	const mediaThumbnail = media["media:thumbnail"][0].$.url;
@@ -55,7 +54,7 @@ const convertYouTubeRssItemToArticle = ({
 		description: description || mediaDescription,
 		guid: id,
 		variant: "video",
-		type: "youtube",
+		format: "youtube",
 		avatar: {
 			src: mediaThumbnail,
 			alt: mediaTitle || "",
@@ -74,18 +73,6 @@ const convertYouTubeRssItemToArticle = ({
 	};
 
 	return newItem;
-};
-
-const saveArticle = async (item: CollectionItem) => {
-	const { src } = item;
-	const { message } = await saveOrCreateArticleBySrc(item);
-	if (message === "Saved Article!") {
-		console.log(`Saved ${src}`);
-		return item;
-	} else {
-		console.log(`Failed to save ${src}`);
-		return null;
-	}
 };
 
 export const fetchYoutubeArticles = async ({

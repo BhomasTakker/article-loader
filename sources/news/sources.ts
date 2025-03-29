@@ -29,6 +29,7 @@ import {
 	firstPost,
 	fox,
 	france24,
+	ft,
 	gbNews,
 	globalIssues,
 	globalNews,
@@ -51,6 +52,7 @@ import {
 	newYorkPost,
 	newYorkTimes,
 	northernIrelandWorld,
+	novara,
 	npr,
 	pbs,
 	politico,
@@ -77,6 +79,7 @@ import {
 	theDailyBeast,
 	theDailyCaller,
 	theDiplomat,
+	theEconomist,
 	theFederalist,
 	theHill,
 	theIntercept,
@@ -131,6 +134,7 @@ export const NewsSources = {
 	WALES_ONLINE: "Wales Online",
 	HERALD_SCOTLAND: "Herald Scotland",
 	GB_NEWS: "GB News",
+	FT: "FT",
 
 	CNN: "CNN",
 	FOX: "Fox News",
@@ -225,6 +229,11 @@ export const NewsSources = {
 	SHEFFIELD_TRIBUNE: "The Sheffield Tribune",
 	LIVERPOOL_POST: "The Liverpool Post",
 	MANCHESTER_MILL: "The Manchester Mill",
+
+	// Audio
+	THE_ECONOMIST: "The Economist",
+
+	NOVARA: "Novara Media",
 } as const;
 
 // We can type better
@@ -341,4 +350,9 @@ export const newsSourcesMap = new Map<string, any>([
 
 	[NewsSources.TIMES, theTimes],
 	[NewsSources.TLDR, tldr],
+
+	[NewsSources.THE_ECONOMIST, theEconomist],
+	[NewsSources.FT, ft],
+
+	[NewsSources.NOVARA, novara],
 ]);

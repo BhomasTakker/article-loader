@@ -79,6 +79,9 @@ const ArticleSchema = new Schema<CollectionItem>(
 			type: String,
 		},
 		///// Extra types?
+		duration: {
+			type: Number,
+		},
 	},
 	{ timestamps: true }
 );

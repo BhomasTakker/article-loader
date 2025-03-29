@@ -1,5 +1,5 @@
 import { ExtraData } from "../../sources/news/articles/types";
-import { RSSItem } from "../types/article/item";
+import { RSSItem, UnknownObject } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { getArticle } from "./get-article";
 
@@ -9,6 +9,7 @@ export type FetchArticles = {
 	items: Items;
 	extraData?: ExtraData;
 	provider?: ProviderItem;
+	collectionData?: UnknownObject;
 };
 
 export const fetchArticles = async ({
@@ -16,10 +17,6 @@ export const fetchArticles = async ({
 	extraData,
 	provider,
 }: FetchArticles) => {
-	// const data = items.map((item, i) => {
-	// 	return getArticle({ item, extraData, provider });
-	// });
-
 	items.forEach((item) => {
 		getArticle({ item, extraData, provider });
 	});
