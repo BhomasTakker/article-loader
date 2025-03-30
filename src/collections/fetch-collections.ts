@@ -23,15 +23,13 @@ export const fetchCollections =
 		const service = Service.getInstance();
 		const state = service.getState();
 
-		const promises: Promise<void>[] = [];
-
 		if (state === ServiceState.ready) {
 			service.setState(ServiceState.running);
 
 			sources.forEach(async (source) => {
 				const { sources, ...rest } = source;
 				// why are we awaiting here?
-				const prom = await fetchRss<T, G>({
+				fetchRss<T, G>({
 					urls: [],
 					sources,
 					callback: () => {

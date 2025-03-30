@@ -132,7 +132,6 @@ const convertPodcastRssItemToArticle = ({
 		description: description || summary,
 		guid: guid,
 		variant: "audio",
-		format: "podcast",
 
 		avatar: {
 			src: image || "",
