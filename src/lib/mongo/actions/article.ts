@@ -9,7 +9,7 @@ export const saveOrCreateArticleBySrc = async (article: CollectionItem) => {
 	const { src } = article;
 
 	try {
-		Article.updateOne(
+		await Article.updateOne(
 			{ src }, // find
 			article, // update
 			{
