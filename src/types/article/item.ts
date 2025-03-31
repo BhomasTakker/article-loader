@@ -104,7 +104,6 @@ export type BaseInfo = {
 	variant: string; // union
 	collectionType?: string;
 	// use for youtube, podcast/mp3, etc?
-	format?: string;
 } & Temp;
 
 export type Details = {
