@@ -6,6 +6,14 @@ import { DataResponse, UnknownObject } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { RSSParse } from "./parse-rss";
 
+const ITEMS_LIMIT = 50;
+const filterLimit = (items: any[]) => {
+	if (items.length > ITEMS_LIMIT) {
+		return items.slice(0, ITEMS_LIMIT);
+	}
+	return items;
+};
+
 type FetchRSS<T, G> = {
 	urls: string[];
 	extraData?: ExtraData;
@@ -43,8 +51,6 @@ export const fetchRss = async <T, G>({
 }: FetchRSS<T, G>) => {
 	const fetches: Promise<DataResponse>[] = [];
 
-	console.log("extraData", { extraData });
-
 	sources.forEach(async ({ name, src, ...rest }) => {
 		try {
 			const prom = RSSParse(src, customFields) as Promise<DataResponse>;
@@ -54,16 +60,21 @@ export const fetchRss = async <T, G>({
 			)) as unknown as ProviderItem;
 			// could just pass a single callbck?
 			prom.then(async (data) => {
-				const items = data?.items || [];
+				const items = filterLimit(data?.items || []);
 				if (items.length === 0) {
 					console.log("No items for this feed", { src, data });
+					return;
 				}
 
-				// passin extra data - and do what we will in the finctions with it
-				// pass provider!!!!
-				// if we haven't updated then don't do anything. somehow
-				await feedCallback({ url: src, rssFeed: data, extraData, provider });
-				const collectionData = { ...data, items: null };
+				const updatedRawCollection = { ...data, items };
+
+				await feedCallback({
+					url: src,
+					rssFeed: updatedRawCollection,
+					extraData,
+					provider,
+				});
+				const collectionData = { ...updatedRawCollection, items: null };
 				await itemsCallback({
 					items,
 					// merge data from both individual source AND rss 'group'
