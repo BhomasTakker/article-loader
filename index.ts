@@ -5,7 +5,7 @@ import express from "express";
 import { updateArticleProviders } from "./src/article-providers/update-article-providers";
 import { logMemoryUsage } from "./src/lib/mem";
 import { initApiRoutes } from "./routes/api-routes";
-import { initCronJobs } from "./src/cron/init-cron";
+import { initApiCronJobs, initCronJobs } from "./src/cron/init-cron";
 import { initRssRoutes } from "./routes/rss-routes";
 const app = express();
 const port = process.env.PORT || 4000;
@@ -13,6 +13,7 @@ const port = process.env.PORT || 4000;
 const isRssRoute = process.env.RSS_ROUTE === "true" || false;
 const isApiRoute = process.env.API_ROUTE === "true" || false;
 const isCron = process.env.CRON === "true" || false;
+const isApiCron = process.env.API_CRON === "true" || false;
 
 require("dotenv").config();
 
@@ -43,6 +44,9 @@ app.get("/update-providers", async (req, res) => {
 isRssRoute && initRssRoutes(app);
 isApiRoute && initApiRoutes(app);
 isCron && initCronJobs();
+
+// isApiCron
+isApiCron && initApiCronJobs();
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
