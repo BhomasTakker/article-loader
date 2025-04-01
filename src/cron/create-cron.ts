@@ -21,7 +21,7 @@ export const CRON_TIMES = {
 type CRON_TIMES = (typeof CRON_TIMES)[keyof typeof CRON_TIMES];
 
 type CreatCron = {
-	time: CRON_TIMES;
+	time: string;
 	fetchFn: (sources: SourceObject[]) => () => void;
 	onComplete?: () => void;
 	sources?: SourceObject[];
@@ -39,5 +39,21 @@ export const createCron = ({
 		true // start
 		// We should use the object notation and pass in a options
 		// "America/Los_Angeles" // timeZone
+	);
+};
+
+type CreatApiCron = {
+	time: string;
+	fetchFn: () => void;
+	onComplete?: () => void;
+	sources?: SourceObject[];
+};
+
+export const createApiCron = ({ time, fetchFn, onComplete }: CreatApiCron) => {
+	new CronJob(
+		time, // cronTime
+		fetchFn, // onTick
+		onComplete, // onComplete
+		true // start
 	);
 };

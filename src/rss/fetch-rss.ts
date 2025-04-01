@@ -75,6 +75,8 @@ export const fetchRss = async <T, G>({
 					provider,
 				});
 				const collectionData = { ...updatedRawCollection, items: null };
+				// WE could - load ALL items here
+				// just don't store them in the collection
 				await itemsCallback({
 					items,
 					// merge data from both individual source AND rss 'group'
