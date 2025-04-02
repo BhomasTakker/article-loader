@@ -18,15 +18,23 @@ import {
 import { CRON_TIMES } from "./create-cron";
 import { fetchPodcasts } from "./loaders/fetchPodcasts";
 
+const fetchPodcastsTest = () => {
+	return fetchPodcasts([BITES_UK]);
+};
+
+const testFunction = () => {
+	console.log("TEST FUNCTION TRIGGERED");
+	return Promise.resolve();
+};
+
 export const testConfig = {
-	id: "News Bites",
+	id: "Test Function",
 	anyCommandsRequired: {},
 	cron: [
 		{
 			time: CRON_TIMES.seconds_30,
-			fetchFn: fetchPodcasts,
+			fetchFn: testFunction,
 			onComplete: () => {},
-			sources: [NEWS_US_1],
 		},
 	],
 };

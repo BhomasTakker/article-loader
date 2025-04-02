@@ -5,8 +5,10 @@ import express from "express";
 import { updateArticleProviders } from "./src/article-providers/update-article-providers";
 import { logMemoryUsage } from "./src/lib/mem";
 import { initApiRoutes } from "./routes/api-routes";
-import { initApiCronJobs, initCronJobs } from "./src/cron/init-cron";
+import { initCronJobs } from "./src/cron/init-cron";
 import { initRssRoutes } from "./routes/rss-routes";
+import { podcastRssCronConfig } from "./src/cron/podcasts/podcast.config";
+import { searchCronConfig } from "./src/cron/api/search/search-queries";
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -43,10 +45,10 @@ app.get("/update-providers", async (req, res) => {
 // setup crtain routes / jobs etc depending on settings etc
 isRssRoute && initRssRoutes(app);
 isApiRoute && initApiRoutes(app);
-isCron && initCronJobs();
+isCron && initCronJobs(podcastRssCronConfig);
 
 // isApiCron
-isApiCron && initApiCronJobs();
+isApiCron && initCronJobs(searchCronConfig);
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
