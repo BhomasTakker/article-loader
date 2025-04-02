@@ -24,9 +24,8 @@ export const testConfig = {
 	cron: [
 		{
 			time: CRON_TIMES.seconds_30,
-			fetchFn: fetchPodcasts,
+			fetchFn: fetchPodcasts([NEWS_US_1]),
 			onComplete: () => {},
-			sources: [NEWS_US_1],
 		},
 	],
 };
