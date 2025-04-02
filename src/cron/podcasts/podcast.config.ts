@@ -16,8 +16,9 @@ import {
 	NEWS_WORLD_2,
 } from "../../../sources/audio/podbean/news/world";
 import { fetchPodcasts } from "../loaders/fetchPodcasts";
+import { CronConfig } from "../types";
 
-export const podcastRssCronConfig = {
+export const podcastRssCronConfig: CronConfig = {
 	id: "News",
 	anyCommandsRequired: {},
 	cron: [

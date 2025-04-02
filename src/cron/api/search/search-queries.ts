@@ -1,6 +1,6 @@
 import { searchArticles } from "../../../lib/mongo/actions/articles/search";
 import { connectToMongoDB } from "../../../lib/mongo/db";
-import { CRON_TIMES } from "../../create-cron";
+import { CronConfig } from "../../types";
 
 const CACHE_TIME = 60 * 16; // 16 minutes
 
@@ -280,7 +280,7 @@ const triggerSearch = async (queries: any) => {
 	});
 };
 
-export const searchCronConfig = {
+export const searchCronConfig: CronConfig = {
 	id: "Search Queries",
 	anyCommandsRequired: {},
 	cron: [
