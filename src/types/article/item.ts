@@ -113,6 +113,9 @@ export type Details = {
 	publishers?: string[];
 	published?: Date | string;
 	modified?: Date | string;
+
+	region?: string;
+	language?: string;
 };
 
 export type Media = UnknownObject;
