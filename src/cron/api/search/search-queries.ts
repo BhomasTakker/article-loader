@@ -117,13 +117,6 @@ const HOMEPAGE = [
 		trustHigher: "70",
 		sort: "date-descending",
 	},
-	{
-		query: "boycott USA US",
-		textScore: "1",
-		contentType: "news",
-		sort: "relevance",
-		limit: "10",
-	},
 ];
 
 const WORLD = [
@@ -181,6 +174,29 @@ const UK = [
 		region: "UK",
 		trustHigher: "70",
 		sort: "date-descending",
+	},
+	{
+		vaiant: "audio",
+		region: "UK",
+		durationLower: "420",
+		contentType: "news",
+		sort: "date-descending",
+		limit: "25",
+	},
+	{
+		query: '"Spy cops"',
+		textScore: "1",
+		contentType: "news",
+		sort: "date-descending",
+		limit: "25",
+	},
+	{
+		query: '"Spy Cops"',
+		textScore: "0.7",
+		variant: "audio",
+		contentType: "news",
+		sort: "date-descending",
+		limit: "25",
 	},
 ];
 

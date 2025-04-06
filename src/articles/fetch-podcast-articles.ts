@@ -142,6 +142,8 @@ const convertPodcastRssItemToArticle = ({
 			format: "podcast",
 			type: enclosure.type || "audio/mpeg",
 			collectionTitle: seriesTitle,
+			region,
+			language,
 		},
 		details: {
 			published: pubDate,
