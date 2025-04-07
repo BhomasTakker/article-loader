@@ -181,7 +181,7 @@ const UK = [
 		durationLower: "420",
 		contentType: "news",
 		sort: "date-descending",
-		limit: "25",
+		limit: "10",
 	},
 	{
 		query: '"Spy cops"',
@@ -194,6 +194,14 @@ const UK = [
 		query: '"Spy Cops"',
 		textScore: "0.7",
 		variant: "audio",
+		contentType: "news",
+		sort: "date-descending",
+		limit: "25",
+	},
+	{
+		query: "Edinburgh war",
+		textScore: "1",
+		variant: "article",
 		contentType: "news",
 		sort: "date-descending",
 		limit: "25",
