@@ -3,7 +3,7 @@ import { NewsSources } from "../../../news/sources";
 export const BITES_WORLD = {
 	categories: [],
 	collectionType: "news",
-	region: "US",
+	region: "world",
 	language: "en",
 	sources: [
 		{
@@ -33,7 +33,7 @@ export const BITES_WORLD = {
 export const NEWS_WORLD_1 = {
 	categories: [],
 	collectionType: "news",
-	region: "US",
+	region: "world",
 	language: "en",
 	sources: [
 		{
@@ -64,7 +64,7 @@ export const NEWS_WORLD_1 = {
 export const NEWS_WORLD_2 = {
 	categories: [],
 	collectionType: "news",
-	region: "US",
+	region: "world",
 	language: "en",
 	sources: [
 		{
