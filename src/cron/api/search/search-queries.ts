@@ -1,7 +1,7 @@
 import { searchArticles } from "../../../lib/mongo/actions/articles/search";
 import { connectToMongoDB } from "../../../lib/mongo/db";
 import { CronConfig } from "../../types";
-import { BINDEPENDENCE_DAY, GANGS_SCOTLAND, MAIN_UK, SPY_COPS } from "./Uk";
+import { BINDEPENDENCE_DAY, GANGS_SCOTLAND, MAIN_UK, SPY_COPS } from "./uk";
 import { MAIN_UKRAINE } from "./ukraine";
 import { MAIN_US } from "./us";
 import { MAIN_WORLD, TRADE_WAR } from "./world";
