@@ -47,10 +47,6 @@ isRssRoute && initRssRoutes(app);
 isApiRoute && initApiRoutes(app);
 isCron && initCronJobs(podcastRssCronConfig);
 
-// isApiCron
-// isApiCron && initCronJobs(searchCronConfig);
-
-//
 isApiCron && initCronJobs(pageQueriesCronConfig);
 
 app.listen(port, () => {
