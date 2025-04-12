@@ -8,7 +8,7 @@ import { initApiRoutes } from "./routes/api-routes";
 import { initCronJobs } from "./src/cron/init-cron";
 import { initRssRoutes } from "./routes/rss-routes";
 import { podcastRssCronConfig } from "./src/cron/podcasts/podcast.config";
-import { searchCronConfig } from "./src/cron/api/search/search-queries";
+import { pageQueriesCronConfig } from "./src/cron/api/search/page-queries";
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -48,7 +48,10 @@ isApiRoute && initApiRoutes(app);
 isCron && initCronJobs(podcastRssCronConfig);
 
 // isApiCron
-isApiCron && initCronJobs(searchCronConfig);
+// isApiCron && initCronJobs(searchCronConfig);
+
+//
+isApiCron && initCronJobs(pageQueriesCronConfig);
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
