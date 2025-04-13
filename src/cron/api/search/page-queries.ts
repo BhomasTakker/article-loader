@@ -67,18 +67,20 @@ const executeAndCacheQueriesFromPage = async (
 	await Promise.all(pagePromises);
 };
 
-export const pingApp = async () => {
+export const pingApp = async (routes: string[]) => {
 	logMemoryUsage();
-	try {
-		await fetch("https://datatattat.com", {
-			method: "GET",
-		});
-	} catch (error) {
-		console.error("Error pinging app:", error);
-		return Promise.reject(error);
-	}
 
-	logMemoryUsage();
+	const promises = routes.map(async (route) => {
+		return fetch(`https://datatattat.com${route}`, {
+			method: "GET",
+		}).catch((error) => {
+			console.error("Error pinging route:", route, error);
+			return Promise.reject(error);
+		});
+	});
+
+	await Promise.all(promises);
+	console.log("All routes pinged successfully:", routes);
 	return Promise.resolve();
 };
 
@@ -112,7 +114,18 @@ export const pageQueriesCronConfig: CronConfig = {
 		},
 		{
 			time: "14,29,44,59 * * * *",
-			fetchFn: pingApp,
+			fetchFn: () =>
+				pingApp([
+					"/",
+					"/uk",
+					"/us",
+					"/world",
+					"/uk/bin-strike",
+					"/uk/gangs-of-scotland",
+					"/uk/spy-cops",
+					"/world/tariffs",
+					"/ukraine",
+				]),
 			onComplete: () => {},
 		},
 	],
