@@ -46,12 +46,30 @@ const executeQuery = (query: WithQuery) => {
 	return api(params); // 1 hour cache
 };
 
-const executeAndCacheQueriesFromPage = async (
-	routes: string[],
-	apis: API_PROVIDERS[]
-) => {
+const getPageRoutes = async () => {
 	await connectToMongoDB();
-	const pagePromises = routes.map(async (route) => {
+	// Better by name - then get the id and use that.
+	const USER_ID = process.env.ADMIN_USER;
+
+	if (!USER_ID) {
+		console.error("No USER_ID found in environment variables.");
+		return Promise.resolve([]);
+	}
+
+	const pages = (await getPagesByUser(USER_ID)) || [];
+	const pageRoutes = pages.map((page) => {
+		const { route } = page;
+		return route;
+	});
+
+	return pageRoutes;
+};
+
+const executeAndCacheQueriesFromPage = async (apis: API_PROVIDERS[]) => {
+	await connectToMongoDB();
+	const pageRoutes = await getPageRoutes();
+
+	const pagePromises = pageRoutes.map(async (route) => {
 		const pageDocument = getPageByRoute(route);
 		pageDocument.then((page) => {
 			if (!page) return Promise.resolve(null);
@@ -70,25 +88,6 @@ const executeAndCacheQueriesFromPage = async (
 		});
 	});
 	await Promise.all(pagePromises);
-};
-
-const getPageRoutes = async () => {
-	await connectToMongoDB();
-	// Better by name - then get the id and use that.
-	const USER_ID = process.env.ADMIN_USER;
-
-	if (!USER_ID) {
-		console.error("No USER_ID found in environment variables.");
-		return Promise.resolve([]);
-	}
-
-	const pages = (await getPagesByUser(USER_ID)) || [];
-	const pageRoutes = pages.map((page) => {
-		const { route } = page;
-		return route;
-	});
-
-	return pageRoutes;
 };
 
 export const pingApp = async () => {
@@ -116,25 +115,13 @@ export const pageQueriesCronConfig: CronConfig = {
 		{
 			time: "11,26,41,56 * * * *",
 			fetchFn: () =>
-				executeAndCacheQueriesFromPage(
-					["/uk", "/uk/bin-strike", "/uk/gangs-of-scotland", "/uk/spy-cops"],
-					[API_PROVIDERS.ARTICLES_SEARCH_API]
-				),
-			onComplete: () => {},
-		},
-		{
-			time: "12,27,42,57 * * * *",
-			fetchFn: () =>
-				executeAndCacheQueriesFromPage(
-					["/us", "/world", "/world/tariffs", "/ukraine"],
-					[API_PROVIDERS.ARTICLES_SEARCH_API]
-				),
+				executeAndCacheQueriesFromPage([API_PROVIDERS.ARTICLES_SEARCH_API]),
 			onComplete: () => {},
 		},
 		{
 			time: "13 */6 * * *",
 			fetchFn: () =>
-				executeAndCacheQueriesFromPage(["/uk"], [API_PROVIDERS.YOUTUBE_API]),
+				executeAndCacheQueriesFromPage([API_PROVIDERS.YOUTUBE_API]),
 			onComplete: () => {},
 		},
 		{
