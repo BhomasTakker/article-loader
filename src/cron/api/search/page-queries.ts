@@ -90,11 +90,27 @@ const executeAndCacheQueriesFromPage = async (apis: API_PROVIDERS[]) => {
 	await Promise.all(pagePromises);
 };
 
-export const pingApp = async () => {
+export const pingApp = async (includes: string[]) => {
 	logMemoryUsage();
 	const pageRoutes = await getPageRoutes();
 
 	const promises = pageRoutes.map(async (route) => {
+		// A nasty little piece of logic
+		// We're getting warned about too many connections
+		// This is a little hopeful stop gap
+		let shouldPing = false;
+		if (route === "/") {
+			shouldPing = true;
+		}
+		includes.forEach((include) => {
+			if (route.includes(include)) {
+				shouldPing = true;
+			}
+		});
+		if (!shouldPing) return Promise.resolve(null);
+
+		// console.log("Pinging route:", route);
+
 		return fetch(`https://datatattat.com${route}`, {
 			method: "GET",
 		}).catch((error) => {
@@ -125,8 +141,13 @@ export const pageQueriesCronConfig: CronConfig = {
 			onComplete: () => {},
 		},
 		{
+			time: "12,27,42,57 * * * *",
+			fetchFn: () => pingApp(["/uk"]),
+			onComplete: () => {},
+		},
+		{
 			time: "14,29,44,59 * * * *",
-			fetchFn: () => pingApp(),
+			fetchFn: () => pingApp(["/us", "/world", "/pope-francis"]),
 			onComplete: () => {},
 		},
 	],
