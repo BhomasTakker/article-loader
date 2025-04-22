@@ -1,11 +1,16 @@
 import { youtubeApiFetch } from "../../../lib/api/youtube/search";
 import { logMemoryUsage } from "../../../lib/mem";
 import { searchArticles } from "../../../lib/mongo/actions/articles/search";
-import { getPageByRoute } from "../../../lib/mongo/actions/page/get-page";
+import {
+	getPageByRoute,
+	getPagesByUser,
+} from "../../../lib/mongo/actions/page/get-page";
 import { connectToMongoDB } from "../../../lib/mongo/db";
 import { IPage, WithQuery } from "../../../types/page/page";
 import { CRON_TIMES } from "../../create-cron";
 import { CronConfig } from "../../types";
+
+require("dotenv").config();
 
 const API_PROVIDERS = {
 	ARTICLES_SEARCH_API: "articles-search-api",
@@ -67,10 +72,30 @@ const executeAndCacheQueriesFromPage = async (
 	await Promise.all(pagePromises);
 };
 
-export const pingApp = async (routes: string[]) => {
-	logMemoryUsage();
+const getPageRoutes = async () => {
+	await connectToMongoDB();
+	// Better by name - then get the id and use that.
+	const USER_ID = process.env.ADMIN_USER;
 
-	const promises = routes.map(async (route) => {
+	if (!USER_ID) {
+		console.error("No USER_ID found in environment variables.");
+		return Promise.resolve([]);
+	}
+
+	const pages = (await getPagesByUser(USER_ID)) || [];
+	const pageRoutes = pages.map((page) => {
+		const { route } = page;
+		return route;
+	});
+
+	return pageRoutes;
+};
+
+export const pingApp = async () => {
+	logMemoryUsage();
+	const pageRoutes = await getPageRoutes();
+
+	const promises = pageRoutes.map(async (route) => {
 		return fetch(`https://datatattat.com${route}`, {
 			method: "GET",
 		}).catch((error) => {
@@ -80,7 +105,7 @@ export const pingApp = async (routes: string[]) => {
 	});
 
 	await Promise.all(promises);
-	console.log("All routes pinged successfully:", routes);
+	console.log("All routes pinged successfully:", pageRoutes);
 	return Promise.resolve();
 };
 
@@ -114,18 +139,7 @@ export const pageQueriesCronConfig: CronConfig = {
 		},
 		{
 			time: "14,29,44,59 * * * *",
-			fetchFn: () =>
-				pingApp([
-					"/",
-					"/uk",
-					"/us",
-					"/world",
-					"/uk/bin-strike",
-					"/uk/gangs-of-scotland",
-					"/uk/spy-cops",
-					"/world/tariffs",
-					"/ukraine",
-				]),
+			fetchFn: () => pingApp(),
 			onComplete: () => {},
 		},
 	],
