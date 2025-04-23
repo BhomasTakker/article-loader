@@ -115,7 +115,7 @@ export const US_3 = {
 			src: "https://www.theatlantic.com/feed/all/",
 		},
 		{
-			name: NewsSources.SEATLE_TIMES,
+			name: NewsSources.SEATTLE_TIMES,
 			src: "https://www.seattletimes.com/nation-world/nation/feed/",
 		},
 		{

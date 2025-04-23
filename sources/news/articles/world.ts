@@ -183,7 +183,7 @@ export const WORLD_4 = {
 			src: "https://www.latimes.com/world-nation/rss2.0.xml",
 		},
 		{
-			name: NewsSources.SEATLE_TIMES,
+			name: NewsSources.SEATTLE_TIMES,
 			src: "https://www.seattletimes.com/nation-world/feed/",
 		},
 	],
