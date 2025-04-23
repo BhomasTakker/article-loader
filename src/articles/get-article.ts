@@ -6,7 +6,17 @@ import {
 import { getMeta } from "../html/get-meta";
 import { ExtraData } from "../../sources/news/articles/types";
 import { ProviderItem } from "../types/article/provider";
-import { logMemoryUsage } from "../lib/mem";
+
+// Do not do this with YouTube!!
+const stripQueryStringFromUrl = (url: URL) => {
+	const { pathname, origin } = url;
+	const newUrl = new URL(origin + pathname);
+	// Remove query string from the URL
+	newUrl.search = "";
+	// Remove any hash fragments from the URL
+	newUrl.hash = "";
+	return newUrl.toString();
+};
 
 const convertRssItem = (data: RSSItem) => {
 	const {
@@ -26,9 +36,12 @@ const convertRssItem = (data: RSSItem) => {
 	const { url = "" } = enclosure || {};
 	const contentEncoded = data["content:encoded"];
 
+	const parsedUrl = new URL(link);
+	const strippedUrl = stripQueryStringFromUrl(parsedUrl);
+
 	return {
 		title: title,
-		src: link,
+		src: strippedUrl,
 		// feels wrong to use contentSnippet and content
 		description: description || contentEncoded, //contentSnippet || content || description,
 		contentEncoded,
