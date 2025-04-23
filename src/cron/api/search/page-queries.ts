@@ -65,11 +65,24 @@ const getPageRoutes = async () => {
 	return pageRoutes;
 };
 
-const executeAndCacheQueriesFromPage = async (apis: API_PROVIDERS[]) => {
+const executeAndCacheQueriesFromPage = async (
+	apis: API_PROVIDERS[],
+	filter: string[]
+) => {
 	await connectToMongoDB();
 	const pageRoutes = await getPageRoutes();
 
 	const pagePromises = pageRoutes.map(async (route) => {
+		let cacheRoute = false;
+		filter.forEach((f) => {
+			if (route.includes(f)) {
+				cacheRoute = true;
+			}
+		});
+		if (cacheRoute === false) {
+			return Promise.resolve(null);
+		}
+
 		const pageDocument = getPageByRoute(route);
 		pageDocument.then((page) => {
 			if (!page) return Promise.resolve(null);
@@ -129,15 +142,31 @@ export const pageQueriesCronConfig: CronConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			time: "11,26,41,56 * * * *",
+			// time: "11,26,41,56 * * * *",
+			time: CRON_TIMES.seconds_30,
 			fetchFn: () =>
-				executeAndCacheQueriesFromPage([API_PROVIDERS.ARTICLES_SEARCH_API]),
+				executeAndCacheQueriesFromPage(
+					[API_PROVIDERS.ARTICLES_SEARCH_API],
+					["/uk"]
+				),
+			onComplete: () => {},
+		},
+		{
+			time: "10,25,40,55 * * * *",
+			fetchFn: () =>
+				executeAndCacheQueriesFromPage(
+					[API_PROVIDERS.ARTICLES_SEARCH_API],
+					["/us", "/world", "/pope-francis"]
+				),
 			onComplete: () => {},
 		},
 		{
 			time: "13 */6 * * *",
 			fetchFn: () =>
-				executeAndCacheQueriesFromPage([API_PROVIDERS.YOUTUBE_API]),
+				executeAndCacheQueriesFromPage(
+					[API_PROVIDERS.YOUTUBE_API],
+					["/uk", "/us", "/world", "/ukraine"]
+				),
 			onComplete: () => {},
 		},
 		{
