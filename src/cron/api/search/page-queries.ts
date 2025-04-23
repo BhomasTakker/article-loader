@@ -142,8 +142,7 @@ export const pageQueriesCronConfig: CronConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			// time: "11,26,41,56 * * * *",
-			time: CRON_TIMES.seconds_30,
+			time: "11,26,41,56 * * * *",
 			fetchFn: () =>
 				executeAndCacheQueriesFromPage(
 					[API_PROVIDERS.ARTICLES_SEARCH_API],
