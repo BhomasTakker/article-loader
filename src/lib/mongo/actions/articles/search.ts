@@ -5,28 +5,43 @@ import { buildArticleSearchQuery } from "./query";
 const CACHE_TIME = 60 * 60;
 
 export type GetLatestArticlesProps = {
+	// must, mustNot, filter, should
 	query?: string;
+
+	mustContain?: string[];
+	mustNotContain?: string[];
+	shouldContain?: string[];
+	filterContain?: string[];
+
+	minimumShouldMatch?: number;
+
+	// remove
 	textScore?: string;
-	//match
+	contentType?: string;
+
+	// can't at the moment
 	provider?: string;
 	origin?: string;
+
 	variant?: string;
-	contentType?: string;
-	before?: string;
-	after?: string;
+
+	before?: Date;
+	after?: Date;
+
+	// cannot query provider at the moment
+	// search index etc required
 	trustHigher?: string;
 	trustLower?: string;
+	leaningHigher?: boolean;
+	leaningLower?: boolean;
+
 	durationHigher?: string;
 	durationLower?: string;
-	leaningHigher?: string;
-	leaningLower?: string;
 	region?: string;
 	language?: string;
-	// sort
+
 	sort?: string;
-	// limit
 	limit?: string;
-	// count? reutn count of articles
 };
 
 export const searchArticles = async (
