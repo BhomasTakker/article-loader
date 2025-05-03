@@ -12,7 +12,7 @@ export const updateArticleProviders = async () => {
 				return;
 			}
 			// console.log("value", value);
-			// console.log("key", key);
+			console.log("key", key);
 			// should return status log if updated issue etc
 			// don't await here await the full promise
 			promises.push(saveOrCreateArticleProviderByName(value));
