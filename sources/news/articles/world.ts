@@ -275,4 +275,37 @@ export const WORLD_6 = {
 	],
 };
 
+export const WORLD_7 = {
+	categories: [],
+	collectionType: "news",
+	region: "world",
+	language: "en",
+	sources: [
+		{
+			name: NewsSources.KYIV_INDEPENDENT,
+			src: "https://sputniknews.com/export/rss2/archive/index.xml",
+			region: "Ukraine",
+		},
+		{
+			name: NewsSources.ELECTRONIC_INTIFADA,
+			src: "https://electronicintifada.net/rss.xml",
+			region: "Palestine",
+		},
+		{
+			name: NewsSources.QUDS_NEWS,
+			src: "https://qudsnen.co/feed/",
+			region: "Palestine",
+		},
+		{
+			name: NewsSources.TIMES_OF_ISRAEL,
+			src: "https://www.timesofisrael.com/rss",
+			region: "Occupied Palestine",
+		},
+		{
+			name: NewsSources.HAARETZ,
+			src: "https://www.haaretz.com/srv/haaretz-latest-headlines",
+			region: "Occupied Palestine",
+		},
+	],
+};
 // https://rss.feedspot.com/world_news_rss_feeds/
