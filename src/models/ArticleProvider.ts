@@ -27,6 +27,7 @@ const ArticleProviderSchema = new Schema<ProviderItem>(
 			type: String,
 			required: [true, "Please provide an origin."],
 		},
+		logo: String,
 	},
 	{ timestamps: true }
 );

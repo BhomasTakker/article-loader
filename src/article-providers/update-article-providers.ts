@@ -11,7 +11,7 @@ export const updateArticleProviders = async () => {
 				console.error(`No provider found for ${key}`);
 				return;
 			}
-			console.log("value", value);
+			// console.log("value", value);
 			console.log("key", key);
 			// should return status log if updated issue etc
 			// don't await here await the full promise

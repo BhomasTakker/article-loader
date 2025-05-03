@@ -185,3 +185,44 @@ export const US_4 = {
 		},
 	],
 };
+
+export const US_5 = {
+	categories: [],
+	collectionType: "news",
+	region: "US",
+	language: "en",
+	sources: [
+		{
+			name: NewsSources.TENNESSEE_HOLLER,
+			src: "https://tnholler.com/feed/",
+		},
+		{
+			name: NewsSources.DROP_SITE_NEWS,
+			src: "https://www.dropsitenews.com/feed",
+		},
+		{
+			name: NewsSources.THE_INTELLECTUALIST,
+			src: "https://theintellectualist.com/feed/",
+		},
+		{
+			name: NewsSources.GRAY_ZONE,
+			src: "https://thegrayzone.com/feed/",
+		},
+		{
+			name: NewsSources.ROLLING_STONE,
+			src: "https://www.rollingstone.com/feed/",
+		},
+		{
+			news: NewsSources.MINT_PRESS_NEWS,
+			src: "https://www.mintpressnews.com/feed/",
+		},
+		{
+			news: NewsSources.TRUTHOUT,
+			src: "https://truthout.org/feed/",
+		},
+		{
+			news: NewsSources.REVEAL_NEWS,
+			src: "https://www.revealnews.org/feed/",
+		},
+	],
+};

@@ -131,3 +131,24 @@ export const UK_2 = {
 		},
 	],
 };
+
+export const UK_3 = {
+	categories: [],
+	collectionType: "news",
+	region: "UK",
+	language: "en",
+	sources: [
+		{
+			name: NewsSources.DECLASSIFIED,
+			src: "https://www.declassifieduk.org/feed/",
+		},
+		{
+			name: NewsSources.NOVARA,
+			src: "https://novaramedia.com/feed/",
+		},
+		{
+			name: NewsSources.BYLINE_TIMES,
+			src: "https://bylinetimes.com/feed/",
+		},
+	],
+};
