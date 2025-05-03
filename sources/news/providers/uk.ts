@@ -1,3 +1,5 @@
+import { NewsSources } from "../sources";
+
 export const bbcNews = {
 	origin: "UK",
 	name: "BBC",
@@ -283,6 +285,26 @@ export const novara = {
 	description: "Novara Media is a British independent media company.",
 	url: "https://novaramedia.com/",
 	logo: "https://novaramedia.com/wp-content/uploads/2024/02/OG_Main-Website-1200x630.png",
-	rating: 85,
-	leaning: -0.4,
+	rating: 75,
+	leaning: 0,
+};
+
+export const declassiied = {
+	origin: "UK",
+	name: "Declassified UK",
+	description: "Declassified UK is a British independent media company.",
+	url: "https://declassifieduk.org/",
+	logo: "https://www.declassifieduk.org/wp-content/uploads/2022/10/Declassified_Twitter_Banner_02a.jpg",
+	rating: 75,
+	leaning: 0,
+};
+
+export const bylineTimes = {
+	origin: "UK",
+	name: NewsSources.BYLINE_TIMES,
+	description: "Byline Times is a British independent media company.",
+	url: "https://bylinetimes.com/",
+	logo: "https://bylinetimes.com/wp-content/uploads/2025/04/Social-Media-Cover-600x314.jpg",
+	rating: 75,
+	leaning: 0,
 };

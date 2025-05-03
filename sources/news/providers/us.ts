@@ -1,3 +1,5 @@
+import { NewsSources } from "../sources";
+
 export const cnn = {
 	origin: "USA",
 	name: "CNN",
@@ -359,5 +361,85 @@ export const theEconomist = {
 	url: "https://www.economist.com/",
 	logo: "https://economist.prod.limio.com/public/8e54554b-dc88-48d8-845d-4cad0e847c00/favicon.f1ea9088.png",
 	rating: 85,
+	leaning: 0,
+};
+
+export const tennesseeHoller = {
+	origin: "USA",
+	name: NewsSources.TENNESSEE_HOLLER,
+	description: "Tennessee Holler is an American news website.",
+	url: "https://tennesseeholler.com/",
+	logo: "https://tnholler.com/wp-content/uploads/2021/01/CardCover.png",
+	rating: 75,
+	leaning: -0.2,
+};
+
+export const theIntellectualist = {
+	origin: "USA",
+	name: NewsSources.THE_INTELLECTUALIST,
+	description: "The Intellectualist is an American news website.",
+	url: "https://theintellectualist.com/",
+	logo: "https://theintellectualist.com/wp-content/uploads/2022/09/intellectualist-logo-facebook.png",
+	rating: 75,
+	leaning: -0.2,
+};
+
+export const dropSiteNews = {
+	origin: "USA",
+	name: NewsSources.DROP_SITE_NEWS,
+	description: "Drop Site News is an American news website.",
+	url: "https://dropsitenews.com/",
+	logo: "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb0775de3-5fb8-4c8a-969d-cbe0012d3401%2Fapple-touch-icon-1024x1024.png",
+	rating: 75,
+	leaning: -0.2,
+};
+
+export const theGrayZone = {
+	origin: "USA",
+	name: "The Gray Zone",
+	description: "The Gray Zone is an American news website.",
+	url: "https://thegrayzone.com/",
+	logo: "https://i0.wp.com/thegrayzone.com/wp-content/uploads/2020/08/the-grayzone-header-tagline.png?fit=1920%2C1080&ssl=1",
+	rating: 75,
+	leaning: -0.2,
+};
+
+export const rollingStone = {
+	origin: "USA",
+	name: NewsSources.ROLLING_STONE,
+	description: "Rolling Stone is an American magazine.",
+	url: "https://www.rollingstone.com/",
+	logo: "https://www.rollingstone.com/wp-content/uploads/2024/12/R-Avatar_512x512_flat.png",
+	rating: 75,
+	leaning: 0,
+};
+
+export const mintPressNews = {
+	origin: "USA",
+	name: "Mint Press News",
+	description: "Mint Press News is an American news website.",
+	url: "https://www.mintpressnews.com/",
+	logo: "https://www.mintpressnews.com/wp-content/uploads/2012/11/MintPressLogo200x200new-filled1.png",
+	rating: 75,
+	leaning: 0,
+};
+
+export const truthOut = {
+	origin: "USA",
+	name: "Truthout",
+	description: "Truthout is an American news website.",
+	url: "https://truthout.org/",
+	logo: "https://truthout.org/app/uploads/2018/03/Truthout-Default-Image.png",
+	rating: 75,
+	leaning: 0,
+};
+
+export const revealNews = {
+	origin: "USA",
+	name: NewsSources.REVEAL_NEWS,
+	description: "Reveal News is an American news website.",
+	url: "https://www.revealnews.org/",
+	logo: "https://revealnews.org/wp-content/uploads/2021/03/FEB21-Reveal-Social-Sharing-Image.png",
+	rating: 75,
 	leaning: 0,
 };

@@ -1,3 +1,5 @@
+import { NewsSources } from "../sources";
+
 export const aljazeera = {
 	origin: "Qatar",
 	name: "Al Jazeera",
@@ -316,4 +318,66 @@ export const un = {
 	logo: "https://news.un.org/en/themes/custom/un3/un3_base/images/logos/UN_logo_en.svg",
 	rating: 85,
 	leaning: -0.1,
+};
+
+export const kyivIndependent = {
+	origin: "Ukraine",
+	name: NewsSources.KYIV_INDEPENDENT,
+	description:
+		"The Kyiv Independent is an English-language online newspaper based in Ukraine.",
+	url: "https://kyivindependent.com/",
+	logo: "https://assets.kyivindependent.com/content/images/2023/06/image-127-1670328349vlDtD-1200x630--1-.png",
+	rating: 80,
+	leaning: 0,
+};
+
+export const electronicIntifada = {
+	origin: "Palestine",
+	name: "Electronic Intifada",
+	description: "The Electronic Intifada",
+	url: "https://electronicintifada.net/",
+	logo: "https://electronicintifada.net/profiles/electronicintifada/themes/sumud/favicons/apple-icon-180x180.png",
+	rating: 80,
+	leaning: 0,
+};
+
+export const qudsNews = {
+	origin: "Palestine",
+	name: "Quds News",
+	description: "Quds News",
+	url: "https://www.qudsnews.com/",
+	logo: "https://qudsnen.co/wp-content/uploads/2021/11/quds-network-news-logo.png",
+	rating: 80,
+	leaning: 0,
+};
+
+export const timesOfIsrael = {
+	origin: "Occupied Palestine",
+	name: NewsSources.TIMES_OF_ISRAEL,
+	description: "News from Israel and the Middle East.",
+	url: "https://www.timesofisrael.com/",
+	logo: "https://static.timesofisrael.com/www/images/toi_icon_fb_1200.png",
+	rating: 10,
+	leaning: 0.9,
+};
+
+export const haaretz = {
+	origin: "Occupied Palestine",
+	name: NewsSources.HAARETZ,
+	description: "News from Israel and the Middle East.",
+	url: "https://www.haaretz.com/",
+	logo: "https://www.haaretz.com/v1/hdc-app-bucket/static/hdc/images/apple-touch-icon-152x152.png",
+	rating: 75,
+	leaning: 0.2,
+};
+
+export const middleEastEye = {
+	origin: "Middle East",
+	name: NewsSources.MIDDLE_EAST_EYE,
+	description:
+		"Middle East Eye is a news website that focuses on the Middle East and North Africa.",
+	url: "https://www.middleeasteye.net/",
+	logo: "https://www.middleeasteye.net/sites/default/files/mee%20web1.png",
+	rating: 75,
+	leaning: 0,
 };
