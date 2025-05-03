@@ -13,8 +13,9 @@ export const saveOrCreateArticleProviderByName = async (
 	provider: ProviderItem
 ) => {
 	const { name } = provider;
+
 	try {
-		ArticleProvider.updateOne(
+		return ArticleProvider.updateOne(
 			{ name }, // find
 			provider, // update
 			{
