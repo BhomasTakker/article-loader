@@ -322,7 +322,7 @@ export const un = {
 
 export const kyivIndependent = {
 	origin: "Ukraine",
-	name: NewsSources.KYIV_INDEPENDENT,
+	name: "Kyiv Independent",
 	description:
 		"The Kyiv Independent is an English-language online newspaper based in Ukraine.",
 	url: "https://kyivindependent.com/",
@@ -353,7 +353,7 @@ export const qudsNews = {
 
 export const timesOfIsrael = {
 	origin: "Occupied Palestine",
-	name: NewsSources.TIMES_OF_ISRAEL,
+	name: "The Times Of Israel",
 	description: "News from Israel and the Middle East.",
 	url: "https://www.timesofisrael.com/",
 	logo: "https://static.timesofisrael.com/www/images/toi_icon_fb_1200.png",
@@ -363,7 +363,7 @@ export const timesOfIsrael = {
 
 export const haaretz = {
 	origin: "Occupied Palestine",
-	name: NewsSources.HAARETZ,
+	name: "Haaretz",
 	description: "News from Israel and the Middle East.",
 	url: "https://www.haaretz.com/",
 	logo: "https://www.haaretz.com/v1/hdc-app-bucket/static/hdc/images/apple-touch-icon-152x152.png",
@@ -373,7 +373,7 @@ export const haaretz = {
 
 export const middleEastEye = {
 	origin: "Middle East",
-	name: NewsSources.MIDDLE_EAST_EYE,
+	name: "Middle East Eye",
 	description:
 		"Middle East Eye is a news website that focuses on the Middle East and North Africa.",
 	url: "https://www.middleeasteye.net/",

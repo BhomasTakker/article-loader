@@ -301,7 +301,7 @@ export const declassiied = {
 
 export const bylineTimes = {
 	origin: "UK",
-	name: NewsSources.BYLINE_TIMES,
+	name: "Byline Times",
 	description: "Byline Times is a British independent media company.",
 	url: "https://bylinetimes.com/",
 	logo: "https://bylinetimes.com/wp-content/uploads/2025/04/Social-Media-Cover-600x314.jpg",

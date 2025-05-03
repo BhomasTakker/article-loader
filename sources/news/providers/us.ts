@@ -366,7 +366,7 @@ export const theEconomist = {
 
 export const tennesseeHoller = {
 	origin: "USA",
-	name: NewsSources.TENNESSEE_HOLLER,
+	name: "Tennessee Holler",
 	description: "Tennessee Holler is an American news website.",
 	url: "https://tennesseeholler.com/",
 	logo: "https://tnholler.com/wp-content/uploads/2021/01/CardCover.png",
@@ -376,7 +376,7 @@ export const tennesseeHoller = {
 
 export const theIntellectualist = {
 	origin: "USA",
-	name: NewsSources.THE_INTELLECTUALIST,
+	name: "Intellectualist",
 	description: "The Intellectualist is an American news website.",
 	url: "https://theintellectualist.com/",
 	logo: "https://theintellectualist.com/wp-content/uploads/2022/09/intellectualist-logo-facebook.png",
@@ -386,7 +386,7 @@ export const theIntellectualist = {
 
 export const dropSiteNews = {
 	origin: "USA",
-	name: NewsSources.DROP_SITE_NEWS,
+	name: "Drop Site News",
 	description: "Drop Site News is an American news website.",
 	url: "https://dropsitenews.com/",
 	logo: "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb0775de3-5fb8-4c8a-969d-cbe0012d3401%2Fapple-touch-icon-1024x1024.png",
@@ -406,7 +406,7 @@ export const theGrayZone = {
 
 export const rollingStone = {
 	origin: "USA",
-	name: NewsSources.ROLLING_STONE,
+	name: "Rolling Stone",
 	description: "Rolling Stone is an American magazine.",
 	url: "https://www.rollingstone.com/",
 	logo: "https://www.rollingstone.com/wp-content/uploads/2024/12/R-Avatar_512x512_flat.png",
@@ -436,7 +436,7 @@ export const truthOut = {
 
 export const revealNews = {
 	origin: "USA",
-	name: NewsSources.REVEAL_NEWS,
+	name: "Reveal News",
 	description: "Reveal News is an American news website.",
 	url: "https://www.revealnews.org/",
 	logo: "https://revealnews.org/wp-content/uploads/2021/03/FEB21-Reveal-Social-Sharing-Image.png",
