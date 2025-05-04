@@ -1,0 +1,107 @@
+// better name then utils!
+
+import { GetLatestArticlesProps } from "../search";
+
+const HARD_LIMIT = 100;
+
+export const getLimit = (queryParams: GetLatestArticlesProps) => {
+	const { limit = HARD_LIMIT } = queryParams;
+	let limitToUse = +limit <= HARD_LIMIT ? +limit : HARD_LIMIT;
+
+	if (isNaN(+limit) || !limit) {
+		limitToUse = HARD_LIMIT;
+	}
+	return limitToUse;
+};
+
+export const addFilter = (
+	filter: any[],
+	query: string | number | boolean | object | unknown[],
+	path: string,
+	type: string = "text"
+) => {
+	if (query) {
+		filter.push({
+			[type]: {
+				query,
+				path,
+			},
+		});
+	}
+	return filter;
+};
+
+export const addDurationRange = (
+	filter: any[],
+	queryParams: GetLatestArticlesProps
+) => {
+	const { durationHigher, durationLower } = queryParams;
+	if (durationHigher || durationLower) {
+		filter.push({
+			range: {
+				path: "media.duration",
+				gt: durationHigher ? +durationHigher : undefined,
+				lt: durationLower ? +durationLower : undefined,
+			},
+		});
+	}
+};
+
+export const addDateRange = (
+	filter: any[],
+	queryParams: GetLatestArticlesProps
+) => {
+	const { before, after } = queryParams;
+	if (before || after) {
+		filter.push({
+			range: {
+				path: "details.published",
+				gt: after ? new Date(after) : undefined,
+				lt: before ? new Date(before) : undefined,
+			},
+		});
+	}
+	return filter;
+};
+
+// A little ugly / do better
+export const addMinimumShouldMatch = (queryParams: GetLatestArticlesProps) => {
+	const { minimumShouldMatch, shouldContain = [] } = queryParams;
+
+	if (minimumShouldMatch) {
+		const isValid = +minimumShouldMatch >= 0 && +minimumShouldMatch <= 100;
+		if (isValid && shouldContain.length >= +minimumShouldMatch) {
+			return +minimumShouldMatch;
+		}
+		return 0;
+	}
+	return 0;
+};
+
+const AvailableSort = {
+	NONE: "none",
+	RELEVANCE: "relevance",
+	DATE_ASCENDING: "date-ascending",
+	DATE_DESCENDING: "date-descending",
+} as const;
+
+export const addSort = (queryParams: GetLatestArticlesProps) => {
+	const { sort } = queryParams;
+
+	switch (sort) {
+		case AvailableSort.RELEVANCE:
+			// check a query!
+			return {
+				score: {
+					$meta: "searchScore",
+					order: 1,
+				},
+			};
+		case AvailableSort.DATE_ASCENDING:
+			return { "details.published": 1 };
+		case AvailableSort.DATE_DESCENDING:
+			return { "details.published": -1 };
+		default:
+			return undefined;
+	}
+};
