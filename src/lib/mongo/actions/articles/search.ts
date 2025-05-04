@@ -32,8 +32,8 @@ export type GetLatestArticlesProps = {
 	// search index etc required
 	trustHigher?: string;
 	trustLower?: string;
-	leaningHigher?: boolean;
-	leaningLower?: boolean;
+	leaningHigher?: string;
+	leaningLower?: string;
 
 	durationHigher?: string;
 	durationLower?: string;
