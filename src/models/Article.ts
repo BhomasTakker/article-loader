@@ -49,6 +49,7 @@ const ArticleSchema = new Schema<CollectionItem>(
 		title: {
 			type: String,
 			required: [true, "Please provide a title."],
+			unique: [true, "Title must be unique"],
 		},
 		src: {
 			type: String,
