@@ -82,7 +82,7 @@ export const rt = {
 		"RT is a Russian state-controlled international television network.",
 	url: "https://www.rt.com/",
 	logo: "https://www.rt.com/static/img/og-logo-rt.png",
-	rating: 85,
+	rating: 55,
 	leaning: -0.1,
 };
 
@@ -92,7 +92,7 @@ export const sputnik = {
 	description: "Sputnik is a Russian state-owned news agency.",
 	url: "https://sputniknews.com/",
 	logo: "https://cdn1.img.sputnikglobe.com/i/logo/logo-social.png",
-	rating: 85,
+	rating: 55,
 	leaning: -0.1,
 };
 
