@@ -9,6 +9,7 @@ import { initCronJobs } from "./src/cron/init-cron";
 import { initRssRoutes } from "./routes/rss-routes";
 import { podcastRssCronConfig } from "./src/cron/podcasts/podcast.config";
 import { pageQueriesCronConfig } from "./src/cron/api/search/page-queries";
+import { rssCronConfig } from "./src/cron/rss/rss-cron";
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -16,6 +17,7 @@ const isRssRoute = process.env.RSS_ROUTE === "true" || false;
 const isApiRoute = process.env.API_ROUTE === "true" || false;
 const isCron = process.env.CRON === "true" || false;
 const isApiCron = process.env.API_CRON === "true" || false;
+const isRSSCron = process.env.RSS_CRON === "true" || false;
 
 require("dotenv").config();
 
@@ -48,6 +50,7 @@ isApiRoute && initApiRoutes(app);
 isCron && initCronJobs(podcastRssCronConfig);
 
 isApiCron && initCronJobs(pageQueriesCronConfig);
+isRSSCron && initCronJobs(rssCronConfig);
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
