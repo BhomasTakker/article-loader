@@ -381,3 +381,47 @@ export const middleEastEye = {
 	rating: 75,
 	leaning: 0,
 };
+
+export const theCradle = {
+	origin: "Middle East",
+	name: "The Cradle",
+	description:
+		"The Cradle is a news website that focuses on the Middle East and North Africa.",
+	url: "https://thecradle.co/",
+	logo: "https://thecradle.co/assets/images/thecradle-og.png",
+	rating: 75,
+	leaning: 0,
+};
+
+export const royaNews = {
+	origin: "Iran",
+	name: "Roya News",
+	description:
+		"Roya News is an Iranian news website that focuses on the Middle East and North Africa.",
+	url: "https://www.royanews.tv/",
+	logo: "https://en.royanews.tv/assets/images/05.svg",
+	rating: 75,
+	leaning: 0,
+};
+
+export const palestineChronicle = {
+	origin: "Palestine",
+	name: "Palestine Chronicle",
+	description:
+		"The Palestine Chronicle is a news website that focuses on Palestine.",
+	url: "https://www.palestinechronicle.com/",
+	logo: "https://www.palestinechronicle.com/wp-content/uploads/2021/01/cropped-palestine_chronicle_footer_new_logo-192x192.png",
+	rating: 75,
+	leaning: 0,
+};
+
+export const palestineNewsNetwork = {
+	origin: "Palestine",
+	name: "Palestine News Network",
+	description:
+		"The Palestine New Network is a news website that focuses on Palestine.",
+	url: "https://english.pnn.ps/",
+	logo: "https://english.pnn.ps/assets/img/favicon/apple-icon-180x180.png",
+	rating: 75,
+	leaning: 0,
+};

@@ -306,6 +306,19 @@ export const WORLD_7 = {
 			src: "https://www.haaretz.com/srv/haaretz-latest-headlines",
 			region: "Occupied Palestine",
 		},
+		{
+			news: NewsSources.THE_CRADLE,
+			src: "https://thecradle.co/feed",
+			region: "Middle East",
+		},
+		{
+			name: NewsSources.PALESTINE_CHRONICLE,
+			src: "https://www.palestinechronicle.com/feed/",
+		},
+		{
+			name: NewsSources.PALESTINE_NEWS_NETWORK,
+			src: "https://english.pnn.ps/feed",
+		},
 	],
 };
 // https://rss.feedspot.com/world_news_rss_feeds/

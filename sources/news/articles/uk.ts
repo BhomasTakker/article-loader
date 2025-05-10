@@ -154,5 +154,9 @@ export const UK_3 = {
 			name: NewsSources.COUNCIL_ESTATE_MEDIA,
 			src: "https://www.councilestatemedia.uk/feed",
 		},
+		{
+			name: NewsSources.OWEN_JONES,
+			src: "https://www.owenjones.news/feed",
+		},
 	],
 };

@@ -224,5 +224,17 @@ export const US_5 = {
 			news: NewsSources.REVEAL_NEWS,
 			src: "https://www.revealnews.org/feed/",
 		},
+		{
+			news: NewsSources.DAILY_WIRE,
+			src: "https://www.dailywire.com/feeds/rss.xml",
+		},
+		{
+			news: NewsSources.SLATE,
+			src: "https://slate.com/feeds/all.rss",
+		},
+		{
+			news: NewsSources.ZETEO,
+			src: "https://zeteo.com/feed",
+		},
 	],
 };

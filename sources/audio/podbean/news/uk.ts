@@ -107,5 +107,10 @@ export const NEWS_UK_2 = {
 			collectionTitle: "The Fourcast",
 			src: "https://thefourcast.libsyn.com/rss",
 		},
+		{
+			name: NewsSources.OWEN_JONES,
+			collectionTitle: "The Owen Jones Podcast",
+			src: "https://feeds.acast.com/public/shows/c94a5041-3d43-419a-9d17-a557fb51e056",
+		},
 	],
 };

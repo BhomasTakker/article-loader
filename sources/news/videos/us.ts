@@ -85,5 +85,17 @@ export const US_VIDEO_2 = {
 			name: NewsSources.INTERCEPT,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCv002AUCZaPNwiADqwchijg",
 		},
+		{
+			name: NewsSources.DAILY_WIRE,
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCaeO5vkdj5xOQHp4UmIN6dw",
+		},
+		{
+			name: NewsSources.DROP_SITE_NEWS,
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCBMrOkjg3AbvLS5g1MhtlRQ",
+		},
+		{
+			name: NewsSources.ZETEO,
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCVG72F2Q5yCmLQfctNK6M2A",
+		},
 	],
 };

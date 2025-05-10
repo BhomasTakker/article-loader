@@ -109,6 +109,11 @@ export const NEWS_US_2 = {
 			collectionTitle: "The 7",
 			src: "https://podcast.posttv.com/itunes/the-7.xml",
 		},
+		{
+			name: NewsSources.DAILY_WIRE,
+			collectionTitle: "Morning Wire",
+			src: "https://feeds.simplecast.com/WCb5SgYj",
+		},
 	],
 };
 
@@ -192,6 +197,16 @@ export const NEWS_US_4 = {
 			collectionTitle: "The Intercept Briefing",
 			name: NewsSources.INTERCEPT,
 			src: "https://feeds.acast.com/public/shows/f5b64019-68c3-57d4-b70b-043e63e5cbf6",
+		},
+		{
+			name: NewsSources.SLATE,
+			collectionTitle: "What Next | Daily News and Analysis",
+			src: "https://feeds.megaphone.fm/whatnext",
+		},
+		{
+			name: NewsSources.DROP_SITE_NEWS,
+			collectionTitle: "Drop Site News",
+			src: "https://api.substack.com/feed/podcast/2510348/s/153051.rss",
 		},
 	],
 };
