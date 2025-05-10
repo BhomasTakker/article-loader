@@ -1,5 +1,6 @@
 import { SourceObject } from "../../sources/news/articles/types";
 import { FetchArticles } from "../articles/fetch-articles";
+import { connectToMongoDB } from "../lib/mongo/db";
 import { fetchRss } from "../rss/fetch-rss";
 import { Service, ServiceState } from "../service";
 import { GetCollection } from "./get-collection";
@@ -20,6 +21,7 @@ export const fetchCollections =
 		customFields,
 	}: FetchCollectionsProps<T, G>) =>
 	async () => {
+		await connectToMongoDB();
 		const service = Service.getInstance();
 		const state = service.getState();
 

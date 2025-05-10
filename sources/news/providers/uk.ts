@@ -308,3 +308,33 @@ export const bylineTimes = {
 	rating: 75,
 	leaning: 0,
 };
+
+export const councilEstateMedia = {
+	origin: "UK",
+	name: "Council Estate Media",
+	description: "Council Estate MEdia is a UK substack publication.",
+	url: "https://www.councilestatemedia.uk/",
+	logo: "https://substackcdn.com/image/fetch/e_trim:10:white/e_trim:10:transparent/h_72,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F15dd166a-13cb-4fa1-908b-563fca297e21_252x49.jpeg",
+	rating: 75,
+	leaning: 0,
+};
+
+export const owenJones = {
+	origin: "UK",
+	name: "Owen Jones",
+	description: "Owen Jones is a British journalist and author.",
+	url: "https://www.owenjones.news/",
+	logo: "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5ea42589-dd0c-455c-9226-a862f0a7c12f%2Fapple-touch-icon-180x180.png",
+	rating: 75,
+	leaning: 0,
+};
+
+export const doubleDownNews = {
+	origin: "UK",
+	name: "Double Down News",
+	description: "Double Down News is a British independent media company.",
+	url: "https://www.doubledown.news/",
+	logo: "http://static1.squarespace.com/static/5b3bed4a75f9ee82a35df852/t/5cc779884e17b6046f5372ca/1556576656282/Cover.jpg?format=1500w",
+	rating: 75,
+	leaning: 0,
+};

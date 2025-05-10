@@ -18,7 +18,6 @@ export const BITES_US = {
 			name: NewsSources.NPR,
 			src: "https://feeds.npr.org/500005/podcast.xml",
 		},
-
 		{
 			collectionTitle: "WSJ Minute Briefing",
 			name: NewsSources.WALL_STREET_JOURNAL,
@@ -105,6 +104,16 @@ export const NEWS_US_2 = {
 			collectionTitle: "The New Yorker: Politics and More",
 			src: "https://feeds.simplecast.com/TRuO_SRo",
 		},
+		{
+			name: NewsSources.WASHINGTON_POST,
+			collectionTitle: "The 7",
+			src: "https://podcast.posttv.com/itunes/the-7.xml",
+		},
+		{
+			name: NewsSources.DAILY_WIRE,
+			collectionTitle: "Morning Wire",
+			src: "https://feeds.simplecast.com/WCb5SgYj",
+		},
 	],
 };
 
@@ -138,6 +147,16 @@ export const NEWS_US_3 = {
 			name: NewsSources.VOX,
 			collectionTitle: "Today, Explained",
 			src: "https://feeds.megaphone.fm/VMP5705694065",
+		},
+		{
+			collectionTitle: "WSJ The Journal",
+			name: NewsSources.WALL_STREET_JOURNAL,
+			src: "https://video-api.wsj.com/podcast/rss/wsj/the-journal",
+		},
+		{
+			collectionTitle: "WSJ What's News",
+			name: NewsSources.WALL_STREET_JOURNAL,
+			src: "https://feeds.megaphone.fm/WSJ4886593505?limit=50",
 		},
 	],
 };
@@ -173,6 +192,21 @@ export const NEWS_US_4 = {
 			collectionTitle: "Democracy Now",
 			name: NewsSources.DEMOCRACY_NOW,
 			src: "https://www.democracynow.org/podcast.xml",
+		},
+		{
+			collectionTitle: "The Intercept Briefing",
+			name: NewsSources.INTERCEPT,
+			src: "https://feeds.acast.com/public/shows/f5b64019-68c3-57d4-b70b-043e63e5cbf6",
+		},
+		{
+			name: NewsSources.SLATE,
+			collectionTitle: "What Next | Daily News and Analysis",
+			src: "https://feeds.megaphone.fm/whatnext",
+		},
+		{
+			name: NewsSources.DROP_SITE_NEWS,
+			collectionTitle: "Drop Site News",
+			src: "https://api.substack.com/feed/podcast/2510348/s/153051.rss",
 		},
 	],
 };

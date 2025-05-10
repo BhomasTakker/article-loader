@@ -62,3 +62,28 @@ export const WORLD_VIDEO = {
 		},
 	],
 };
+
+export const WORLD_VIDEO_2 = {
+	categories: [],
+	collectionType: "news",
+	region: "world",
+	language: "en",
+	sources: [
+		{
+			name: NewsSources.QUDS_NEWS,
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCVG72F2Q5yCmLQfctNK6M2A",
+		},
+		{
+			name: NewsSources.MIDDLE_EAST_EYE,
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCR0fZh5SBxxMNYdg0VzRFkg",
+		},
+		{
+			name: NewsSources.THE_CRADLE,
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UC2liaNc5y50YBVjgXiQxdHQ",
+		},
+		// {
+		// 	name: NewsSources.ROYA_NEWS,
+		// 	src: '',
+		// },
+	],
+};

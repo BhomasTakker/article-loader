@@ -443,3 +443,33 @@ export const revealNews = {
 	rating: 75,
 	leaning: 0,
 };
+
+export const dailyWire = {
+	origin: "USA",
+	name: "Daily Wire",
+	description: "The Daily Wire is a conservative news and opinion website.",
+	url: "https://www.dailywire.com/",
+	logo: "https://dailywireplus-v2.imgix.net/images/dailywire.com/DW-Talent-Panel-2025.jpg",
+	rating: 55,
+	leaning: 0.7,
+};
+
+export const slate = {
+	origin: "USA",
+	name: "Slate",
+	description: "Slate is an American news and opinion website.",
+	url: "https://slate.com/",
+	logo: "https://dot.cdnslate.com/static/media/sites/slate-com/icon.400x400.09ec623.png",
+	rating: 75,
+	leaning: -0.1,
+};
+
+export const zeteo = {
+	origin: "USA",
+	name: "Zeteo",
+	description: "Zeteo is an American news website.",
+	url: "https://zeteomedia.com/",
+	logo: "https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc1622f9c-8ffb-4806-a3b6-1c98ff56303f%2Fapple-touch-icon-1024x1024.png",
+	rating: 75,
+	leaning: -0.2,
+};

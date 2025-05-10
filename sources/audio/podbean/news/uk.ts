@@ -58,6 +58,16 @@ export const NEWS_UK_1 = {
 			collectionTitle: "Today In Focus",
 			src: "https://www.theguardian.com/news/series/todayinfocus/podcast.xml",
 		},
+		{
+			name: NewsSources.BBC,
+			collectinTitle: "Diddy On Trial",
+			src: "https://podcasts.files.bbci.co.uk/p0k61syt.rss",
+		},
+		{
+			name: NewsSources.COUNCIL_ESTATE_MEDIA,
+			collectionTitle: "Socialist Voices",
+			src: "https://api.substack.com/feed/podcast/1336368/s/172019.rss",
+		},
 	],
 };
 
@@ -96,6 +106,11 @@ export const NEWS_UK_2 = {
 			name: NewsSources.CHANNEL_4,
 			collectionTitle: "The Fourcast",
 			src: "https://thefourcast.libsyn.com/rss",
+		},
+		{
+			name: NewsSources.OWEN_JONES,
+			collectionTitle: "The Owen Jones Podcast",
+			src: "https://feeds.acast.com/public/shows/c94a5041-3d43-419a-9d17-a557fb51e056",
 		},
 	],
 };

@@ -64,3 +64,20 @@ export const UK_VIDEO = {
 		},
 	],
 };
+
+export const UK_VIDEO_2 = {
+	categories: [],
+	collectionType: "news",
+	region: "UK",
+	language: "en",
+	sources: [
+		{
+			name: NewsSources.OWEN_JONES,
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCSYCo8uRGF39qDCxF870K5Q",
+		},
+		{
+			name: NewsSources.DOUBLE_DOWN_NEWS,
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCeRYN0tYBQVrC2cKsxJjdow",
+		},
+	],
+};
