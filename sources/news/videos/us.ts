@@ -74,3 +74,16 @@ export const US_VIDEO = {
 		},
 	],
 };
+
+export const US_VIDEO_2 = {
+	categories: [],
+	collectionType: "news",
+	region: "US",
+	language: "en",
+	sources: [
+		{
+			name: NewsSources.INTERCEPT,
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCv002AUCZaPNwiADqwchijg",
+		},
+	],
+};

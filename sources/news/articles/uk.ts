@@ -150,5 +150,9 @@ export const UK_3 = {
 			name: NewsSources.BYLINE_TIMES,
 			src: "https://bylinetimes.com/feed/",
 		},
+		{
+			name: NewsSources.COUNCIL_ESTATE_MEDIA,
+			src: "https://www.councilestatemedia.uk/feed",
+		},
 	],
 };

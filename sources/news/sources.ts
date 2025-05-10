@@ -18,6 +18,7 @@ import {
 	channelNewsAsia,
 	cnbc,
 	cnn,
+	councilEstateMedia,
 	dailyMail,
 	dailyRecord,
 	declassiied,
@@ -268,6 +269,7 @@ export const NewsSources = {
 	TRUTHOUT: "Truthout",
 	REVEAL_NEWS: "Reveal News",
 	BYLINE_TIMES: "Byline Times",
+	COUNCIL_ESTATE_MEDIA: "Council Estate Media",
 } as const;
 
 // Split these up and spread in the map as this is a bit of a mess
@@ -406,4 +408,5 @@ export const newsSourcesMap = new Map<string, any>([
 	[NewsSources.TRUTHOUT, truthOut],
 	[NewsSources.REVEAL_NEWS, revealNews],
 	[NewsSources.BYLINE_TIMES, bylineTimes],
+	[NewsSources.COUNCIL_ESTATE_MEDIA, councilEstateMedia],
 ]);

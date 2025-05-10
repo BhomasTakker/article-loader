@@ -62,3 +62,11 @@ export const WORLD_VIDEO = {
 		},
 	],
 };
+
+export const WORLD_VIDEO_2 = {
+	categories: [],
+	collectionType: "news",
+	region: "world",
+	language: "en",
+	sources: [],
+};

@@ -308,3 +308,13 @@ export const bylineTimes = {
 	rating: 75,
 	leaning: 0,
 };
+
+export const councilEstateMedia = {
+	origin: "UK",
+	name: "Council Estate Media",
+	description: "Council Estate MEdia is a UK substack publication.",
+	url: "https://www.councilestatemedia.uk/",
+	logo: "https://substackcdn.com/image/fetch/e_trim:10:white/e_trim:10:transparent/h_72,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F15dd166a-13cb-4fa1-908b-563fca297e21_252x49.jpeg",
+	rating: 75,
+	leaning: 0,
+};

@@ -58,6 +58,16 @@ export const NEWS_UK_1 = {
 			collectionTitle: "Today In Focus",
 			src: "https://www.theguardian.com/news/series/todayinfocus/podcast.xml",
 		},
+		{
+			name: NewsSources.BBC,
+			collectinTitle: "Diddy On Trial",
+			src: "https://podcasts.files.bbci.co.uk/p0k61syt.rss",
+		},
+		{
+			name: NewsSources.COUNCIL_ESTATE_MEDIA,
+			collectionTitle: "Socialist Voices",
+			src: "https://api.substack.com/feed/podcast/1336368/s/172019.rss",
+		},
 	],
 };
 
