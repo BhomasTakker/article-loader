@@ -142,7 +142,7 @@ export const pageQueriesCronConfig: CronConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			time: "11,26,41,56 * * * *",
+			time: CRON_TIMES.fifthteen_10,
 			fetchFn: () =>
 				executeAndCacheQueriesFromPage(
 					[API_PROVIDERS.ARTICLES_SEARCH_API],
@@ -151,7 +151,7 @@ export const pageQueriesCronConfig: CronConfig = {
 			onComplete: () => {},
 		},
 		{
-			time: "10,25,40,55 * * * *",
+			time: CRON_TIMES.fifthteen_11,
 			fetchFn: () =>
 				executeAndCacheQueriesFromPage(
 					[API_PROVIDERS.ARTICLES_SEARCH_API],
@@ -160,7 +160,7 @@ export const pageQueriesCronConfig: CronConfig = {
 			onComplete: () => {},
 		},
 		{
-			time: "13 */6 * * *",
+			time: CRON_TIMES.hours_6_12,
 			fetchFn: () =>
 				executeAndCacheQueriesFromPage(
 					[API_PROVIDERS.YOUTUBE_API],
@@ -169,12 +169,12 @@ export const pageQueriesCronConfig: CronConfig = {
 			onComplete: () => {},
 		},
 		{
-			time: "12,27,42,57 * * * *",
+			time: CRON_TIMES.fifthteen_13,
 			fetchFn: () => pingApp(["/uk"]),
 			onComplete: () => {},
 		},
 		{
-			time: "14,29,44,59 * * * *",
+			time: CRON_TIMES.fifthteen_14,
 			fetchFn: () => pingApp(["/us", "/world", "/pope-francis"]),
 			onComplete: () => {},
 		},
