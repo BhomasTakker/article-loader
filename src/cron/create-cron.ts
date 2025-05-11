@@ -7,6 +7,7 @@ import { CronJob } from "cron";
 // 1,16,31,46 * * * *
 
 export const CRON_TIMES = {
+	// could just be function...
 	fifthteen: "0,15,30,45 * * * *",
 	fifthteen_1: "1,16,31,46 * * * *",
 	fifthteen_2: "2,17,32,47 * * * *",
@@ -34,6 +35,11 @@ export const CRON_TIMES = {
 	hours_6_8: "8 */6 * * *",
 	hours_6_9: "9 */6 * * *",
 	hours_6_10: "10 */6 * * *",
+	hours_6_11: "11 */6 * * *",
+	hours_6_12: "12 */6 * * *",
+	hours_6_13: "13 */6 * * *",
+	hours_6_14: "14 */6 * * *",
+	hours_6_15: "15 */6 * * *",
 
 	seconds_10: "*/10 * * * * *",
 	seconds_30: "*/30 * * * * *",
