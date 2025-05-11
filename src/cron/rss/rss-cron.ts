@@ -23,16 +23,19 @@ const fetchRSS = (src: any) =>
 		itemsCallback: fetchArticles,
 	});
 
-const fetchMainYoutubeNewsCollectionsFn = fetchCollections({
-	sources: [UK_VIDEO_2, US_VIDEO_2, WORLD_VIDEO_2],
-	feedCallback: getYoutubeCollection,
-	itemsCallback: fetchYoutubeArticles,
-	customFields: {
-		// item: [["media:group", "media", { keepArray: false }]],
-		item: ["media:group"],
-	},
-});
+const fetchYoutubeRSS = (srcs: any[]) =>
+	fetchCollections({
+		sources: [...srcs],
+		feedCallback: getYoutubeCollection,
+		itemsCallback: fetchYoutubeArticles,
+		customFields: {
+			// item: [["media:group", "media", { keepArray: false }]],
+			item: ["media:group"],
+		},
+	});
 
+// you could functionalise
+// pass in cron, fetch, and complete
 export const rssCronConfig: CronConfig = {
 	id: "RSS Cron Queries",
 	anyCommandsRequired: {},
@@ -54,7 +57,7 @@ export const rssCronConfig: CronConfig = {
 		},
 		{
 			time: CRON_TIMES.fifthteen_3,
-			fetchFn: fetchMainYoutubeNewsCollectionsFn,
+			fetchFn: fetchYoutubeRSS([UK_VIDEO_2, US_VIDEO_2, WORLD_VIDEO_2]),
 			onComplete: () => {},
 		},
 	],
