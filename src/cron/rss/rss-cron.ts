@@ -104,37 +104,22 @@ export const rssCronConfig: CronConfig = {
 		},
 		{
 			time: CRON_TIMES.fifthteen_3,
-			fetchFn: fetchYoutubeRSS(world_articles_1),
+			fetchFn: fetchRSS(world_articles_1),
 			onComplete: () => {},
 		},
 		{
 			time: CRON_TIMES.fifthteen_4,
-			fetchFn: fetchYoutubeRSS(world_articles_2),
+			fetchFn: fetchRSS(world_articles_2),
 			onComplete: () => {},
 		},
 		{
 			time: CRON_TIMES.fifthteen_5,
-			fetchFn: fetchYoutubeRSS(world_articles_3),
+			fetchFn: fetchRSS(world_articles_3),
 			onComplete: () => {},
 		},
 		{
 			time: CRON_TIMES.fifthteen_6,
 			fetchFn: fetchYoutubeRSS(videos),
-			onComplete: () => {},
-		},
-		{
-			time: CRON_TIMES.fifthteen_7,
-			fetchFn: fetchYoutubeRSS([...podcasts_features, podcasts_uk]),
-			onComplete: () => {},
-		},
-		{
-			time: CRON_TIMES.fifthteen_8,
-			fetchFn: fetchYoutubeRSS(podcasts_us),
-			onComplete: () => {},
-		},
-		{
-			time: CRON_TIMES.fifthteen_9,
-			fetchFn: fetchYoutubeRSS([...podcasts_world, ...podcast_bites]),
 			onComplete: () => {},
 		},
 	],
