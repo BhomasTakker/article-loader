@@ -38,27 +38,22 @@ export const rssCronConfig: CronConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			time: "0,15,30,45 * * * *",
+			time: CRON_TIMES.fifthteen,
 			fetchFn: fetchRSS(UK_3),
 			onComplete: () => {},
 		},
 		{
-			time: "1,16,31,46 * * * *",
+			time: CRON_TIMES.fifthteen_1,
 			fetchFn: fetchRSS(US_5),
 			onComplete: () => {},
 		},
 		{
-			time: "2,17,32,47 * * * *",
+			time: CRON_TIMES.fifthteen_2,
 			fetchFn: fetchRSS(WORLD_7),
 			onComplete: () => {},
 		},
 		{
-			time: "3,18,33,48 * * * *",
-			fetchFn: fetchPodcasts([DIDDY_TRIAL]),
-			onComplete: () => {},
-		},
-		{
-			time: "4,19,34,49 * * * *",
+			time: CRON_TIMES.fifthteen_3,
 			fetchFn: fetchMainYoutubeNewsCollectionsFn,
 			onComplete: () => {},
 		},
