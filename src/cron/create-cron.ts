@@ -7,6 +7,34 @@ import { CronJob } from "cron";
 // 1,16,31,46 * * * *
 
 export const CRON_TIMES = {
+	fifthteen: "0,15,30,45 * * * *",
+	fifthteen_1: "1,16,31,46 * * * *",
+	fifthteen_2: "2,17,32,47 * * * *",
+	fifthteen_3: "3,18,33,48 * * * *",
+	fifthteen_4: "4,19,34,49 * * * *",
+	fifthteen_5: "5,20,35,50 * * * *",
+	fifthteen_6: "6,21,36,51 * * * *",
+	fifthteen_7: "7,22,37,52 * * * *",
+	fifthteen_8: "8,23,38,53 * * * *",
+	fifthteen_9: "9,24,39,54 * * * *",
+	fifthteen_10: "10,25,40,55 * * * *",
+	fifthteen_11: "11,26,41,56 * * * *",
+	fifthteen_12: "12,27,42,57 * * * *",
+	fifthteen_13: "13,28,43,58 * * * *",
+	fifthteen_14: "14,29,44,59 * * * *",
+
+	hours_6: "0 */6 * * *",
+	hours_6_1: "1 */6 * * *",
+	hours_6_2: "2 */6 * * *",
+	hours_6_3: "3 */6 * * *",
+	hours_6_4: "4 */6 * * *",
+	hours_6_5: "5 */6 * * *",
+	hours_6_6: "6 */6 * * *",
+	hours_6_7: "7 */6 * * *",
+	hours_6_8: "8 */6 * * *",
+	hours_6_9: "9 */6 * * *",
+	hours_6_10: "10 */6 * * *",
+
 	seconds_10: "*/10 * * * * *",
 	seconds_30: "*/30 * * * * *",
 
