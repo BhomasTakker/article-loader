@@ -9,6 +9,13 @@ import { connectToMongoDB } from "../../../lib/mongo/db";
 import { IPage, WithQuery } from "../../../types/page/page";
 import { CRON_TIMES } from "../../create-cron";
 import { CronConfig } from "../../types";
+import {
+	ROUTES_1,
+	UK_FEATURES,
+	UKRAINE_FEATURES,
+	US_FEATURES,
+	WORLD_FEATURES,
+} from "./routes";
 
 require("dotenv").config();
 
@@ -142,40 +149,45 @@ export const pageQueriesCronConfig: CronConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			time: "11,26,41,56 * * * *",
+			time: CRON_TIMES.fifthteen_10,
 			fetchFn: () =>
 				executeAndCacheQueriesFromPage(
 					[API_PROVIDERS.ARTICLES_SEARCH_API],
-					["/uk"]
+					ROUTES_1
 				),
 			onComplete: () => {},
 		},
 		{
-			time: "10,25,40,55 * * * *",
+			time: CRON_TIMES.hours_6_11,
 			fetchFn: () =>
 				executeAndCacheQueriesFromPage(
 					[API_PROVIDERS.ARTICLES_SEARCH_API],
-					["/us", "/world", "/pope-francis"]
+					[...UK_FEATURES, ...UKRAINE_FEATURES]
 				),
 			onComplete: () => {},
 		},
 		{
-			time: "13 */6 * * *",
+			time: CRON_TIMES.hours_6_12,
 			fetchFn: () =>
 				executeAndCacheQueriesFromPage(
 					[API_PROVIDERS.YOUTUBE_API],
-					["/uk", "/us", "/world", "/ukraine"]
+					[...WORLD_FEATURES, ...US_FEATURES]
 				),
 			onComplete: () => {},
 		},
 		{
-			time: "12,27,42,57 * * * *",
-			fetchFn: () => pingApp(["/uk"]),
+			time: CRON_TIMES.fifthteen_11,
+			fetchFn: () => pingApp(ROUTES_1),
 			onComplete: () => {},
 		},
 		{
-			time: "14,29,44,59 * * * *",
-			fetchFn: () => pingApp(["/us", "/world", "/pope-francis"]),
+			time: CRON_TIMES.fifthteen_13,
+			fetchFn: () => pingApp([...WORLD_FEATURES, ...US_FEATURES]),
+			onComplete: () => {},
+		},
+		{
+			time: CRON_TIMES.fifthteen_14,
+			fetchFn: () => pingApp([...UK_FEATURES, ...UKRAINE_FEATURES]),
 			onComplete: () => {},
 		},
 	],
