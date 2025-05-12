@@ -158,5 +158,9 @@ export const UK_3 = {
 			name: NewsSources.OWEN_JONES,
 			src: "https://www.owenjones.news/feed",
 		},
+		{
+			name: NewsSources.EXPRESS,
+			src: "https://www.express.co.uk/posts/rss/1/uk",
+		},
 	],
 };

@@ -236,5 +236,9 @@ export const US_5 = {
 			news: NewsSources.ZETEO,
 			src: "https://zeteo.com/feed",
 		},
+		{
+			name: NewsSources.EXPRESS,
+			src: "https://www.express.co.uk/posts/rss/198/us",
+		},
 	],
 };
