@@ -221,7 +221,7 @@ export const WORLD_5 = {
 		},
 		{
 			name: NewsSources.EXPRESS,
-			src: "https://feeds.feedburner.com/daily-express-world-news",
+			src: "https://www.express.co.uk/posts/rss/78/world",
 		},
 		// {
 		// 	name: NewsSources.EURONEWS,
@@ -284,32 +284,26 @@ export const WORLD_7 = {
 		{
 			name: NewsSources.KYIV_INDEPENDENT,
 			src: "https://sputniknews.com/export/rss2/archive/index.xml",
-			region: "Ukraine",
 		},
 		{
 			name: NewsSources.ELECTRONIC_INTIFADA,
 			src: "https://electronicintifada.net/rss.xml",
-			region: "Palestine",
 		},
 		{
 			name: NewsSources.QUDS_NEWS,
 			src: "https://qudsnen.co/feed/",
-			region: "Palestine",
 		},
 		{
 			name: NewsSources.TIMES_OF_ISRAEL,
 			src: "https://www.timesofisrael.com/rss",
-			region: "Occupied Palestine",
 		},
 		{
 			name: NewsSources.HAARETZ,
 			src: "https://www.haaretz.com/srv/haaretz-latest-headlines",
-			region: "Occupied Palestine",
 		},
 		{
 			news: NewsSources.THE_CRADLE,
 			src: "https://thecradle.co/feed",
-			region: "Middle East",
 		},
 		{
 			name: NewsSources.PALESTINE_CHRONICLE,
