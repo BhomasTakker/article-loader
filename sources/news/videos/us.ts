@@ -1,5 +1,17 @@
 import { NewsSources } from "../sources";
 
+export const US_LIVE = {
+	categories: ["24/7"],
+	collectionType: "news",
+	region: "US",
+	language: "en",
+	sources: [
+		{
+			src: "https://www.youtube.com/feeds/videos.xml?playlist_id=PLSoFrAUKXUriLHmJ64QCHgITgIjalbgMl",
+		},
+	],
+};
+
 // More sources than region
 // We are largely all world news
 export const US_VIDEO = {

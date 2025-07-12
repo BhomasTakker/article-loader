@@ -1,5 +1,17 @@
 import { NewsSources } from "../sources";
 
+export const UK_LIVE = {
+	categories: ["24/7"],
+	collectionType: "news",
+	region: "UK",
+	language: "en",
+	sources: [
+		{
+			src: "https://www.youtube.com/feeds/videos.xml?playlist_id=PLSoFrAUKXUrjserDqDUKFy-OQLYGIIVgc",
+		},
+	],
+};
+
 export const UK_VIDEO = {
 	categories: [],
 	collectionType: "news",
@@ -77,7 +89,7 @@ export const UK_VIDEO_2 = {
 		},
 		{
 			name: NewsSources.DOUBLE_DOWN_NEWS,
-			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCeRYN0tYBQVrC2cKsxJjdow",
+			src: "https://www.youtube.com/feeds/videos.xml?playlist_id=PLSoFrAUKXUrhi5gvtVN8SLeWz3hZgT2x3",
 		},
 	],
 };

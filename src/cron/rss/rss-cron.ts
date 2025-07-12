@@ -33,9 +33,13 @@ import {
 	WORLD_6,
 	WORLD_7,
 } from "../../../sources/news/articles/world";
-import { UK_VIDEO, UK_VIDEO_2 } from "../../../sources/news/videos/uk";
-import { US_VIDEO, US_VIDEO_2 } from "../../../sources/news/videos/us";
-import { WORLD_VIDEO, WORLD_VIDEO_2 } from "../../../sources/news/videos/world";
+import { UK_LIVE, UK_VIDEO, UK_VIDEO_2 } from "../../../sources/news/videos/uk";
+import { US_LIVE, US_VIDEO, US_VIDEO_2 } from "../../../sources/news/videos/us";
+import {
+	WORLD_LIVE,
+	WORLD_VIDEO,
+	WORLD_VIDEO_2,
+} from "../../../sources/news/videos/world";
 import { fetchArticles } from "../../articles/fetch-articles";
 import { fetchYoutubeArticles } from "../../articles/fetch-youtube-articles";
 import { fetchCollections } from "../../collections/fetch-collections";
@@ -65,9 +69,11 @@ const fetchYoutubeRSS = (srcs: any[]) =>
 		},
 	});
 
+// live videos - or 24 hour streams don't need to be fetched regularly at all.
+const live_videos = [UK_LIVE, US_LIVE, WORLD_LIVE];
 const videos1 = [UK_VIDEO, US_VIDEO, WORLD_VIDEO];
 const videos2 = [UK_VIDEO_2, US_VIDEO_2, WORLD_VIDEO_2];
-const videos = [...videos1, ...videos2];
+const videos = [...videos1, ...videos2, ...live_videos];
 
 const podcasts_features = [DIDDY_TRIAL];
 const podcasts_uk = [NEWS_UK_1, NEWS_UK_2];
