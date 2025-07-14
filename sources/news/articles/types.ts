@@ -1,3 +1,5 @@
+import { UnknownObject } from "../../../src/types/article/item";
+
 export type ArticleSource = {
 	name: string;
 	src: string;
@@ -12,6 +14,7 @@ export type SourceObject = {
 	language?: string;
 	collectionType?: string;
 	sources?: ArticleSource[];
+	media?: UnknownObject;
 };
 
 export type ExtraData = Omit<SourceObject, "sources">;

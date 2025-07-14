@@ -6,6 +6,9 @@ import { newsAPISearch, newsAPIHeadlines } from "../src/api/news-api";
 import { newsAPICallback } from "../src/api/news-api/callback";
 import { newsDataHubSearch } from "../src/api/newsdatahub";
 import { newsDataHubCallback } from "../src/api/newsdatahub/callback";
+import { fetchNewsRadioStations } from "../src/api/radio-browser";
+import { Station } from "radio-browser-api";
+import { radioBrowserApiCallback } from "../src/api/radio-browser/callback";
 
 export const initApiRoutes = (app: Express) => {
 	////////////////////////////////////////////////////////
@@ -56,6 +59,15 @@ export const initApiRoutes = (app: Express) => {
 		const result = await fetchAPI({
 			fetchFn: () => newsAPIHeadlines(params),
 			itemsCallback: newsAPICallback(params),
+		});
+		res.send(result);
+	});
+
+	app.get("/radio-browser-api/search", async (req, res) => {
+		const params = req.query;
+		const result = await fetchAPI<Station[]>({
+			fetchFn: () => fetchNewsRadioStations(params),
+			itemsCallback: radioBrowserApiCallback(params),
 		});
 		res.send(result);
 	});
