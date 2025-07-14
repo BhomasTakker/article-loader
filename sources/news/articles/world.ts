@@ -1,7 +1,7 @@
 import { NewsSources } from "../sources";
 
 export const WORLD_1 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "world",
 	language: "en",
@@ -50,7 +50,7 @@ export const WORLD_1 = {
 };
 
 export const WORLD_2 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "world",
 	language: "en",
@@ -99,7 +99,7 @@ export const WORLD_2 = {
 };
 
 export const WORLD_3 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "world",
 	language: "en",
@@ -144,7 +144,7 @@ export const WORLD_3 = {
 };
 
 export const WORLD_4 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "world",
 	language: "en",
@@ -190,7 +190,7 @@ export const WORLD_4 = {
 };
 
 export const WORLD_5 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "world",
 	language: "en",
@@ -239,7 +239,7 @@ export const WORLD_5 = {
 };
 
 export const WORLD_6 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "world",
 	language: "en",
@@ -276,7 +276,7 @@ export const WORLD_6 = {
 };
 
 export const WORLD_7 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "world",
 	language: "en",
