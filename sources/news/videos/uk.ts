@@ -1,10 +1,11 @@
 import { NewsSources } from "../sources";
 
 export const UK_LIVE = {
-	categories: ["24/7"],
+	categories: ["news"],
 	collectionType: "news",
 	region: "UK",
 	language: "en",
+	media: { mediaType: "24/7" },
 	sources: [
 		{
 			src: "https://www.youtube.com/feeds/videos.xml?playlist_id=PLSoFrAUKXUrjserDqDUKFy-OQLYGIIVgc",
@@ -13,7 +14,7 @@ export const UK_LIVE = {
 };
 
 export const UK_VIDEO = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "UK",
 	language: "en",
@@ -78,7 +79,7 @@ export const UK_VIDEO = {
 };
 
 export const UK_VIDEO_2 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "UK",
 	language: "en",

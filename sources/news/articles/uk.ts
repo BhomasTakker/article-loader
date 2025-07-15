@@ -1,7 +1,7 @@
 import { NewsSources } from "../sources";
 
 export const TEST = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "UK",
 	language: "en",
@@ -26,7 +26,7 @@ export const TEST = {
 };
 
 export const UK_1 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "UK",
 	language: "en",
@@ -79,7 +79,7 @@ export const UK_1 = {
 };
 
 export const UK_2 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "UK",
 	language: "en",
@@ -133,7 +133,7 @@ export const UK_2 = {
 };
 
 export const UK_3 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "UK",
 	language: "en",

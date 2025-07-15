@@ -1,10 +1,11 @@
 import { NewsSources } from "../sources";
 
 export const WORLD_LIVE = {
-	categories: ["24/7"],
+	categories: ["news"],
 	collectionType: "news",
 	region: "world",
 	language: "en",
+	media: { mediaType: "24/7" },
 	sources: [
 		{
 			src: "https://www.youtube.com/feeds/videos.xml?playlist_id=PLSoFrAUKXUrimAmeTbZsrKOn5-vM8SrVi",
@@ -18,7 +19,7 @@ export const WORLD_LIVE = {
 // More sources than region
 // We are largely all world news
 export const WORLD_VIDEO = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "world",
 	language: "en",
@@ -79,7 +80,7 @@ export const WORLD_VIDEO = {
 };
 
 export const WORLD_VIDEO_2 = {
-	categories: [],
+	categories: ["news"],
 	collectionType: "news",
 	region: "world",
 	language: "en",
