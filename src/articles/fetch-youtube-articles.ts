@@ -60,7 +60,7 @@ const convertYouTubeRssItemToArticle = ({
 		description: description || mediaDescription,
 		guid: id,
 		variant: "video",
-		format: "youtube",
+		format: "video/youtube",
 		avatar: {
 			src: mediaThumbnail,
 			alt: mediaTitle || "",
@@ -74,7 +74,7 @@ const convertYouTubeRssItemToArticle = ({
 		},
 		media: {
 			...extraDataMedia,
-			format: "youtube",
+			format: "video/youtube",
 			rating,
 			views,
 		},

@@ -139,7 +139,7 @@ const convertPodcastRssItemToArticle = ({
 		},
 		media: {
 			duration: convertDurationToSeconds(duration),
-			format: "podcast",
+			mediaType: "podcast",
 			type: enclosure.type || "audio/mpeg",
 			collectionTitle: seriesTitle,
 		},
