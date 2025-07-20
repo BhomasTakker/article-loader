@@ -24,6 +24,12 @@ export const CRON_TIMES = {
 	fifthteen_13: "13,28,43,58 * * * *",
 	fifthteen_14: "14,29,44,59 * * * *",
 
+	days_7: "0 0 * * 0", // every 7 days
+	days_7_1: "1 0 * * 0", // every 7 days + 1 minute
+	days_7_2: "2 0 * * 0", // every 7 days + 2 minutes
+	days_7_3: "3 0 * * 0", // every 7 days + 3 minutes
+	days_7_4: "4 0 * * 0", // every 7 days + 4 minutes
+
 	hours_6: "0 */6 * * *",
 	hours_6_1: "1 */6 * * *",
 	hours_6_2: "2 */6 * * *",
