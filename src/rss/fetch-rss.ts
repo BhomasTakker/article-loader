@@ -39,6 +39,32 @@ type FetchRSS<T, G> = {
 
 type Callback = () => void;
 
+const mergeStringOrArray = (
+	region1: string | string[] = [],
+	region2: string | string[] = []
+) => {
+	const arrayRegion1 = typeof region1 === "string" ? [region1] : region1;
+	const arrayRegion2 = typeof region2 === "string" ? [region2] : region2;
+	return [...new Set([...arrayRegion1, ...arrayRegion2])];
+};
+
+const deepMerge = (obj1: ExtraData, obj2: Partial<ExtraData>) => {
+	const region1 = obj1?.region || [];
+	const region2 = obj2?.region || [];
+	const region = mergeStringOrArray(region1, region2);
+
+	const categories1 = obj1?.categories || [];
+	const categories2 = obj2?.categories || [];
+	const categories = mergeStringOrArray(categories1, categories2);
+
+	return structuredClone({
+		...obj1,
+		...obj2,
+		region,
+		categories,
+	});
+};
+
 // pass in fetchArticles as an items callback
 export const fetchRss = async <T, G>({
 	urls,
@@ -79,6 +105,7 @@ export const fetchRss = async <T, G>({
 				// just don't store them in the collection
 				await itemsCallback({
 					items,
+					// This 'merge' isn't good enough - it overwrites etc
 					// merge data from both individual source AND rss 'group'
 					extraData: { ...extraData, ...rest },
 					provider,
