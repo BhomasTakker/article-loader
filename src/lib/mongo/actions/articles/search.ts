@@ -37,7 +37,7 @@ export type GetLatestArticlesProps = {
 
 	durationHigher?: string;
 	durationLower?: string;
-	region?: string | string[];
+	region?: string;
 	language?: string;
 
 	sort?: string;
