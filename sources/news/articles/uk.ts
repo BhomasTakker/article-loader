@@ -99,13 +99,13 @@ export const UK_2 = {
 		{
 			name: NewsSources.MANCHESTER_EVENING_NEWS,
 			src: "https://www.manchestereveningnews.co.uk/news/?service=rss",
-			region: ["UK", "England", "Manchester"],
+			region: ["UK", "England", "North West", "Manchester"],
 		},
 		{
 			name: NewsSources.BIRMINGHAME_LIVE,
 			// src: 'https://www.birminghammail.co.uk/news/?service=rss',
 			src: "https://www.birminghammail.co.uk/news/uk-news/?service=rss",
-			region: ["UK", "England", "Birmingham"],
+			region: ["UK", "England", "West Midlands", "Birmingham"],
 		},
 		{
 			name: NewsSources.THE_PINK_NEWS,
