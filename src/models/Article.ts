@@ -24,7 +24,7 @@ const DetailsSchema = new Schema(
 		region: [String],
 		language: String,
 	},
-	{ _id: false }
+	{ _id: false, strict: false }
 );
 
 const AvatarSchema = new Schema(

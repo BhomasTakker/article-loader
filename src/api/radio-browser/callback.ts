@@ -2,6 +2,7 @@ import { Station } from "radio-browser-api";
 import { RadioBrowserAPISearchParams } from ".";
 import { saveArticle } from "../save-article";
 import { CollectionItem } from "../../types/article/item";
+import { mapToBaseRegion } from "../../cron/radio/radio-cron";
 
 const convertRadioBrowserStationToArticle = (
 	station: Station,
@@ -25,6 +26,14 @@ const convertRadioBrowserStationToArticle = (
 		votes,
 	} = station;
 
+	/////////////////////////////////////////////////
+	// We map what we have to - the rest are as is
+	const region = [mapToBaseRegion.get(country) || country || "world"];
+	if (state) {
+		region.push(state);
+	}
+	/////////////////////////////////////////////////
+
 	return {
 		title: name,
 		// we need a sitename link no?
@@ -47,6 +56,7 @@ const convertRadioBrowserStationToArticle = (
 			votes: votes,
 		},
 		details: {
+			region,
 			publishers: [name],
 			categories: tags || [],
 			language: language[0],
