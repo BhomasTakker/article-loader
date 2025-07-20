@@ -107,7 +107,7 @@ export const fetchRss = async <T, G>({
 					items,
 					// This 'merge' isn't good enough - it overwrites etc
 					// merge data from both individual source AND rss 'group'
-					extraData: { ...extraData, ...rest },
+					extraData: deepMerge(extraData, rest),
 					provider,
 					collectionData,
 				});
