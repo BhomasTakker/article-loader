@@ -3,7 +3,7 @@ import { NewsSources } from "../sources";
 export const TEST = {
 	categories: ["news"],
 	collectionType: "news",
-	region: "UK",
+	region: ["UK"],
 	language: "en",
 	sources: [
 		{
@@ -28,7 +28,7 @@ export const TEST = {
 export const UK_1 = {
 	categories: ["news"],
 	collectionType: "news",
-	region: "UK",
+	region: ["Europe", "UK"],
 	language: "en",
 	sources: [
 		{
@@ -81,7 +81,7 @@ export const UK_1 = {
 export const UK_2 = {
 	categories: ["news"],
 	collectionType: "news",
-	region: "UK",
+	region: ["Europe", "UK"],
 	language: "en",
 	sources: [
 		{
@@ -99,11 +99,13 @@ export const UK_2 = {
 		{
 			name: NewsSources.MANCHESTER_EVENING_NEWS,
 			src: "https://www.manchestereveningnews.co.uk/news/?service=rss",
+			region: ["UK", "England", "Manchester"],
 		},
 		{
 			name: NewsSources.BIRMINGHAME_LIVE,
 			// src: 'https://www.birminghammail.co.uk/news/?service=rss',
 			src: "https://www.birminghammail.co.uk/news/uk-news/?service=rss",
+			region: ["UK", "England", "Birmingham"],
 		},
 		{
 			name: NewsSources.THE_PINK_NEWS,
@@ -112,14 +114,17 @@ export const UK_2 = {
 		{
 			name: NewsSources.NORTHERN_IRELAND_WORLD,
 			src: "https://www.northernirelandworld.com/news/rss",
+			region: ["UK", "NI"],
 		},
 		{
 			name: NewsSources.WALES_ONLINE,
 			src: "https://www.walesonline.co.uk/news/?service=rss",
+			region: ["UK", "Wales"],
 		},
 		{
 			name: NewsSources.HERALD_SCOTLAND,
 			src: "https://www.heraldscotland.com/news/national-news/rss/",
+			region: ["UK", "Scotland"],
 		},
 		{
 			name: NewsSources.HERALD_SCOTLAND,
@@ -135,7 +140,7 @@ export const UK_2 = {
 export const UK_3 = {
 	categories: ["news"],
 	collectionType: "news",
-	region: "UK",
+	region: ["UK"],
 	language: "en",
 	sources: [
 		{

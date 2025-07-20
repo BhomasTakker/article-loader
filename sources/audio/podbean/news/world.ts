@@ -3,18 +3,20 @@ import { NewsSources } from "../../../news/sources";
 export const BITES_WORLD = {
 	categories: [],
 	collectionType: "news",
-	region: "world",
+	region: ["world"],
 	language: "en",
 	sources: [
 		{
 			collectionTitle: "Al Jazeera News Updates",
 			name: NewsSources.AL_JAZEERA,
 			src: "https://www.omnycontent.com/d/playlist/9c074afa-3313-47e8-b802-a9f900789975/63048eda-2427-408a-b47c-ad5001293fca/6677d422-fd43-4aaa-be74-ad5001293fd8/podcast.rss",
+			region: ["world", "Middle East", "Qatar"],
 		},
 		{
 			collectionTitle: "DW News Brief",
 			name: NewsSources.DEUTSCHE_WELLE,
 			src: "https://rss.dw.com/syndication/feeds/podcast_en_newsbrief.33191-mrss.xml",
+			region: ["world", "Europe", "Germany"],
 		},
 		{
 			collectionTitle: "News In Brief",
@@ -26,6 +28,7 @@ export const BITES_WORLD = {
 			collectionTitle: NewsSources.TRT,
 			name: "Daily News Brief",
 			src: "https://feeds.soundcloud.com/users/soundcloud:users:299903955/sounds.rss",
+			region: ["world", "Europe", "Turkey"],
 		},
 	],
 };
@@ -33,7 +36,7 @@ export const BITES_WORLD = {
 export const NEWS_WORLD_1 = {
 	categories: [],
 	collectionType: "news",
-	region: "world",
+	region: ["world"],
 	language: "en",
 	sources: [
 		{
@@ -52,6 +55,7 @@ export const NEWS_WORLD_1 = {
 			collectionTitle: "ABC News Daily",
 			name: NewsSources.ABC_AUSTRALIA,
 			src: "https://www.abc.net.au/feeds/9443166/podcast.xml",
+			region: ["world", "Australia"],
 		},
 		{
 			name: NewsSources.BBC,
@@ -64,7 +68,7 @@ export const NEWS_WORLD_1 = {
 export const NEWS_WORLD_2 = {
 	categories: [],
 	collectionType: "news",
-	region: "world",
+	region: ["world"],
 	language: "en",
 	sources: [
 		{

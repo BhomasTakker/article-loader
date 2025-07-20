@@ -10,7 +10,7 @@ export type ArticleSource = {
 // better than schema strict: false
 export type SourceObject = {
 	categories?: string[];
-	region?: string;
+	region?: string | string[];
 	language?: string;
 	collectionType?: string;
 	sources?: ArticleSource[];

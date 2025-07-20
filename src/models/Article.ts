@@ -21,7 +21,7 @@ const DetailsSchema = new Schema(
 		modified: {
 			type: Date,
 		},
-		region: String,
+		region: [String],
 		language: String,
 	},
 	{ _id: false }

@@ -114,7 +114,7 @@ export type Details = {
 	published?: Date | string;
 	modified?: Date | string;
 
-	region?: string;
+	region?: string | string[];
 	language?: string;
 };
 
