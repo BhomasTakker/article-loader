@@ -2,7 +2,11 @@ import { Station } from "radio-browser-api";
 import { RadioBrowserAPISearchParams } from ".";
 import { saveArticle } from "../save-article";
 import { CollectionItem } from "../../types/article/item";
-import { mapToBaseRegion } from "../../cron/radio/radio-cron";
+import {
+	mapToBaseRegion,
+	mapToRegion,
+	mapToState,
+} from "../../cron/radio/radio-cron";
 
 const convertRadioBrowserStationToArticle = (
 	station: Station,
@@ -28,10 +32,22 @@ const convertRadioBrowserStationToArticle = (
 
 	/////////////////////////////////////////////////
 	// We map what we have to - the rest are as is
-	const region = [mapToBaseRegion.get(country) || country || "world"];
+	const regionBase = mapToBaseRegion.get(country) || "world";
+	const region = [regionBase, mapToRegion.get(country) || country || "world"];
+
 	if (state) {
-		region.push(state);
+		const mappedState = mapToState.get(state);
+		if (mappedState) {
+			typeof mappedState === "string"
+				? region.push(mappedState)
+				: region.push(...mappedState);
+		} else {
+			// If we have a state that is not mapped, we can still add it
+			region.push(state);
+		}
 	}
+
+	// const mappedState = state ? mapToState.get(state) : null;
 	/////////////////////////////////////////////////
 
 	return {
@@ -56,11 +72,11 @@ const convertRadioBrowserStationToArticle = (
 			votes: votes,
 		},
 		details: {
-			region,
+			region: [...new Set(region)],
 			publishers: [name],
 			categories: tags || [],
 			language: language[0],
-			state,
+			state: state || null,
 			country,
 			countryCode,
 			coordinates: {
@@ -74,7 +90,12 @@ const convertRadioBrowserStationToArticle = (
 export const radioBrowserApiCallback =
 	(params: RadioBrowserAPISearchParams) => (stations: Station[]) => {
 		const returnItems = stations.map((station) => {
-			return saveArticle(convertRadioBrowserStationToArticle(station, params));
+			// manual overwrite here for now - we need to set false
+			// until we come up with a proper way of management
+			return saveArticle(
+				convertRadioBrowserStationToArticle(station, params),
+				false
+			);
 		});
 
 		return Promise.all(returnItems);
