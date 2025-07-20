@@ -34,6 +34,7 @@ export const runScripts = async (options: Options) => {
 const countries = {
 	UK: "The United Kingdom Of Great Britain And Northern Ireland",
 	US: "The United States Of America",
+	Tanzania: "United Republic Of Tanzania",
 	Canada: "Canada",
 	NewZealand: "New Zealand",
 	Australia: "Australia",
@@ -82,18 +83,19 @@ const countries = {
 export const mapToBaseRegion = new Map<string, string>([
 	[countries.UK, "UK"],
 	[countries.US, "US"],
-	[countries.Canada, "world"],
-	[countries.NewZealand, "world"],
-	[countries.Australia, "world"],
-	[countries.Palestine, "world"],
-	[countries.Ireland, "world"],
-	[countries.Greenland, "world"],
-	[countries.Iran, "world"],
 ]);
 
-export const mapToRegion = new Map([
+export const mapToRegion = new Map<string, string>([
 	[countries.UK, "UK"],
 	[countries.US, "US"],
+	[countries.Tanzania, "Tanzania"],
+]);
+
+// Just add the ones you see
+export const mapToState = new Map<string, string | string[]>([
+	["New York NY", "New York"],
+	["New London NH", ["New London", "New Hampshire"]],
+	["Tampa, Florida", ["Tampa", "Florida"]],
 ]);
 
 export const RADIO_CRON_CONFIG: CronConfig = {
