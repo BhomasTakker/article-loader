@@ -4,15 +4,19 @@ import {
 } from "../lib/mongo/actions/article";
 import { CollectionItem } from "../types/article/item";
 
-export const saveArticle = async (article: CollectionItem) => {
+export const saveArticle = async (
+	article: CollectionItem,
+	overwrite: boolean = false
+) => {
 	const { src } = article;
 
 	if (!src) {
 		return null;
 	}
 
+	// what about overwrite?
 	const exists = await getArticleExists(src);
-	if (exists) {
+	if (exists && !overwrite) {
 		return article;
 	}
 

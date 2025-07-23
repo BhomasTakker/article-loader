@@ -3,7 +3,7 @@ import { NewsSources } from "../sources";
 export const US_1 = {
 	categories: ["news"],
 	collectionType: "news",
-	region: "US",
+	region: ["North America", "US"],
 	language: "en",
 	sources: [
 		{
@@ -44,7 +44,7 @@ export const US_1 = {
 export const US_2 = {
 	categories: ["news"],
 	collectionType: "news",
-	region: "US",
+	region: ["North America", "US"],
 	language: "en",
 	sources: [
 		{
@@ -93,7 +93,7 @@ export const US_2 = {
 export const US_3 = {
 	categories: ["news"],
 	collectionType: "news",
-	region: "US",
+	region: ["North America", "US"],
 	language: "en",
 	sources: [
 		{
@@ -140,7 +140,7 @@ export const US_3 = {
 export const US_4 = {
 	categories: ["news"],
 	collectionType: "news",
-	region: "US",
+	region: ["North America", "US"],
 	language: "en",
 	sources: [
 		{
@@ -189,7 +189,7 @@ export const US_4 = {
 export const US_5 = {
 	categories: ["news"],
 	collectionType: "news",
-	region: "US",
+	region: ["North America", "US"],
 	language: "en",
 	sources: [
 		{

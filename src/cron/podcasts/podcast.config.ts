@@ -79,10 +79,10 @@ export const podcastRssCronConfig: CronConfig = {
 			fetchFn: fetchPodcasts([NEWS_WORLD_2]),
 			onComplete: () => {},
 		},
-		{
-			time: CRON_TIMES.hours_6_9,
-			fetchFn: fetchPodcasts([DIDDY_TRIAL]),
-			onComplete: () => {},
-		},
+		// {
+		// 	time: CRON_TIMES.hours_6_9,
+		// 	fetchFn: fetchPodcasts([DIDDY_TRIAL]),
+		// 	onComplete: () => {},
+		// },
 	],
 };

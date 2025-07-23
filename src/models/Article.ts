@@ -21,10 +21,10 @@ const DetailsSchema = new Schema(
 		modified: {
 			type: Date,
 		},
-		region: String,
+		region: [String],
 		language: String,
 	},
-	{ _id: false }
+	{ _id: false, strict: false }
 );
 
 const AvatarSchema = new Schema(

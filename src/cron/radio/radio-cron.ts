@@ -30,9 +30,11 @@ export const runScripts = async (options: Options) => {
 	// console.log("Fetched radio stations:", { count });
 };
 
+// A little random list of countries / We need what we use and double check the api
 const countries = {
 	UK: "The United Kingdom Of Great Britain And Northern Ireland",
 	US: "The United States Of America",
+	Tanzania: "United Republic Of Tanzania",
 	Canada: "Canada",
 	NewZealand: "New Zealand",
 	Australia: "Australia",
@@ -41,19 +43,59 @@ const countries = {
 	Greenland: "Greenland",
 	Israel: "Israel",
 	Iran: "Islamic Republic Of Iran",
+	France: "France",
+	Germany: "Germany",
+	Japan: "Japan",
+	Russia: "Russian Federation",
+	China: "China",
+	Italy: "Italy",
+	Spain: "Spain",
+	Sweden: "Sweden",
+	Netherlands: "Netherlands",
+	Belgium: "Belgium",
+	Switzerland: "Switzerland",
+	Finland: "Finland",
+	Denmark: "Denmark",
+	Portugal: "Portugal",
+	Poland: "Poland",
+	Brazil: "Brazil",
+	Qatar: "Qatar",
+	India: "India",
+	UAE: "United Arab Emirates",
+	Argentina: "Argentina",
+	Chile: "Chile",
+	Colombia: "Colombia",
+	Venezuela: "Venezuela",
+	Mexico: "Mexico",
+	Peru: "Peru",
+	Indonesia: "Indonesia",
+	Malaysia: "Malaysia",
+	Singapore: "Singapore",
+	Philippines: "Philippines",
+	SouthAfrica: "South Africa",
+	Thailand: "Thailand",
+	Turkey: "Turkey",
+	Vietnam: "Vietnam",
+	Ukraine: "Ukraine",
 } as const;
 
 // A little hack to assign to region
-export const countryMap = new Map([
+export const mapToBaseRegion = new Map<string, string>([
 	[countries.UK, "UK"],
 	[countries.US, "US"],
-	[countries.Canada, "world"],
-	[countries.NewZealand, "world"],
-	[countries.Australia, "world"],
-	[countries.Palestine, "world"],
-	[countries.Ireland, "world"],
-	[countries.Greenland, "world"],
-	[countries.Iran, "world"],
+]);
+
+export const mapToRegion = new Map<string, string>([
+	[countries.UK, "UK"],
+	[countries.US, "US"],
+	[countries.Tanzania, "Tanzania"],
+]);
+
+// Just add the ones you see
+export const mapToState = new Map<string, string | string[]>([
+	["New York NY", "New York"],
+	["New London NH", ["New London", "New Hampshire"]],
+	["Tampa, Florida", ["Tampa", "Florida"]],
 ]);
 
 export const RADIO_CRON_CONFIG: CronConfig = {
