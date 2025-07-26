@@ -4,6 +4,7 @@ export const WORLD_LIVE = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	media: { mediaType: "24/7" },
 	sources: [
@@ -22,6 +23,7 @@ export const WORLD_VIDEO = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		{
@@ -94,6 +96,7 @@ export const WORLD_VIDEO_2 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		{

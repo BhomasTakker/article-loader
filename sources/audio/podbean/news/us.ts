@@ -4,28 +4,33 @@ export const BITES_US = {
 	categories: [],
 	collectionType: "news",
 	region: ["US"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
 			// every hour / 5 minutes
 			name: NewsSources.CNN,
 			collectionTitle: "CNN 5 Things",
+			coverage: ["international", "national"],
 			src: "https://feeds.megaphone.fm/WMHY2007701094",
 		},
 		{
 			// upto 5 per day - 5 minutes
 			collectionTitle: "NPR News Now",
 			name: NewsSources.NPR,
+			coverage: ["international", "national"],
 			src: "https://feeds.npr.org/500005/podcast.xml",
 		},
 		{
 			collectionTitle: "WSJ Minute Briefing",
 			name: NewsSources.WALL_STREET_JOURNAL,
+			coverage: ["international", "national"],
 			src: "https://feeds.megaphone.fm/WSJ7928321669",
 		},
 		{
 			name: NewsSources.PBS,
 			collectionTitle: "PBS News Hour - Segments",
+			coverage: ["international", "national"],
 			src: "https://feeds.feedburner.com/NewsHourHeadlinesPodcast",
 		},
 	],
@@ -35,6 +40,7 @@ export const NEWS_US_1 = {
 	categories: [],
 	collectionType: "news",
 	region: ["US"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
@@ -82,6 +88,7 @@ export const NEWS_US_2 = {
 	categories: [],
 	collectionType: "news",
 	region: ["US"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
@@ -121,11 +128,13 @@ export const NEWS_US_3 = {
 	categories: [],
 	collectionType: "news",
 	region: ["US"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
 			name: NewsSources.NBC,
 			collectionTitle: "Dateline NBC",
+			coverage: ["international", "national"],
 			src: "https://podcastfeeds.nbcnews.com/dateline",
 		},
 		{
@@ -151,6 +160,7 @@ export const NEWS_US_3 = {
 		{
 			collectionTitle: "WSJ The Journal",
 			name: NewsSources.WALL_STREET_JOURNAL,
+			coverage: ["international", "national"],
 			src: "https://video-api.wsj.com/podcast/rss/wsj/the-journal",
 		},
 		{
@@ -165,6 +175,7 @@ export const NEWS_US_4 = {
 	categories: [],
 	collectionType: "news",
 	region: ["US"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
@@ -175,17 +186,20 @@ export const NEWS_US_4 = {
 		{
 			name: NewsSources.PBS,
 			collectionTitle: "PBS News Hour - Full Show",
+			coverage: ["international", "national"],
 			src: "https://feeds.feedburner.com/NewshourFullProgramPodcast",
 		},
 
 		{
 			collectionTitle: "Times Headlines",
 			name: NewsSources.NEW_YORK_TIMES,
+			coverage: ["international", "national"],
 			src: "https://feeds.simplecast.com/ydACIPHO",
 		},
 		{
 			collectionTitle: "Bloomberg News Now",
 			name: NewsSources.BLOOMBERG,
+			coverage: ["international", "national"],
 			src: "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/d9566f78-0464-4367-9dcc-b05700aeec6f/7f880b3c-7f67-4b4b-b520-b05700af9172/podcast.rss",
 		},
 		{
