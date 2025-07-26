@@ -3,7 +3,7 @@ import { NewsSources } from "../sources";
 export const UK_LIVE = {
 	categories: ["news"],
 	collectionType: "news",
-	region: ["UK"],
+	region: ["Europe", "UK"],
 	language: "en",
 	media: { mediaType: "24/7" },
 	sources: [
@@ -16,7 +16,7 @@ export const UK_LIVE = {
 export const UK_VIDEO = {
 	categories: ["news"],
 	collectionType: "news",
-	region: ["UK"],
+	region: ["Europe", "UK"],
 	language: "en",
 	sources: [
 		{
@@ -82,7 +82,7 @@ export const UK_VIDEO = {
 export const UK_VIDEO_2 = {
 	categories: ["news"],
 	collectionType: "news",
-	region: ["UK"],
+	region: ["Europe", "UK"],
 	language: "en",
 	sources: [
 		{

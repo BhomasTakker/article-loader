@@ -18,7 +18,7 @@ export const US_LIVE = {
 export const US_VIDEO = {
 	categories: ["news"],
 	collectionType: "news",
-	region: ["US"],
+	region: ["North America", "US"],
 	language: "en",
 	sources: [
 		{
@@ -109,6 +109,10 @@ export const US_VIDEO_2 = {
 		{
 			name: NewsSources.ZETEO,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCVG72F2Q5yCmLQfctNK6M2A",
+		},
+		{
+			name: NewsSources.SPECTRUM,
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCc6V-G2u7j9Avbbk9-0jIxA",
 		},
 	],
 };
