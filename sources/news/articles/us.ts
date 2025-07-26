@@ -38,6 +38,10 @@ export const US_1 = {
 			name: NewsSources.NPR,
 			src: "https://www.npr.org/rss/rss.php?id=1001",
 		},
+		{
+			name: NewsSources.WKBW,
+			src: "https://www.wkbw.com/news.rss",
+		},
 	],
 };
 
@@ -87,6 +91,10 @@ export const US_2 = {
 			name: NewsSources.NEW_YORK_POST,
 			src: "https://nypost.com/us-news/feed/",
 		},
+		{
+			name: NewsSources.WIVB,
+			src: "https://www.wivb.com/news/national/feed/",
+		},
 	],
 };
 
@@ -133,6 +141,11 @@ export const US_3 = {
 		{
 			name: NewsSources.METRO,
 			src: "https://metro.co.uk/news/us/feed/",
+		},
+		{
+			name: NewsSources.FOX5_NY,
+			region: ["NYC", "New York City"],
+			src: "https://www.fox5ny.com/rss/category/national-news",
 		},
 	],
 };
