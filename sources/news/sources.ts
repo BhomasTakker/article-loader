@@ -1,3 +1,4 @@
+import { ny_sources, ny_sourcesMap } from "./articles/united-states/new-york";
 import {
 	abc,
 	abcAustralia,
@@ -288,6 +289,8 @@ export const NewsSources = {
 	ZETEO: "Zeteo",
 	PALESTINE_CHRONICLE: "Palestine Chronicle",
 	PALESTINE_NEWS_NETWORK: "Palestine News Network",
+
+	...ny_sources,
 } as const;
 
 // Split these up and spread in the map as this is a bit of a mess
@@ -436,4 +439,6 @@ export const newsSourcesMap = new Map<string, any>([
 	[NewsSources.ZETEO, zeteo],
 	[NewsSources.PALESTINE_CHRONICLE, palestineChronicle],
 	[NewsSources.PALESTINE_NEWS_NETWORK, palestineNewsNetwork],
+
+	...ny_sourcesMap,
 ]);
