@@ -22,6 +22,10 @@ const DetailsSchema = new Schema(
 			type: Date,
 		},
 		region: [String],
+		coverage: {
+			type: String,
+			enum: ["international", "national", "regional", "local"],
+		},
 		language: String,
 	},
 	{ _id: false, strict: false }
