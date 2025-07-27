@@ -169,13 +169,13 @@ export const WORLD_4 = {
 		{
 			name: NewsSources.JAPAN_TIMES,
 			src: "https://www.japantimes.co.jp/feed/",
-			region: ["Asia", "Japan"],
+			region: ["Asia", "Far East", "Japan"],
 			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.SOUTH_CHINA_MORNING_POST,
 			src: "https://www.scmp.com/rss/4/feed",
-			region: ["Asia", "China"],
+			region: ["Asia", "Far East", "China"],
 			coverage: ["international", "national"],
 		},
 		// {
@@ -209,7 +209,7 @@ export const WORLD_5 = {
 		{
 			name: NewsSources.RT,
 			src: "https://www.rt.com/rss/news/",
-			region: ["europe", "Russia"],
+			region: ["Europe", "Russia"],
 			coverage: ["international", "national"],
 		},
 		{
@@ -279,13 +279,13 @@ export const WORLD_6 = {
 		{
 			name: NewsSources.IFP_NEWS,
 			src: "https://ifpnews.com/category/news/world/feed/",
-			region: ["Middle East", "Iran"],
+			region: ["Asia", "Middle East", "Iran"],
 			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.SOUTH_CHINA_MORNING_POST,
 			src: "https://www.scmp.com/rss/5/feed",
-			region: ["Asia", "China"],
+			region: ["Asia", "Far East", "China"],
 			coverage: ["international", "national"],
 		},
 		{
@@ -317,43 +317,43 @@ export const WORLD_7 = {
 		{
 			name: NewsSources.ELECTRONIC_INTIFADA,
 			src: "https://electronicintifada.net/rss.xml",
-			region: ["Middle East", "Palestine"],
+			region: ["Asia", "Middle East", "Palestine"],
 			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.QUDS_NEWS,
 			src: "https://qudsnen.co/feed/",
-			region: ["Middle East", "Palestine"],
+			region: ["Asia", "Middle East", "Palestine"],
 			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.TIMES_OF_ISRAEL,
 			src: "https://www.timesofisrael.com/rss",
-			region: ["Middle East", "Israel", "Occupied Palestine"],
+			region: ["Asia", "Middle East", "Israel", "Occupied Palestine"],
 			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.HAARETZ,
 			src: "https://www.haaretz.com/srv/haaretz-latest-headlines",
-			region: ["Middle East", "Israel", "Occupied Palestine"],
+			region: ["Asia", "Middle East", "Israel", "Occupied Palestine"],
 			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.THE_CRADLE,
 			src: "https://thecradle.co/feed",
-			region: ["Middle East"],
+			region: ["Asia", "Middle East"],
 			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.PALESTINE_CHRONICLE,
 			src: "https://www.palestinechronicle.com/feed/",
-			region: ["Middle East", "Palestine"],
+			region: ["Asia", "Middle East", "Palestine"],
 			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.PALESTINE_NEWS_NETWORK,
 			src: "https://english.pnn.ps/feed",
-			region: ["Middle East", "Palestine"],
+			region: ["Asia", "Middle East", "Palestine"],
 			coverage: ["international", "national"],
 		},
 	],

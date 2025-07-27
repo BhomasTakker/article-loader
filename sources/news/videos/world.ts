@@ -29,7 +29,7 @@ export const WORLD_VIDEO = {
 		{
 			name: NewsSources.AL_JAZEERA,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCNye-wNBqNL5ZzHSJj3l8Bg",
-			region: ["world", "Middle East", "Qatar"],
+			region: ["world", "Asia", "Middle East", "Qatar"],
 		},
 		{
 			name: NewsSources.CBC,
@@ -102,17 +102,17 @@ export const WORLD_VIDEO_2 = {
 		{
 			name: NewsSources.QUDS_NEWS,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCVG72F2Q5yCmLQfctNK6M2A",
-			region: ["world", "Middle East", "Iran"],
+			region: ["world", "Asia", "Middle East", "Iran"],
 		},
 		{
 			name: NewsSources.MIDDLE_EAST_EYE,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCR0fZh5SBxxMNYdg0VzRFkg",
-			region: ["world", "Middle East"],
+			region: ["world", "Asia", "Middle East"],
 		},
 		{
 			name: NewsSources.THE_CRADLE,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UC2liaNc5y50YBVjgXiQxdHQ",
-			region: ["world", "Middle East"],
+			region: ["world", "Asia", "Middle East"],
 		},
 		// {
 		// 	name: NewsSources.ROYA_NEWS,
