@@ -2,7 +2,11 @@ import {
 	floridaSources,
 	floridaSourcesMap,
 } from "./articles/united-states/florida";
-import { ny_sources, ny_sourcesMap } from "./articles/united-states/new-york";
+import {
+	ny_sources,
+	ny_sourcesMap,
+} from "./articles/united-states/newyork-sources";
+
 import {
 	abc,
 	abcAustralia,
