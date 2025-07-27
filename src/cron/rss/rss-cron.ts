@@ -18,6 +18,10 @@ import {
 } from "../../../sources/audio/podbean/news/world";
 import { UK_1, UK_2, UK_3 } from "../../../sources/news/articles/uk";
 import {
+	FLORIDA_ARTICLES,
+	FLORIDA_VIDEOS,
+} from "../../../sources/news/articles/united-states/florida";
+import {
 	NEW_YORK_ARTICLES,
 	NEW_YORK_VIDEOS,
 } from "../../../sources/news/articles/united-states/new-york";
@@ -93,6 +97,9 @@ const world_articles_3 = [WORLD_5, WORLD_6, WORLD_7];
 
 const newYorkArticles = [NEW_YORK_ARTICLES];
 const newYorkVideos = [NEW_YORK_VIDEOS];
+const floridaArticles = [FLORIDA_ARTICLES];
+const floridaVideos = [FLORIDA_VIDEOS];
+
 // you could functionalise
 // pass in cron, fetch, and complete
 export const rssCronConfig: CronConfig = {
@@ -134,6 +141,7 @@ export const rssCronConfig: CronConfig = {
 			fetchFn: fetchRSS(world_articles_3),
 			onComplete: () => {},
 		},
+		// Split
 		{
 			time: staggerMinutes(30, 10),
 			fetchFn: fetchRSS(newYorkArticles),
@@ -142,6 +150,16 @@ export const rssCronConfig: CronConfig = {
 		{
 			time: staggerMinutes(30, 11),
 			fetchFn: fetchYoutubeRSS(newYorkVideos),
+			onComplete: () => {},
+		},
+		{
+			time: staggerMinutes(30, 12),
+			fetchFn: fetchRSS(floridaArticles),
+			onComplete: () => {},
+		},
+		{
+			time: staggerMinutes(30, 13),
+			fetchFn: fetchYoutubeRSS(floridaVideos),
 			onComplete: () => {},
 		},
 		{
