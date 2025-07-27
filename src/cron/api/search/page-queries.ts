@@ -7,15 +7,9 @@ import {
 } from "../../../lib/mongo/actions/page/get-page";
 import { connectToMongoDB } from "../../../lib/mongo/db";
 import { IPage, WithQuery } from "../../../types/page/page";
-import { CRON_TIMES, staggerMinutes } from "../../create-cron";
+import { staggerMinutes, staggerSeconds } from "../../create-cron";
 import { CronConfig } from "../../types";
-import {
-	ROUTES_1,
-	UK_FEATURES,
-	UKRAINE_FEATURES,
-	US_FEATURES,
-	WORLD_FEATURES,
-} from "./routes";
+import { ROUTES_1 } from "./routes";
 
 require("dotenv").config();
 
@@ -34,8 +28,19 @@ const apiMap = new Map<string, any>([
 const getQueriesFromPage = ({ content }: IPage) => {
 	const { components } = content;
 	logMemoryUsage();
+
 	const queries = components.map((component) => {
-		const { _with } = component;
+		// We changed structure of the queries!
+		let _with = component._with;
+		if (!_with) {
+			const { componentProps } = component;
+			_with =
+				componentProps && componentProps._with ? componentProps._with : null;
+		}
+		if (!_with || !_with.query) {
+			console.warn("No query found in component:", component);
+			return null;
+		}
 		const { query } = _with;
 		return query;
 	});
@@ -93,8 +98,10 @@ const executeAndCacheQueriesFromPage = async (
 		const pageDocument = getPageByRoute(route);
 		pageDocument.then((page) => {
 			if (!page) return Promise.resolve(null);
+
 			const queries = getQueriesFromPage(page);
-			const queryPromises = queries.map((query) => {
+			const filteredQueries = queries.filter((q) => q !== null);
+			const queryPromises = filteredQueries.map((query) => {
 				const { provider } = query;
 				if (apis.includes(provider as API_PROVIDERS) === false) {
 					return Promise.resolve(null);
@@ -129,8 +136,6 @@ export const pingApp = async (includes: string[]) => {
 		});
 		if (!shouldPing) return Promise.resolve(null);
 
-		// console.log("Pinging route:", route);
-
 		return fetch(`https://datatattat.com${route}`, {
 			method: "GET",
 		}).catch((error) => {
@@ -149,7 +154,7 @@ export const pageQueriesCronConfig: CronConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			time: staggerMinutes(15, 0),
+			time: staggerSeconds(30, 0),
 			fetchFn: () =>
 				executeAndCacheQueriesFromPage(
 					[API_PROVIDERS.ARTICLES_SEARCH_API],
@@ -158,36 +163,8 @@ export const pageQueriesCronConfig: CronConfig = {
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.hours_6_11,
-			fetchFn: () =>
-				executeAndCacheQueriesFromPage(
-					[API_PROVIDERS.ARTICLES_SEARCH_API],
-					[...UK_FEATURES, ...UKRAINE_FEATURES]
-				),
-			onComplete: () => {},
-		},
-		{
-			time: CRON_TIMES.hours_6_12,
-			fetchFn: () =>
-				executeAndCacheQueriesFromPage(
-					[API_PROVIDERS.YOUTUBE_API],
-					[...WORLD_FEATURES, ...US_FEATURES]
-				),
-			onComplete: () => {},
-		},
-		{
 			time: staggerMinutes(15, 11),
 			fetchFn: () => pingApp(ROUTES_1),
-			onComplete: () => {},
-		},
-		{
-			time: staggerMinutes(15, 13),
-			fetchFn: () => pingApp([...WORLD_FEATURES, ...US_FEATURES]),
-			onComplete: () => {},
-		},
-		{
-			time: staggerMinutes(15, 14),
-			fetchFn: () => pingApp([...UK_FEATURES, ...UKRAINE_FEATURES]),
 			onComplete: () => {},
 		},
 	],
