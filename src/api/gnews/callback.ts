@@ -34,7 +34,6 @@ const convertNewsAPIItem = (
 		content,
 		guid: "",
 		variant: "article",
-		collectionType: "news",
 		avatar: {
 			src: image,
 			alt: title,

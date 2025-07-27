@@ -2,7 +2,6 @@ import { NewsSources } from "../../../news/sources";
 
 export const DIDDY_TRIAL = {
 	categories: [],
-	collectionType: "news",
 	region: "UK",
 	language: "en",
 	sources: [

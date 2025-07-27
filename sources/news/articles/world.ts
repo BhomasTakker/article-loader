@@ -2,7 +2,6 @@ import { NewsSources } from "../sources";
 
 export const WORLD_1 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["world"],
 	coverage: ["international"],
 	language: "en",
@@ -52,7 +51,6 @@ export const WORLD_1 = {
 
 export const WORLD_2 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["world"],
 	coverage: ["international"],
 	language: "en",
@@ -102,7 +100,6 @@ export const WORLD_2 = {
 
 export const WORLD_3 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["world"],
 	coverage: ["international"],
 	language: "en",
@@ -148,7 +145,6 @@ export const WORLD_3 = {
 
 export const WORLD_4 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["world"],
 	coverage: ["international"],
 	language: "en",
@@ -201,7 +197,6 @@ export const WORLD_4 = {
 
 export const WORLD_5 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["world"],
 	coverage: ["international"],
 	language: "en",
@@ -257,7 +252,6 @@ export const WORLD_5 = {
 
 export const WORLD_6 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["world"],
 	coverage: ["international"],
 	language: "en",
@@ -303,7 +297,6 @@ export const WORLD_6 = {
 
 export const WORLD_7 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["world"],
 	coverage: ["international"],
 	language: "en",

@@ -55,7 +55,6 @@ const convertYouTubeItems = (items: YouTubeItem[]): CollectionItem[] => {
 				src: thumbnail.url,
 				alt: title,
 			},
-			collectionType: "",
 			title,
 			description,
 			guid: videoId,

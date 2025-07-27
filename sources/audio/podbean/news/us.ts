@@ -1,8 +1,7 @@
 import { NewsSources } from "../../../news/sources";
 
 export const BITES_US = {
-	categories: [],
-	collectionType: "news",
+	categories: ["news"],
 	region: ["US"],
 	coverage: ["national"],
 	language: "en",
@@ -37,8 +36,7 @@ export const BITES_US = {
 };
 
 export const NEWS_US_1 = {
-	categories: [],
-	collectionType: "news",
+	categories: ["news"],
 	region: ["US"],
 	coverage: ["national"],
 	language: "en",
@@ -85,8 +83,7 @@ export const NEWS_US_1 = {
 };
 
 export const NEWS_US_2 = {
-	categories: [],
-	collectionType: "news",
+	categories: ["news"],
 	region: ["US"],
 	coverage: ["national"],
 	language: "en",
@@ -125,8 +122,7 @@ export const NEWS_US_2 = {
 };
 
 export const NEWS_US_3 = {
-	categories: [],
-	collectionType: "news",
+	categories: ["news"],
 	region: ["US"],
 	coverage: ["national"],
 	language: "en",
@@ -172,8 +168,7 @@ export const NEWS_US_3 = {
 };
 
 export const NEWS_US_4 = {
-	categories: [],
-	collectionType: "news",
+	categories: ["news"],
 	region: ["US"],
 	coverage: ["national"],
 	language: "en",

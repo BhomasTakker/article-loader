@@ -102,7 +102,6 @@ export type BaseInfo = {
 	description: string;
 	guid: string;
 	variant: string; // union
-	collectionType?: string;
 	// use for youtube, podcast/mp3, etc?
 } & Temp;
 

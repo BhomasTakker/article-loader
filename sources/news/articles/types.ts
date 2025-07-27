@@ -13,7 +13,6 @@ export type SourceObject = {
 	region?: string | string[];
 	coverage?: string[];
 	language?: string;
-	collectionType?: string;
 	sources?: ArticleSource[];
 	media?: UnknownObject;
 };
