@@ -45,10 +45,6 @@ export const CRON_TIMES = {
 	hours_6_13: "13 */6 * * *",
 	hours_6_14: "14 */6 * * *",
 	hours_6_15: "15 */6 * * *",
-
-	minutes_1: "*/1 * * * *",
-	hours_1: "0 */1 * * *",
-	// hours_1: "* * */1 * * *", // every second!!
 } as const;
 
 type CRON_TIMES = (typeof CRON_TIMES)[keyof typeof CRON_TIMES];
