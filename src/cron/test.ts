@@ -15,7 +15,7 @@ import {
 	NEWS_WORLD_1,
 	NEWS_WORLD_2,
 } from "../../sources/audio/podbean/news/world";
-import { CRON_TIMES } from "./create-cron";
+import { CRON_TIMES, staggerSeconds } from "./create-cron";
 import { fetchPodcasts } from "./loaders/fetchPodcasts";
 
 const fetchPodcastsTest = () => {
@@ -32,7 +32,7 @@ export const testConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			time: CRON_TIMES.seconds_30,
+			time: staggerSeconds(30, 0),
 			fetchFn: testFunction,
 			onComplete: () => {},
 		},

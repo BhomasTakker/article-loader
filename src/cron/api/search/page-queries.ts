@@ -7,7 +7,7 @@ import {
 } from "../../../lib/mongo/actions/page/get-page";
 import { connectToMongoDB } from "../../../lib/mongo/db";
 import { IPage, WithQuery } from "../../../types/page/page";
-import { CRON_TIMES } from "../../create-cron";
+import { CRON_TIMES, staggerMinutes } from "../../create-cron";
 import { CronConfig } from "../../types";
 import {
 	ROUTES_1,
@@ -149,7 +149,7 @@ export const pageQueriesCronConfig: CronConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			time: CRON_TIMES.fifthteen_10,
+			time: staggerMinutes(15, 0),
 			fetchFn: () =>
 				executeAndCacheQueriesFromPage(
 					[API_PROVIDERS.ARTICLES_SEARCH_API],
@@ -176,17 +176,17 @@ export const pageQueriesCronConfig: CronConfig = {
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.fifthteen_11,
+			time: staggerMinutes(15, 11),
 			fetchFn: () => pingApp(ROUTES_1),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.fifthteen_13,
+			time: staggerMinutes(15, 13),
 			fetchFn: () => pingApp([...WORLD_FEATURES, ...US_FEATURES]),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.fifthteen_14,
+			time: staggerMinutes(15, 14),
 			fetchFn: () => pingApp([...UK_FEATURES, ...UKRAINE_FEATURES]),
 			onComplete: () => {},
 		},
