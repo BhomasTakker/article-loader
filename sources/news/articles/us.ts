@@ -209,6 +209,10 @@ export const US_4 = {
 			name: NewsSources.MIRROR,
 			src: "https://www.mirror.co.uk/news/us-news/rss.xml",
 		},
+		{
+			name: NewsSources.LOCAL10,
+			src: "https://www.local10.com/arc/outboundfeeds/rss/category/news/national/?outputType=xml",
+		},
 	],
 };
 
