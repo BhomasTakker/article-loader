@@ -59,7 +59,6 @@ const convertRadioBrowserStationToArticle = (
 		)}`,
 		guid: "",
 		variant: "audio",
-		collectionType: "",
 		avatar: {
 			src: favicon || "",
 			alt: name,

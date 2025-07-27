@@ -2,7 +2,6 @@ import { NewsSources } from "../sources";
 
 export const WORLD_LIVE = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["world"],
 	coverage: ["international"],
 	language: "en",
@@ -21,7 +20,6 @@ export const WORLD_LIVE = {
 // We are largely all world news
 export const WORLD_VIDEO = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["world"],
 	coverage: ["international"],
 	language: "en",
@@ -94,7 +92,6 @@ export const WORLD_VIDEO = {
 
 export const WORLD_VIDEO_2 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["world"],
 	coverage: ["international"],
 	language: "en",
@@ -114,9 +111,5 @@ export const WORLD_VIDEO_2 = {
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UC2liaNc5y50YBVjgXiQxdHQ",
 			region: ["world", "Asia", "Middle East"],
 		},
-		// {
-		// 	name: NewsSources.ROYA_NEWS,
-		// 	src: '',
-		// },
 	],
 };

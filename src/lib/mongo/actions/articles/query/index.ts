@@ -14,5 +14,6 @@ export const buildArticleSearchQuery = async (
 	const res = await Article.aggregate(
 		createSearchAggregate(queryParams, [] as Aggregator)
 	);
+
 	return res;
 };

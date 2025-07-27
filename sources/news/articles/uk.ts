@@ -6,7 +6,6 @@ import { NewsSources } from "../sources";
 
 export const TEST = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["UK"],
 	coverage: ["national"],
 	language: "en",
@@ -32,7 +31,6 @@ export const TEST = {
 
 export const UK_1 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["Europe", "UK"],
 	coverage: ["national"],
 	language: "en",
@@ -86,7 +84,6 @@ export const UK_1 = {
 
 export const UK_2 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["Europe", "UK"],
 	coverage: ["national"],
 	language: "en",
@@ -152,7 +149,6 @@ export const UK_2 = {
 
 export const UK_3 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["Europe", "UK"],
 	coverage: ["national"],
 	language: "en",

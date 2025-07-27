@@ -50,7 +50,6 @@ const convertYouTubeRssItemToArticle = ({
 		coverage = [],
 		language,
 		categories = [],
-		collectionType,
 		media: extraDataMedia = {},
 	} = extraData || {};
 
@@ -81,7 +80,6 @@ const convertYouTubeRssItemToArticle = ({
 			views,
 		},
 		provider,
-		collectionType,
 	};
 
 	return newItem;

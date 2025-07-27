@@ -153,7 +153,8 @@ export const rssCronConfig: CronConfig = {
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(30, 13),
+			// time: staggerMinutes(30, 13),
+			time: staggerSeconds(30, 0),
 			fetchFn: fetchYoutubeRSS(floridaVideos),
 			onComplete: () => {},
 		},

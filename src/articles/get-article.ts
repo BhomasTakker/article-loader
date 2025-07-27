@@ -57,7 +57,6 @@ const convertRssItem = (data: RSSItem) => {
 			src: url,
 			alt: title,
 		},
-		collectionType: "",
 	} as CollectionItem;
 };
 
@@ -72,13 +71,7 @@ export type GetArticle = {
 export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 	// We're not doing anything with converted item - we're just getting the src and details
 	const { src, details = {} } = convertRssItem(item);
-	const {
-		region,
-		coverage = [],
-		language,
-		categories = [],
-		collectionType,
-	} = extraData || {};
+	const { region, coverage = [], language, categories = [] } = extraData || {};
 
 	// Do elsewhere and prbably check performance.....
 	const mergedCategories = new Set([
@@ -130,7 +123,6 @@ export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 			alt: imageAlt || "",
 		},
 		...extraData,
-		collectionType,
 		provider,
 	};
 

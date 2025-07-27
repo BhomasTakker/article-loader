@@ -2,7 +2,6 @@ import { NewsSources } from "../sources";
 
 export const US_LIVE = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["US"],
 	coverage: ["national"],
 	language: "en",
@@ -18,7 +17,6 @@ export const US_LIVE = {
 // We are largely all world news
 export const US_VIDEO = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["North America", "US"],
 	coverage: ["national"],
 	language: "en",
@@ -102,7 +100,6 @@ export const US_VIDEO = {
 
 export const US_VIDEO_2 = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["US"],
 	coverage: ["national"],
 	language: "en",

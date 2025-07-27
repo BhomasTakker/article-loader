@@ -2,7 +2,6 @@ import { NewsSources } from "../../sources";
 
 export const COLORADO_ARTICLES = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["North America", "US", "Colorado"],
 	coverage: ["regional", "local"],
 	sources: [

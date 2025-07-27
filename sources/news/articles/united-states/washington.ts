@@ -32,7 +32,6 @@ export const washingtonSourceMap = new Map([
 
 export const WASHINGTON_ARTICLES = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["North America", "US", "Washington"],
 	coverage: ["regional", "local"],
 	sources: [],
@@ -40,7 +39,6 @@ export const WASHINGTON_ARTICLES = {
 
 export const WASHINGTON_VIDEOS = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["North America", "US", "Washington"],
 	coverage: ["regional"],
 	sources: [

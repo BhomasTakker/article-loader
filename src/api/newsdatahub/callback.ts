@@ -61,7 +61,6 @@ const convertNewsAPIItem = (
 		guid: "",
 		// media_type
 		variant: "article",
-		collectionType: "news",
 		avatar: {
 			src: media_url,
 			alt: title,

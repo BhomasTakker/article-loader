@@ -121,7 +121,6 @@ const convertPodcastRssItemToArticle = ({
 		coverage = [],
 		language,
 		categories = [],
-		collectionType,
 		collectionTitle: seriesTitle,
 	} = extraData || {};
 
@@ -154,7 +153,6 @@ const convertPodcastRssItemToArticle = ({
 			language,
 		},
 		provider,
-		collectionType,
 	};
 
 	return newItem;

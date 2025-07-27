@@ -194,7 +194,6 @@ export const floridaSourcesMap = new Map([
 
 export const FLORIDA_ARTICLES = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["North America", "US", "Florida"],
 	coverage: [],
 	sources: [
@@ -263,7 +262,6 @@ export const FLORIDA_ARTICLES = {
 
 export const FLORIDA_VIDEOS = {
 	categories: ["news"],
-	collectionType: "news",
 	region: ["North America", "US", "Florida"],
 	coverage: ["regional"],
 	sources: [

@@ -69,10 +69,6 @@ const ArticleSchema = new Schema<CollectionItem>(
 			type: String,
 			default: "",
 		},
-		collectionType: {
-			type: String,
-			default: "",
-		},
 		details: DetailsSchema,
 		avatar: AvatarSchema,
 		media: MediaSchema,
