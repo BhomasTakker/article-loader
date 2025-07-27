@@ -115,6 +115,7 @@ export type Details = {
 	modified?: Date | string;
 
 	region?: string | string[];
+	coverage?: string[];
 	language?: string;
 };
 
