@@ -118,6 +118,7 @@ const convertPodcastRssItemToArticle = ({
 		collectionData || {};
 	const {
 		region,
+		coverage = [],
 		language,
 		categories = [],
 		collectionType,
@@ -149,6 +150,7 @@ const convertPodcastRssItemToArticle = ({
 			categories: [...categories, ...collectionCategories],
 			authors: [collectionAuthor || author],
 			region,
+			coverage,
 			language,
 		},
 		provider,

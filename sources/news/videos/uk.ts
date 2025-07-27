@@ -3,7 +3,8 @@ import { NewsSources } from "../sources";
 export const UK_LIVE = {
 	categories: ["news"],
 	collectionType: "news",
-	region: ["UK"],
+	region: ["Europe", "UK"],
+	coverage: ["national"],
 	language: "en",
 	media: { mediaType: "24/7" },
 	sources: [
@@ -16,20 +17,25 @@ export const UK_LIVE = {
 export const UK_VIDEO = {
 	categories: ["news"],
 	collectionType: "news",
-	region: ["UK"],
+	region: ["Europe", "UK"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
 			name: NewsSources.STV,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCtHWi_Mwj_Bu7TT1SjaI5Gw",
+			region: ["UK", "Scotland"],
+			coverage: ["national", "regional"],
 		},
 		{
 			name: NewsSources.SKY,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCoMdktPbSTixAyNGwb-UYkQ",
+			coverage: ["national", "international"],
 		},
 		{
 			name: NewsSources.BBC,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UC16niRr50-MSBwiO3YDb3RA",
+			coverage: ["national", "international"],
 		},
 		{
 			name: NewsSources.ITV,
@@ -59,10 +65,12 @@ export const UK_VIDEO = {
 			name: NewsSources.MANCHESTER_EVENING_NEWS,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCPFSLlkwCqpy23jwYDwAPrg",
 			region: ["UK", "England", "North West", "Manchester"],
+			coverage: ["national", "regional", "local"],
 		},
 		{
 			name: NewsSources.GUARDIAN,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCIRYBXDze5krPDzAEOxFGVA",
+			coverage: ["national", "international"],
 		},
 		{
 			name: NewsSources.TELEGRAPH,
@@ -82,7 +90,8 @@ export const UK_VIDEO = {
 export const UK_VIDEO_2 = {
 	categories: ["news"],
 	collectionType: "news",
-	region: ["UK"],
+	region: ["Europe", "UK"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{

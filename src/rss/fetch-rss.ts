@@ -1,4 +1,5 @@
 import { ArticleSource, ExtraData } from "../../sources/news/articles/types";
+import { mergeStringOrArray } from "../../utils";
 import { FetchArticles } from "../articles/fetch-articles";
 import { GetCollection } from "../collections/get-collection";
 import { getArticleProviderByName } from "../lib/mongo/actions/article-provider";
@@ -39,15 +40,6 @@ type FetchRSS<T, G> = {
 
 type Callback = () => void;
 
-const mergeStringOrArray = (
-	region1: string | string[] = [],
-	region2: string | string[] = []
-) => {
-	const arrayRegion1 = typeof region1 === "string" ? [region1] : region1;
-	const arrayRegion2 = typeof region2 === "string" ? [region2] : region2;
-	return [...new Set([...arrayRegion1, ...arrayRegion2])];
-};
-
 const deepMerge = (obj1: ExtraData, obj2: Partial<ExtraData>) => {
 	const region1 = obj1?.region || [];
 	const region2 = obj2?.region || [];
@@ -57,10 +49,15 @@ const deepMerge = (obj1: ExtraData, obj2: Partial<ExtraData>) => {
 	const categories2 = obj2?.categories || [];
 	const categories = mergeStringOrArray(categories1, categories2);
 
+	const coverage1 = obj1?.coverage || [];
+	const coverage2 = obj2?.coverage || [];
+	const coverage = mergeStringOrArray(coverage1, coverage2);
+
 	return structuredClone({
 		...obj1,
 		...obj2,
 		region,
+		coverage,
 		categories,
 	});
 };

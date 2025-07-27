@@ -4,13 +4,14 @@ export const BITES_WORLD = {
 	categories: [],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		{
 			collectionTitle: "Al Jazeera News Updates",
 			name: NewsSources.AL_JAZEERA,
 			src: "https://www.omnycontent.com/d/playlist/9c074afa-3313-47e8-b802-a9f900789975/63048eda-2427-408a-b47c-ad5001293fca/6677d422-fd43-4aaa-be74-ad5001293fd8/podcast.rss",
-			region: ["world", "Middle East", "Qatar"],
+			region: ["world", "Asia", "Middle East", "Qatar"],
 		},
 		{
 			collectionTitle: "DW News Brief",
@@ -28,7 +29,7 @@ export const BITES_WORLD = {
 			collectionTitle: NewsSources.TRT,
 			name: "Daily News Brief",
 			src: "https://feeds.soundcloud.com/users/soundcloud:users:299903955/sounds.rss",
-			region: ["world", "Europe", "Turkey"],
+			region: ["world", "Europe", "Asia", "Middle East", "Turkey"],
 		},
 	],
 };
@@ -37,6 +38,7 @@ export const NEWS_WORLD_1 = {
 	categories: [],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		{
@@ -55,11 +57,13 @@ export const NEWS_WORLD_1 = {
 			collectionTitle: "ABC News Daily",
 			name: NewsSources.ABC_AUSTRALIA,
 			src: "https://www.abc.net.au/feeds/9443166/podcast.xml",
-			region: ["world", "Australia"],
+			region: ["Australia"],
 		},
 		{
 			name: NewsSources.BBC,
 			collectionTitle: "Ukrainecast",
+			coverage: ["international", "national"],
+			region: ["Europe", "Ukraine"],
 			src: "https://podcasts.files.bbci.co.uk/p0bqztzm.rss",
 		},
 	],
@@ -69,6 +73,7 @@ export const NEWS_WORLD_2 = {
 	categories: [],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		{
@@ -79,6 +84,7 @@ export const NEWS_WORLD_2 = {
 		{
 			name: NewsSources.BBC,
 			collectionTitle: "Focus on Africa",
+			region: ["Africa"],
 			src: "https://podcasts.files.bbci.co.uk/p02nrtyw.rss",
 		},
 		{

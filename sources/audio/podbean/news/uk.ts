@@ -4,6 +4,7 @@ export const BITES_UK = {
 	categories: [],
 	collectionType: "news",
 	region: ["UK"],
+	coverage: ["international", "national"],
 	language: "en",
 	sources: [
 		{
@@ -30,6 +31,7 @@ export const NEWS_UK_1 = {
 	categories: [],
 	collectionType: "news",
 	region: ["UK"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
@@ -41,11 +43,13 @@ export const NEWS_UK_1 = {
 		{
 			name: NewsSources.BBC,
 			collectionTitle: "Newshour",
+			coverage: ["international", "national"],
 			src: "https://podcasts.files.bbci.co.uk/p002vsnk.rss",
 		},
 		{
 			name: NewsSources.SKY,
 			collectionTitle: "Sky News Daily",
+			coverage: ["international", "national"],
 			src: "https://podcast.global.com/show/3287246/episodes/feed",
 		},
 		{
@@ -56,12 +60,8 @@ export const NEWS_UK_1 = {
 		{
 			name: NewsSources.GUARDIAN,
 			collectionTitle: "Today In Focus",
+			coverage: ["international", "national"],
 			src: "https://www.theguardian.com/news/series/todayinfocus/podcast.xml",
-		},
-		{
-			name: NewsSources.BBC,
-			collectinTitle: "Diddy On Trial",
-			src: "https://podcasts.files.bbci.co.uk/p0k61syt.rss",
 		},
 		{
 			name: NewsSources.COUNCIL_ESTATE_MEDIA,
@@ -75,6 +75,7 @@ export const NEWS_UK_2 = {
 	categories: [],
 	collectionType: "news",
 	region: ["UK"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
@@ -85,16 +86,19 @@ export const NEWS_UK_2 = {
 		{
 			name: NewsSources.FT,
 			collectionTitle: "FT News Briefing",
+			coverage: ["international", "national"],
 			src: "https://feeds.acast.com/public/shows/73fe3ede-5c5c-4850-96a8-30db8dbae8bf",
 		},
 		{
 			name: NewsSources.BBC,
 			collectionTitle: "Six O'Clock News",
+			coverage: ["international", "national"],
 			src: "https://podcasts.files.bbci.co.uk/b006qjxt.rss",
 		},
 		{
 			name: NewsSources.METRO,
 			collectionTitle: "The Smart 7",
+			coverage: ["international", "national"],
 			src: "https://feeds.acast.com/public/shows/35d3734f-1e29-4d0b-a646-15776be08249",
 		},
 		{
@@ -105,6 +109,7 @@ export const NEWS_UK_2 = {
 		{
 			name: NewsSources.CHANNEL_4,
 			collectionTitle: "The Fourcast",
+			coverage: ["international", "national"],
 			src: "https://thefourcast.libsyn.com/rss",
 		},
 		{

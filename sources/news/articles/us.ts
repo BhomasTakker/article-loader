@@ -4,19 +4,23 @@ export const US_1 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["North America", "US"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
 			name: NewsSources.BBC,
 			src: "https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml",
+			coverage: ["national", "international"],
 		},
 		{
 			name: NewsSources.CNN,
 			src: "http://rss.cnn.com/rss/cnn_us.rss",
+			coverage: ["national", "international"],
 		},
 		{
 			name: NewsSources.FOX,
 			src: "http://feeds.foxnews.com/foxnews/national",
+			coverage: ["national", "international"],
 		},
 		{
 			name: NewsSources.WALL_STREET_JOURNAL,
@@ -37,6 +41,11 @@ export const US_1 = {
 		{
 			name: NewsSources.NPR,
 			src: "https://www.npr.org/rss/rss.php?id=1001",
+			coverage: ["national", "international"],
+		},
+		{
+			name: NewsSources.WKBW,
+			src: "https://www.wkbw.com/news.rss",
 		},
 	],
 };
@@ -45,6 +54,7 @@ export const US_2 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["North America", "US"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
@@ -66,18 +76,23 @@ export const US_2 = {
 		{
 			name: NewsSources.CBS,
 			src: "https://www.cbsnews.com/latest/rss/main",
+			coverage: ["national", "international"],
 		},
 		{
 			name: NewsSources.ABC,
 			src: "http://abcnews.go.com/abcnews/usheadlines",
+			coverage: ["national", "international"],
 		},
 		{
 			name: NewsSources.BREITBART,
 			src: "https://www.breitbart.com/feed/",
+			coverage: ["national", "international"],
 		},
 		{
 			name: NewsSources.BOSTON_HEARLD,
 			src: "https://www.bostonherald.com/feed/",
+			coverage: ["national", "regional", "local"],
+			region: ["New England", "Northeast", "Boston"],
 		},
 		{
 			name: NewsSources.DENVER_POST,
@@ -87,6 +102,10 @@ export const US_2 = {
 			name: NewsSources.NEW_YORK_POST,
 			src: "https://nypost.com/us-news/feed/",
 		},
+		{
+			name: NewsSources.WIVB,
+			src: "https://www.wivb.com/news/national/feed/",
+		},
 	],
 };
 
@@ -94,6 +113,7 @@ export const US_3 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["North America", "US"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
@@ -134,6 +154,11 @@ export const US_3 = {
 			name: NewsSources.METRO,
 			src: "https://metro.co.uk/news/us/feed/",
 		},
+		{
+			name: NewsSources.FOX5_NY,
+			region: ["NYC", "New York City"],
+			src: "https://www.fox5ny.com/rss/category/national-news",
+		},
 	],
 };
 
@@ -141,6 +166,7 @@ export const US_4 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["North America", "US"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
@@ -183,6 +209,10 @@ export const US_4 = {
 			name: NewsSources.MIRROR,
 			src: "https://www.mirror.co.uk/news/us-news/rss.xml",
 		},
+		{
+			name: NewsSources.LOCAL10,
+			src: "https://www.local10.com/arc/outboundfeeds/rss/category/news/national/?outputType=xml",
+		},
 	],
 };
 
@@ -190,11 +220,14 @@ export const US_5 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["North America", "US"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
 			name: NewsSources.TENNESSEE_HOLLER,
 			src: "https://tnholler.com/feed/",
+			coverage: ["regional"],
+			region: ["Tennessee"],
 		},
 		{
 			name: NewsSources.DROP_SITE_NEWS,

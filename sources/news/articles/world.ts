@@ -4,6 +4,7 @@ export const WORLD_1 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		{
@@ -53,6 +54,7 @@ export const WORLD_2 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		{
@@ -102,6 +104,7 @@ export const WORLD_3 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		// {
@@ -147,6 +150,7 @@ export const WORLD_4 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		{
@@ -165,10 +169,14 @@ export const WORLD_4 = {
 		{
 			name: NewsSources.JAPAN_TIMES,
 			src: "https://www.japantimes.co.jp/feed/",
+			region: ["Asia", "Far East", "Japan"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.SOUTH_CHINA_MORNING_POST,
 			src: "https://www.scmp.com/rss/4/feed",
+			region: ["Asia", "Far East", "China"],
+			coverage: ["international", "national"],
 		},
 		// {
 		// 	name: NewsSources.STRAITS_TIMES,
@@ -177,6 +185,8 @@ export const WORLD_4 = {
 		{
 			name: NewsSources.TIMES_OF_INDIA,
 			src: "https://timesofindia.indiatimes.com/rssfeeds/296589292.cms",
+			region: ["Asia", "India"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.LA_TIMES,
@@ -193,15 +203,20 @@ export const WORLD_5 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		{
 			name: NewsSources.RT,
 			src: "https://www.rt.com/rss/news/",
+			region: ["Europe", "Russia"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.NDTV,
 			src: "https://feeds.feedburner.com/NDTV-LatestNews",
+			region: ["Asia", "India"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.E_INTERNATIONAL_RELATIONS,
@@ -234,6 +249,8 @@ export const WORLD_5 = {
 		{
 			name: NewsSources.CHANNEL_NEWS_ASIA,
 			src: "https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml",
+			region: ["Asia", "Singapore"],
+			coverage: ["international", "national"],
 		},
 	],
 };
@@ -242,6 +259,7 @@ export const WORLD_6 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		{
@@ -251,6 +269,8 @@ export const WORLD_6 = {
 		{
 			name: NewsSources.MOSCOW_TIMES,
 			src: "https://www.themoscowtimes.com/rss/news",
+			region: ["Europe", "Russia"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.RAW_STORY,
@@ -259,10 +279,14 @@ export const WORLD_6 = {
 		{
 			name: NewsSources.IFP_NEWS,
 			src: "https://ifpnews.com/category/news/world/feed/",
+			region: ["Asia", "Middle East", "Iran"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.SOUTH_CHINA_MORNING_POST,
 			src: "https://www.scmp.com/rss/5/feed",
+			region: ["Asia", "Far East", "China"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.THE_WORLD,
@@ -271,6 +295,8 @@ export const WORLD_6 = {
 		{
 			name: NewsSources.SPUTNIK,
 			src: "https://sputniknews.com/export/rss2/archive/index.xml",
+			region: ["Europe", "Russia"],
+			coverage: ["international", "national"],
 		},
 	],
 };
@@ -279,39 +305,56 @@ export const WORLD_7 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["world"],
+	coverage: ["international"],
 	language: "en",
 	sources: [
 		{
 			name: NewsSources.KYIV_INDEPENDENT,
-			src: "https://sputniknews.com/export/rss2/archive/index.xml",
+			src: "https://kyivindependent.com/news-archive/rss/",
+			region: ["Europe", "Ukraine"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.ELECTRONIC_INTIFADA,
 			src: "https://electronicintifada.net/rss.xml",
+			region: ["Asia", "Middle East", "Palestine"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.QUDS_NEWS,
 			src: "https://qudsnen.co/feed/",
+			region: ["Asia", "Middle East", "Palestine"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.TIMES_OF_ISRAEL,
 			src: "https://www.timesofisrael.com/rss",
+			region: ["Asia", "Middle East", "Israel", "Occupied Palestine"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.HAARETZ,
 			src: "https://www.haaretz.com/srv/haaretz-latest-headlines",
+			region: ["Asia", "Middle East", "Israel", "Occupied Palestine"],
+			coverage: ["international", "national"],
 		},
 		{
-			news: NewsSources.THE_CRADLE,
+			name: NewsSources.THE_CRADLE,
 			src: "https://thecradle.co/feed",
+			region: ["Asia", "Middle East"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.PALESTINE_CHRONICLE,
 			src: "https://www.palestinechronicle.com/feed/",
+			region: ["Asia", "Middle East", "Palestine"],
+			coverage: ["international", "national"],
 		},
 		{
 			name: NewsSources.PALESTINE_NEWS_NETWORK,
 			src: "https://english.pnn.ps/feed",
+			region: ["Asia", "Middle East", "Palestine"],
+			coverage: ["international", "national"],
 		},
 	],
 };

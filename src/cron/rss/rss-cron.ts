@@ -18,6 +18,14 @@ import {
 } from "../../../sources/audio/podbean/news/world";
 import { UK_1, UK_2, UK_3 } from "../../../sources/news/articles/uk";
 import {
+	FLORIDA_ARTICLES,
+	FLORIDA_VIDEOS,
+} from "../../../sources/news/articles/united-states/florida";
+import {
+	NEW_YORK_ARTICLES,
+	NEW_YORK_VIDEOS,
+} from "../../../sources/news/articles/united-states/new-york";
+import {
 	US_1,
 	US_2,
 	US_3,
@@ -47,8 +55,7 @@ import {
 	getCollection,
 	getYoutubeCollection,
 } from "../../collections/get-collection";
-import { CRON_TIMES } from "../create-cron";
-import { fetchPodcasts } from "../loaders/fetchPodcasts";
+import { staggerMinutes, staggerSeconds } from "../create-cron";
 import { CronConfig } from "../types";
 
 const fetchRSS = (srcs: any[]) =>
@@ -87,6 +94,12 @@ const us_articles_2 = [US_3, US_4, US_5];
 const world_articles_1 = [WORLD_1, WORLD_2];
 const world_articles_2 = [WORLD_3, WORLD_4, WORLD_5];
 const world_articles_3 = [WORLD_5, WORLD_6, WORLD_7];
+
+const newYorkArticles = [NEW_YORK_ARTICLES];
+const newYorkVideos = [NEW_YORK_VIDEOS];
+const floridaArticles = [FLORIDA_ARTICLES];
+const floridaVideos = [FLORIDA_VIDEOS];
+
 // you could functionalise
 // pass in cron, fetch, and complete
 export const rssCronConfig: CronConfig = {
@@ -94,37 +107,58 @@ export const rssCronConfig: CronConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			time: CRON_TIMES.fifthteen,
+			time: staggerMinutes(15, 0),
 			fetchFn: fetchRSS(uk_articles),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.fifthteen_1,
+			time: staggerMinutes(15, 1),
 			fetchFn: fetchRSS(us_articles_1),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.fifthteen_2,
+			time: staggerMinutes(15, 2),
 			fetchFn: fetchRSS(us_articles_2),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.fifthteen_3,
+			time: staggerMinutes(15, 3),
 			fetchFn: fetchRSS(world_articles_1),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.fifthteen_4,
+			time: staggerMinutes(15, 4),
 			fetchFn: fetchRSS(world_articles_2),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.fifthteen_5,
+			time: staggerMinutes(15, 5),
 			fetchFn: fetchRSS(world_articles_3),
 			onComplete: () => {},
 		},
+		// Split
 		{
-			time: CRON_TIMES.fifthteen_6,
+			time: staggerMinutes(30, 10),
+			fetchFn: fetchRSS(newYorkArticles),
+			onComplete: () => {},
+		},
+		{
+			time: staggerMinutes(30, 11),
+			fetchFn: fetchYoutubeRSS(newYorkVideos),
+			onComplete: () => {},
+		},
+		{
+			time: staggerMinutes(30, 12),
+			fetchFn: fetchRSS(floridaArticles),
+			onComplete: () => {},
+		},
+		{
+			time: staggerMinutes(30, 13),
+			fetchFn: fetchYoutubeRSS(floridaVideos),
+			onComplete: () => {},
+		},
+		{
+			time: staggerMinutes(15, 6),
 			fetchFn: fetchYoutubeRSS(videos),
 			onComplete: () => {},
 		},

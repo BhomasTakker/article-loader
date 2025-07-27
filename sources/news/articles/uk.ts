@@ -1,9 +1,14 @@
 import { NewsSources } from "../sources";
 
+// All news needs to be further categorized by international, continental, regional, national, sub-national, local.
+// i.e. world news, European news, UK news, English news, London news, etc.
+// Else local news will be in the same category as international news, etc.
+
 export const TEST = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["UK"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
@@ -29,6 +34,7 @@ export const UK_1 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["Europe", "UK"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
@@ -82,6 +88,7 @@ export const UK_2 = {
 	categories: ["news"],
 	collectionType: "news",
 	region: ["Europe", "UK"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{
@@ -100,12 +107,14 @@ export const UK_2 = {
 			name: NewsSources.MANCHESTER_EVENING_NEWS,
 			src: "https://www.manchestereveningnews.co.uk/news/?service=rss",
 			region: ["UK", "England", "North West", "Manchester"],
+			coverage: ["regional", "local"],
 		},
 		{
 			name: NewsSources.BIRMINGHAME_LIVE,
 			// src: 'https://www.birminghammail.co.uk/news/?service=rss',
 			src: "https://www.birminghammail.co.uk/news/uk-news/?service=rss",
 			region: ["UK", "England", "West Midlands", "Birmingham"],
+			coverage: ["regional", "local"],
 		},
 		{
 			name: NewsSources.THE_PINK_NEWS,
@@ -115,20 +124,24 @@ export const UK_2 = {
 			name: NewsSources.NORTHERN_IRELAND_WORLD,
 			src: "https://www.northernirelandworld.com/news/rss",
 			region: ["UK", "NI"],
+			coverage: ["regional"],
 		},
 		{
 			name: NewsSources.WALES_ONLINE,
 			src: "https://www.walesonline.co.uk/news/?service=rss",
 			region: ["UK", "Wales"],
+			coverage: ["regional"],
 		},
 		{
 			name: NewsSources.HERALD_SCOTLAND,
 			src: "https://www.heraldscotland.com/news/national-news/rss/",
 			region: ["UK", "Scotland"],
+			coverage: ["regional"],
 		},
 		{
 			name: NewsSources.HERALD_SCOTLAND,
 			src: "https://www.heraldscotland.com/news/rss/",
+			coverage: ["regional"],
 		},
 		{
 			name: NewsSources.GB_NEWS,
@@ -140,7 +153,8 @@ export const UK_2 = {
 export const UK_3 = {
 	categories: ["news"],
 	collectionType: "news",
-	region: ["UK"],
+	region: ["Europe", "UK"],
+	coverage: ["national"],
 	language: "en",
 	sources: [
 		{

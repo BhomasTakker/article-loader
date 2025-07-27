@@ -11,6 +11,7 @@ export type ArticleSource = {
 export type SourceObject = {
 	categories?: string[];
 	region?: string | string[];
+	coverage?: string[];
 	language?: string;
 	collectionType?: string;
 	sources?: ArticleSource[];

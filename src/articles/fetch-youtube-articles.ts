@@ -47,6 +47,7 @@ const convertYouTubeRssItemToArticle = ({
 
 	const {
 		region,
+		coverage = [],
 		language,
 		categories = [],
 		collectionType,
@@ -70,6 +71,7 @@ const convertYouTubeRssItemToArticle = ({
 			publishers: [author],
 			categories,
 			region,
+			coverage,
 			language,
 		},
 		media: {
