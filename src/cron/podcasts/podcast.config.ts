@@ -16,7 +16,7 @@ import {
 	NEWS_WORLD_1,
 	NEWS_WORLD_2,
 } from "../../../sources/audio/podbean/news/world";
-import { CRON_TIMES } from "../create-cron";
+import { CRON_TIMES, staggerMinutes } from "../create-cron";
 import { fetchPodcasts } from "../loaders/fetchPodcasts";
 import { CronConfig } from "../types";
 
@@ -25,20 +25,21 @@ export const podcastRssCronConfig: CronConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			time: CRON_TIMES.fifthteen,
+			time: staggerMinutes(15, 0),
 			fetchFn: fetchPodcasts([BITES_UK]),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.fifthteen_1,
+			time: staggerMinutes(15, 1),
 			fetchFn: fetchPodcasts([BITES_US]),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.fifthteen_2,
+			time: staggerMinutes(15, 2),
 			fetchFn: fetchPodcasts([BITES_WORLD]),
 			onComplete: () => {},
 		},
+		// These are spiking us a little - well to 16%
 		{
 			time: CRON_TIMES.hours_6,
 			fetchFn: fetchPodcasts([NEWS_UK_1]),
