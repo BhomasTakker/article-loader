@@ -6,6 +6,7 @@ import {
 import { getMeta } from "../html/get-meta";
 import { ExtraData } from "../../sources/news/articles/types";
 import { ProviderItem } from "../types/article/provider";
+import { mergeStringOrArray } from "../../utils";
 
 // Do not do this with YouTube!!
 const stripQueryStringFromUrl = (url: URL) => {
@@ -71,16 +72,32 @@ export type GetArticle = {
 export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 	// We're not doing anything with converted item - we're just getting the src and details
 	const { src, details = {} } = convertRssItem(item);
-	const { region, language, categories = [], collectionType } = extraData || {};
+	const {
+		region,
+		coverage = [],
+		language,
+		categories = [],
+		collectionType,
+	} = extraData || {};
 
 	// Do elsewhere and prbably check performance.....
 	const mergedCategories = new Set([
 		...(details.categories || []),
 		...categories,
 	]);
+
+	const region1 = details.region || [];
+	const region2 = region || [];
+	const mergedRegion = mergeStringOrArray(region1, region2);
+
+	const coverage1 = details.coverage || [];
+	const coverage2 = coverage || [];
+	const mergedCoverage = mergeStringOrArray(coverage1, coverage2);
+
 	const mergedDetails = {
 		...details,
-		region,
+		region: mergedRegion,
+		coverage: mergedCoverage,
 		language,
 		categories: Array.from(mergedCategories),
 	};
