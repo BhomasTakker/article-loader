@@ -140,16 +140,6 @@ export const theConversation = {
 	leaning: 0,
 };
 
-export const manchesterEveningNews = {
-	origin: "UK",
-	name: "The Manchester Evening News",
-	description: "The Manchester Evening News is a regional daily newspaper.",
-	url: "https://www.manchestereveningnews.co.uk/",
-	logo: "https://s2-prod.manchestereveningnews.co.uk/@trinitymirrordigital/chameleon-branding/publications/men/img/logo-men-social-sharing.png",
-	rating: 85,
-	leaning: -0.4,
-};
-
 export const birminghamLive = {
 	origin: "UK",
 	name: "Birmingham Live",
@@ -255,16 +245,6 @@ export const theLiverpoolPost = {
 	description: "The Liverpool Post is a British regional daily newspaper.",
 	url: "https://www.livpost.co.uk/",
 	logo: "https://www.livpost.co.uk/content/images/size/w256h256/2025/02/P-only.png",
-	rating: 80,
-	leaning: 0,
-};
-
-export const theManchesterMill = {
-	origin: "UK",
-	name: "The Manchester Mill",
-	description: "The Manchester Mill is a British regional daily newspaper.",
-	url: "https://manchestermill.co.uk/",
-	logo: "https://manchestermill.co.uk/content/images/size/w256h256/2024/12/Untitled-design--25-.png",
 	rating: 80,
 	leaning: 0,
 };

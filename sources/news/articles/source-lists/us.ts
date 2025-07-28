@@ -1,4 +1,4 @@
-import { NewsSources } from "../sources";
+import { NewsSources } from "../../sources";
 
 export const US_1 = {
 	categories: ["news"],

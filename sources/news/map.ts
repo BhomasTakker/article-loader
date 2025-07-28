@@ -1,5 +1,5 @@
-import { UK_1, UK_2 } from "./articles/uk";
-import { US_1, US_2, US_3, US_4 } from "./articles/us";
+import { UK_1, UK_2 } from "./articles/source-lists/uk";
+import { US_1, US_2, US_3, US_4 } from "./articles/source-lists/us";
 import {
 	WORLD_1,
 	WORLD_2,
@@ -7,7 +7,7 @@ import {
 	WORLD_4,
 	WORLD_5,
 	WORLD_6,
-} from "./articles/world";
+} from "./articles/source-lists/world";
 
 export const sourcesMap = new Map<string, object>([
 	["uk-1", UK_1],
