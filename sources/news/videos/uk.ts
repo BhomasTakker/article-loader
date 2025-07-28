@@ -60,12 +60,6 @@ export const UK_VIDEO = {
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCw3fku0sH3qA3c3pZeJwdAw",
 		},
 		{
-			name: NewsSources.MANCHESTER_EVENING_NEWS,
-			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCPFSLlkwCqpy23jwYDwAPrg",
-			region: ["UK", "England", "North West", "Manchester"],
-			coverage: ["national", "regional", "local"],
-		},
-		{
 			name: NewsSources.GUARDIAN,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCIRYBXDze5krPDzAEOxFGVA",
 			coverage: ["national", "international"],
