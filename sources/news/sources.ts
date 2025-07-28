@@ -1,3 +1,5 @@
+import { ukSources } from "./articles/uk";
+import { ukSourcesMap } from "./articles/uk/sources";
 import {
 	floridaSources,
 	floridaSourcesMap,
@@ -60,7 +62,6 @@ import {
 	japanTimes,
 	kyivIndependent,
 	laTimes,
-	manchesterEveningNews,
 	mercuryNews,
 	metro,
 	middleEastEye,
@@ -116,7 +117,6 @@ import {
 	theIntellectualist,
 	theIntercept,
 	theLiverpoolPost,
-	theManchesterMill,
 	theMoscowTimes,
 	theNewHumanitarian,
 	theNewYorker,
@@ -162,7 +162,6 @@ export const NewsSources = {
 	DAILY_RECORD: "The Daily Record",
 	POLITICS_CO_UK: "politics.co.uk",
 	THE_CONVERSATION: "The Conversation",
-	MANCHESTER_EVENING_NEWS: "The Manchester Evening News",
 	BIRMINGHAME_LIVE: "Birmingham Live",
 	THE_PINK_NEWS: "The Pink News",
 	NORTHERN_IRELAND_WORLD: "Northern Ireland World",
@@ -263,7 +262,6 @@ export const NewsSources = {
 	THE_STAR: "The Star",
 	SHEFFIELD_TRIBUNE: "The Sheffield Tribune",
 	LIVERPOOL_POST: "The Liverpool Post",
-	MANCHESTER_MILL: "The Manchester Mill",
 
 	// Audio
 	THE_ECONOMIST: "The Economist",
@@ -298,6 +296,8 @@ export const NewsSources = {
 	PALESTINE_CHRONICLE: "Palestine Chronicle",
 	PALESTINE_NEWS_NETWORK: "Palestine News Network",
 
+	...ukSources,
+
 	...ny_sources,
 	...floridaSources,
 } as const;
@@ -320,7 +320,6 @@ export const newsSourcesMap = new Map<string, any>([
 	[NewsSources.DAILY_RECORD, dailyRecord],
 	[NewsSources.POLITICS_CO_UK, politicsCoUk],
 	[NewsSources.THE_CONVERSATION, theConversation],
-	[NewsSources.MANCHESTER_EVENING_NEWS, manchesterEveningNews],
 	[NewsSources.BIRMINGHAME_LIVE, birminghamLive],
 	[NewsSources.THE_PINK_NEWS, thePinkNews],
 	[NewsSources.NORTHERN_IRELAND_WORLD, northernIrelandWorld],
@@ -413,7 +412,6 @@ export const newsSourcesMap = new Map<string, any>([
 	[NewsSources.THE_STAR, theStar],
 	[NewsSources.SHEFFIELD_TRIBUNE, sheffieldTribune],
 	[NewsSources.LIVERPOOL_POST, theLiverpoolPost],
-	[NewsSources.MANCHESTER_MILL, theManchesterMill],
 
 	[NewsSources.TIMES, theTimes],
 	[NewsSources.TLDR, tldr],
@@ -449,6 +447,7 @@ export const newsSourcesMap = new Map<string, any>([
 	[NewsSources.PALESTINE_CHRONICLE, palestineChronicle],
 	[NewsSources.PALESTINE_NEWS_NETWORK, palestineNewsNetwork],
 
+	...ukSourcesMap,
 	...ny_sourcesMap,
 	...floridaSourcesMap,
 ]);

@@ -1,4 +1,4 @@
-import { NewsSources } from "../sources";
+import { NewsSources } from "../../sources";
 
 // All news needs to be further categorized by international, continental, regional, national, sub-national, local.
 // i.e. world news, European news, UK news, English news, London news, etc.
@@ -99,12 +99,6 @@ export const UK_2 = {
 		{
 			name: NewsSources.THE_CONVERSATION,
 			src: "https://theconversation.com/uk/articles.atom",
-		},
-		{
-			name: NewsSources.MANCHESTER_EVENING_NEWS,
-			src: "https://www.manchestereveningnews.co.uk/news/?service=rss",
-			region: ["UK", "England", "North West", "Manchester"],
-			coverage: ["regional", "local"],
 		},
 		{
 			name: NewsSources.BIRMINGHAME_LIVE,
