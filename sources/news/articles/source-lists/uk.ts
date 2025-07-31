@@ -101,13 +101,6 @@ export const UK_2 = {
 			src: "https://theconversation.com/uk/articles.atom",
 		},
 		{
-			name: NewsSources.BIRMINGHAME_LIVE,
-			// src: 'https://www.birminghammail.co.uk/news/?service=rss',
-			src: "https://www.birminghammail.co.uk/news/uk-news/?service=rss",
-			region: ["UK", "England", "West Midlands", "Birmingham"],
-			coverage: ["regional", "local"],
-		},
-		{
 			name: NewsSources.THE_PINK_NEWS,
 			src: "https://www.thepinknews.com/news/uk/feed/",
 		},
