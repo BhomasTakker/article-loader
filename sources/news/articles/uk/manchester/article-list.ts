@@ -4,7 +4,7 @@ import { manchesterUKSources } from "./sources";
 export const MANCHESTER_SOURCES = {
 	// better nesting
 	categories: ["news"],
-	region: ["Europe", "UK", "England", "North West", "Manchester"],
+	region: ["UK", "England", "North West", "Manchester"],
 	coverage: ["local"],
 	language: "en",
 	sources: [
