@@ -16,7 +16,6 @@ import {
 	aljazeera,
 	arabNews,
 	bbcNews,
-	birminghamLive,
 	bloomberg,
 	bostonHerald,
 	breitbart,
@@ -116,7 +115,6 @@ import {
 	theHill,
 	theIntellectualist,
 	theIntercept,
-	theLiverpoolPost,
 	theMoscowTimes,
 	theNewHumanitarian,
 	theNewYorker,
@@ -162,7 +160,6 @@ export const NewsSources = {
 	DAILY_RECORD: "The Daily Record",
 	POLITICS_CO_UK: "politics.co.uk",
 	THE_CONVERSATION: "The Conversation",
-	BIRMINGHAME_LIVE: "Birmingham Live",
 	THE_PINK_NEWS: "The Pink News",
 	NORTHERN_IRELAND_WORLD: "Northern Ireland World",
 	WALES_ONLINE: "Wales Online",
@@ -261,7 +258,6 @@ export const NewsSources = {
 	//
 	THE_STAR: "The Star",
 	SHEFFIELD_TRIBUNE: "The Sheffield Tribune",
-	LIVERPOOL_POST: "The Liverpool Post",
 
 	// Audio
 	THE_ECONOMIST: "The Economist",
@@ -320,7 +316,6 @@ export const newsSourcesMap = new Map<string, any>([
 	[NewsSources.DAILY_RECORD, dailyRecord],
 	[NewsSources.POLITICS_CO_UK, politicsCoUk],
 	[NewsSources.THE_CONVERSATION, theConversation],
-	[NewsSources.BIRMINGHAME_LIVE, birminghamLive],
 	[NewsSources.THE_PINK_NEWS, thePinkNews],
 	[NewsSources.NORTHERN_IRELAND_WORLD, northernIrelandWorld],
 	[NewsSources.WALES_ONLINE, walesOnline],
@@ -411,7 +406,6 @@ export const newsSourcesMap = new Map<string, any>([
 
 	[NewsSources.THE_STAR, theStar],
 	[NewsSources.SHEFFIELD_TRIBUNE, sheffieldTribune],
-	[NewsSources.LIVERPOOL_POST, theLiverpoolPost],
 
 	[NewsSources.TIMES, theTimes],
 	[NewsSources.TLDR, tldr],
