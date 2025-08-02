@@ -107,12 +107,6 @@ export const UK_2 = {
 			coverage: ["regional"],
 		},
 		{
-			name: NewsSources.WALES_ONLINE,
-			src: "https://www.walesonline.co.uk/news/?service=rss",
-			region: ["UK", "Wales"],
-			coverage: ["regional"],
-		},
-		{
 			name: NewsSources.GB_NEWS,
 			src: "https://www.gbnews.com/feeds/news/uk.rss",
 		},
