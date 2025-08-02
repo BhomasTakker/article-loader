@@ -52,7 +52,7 @@ export const WALES_ARTICLE_SOURCES = {
 			coverage: ["local"],
 		},
 		{
-			name: NewsSources.BBC,
+			name: walesSources.BBC,
 			src: "https://feeds.bbci.co.uk/news/wales/rss.xml",
 			coverage: ["national", "regional"],
 		},

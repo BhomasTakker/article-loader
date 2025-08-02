@@ -1,4 +1,3 @@
-import { NewsSources } from "../../../sources";
 import { scotlandSources } from "./sources";
 
 export const SCOTLAND_ARTICLE_SOURCES = {
@@ -37,7 +36,7 @@ export const SCOTLAND_ARTICLE_SOURCES = {
 			src: "https://www.thenational.scot/news/rss/",
 		},
 		{
-			name: NewsSources.BBC,
+			name: scotlandSources.BBC,
 			src: "https://feeds.bbci.co.uk/news/scotland/rss.xml",
 		},
 		{

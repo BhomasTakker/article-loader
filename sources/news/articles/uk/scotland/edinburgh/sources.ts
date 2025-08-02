@@ -21,6 +21,8 @@ const edinburghReporter = {
 export const edinburghSources = {
 	EDINBURGH_LIVE: "Edinburgh Live",
 	EDINBURGH_REPORTER: "Edinburgh Reporter",
+	THE_SCOTSMAN: "The Scotsman",
+	BBC: "BBC",
 };
 
 export const edinburghSourcesMap = new Map([

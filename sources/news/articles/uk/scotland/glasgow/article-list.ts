@@ -1,4 +1,3 @@
-import { NewsSources } from "../../../../sources";
 import { glasgowUKSources } from "./sources";
 
 export const GLASGOW_SOURCES = {
@@ -15,11 +14,11 @@ export const GLASGOW_SOURCES = {
 			src: "https://www.glasgowtimes.co.uk/news/rss/",
 		},
 		{
-			name: NewsSources.BBC,
+			name: glasgowUKSources.BBC,
 			src: "https://feeds.bbci.co.uk/news/scotland/glasgow_and_west/rss.xml",
 		},
 		{
-			name: NewsSources.STV,
+			name: glasgowUKSources.STV,
 			src: "https://news.stv.tv/section/west-central/feed",
 		},
 	],

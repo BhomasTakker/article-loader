@@ -21,6 +21,8 @@ const glasgowTimes = {
 export const glasgowUKSources = {
 	GLASGOW_LIVE: "Glasgow Live",
 	GLASGOW_TIMES: "Glasgow Times",
+	BBC: "BBC",
+	STV: "STV News",
 };
 
 export const glasgowUKSourcesMap = new Map([

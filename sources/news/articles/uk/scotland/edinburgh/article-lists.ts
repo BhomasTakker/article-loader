@@ -11,7 +11,7 @@ export const EDINBURGH_SOURCES = {
 			src: "https://www.edinburghlive.co.uk/news/edinburgh-news/?service=rss",
 		},
 		{
-			name: NewsSources.THE_SCOTSMAN,
+			name: edinburghSources.THE_SCOTSMAN,
 			src: "https://www.edinburghnews.scotsman.com/rss",
 		},
 		{
@@ -19,7 +19,7 @@ export const EDINBURGH_SOURCES = {
 			src: "https://theedinburghreporter.co.uk/feed/",
 		},
 		{
-			name: NewsSources.BBC,
+			name: edinburghSources.BBC,
 			coverage: ["region", "local"],
 			src: "https://feeds.bbci.co.uk/news/scotland/edinburgh_east_and_fife/rss.xml",
 		},

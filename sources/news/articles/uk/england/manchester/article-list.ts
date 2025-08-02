@@ -29,7 +29,7 @@ export const MANCHESTER_SOURCES = {
 			src: "https://www.manchester.gov.uk/rss/news",
 		},
 		{
-			name: NewsSources.BBC,
+			name: manchesterUKSources.BBC,
 			src: "https://feeds.bbci.co.uk/news/england/manchester/rss.xml",
 		},
 		{

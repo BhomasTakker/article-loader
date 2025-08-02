@@ -43,6 +43,7 @@ export const northernIrelandSources = {
 	THE_IRISH_NEWS: "The Irish News",
 	NORTHERN_IRELAND_WORLD: "Northern Ireland World",
 	UTV: "UTV",
+	BBC: "BBC",
 };
 
 export const northernIrelandSourcesMap = new Map([

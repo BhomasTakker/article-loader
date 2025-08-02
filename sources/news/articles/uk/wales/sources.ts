@@ -124,6 +124,7 @@ export const walesSources = {
 	THE_CARDIFF_POST: "Cardiff Post",
 	THE_PENARTH_TIMES: "Penarth Times",
 	SWANSEA_BAY_NEWS: "Swansea Bay News",
+	BBC: "BBC",
 };
 
 export const walesSourceMap = new Map([

@@ -68,6 +68,7 @@ export const birminghamUKSources = {
 	BIRMINGHAM_TIMES: "Birmingham Times",
 	I_AM_BIRMINGHAM: "I Am Birmingham",
 	BIRMINGHAM_TV: "Birmingham TV",
+	BBC: "BBC",
 };
 
 export const birminghamUKSourcesMap = new Map([

@@ -1,4 +1,3 @@
-import { NewsSources } from "../../../../sources";
 import { birminghamUKSources } from "./sources";
 
 export const BIRMINGHAM_ARTICLE_SOURCES = {
@@ -35,7 +34,7 @@ export const BIRMINGHAM_ARTICLE_SOURCES = {
 			src: "https://www.iambirmingham.co.uk/feed/",
 		},
 		{
-			name: NewsSources.BBC,
+			name: birminghamUKSources.BBC,
 			coverage: ["regional", "local"],
 			src: "https://feeds.bbci.co.uk/news/england/birmingham_and_black_country/rss.xml",
 		},

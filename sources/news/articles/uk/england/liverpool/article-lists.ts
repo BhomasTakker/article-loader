@@ -1,4 +1,3 @@
-import { NewsSources } from "../../../../sources";
 import { liverpoolUKSources } from "./sources";
 
 export const LIVERPOOL_ARTICLE_SOURCES = {
@@ -28,7 +27,7 @@ export const LIVERPOOL_ARTICLE_SOURCES = {
 			src: "https://www.merseyside.police.uk/news/merseyside/news/GetNewsRss/",
 		},
 		{
-			name: NewsSources.BBC,
+			name: liverpoolUKSources.BBC,
 			coverage: ["regional", "local"],
 			src: "https://feeds.bbci.co.uk/news/england/merseyside/rss.xml",
 		},

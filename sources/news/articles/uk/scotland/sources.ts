@@ -60,8 +60,8 @@ export const theScottishSun = {
 export const scotlandSources = {
 	THE_NATIONAL: "The National",
 	HERALD_SCOTLAND: "Herald Scotland",
-	STV: "STV News",
-	THE_SCOTSMAN: "The Scotsman",
+	// STV: "STV News",
+	// THE_SCOTSMAN: "The Scotsman",
 	DAILY_RECORD: "Daily Record",
 	THE_SCOTTISH_SUN: "Scottish Sun",
 	...glasgowUKSources,

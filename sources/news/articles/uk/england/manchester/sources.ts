@@ -66,6 +66,7 @@ export const manchesterUKSources = {
 	MANCHESTER_WORLD: "Manchester World",
 	MANCHESTER_CITY_COUNCIL: "Manchester City Council",
 	MANCHESTER_ABOUT: "About Manchester",
+	BBC: "BBC",
 };
 
 export const manchesterUKSourcesMap = new Map([

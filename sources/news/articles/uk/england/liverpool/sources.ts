@@ -53,6 +53,8 @@ export const liverpoolUKSources = {
 	LIVERPOOL_WORLD: "Liverpool World",
 	LIVERPOOL_POST: "Liverpool Post",
 	MERSEYSIDE_POLICE: "Merseyside Police",
+	// We must do this to avoid circular dependencies
+	BBC: "BBC",
 };
 
 export const liverpoolUKSourcesMap = new Map([

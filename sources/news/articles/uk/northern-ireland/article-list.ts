@@ -1,4 +1,3 @@
-import { NewsSources } from "../../../sources";
 import { northernIrelandSources } from "./sources";
 
 export const NORTHERN_IRELAND_ARTICLE_SOURCES = {
@@ -32,7 +31,7 @@ export const NORTHERN_IRELAND_ARTICLE_SOURCES = {
 			coverage: ["regional", "local"],
 		},
 		{
-			name: NewsSources.BBC,
+			name: northernIrelandSources.BBC,
 			src: "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml",
 		},
 	],
