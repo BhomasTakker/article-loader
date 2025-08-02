@@ -133,7 +133,6 @@ import {
 	usNews,
 	verge,
 	vox,
-	walesOnline,
 	wallStreetJournal,
 	washingtonPost,
 	washingtonTimes,
@@ -158,7 +157,6 @@ export const NewsSources = {
 	THE_CONVERSATION: "The Conversation",
 	THE_PINK_NEWS: "The Pink News",
 	NORTHERN_IRELAND_WORLD: "Northern Ireland World",
-	WALES_ONLINE: "Wales Online",
 	GB_NEWS: "GB News",
 	FT: "FT",
 
@@ -311,7 +309,6 @@ export const newsSourcesMap = new Map<string, any>([
 	[NewsSources.THE_CONVERSATION, theConversation],
 	[NewsSources.THE_PINK_NEWS, thePinkNews],
 	[NewsSources.NORTHERN_IRELAND_WORLD, northernIrelandWorld],
-	[NewsSources.WALES_ONLINE, walesOnline],
 	[NewsSources.GB_NEWS, gbNews],
 	[NewsSources.CNN, cnn],
 	[NewsSources.FOX, fox],
