@@ -150,26 +150,6 @@ export const thePinkNews = {
 	leaning: -0.3,
 };
 
-export const northernIrelandWorld = {
-	origin: "UK",
-	name: "Northern Ireland World",
-	description: "Northern Ireland World is a regional news website.",
-	url: "https://northernirelandworld.com/",
-	logo: "https://www.northernirelandworld.com/img/placeholder.png",
-	rating: 80,
-	leaning: 0,
-};
-
-export const heraldScotland = {
-	origin: "UK",
-	name: "Herald Scotland",
-	description: "Herald Scotland UK is a regional news website.",
-	url: "https://www.heraldscotland.com/",
-	logo: "https://www.heraldscotland.com/resources/images/small_site_logo/",
-	rating: 85,
-	leaning: -0.3,
-};
-
 export const gbNews = {
 	origin: "UK",
 	name: "GB News",

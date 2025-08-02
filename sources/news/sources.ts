@@ -69,7 +69,6 @@ import {
 	news24,
 	newYorkPost,
 	newYorkTimes,
-	northernIrelandWorld,
 	novara,
 	npr,
 	owenJones,
@@ -156,7 +155,6 @@ export const NewsSources = {
 	POLITICS_CO_UK: "politics.co.uk",
 	THE_CONVERSATION: "The Conversation",
 	THE_PINK_NEWS: "The Pink News",
-	NORTHERN_IRELAND_WORLD: "Northern Ireland World",
 	GB_NEWS: "GB News",
 	FT: "FT",
 
@@ -308,7 +306,6 @@ export const newsSourcesMap = new Map<string, any>([
 	[NewsSources.POLITICS_CO_UK, politicsCoUk],
 	[NewsSources.THE_CONVERSATION, theConversation],
 	[NewsSources.THE_PINK_NEWS, thePinkNews],
-	[NewsSources.NORTHERN_IRELAND_WORLD, northernIrelandWorld],
 	[NewsSources.GB_NEWS, gbNews],
 	[NewsSources.CNN, cnn],
 	[NewsSources.FOX, fox],

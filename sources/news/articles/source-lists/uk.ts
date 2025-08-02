@@ -101,12 +101,6 @@ export const UK_2 = {
 			src: "https://www.thepinknews.com/news/uk/feed/",
 		},
 		{
-			name: NewsSources.NORTHERN_IRELAND_WORLD,
-			src: "https://www.northernirelandworld.com/news/rss",
-			region: ["UK", "NI"],
-			coverage: ["regional"],
-		},
-		{
 			name: NewsSources.GB_NEWS,
 			src: "https://www.gbnews.com/feeds/news/uk.rss",
 		},
