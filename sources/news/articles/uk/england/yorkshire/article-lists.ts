@@ -1,6 +1,6 @@
 import { yorkshireSources } from "./sources";
 
-export const YORKSHIRE_ARTICLE_SOURES = {
+export const YORKSHIRE_ARTICLE_SOURCES = {
 	categories: ["news"],
 	region: ["UK", "England", "Yorkshire"],
 	coverage: ["regional", "local"],

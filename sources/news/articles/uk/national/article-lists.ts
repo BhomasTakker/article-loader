@@ -9,6 +9,7 @@ import {
 } from "../england/liverpool";
 import { MANCHESTER_SOURCES } from "../england/manchester/article-list";
 import { MANCHESTER_VIDEO_SOURCES } from "../england/manchester/video-list";
+import { YORKSHIRE_ARTICLE_SOURCES } from "../england/yorkshire";
 import { NORTHERN_IRELAND_ARTICLE_SOURCES } from "../northern-ireland/article-list";
 import { SCOTLAND_ARTICLE_SOURCES } from "../scotland";
 import { WALES_ARTICLE_SOURCES } from "../wales";
@@ -144,6 +145,8 @@ export const ukRegionalArticles = [
 	LIVERPOOL_ARTICLE_SOURCES,
 	BIRMINGHAM_ARTICLE_SOURCES,
 ];
+export const ukRegionalArticles2 = [YORKSHIRE_ARTICLE_SOURCES];
+
 export const ukRegionalVideos = [
 	MANCHESTER_VIDEO_SOURCES,
 	LIVERPOOL_VIDEO_SOURCES,
