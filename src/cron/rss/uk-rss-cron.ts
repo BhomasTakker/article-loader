@@ -4,6 +4,7 @@ import {
 	ukNationalArticles2,
 	ukNationalVideos,
 	ukRegionalArticles,
+	ukRegionalArticles2,
 	ukRegionalVideos,
 } from "../../../sources/news/articles/uk/national";
 import { everyNthHour, staggerMinutes, staggerSeconds } from "../create-cron";
@@ -40,12 +41,18 @@ export const ukRssCronConfig: CronConfig = {
 			onComplete: () => {},
 		},
 		{
-			time: everyNthHour(1, 0),
+			time: everyNthHour(1, 3),
 			fetchFn: fetchRSS(ukRegionalArticles),
 			onComplete: () => {},
 		},
+
 		{
-			time: everyNthHour(1, 1),
+			time: everyNthHour(1, 4),
+			fetchFn: fetchRSS(ukRegionalArticles2),
+			onComplete: () => {},
+		},
+		{
+			time: everyNthHour(1, 6),
 			fetchFn: fetchYoutubeRSS(ukRegionalVideos),
 			onComplete: () => {},
 		},
