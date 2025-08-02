@@ -1,6 +1,10 @@
 import { birminghamUKSources, birminghamUKSourcesMap } from "./birmingham";
 import { liverpoolUKSources, liverpoolUKSourcesMap } from "./liverpool";
 import { manchesterUKSources, manchesterUKSourcesMap } from "./manchester";
+import {
+	northernIrelandSources,
+	northernIrelandSourcesMap,
+} from "./northern-ireland/sources";
 import { scotlandSources, scotlandSourcesMap } from "./scotland";
 import { walesSourceMap, walesSources } from "./wales";
 
@@ -12,6 +16,7 @@ export const ukSources = {
 	...manchesterUKSources,
 	...scotlandSources,
 	...walesSources,
+	...northernIrelandSources,
 };
 
 export const ukSourcesMap = new Map([
@@ -20,4 +25,5 @@ export const ukSourcesMap = new Map([
 	...liverpoolUKSourcesMap,
 	...scotlandSourcesMap,
 	...walesSourceMap,
+	...northernIrelandSourcesMap,
 ]);
