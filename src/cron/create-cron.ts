@@ -22,6 +22,10 @@ export const staggerSeconds = (seconds: number, stagger: number) => {
 	return `${times.join(",")} * * * * *`;
 };
 
+export const everyNthHour = (n: number, minutesOffset: number = 0) => {
+	return `${minutesOffset} */${n} * * *`;
+};
+
 export const CRON_TIMES = {
 	days_7: "0 0 * * 0", // every 7 days
 	days_7_1: "1 0 * * 0", // every 7 days + 1 minute
