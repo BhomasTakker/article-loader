@@ -1,4 +1,3 @@
-import { NewsSources } from "../../../../sources";
 import { manchesterUKSources } from "./sources";
 
 export const MANCHESTER_SOURCES = {
