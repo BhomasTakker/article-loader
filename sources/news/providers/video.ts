@@ -1,30 +1,3 @@
-export const itv = {
-	origin: "UK",
-	name: "ITV",
-	description: "ITV is a British free-to-air television network.",
-	url: "https://www.itv.com/",
-	logo: "https://app.10ft.itv.com/itvstatic/assets/images/brands/itvx/itvx-logo-for-light-backgrounds.jpg",
-	rating: 85,
-	leaning: 0.1,
-};
-export const channel4 = {
-	origin: "UK",
-	name: "Channel 4",
-	logo: "https://www.channel4.com/favicon-32x32.png",
-	description: "Channel 4 is a British public-service television broadcaster.",
-	url: "https://www.channel4.com/",
-	rating: 85,
-	leaning: 0.1,
-};
-export const channel5 = {
-	origin: "UK",
-	name: "Channel 5",
-	description: "Channel 5 is a British free-to-air television network.",
-	url: "https://www.channel5.com/",
-	logo: "https://www.channel5.com/my5_192.png",
-	rating: 85,
-	leaning: 0.1,
-};
 export const nbc = {
 	origin: "USA",
 	name: "NBC",

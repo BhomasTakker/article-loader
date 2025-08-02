@@ -1,5 +1,5 @@
-import { edinburghSources } from "./edinburgh";
-import { glasgowUKSources } from "./glasgow";
+import { edinburghSources, edinburghSourcesMap } from "./edinburgh";
+import { glasgowUKSources, glasgowUKSourcesMap } from "./glasgow";
 
 export const stv = {
 	origin: "UK",
@@ -75,4 +75,6 @@ export const scotlandSourcesMap = new Map([
 	[scotlandSources.THE_SCOTSMAN, theScotsman],
 	[scotlandSources.DAILY_RECORD, dailyRecord],
 	[scotlandSources.THE_SCOTTISH_SUN, theScottishSun],
+	...glasgowUKSourcesMap,
+	...edinburghSourcesMap,
 ]);

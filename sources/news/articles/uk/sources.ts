@@ -1,12 +1,5 @@
-import {
-	birminghamUKSources,
-	birminghamUKSourcesMap,
-} from "./england/birmingham";
-import { liverpoolUKSources, liverpoolUKSourcesMap } from "./england/liverpool";
-import {
-	manchesterUKSources,
-	manchesterUKSourcesMap,
-} from "./england/manchester";
+import { englandSources, englandSourcesMap } from "./england";
+import { ukNationalSources, ukNationalSourcesMap } from "./national/sources";
 import {
 	northernIrelandSources,
 	northernIrelandSourcesMap,
@@ -17,19 +10,17 @@ import { walesSourceMap, walesSources } from "./wales";
 // split england, scotland, wales, northern ireland
 // Probably do Ireland also
 export const ukSources = {
-	...birminghamUKSources,
-	...liverpoolUKSources,
-	...manchesterUKSources,
+	...englandSources,
 	...scotlandSources,
 	...walesSources,
 	...northernIrelandSources,
+	...ukNationalSources,
 };
 
 export const ukSourcesMap = new Map([
-	...manchesterUKSourcesMap,
-	...birminghamUKSourcesMap,
-	...liverpoolUKSourcesMap,
+	...englandSourcesMap,
 	...scotlandSourcesMap,
 	...walesSourceMap,
 	...northernIrelandSourcesMap,
+	...ukNationalSourcesMap,
 ]);
