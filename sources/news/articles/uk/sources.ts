@@ -2,7 +2,7 @@ import { birminghamUKSources, birminghamUKSourcesMap } from "./birmingham";
 import { liverpoolUKSources, liverpoolUKSourcesMap } from "./liverpool";
 import { manchesterUKSources, manchesterUKSourcesMap } from "./manchester";
 import { scotlandSources, scotlandSourcesMap } from "./scotland";
-import { walesSourceMap, walesSources } from "./wales/sources";
+import { walesSourceMap, walesSources } from "./wales";
 
 // split england, scotland, wales, northern ireland
 // Probably do Ireland also
