@@ -6,7 +6,6 @@ import { updateArticleProviders } from "./src/article-providers/update-article-p
 import { logMemoryUsage } from "./src/lib/mem";
 import { initApiRoutes } from "./routes/api-routes";
 import { initCronJobs } from "./src/cron/init-cron";
-import { initRssRoutes } from "./routes/rss-routes";
 import { podcastRssCronConfig } from "./src/cron/podcasts/podcast.config";
 import { pageQueriesCronConfig } from "./src/cron/api/search/page-queries";
 import { rssCronConfig } from "./src/cron/rss/rss-cron";
@@ -46,7 +45,7 @@ app.get("/update-providers", async (req, res) => {
 });
 
 // setup crtain routes / jobs etc depending on settings etc
-isRssRoute && initRssRoutes(app);
+// isRssRoute && initRssRoutes(app);
 isApiRoute && initApiRoutes(app);
 isCron && initCronJobs(podcastRssCronConfig);
 
