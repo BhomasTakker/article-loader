@@ -11,7 +11,7 @@ export const EDINBURGH_SOURCES = {
 			src: "https://www.edinburghlive.co.uk/news/edinburgh-news/?service=rss",
 		},
 		{
-			name: edinburghSources.THE_SCOTSMAN,
+			name: NewsSources.THE_SCOTSMAN,
 			src: "https://www.edinburghnews.scotsman.com/rss",
 		},
 		{

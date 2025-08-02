@@ -8,16 +8,6 @@ const edinburghLive = {
 	leaning: 0,
 };
 
-const theScotsman = {
-	origin: "UK",
-	name: "The Scotsman",
-	description: "The Scotsman is a Scottish daily newspaper.",
-	url: "https://www.scotsman.com/",
-	logo: "https://www.scotsman.com/favicon.ico",
-	rating: 75,
-	leaning: 0,
-};
-
 const edinburghReporter = {
 	origin: "UK",
 	name: "Edinburgh Reporter",
@@ -30,12 +20,10 @@ const edinburghReporter = {
 
 export const edinburghSources = {
 	EDINBURGH_LIVE: "Edinburgh Live",
-	THE_SCOTSMAN: "The Scotsman",
 	EDINBURGH_REPORTER: "Edinburgh Reporter",
 };
 
 export const edinburghSourcesMap = new Map([
 	[edinburghSources.EDINBURGH_LIVE, edinburghLive],
-	[edinburghSources.THE_SCOTSMAN, theScotsman],
 	[edinburghSources.EDINBURGH_REPORTER, edinburghReporter],
 ]);
