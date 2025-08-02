@@ -160,16 +160,6 @@ export const northernIrelandWorld = {
 	leaning: 0,
 };
 
-export const walesOnline = {
-	origin: "UK",
-	name: "Wales Online",
-	description: "Wales Online is a regional news website.",
-	url: "https://www.walesonline.co.uk/",
-	logo: "https://s2-prod.walesonline.co.uk/@trinitymirrordigital/chameleon-branding/publications/walesonline/img/logo-walesonline-social-sharing.png",
-	rating: 85,
-	leaning: -0.2,
-};
-
 export const heraldScotland = {
 	origin: "UK",
 	name: "Herald Scotland",
