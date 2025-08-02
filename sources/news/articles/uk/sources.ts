@@ -1,6 +1,12 @@
-import { birminghamUKSources, birminghamUKSourcesMap } from "./birmingham";
-import { liverpoolUKSources, liverpoolUKSourcesMap } from "./liverpool";
-import { manchesterUKSources, manchesterUKSourcesMap } from "./manchester";
+import {
+	birminghamUKSources,
+	birminghamUKSourcesMap,
+} from "./england/birmingham";
+import { liverpoolUKSources, liverpoolUKSourcesMap } from "./england/liverpool";
+import {
+	manchesterUKSources,
+	manchesterUKSourcesMap,
+} from "./england/manchester";
 import {
 	northernIrelandSources,
 	northernIrelandSourcesMap,

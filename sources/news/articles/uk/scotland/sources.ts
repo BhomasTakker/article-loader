@@ -1,5 +1,5 @@
-import { edinburghSources } from "../edinburgh";
-import { glasgowUKSources } from "../glasgow";
+import { edinburghSources } from "./edinburgh";
+import { glasgowUKSources } from "./glasgow";
 
 export const stv = {
 	origin: "UK",

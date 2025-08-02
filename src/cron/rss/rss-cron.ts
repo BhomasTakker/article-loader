@@ -43,8 +43,8 @@ import {
 } from "../../collections/get-collection";
 import { staggerMinutes, staggerSeconds } from "../create-cron";
 import { CronConfig } from "../types";
-import { MANCHESTER_SOURCES } from "../../../sources/news/articles/uk/manchester/article-list";
-import { MANCHESTER_VIDEO_SOURCES } from "../../../sources/news/articles/uk/manchester/video-list";
+import { MANCHESTER_SOURCES } from "../../../sources/news/articles/uk/england/manchester/article-list";
+import { MANCHESTER_VIDEO_SOURCES } from "../../../sources/news/articles/uk/england/manchester/video-list";
 
 const fetchRSS = (srcs: any[]) =>
 	fetchCollections({
