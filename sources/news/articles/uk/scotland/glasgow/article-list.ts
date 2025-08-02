@@ -1,4 +1,4 @@
-import { NewsSources } from "../../../sources";
+import { NewsSources } from "../../../../sources";
 import { glasgowUKSources } from "./sources";
 
 export const GLASGOW_SOURCES = {
