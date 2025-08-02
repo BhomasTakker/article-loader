@@ -10,6 +10,7 @@ import { podcastRssCronConfig } from "./src/cron/podcasts/podcast.config";
 import { pageQueriesCronConfig } from "./src/cron/api/search/page-queries";
 import { rssCronConfig } from "./src/cron/rss/rss-cron";
 import { RADIO_CRON_CONFIG } from "./src/cron/radio/radio-cron";
+import { ukRssCronConfig } from "./src/cron/rss/uk-rss-cron";
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -50,7 +51,9 @@ isApiRoute && initApiRoutes(app);
 isCron && initCronJobs(podcastRssCronConfig);
 
 isApiCron && initCronJobs(pageQueriesCronConfig);
+
 isRSSCron && initCronJobs(rssCronConfig);
+isRSSCron && initCronJobs(ukRssCronConfig);
 
 isApiCron && initCronJobs(RADIO_CRON_CONFIG);
 
