@@ -25,15 +25,6 @@ export const channel5 = {
 	rating: 85,
 	leaning: 0.1,
 };
-export const stv = {
-	origin: "UK",
-	name: "STV",
-	description: "STV is a Scottish television channel.",
-	url: "https://www.stv.tv/",
-	logo: "https://news.stv.tv/wp-content/uploads/2021/03/bcfbe23dddc8774f69c08e90494dd008.jpg",
-	rating: 85,
-	leaning: 0.1,
-};
 export const nbc = {
 	origin: "USA",
 	name: "NBC",

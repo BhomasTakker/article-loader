@@ -89,10 +89,6 @@ export const UK_2 = {
 	language: "en",
 	sources: [
 		{
-			name: NewsSources.DAILY_RECORD,
-			src: "https://www.dailyrecord.co.uk/news/?service=rss",
-		},
-		{
 			name: NewsSources.POLITICS_CO_UK,
 			src: "https://www.politics.co.uk/feed/",
 		},
@@ -117,19 +113,12 @@ export const UK_2 = {
 			coverage: ["regional"],
 		},
 		{
-			name: NewsSources.HERALD_SCOTLAND,
-			src: "https://www.heraldscotland.com/news/national-news/rss/",
-			region: ["UK", "Scotland"],
-			coverage: ["regional"],
-		},
-		{
-			name: NewsSources.HERALD_SCOTLAND,
-			src: "https://www.heraldscotland.com/news/rss/",
-			coverage: ["regional"],
-		},
-		{
 			name: NewsSources.GB_NEWS,
 			src: "https://www.gbnews.com/feeds/news/uk.rss",
+		},
+		{
+			name: NewsSources.HERALD_SCOTLAND,
+			src: "https://www.heraldscotland.com/news/national-news/rss/",
 		},
 	],
 };

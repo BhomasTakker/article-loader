@@ -20,12 +20,6 @@ export const UK_VIDEO = {
 	language: "en",
 	sources: [
 		{
-			name: NewsSources.STV,
-			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCtHWi_Mwj_Bu7TT1SjaI5Gw",
-			region: ["UK", "Scotland"],
-			coverage: ["national", "regional"],
-		},
-		{
 			name: NewsSources.SKY,
 			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCoMdktPbSTixAyNGwb-UYkQ",
 			coverage: ["national", "international"],

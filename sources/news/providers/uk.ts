@@ -110,16 +110,6 @@ export const huffpost = {
 	leaning: -0.3,
 };
 
-export const dailyRecord = {
-	origin: "UK",
-	name: "The Daily Record",
-	description: "The Daily Record is a Scottish tabloid newspaper.",
-	url: "https://www.dailyrecord.co.uk/",
-	logo: "https://s2-prod.dailyrecord.co.uk/@trinitymirrordigital/chameleon-branding/publications/dailyrecord/img/logo-dailyrecord-social-sharing.png",
-	rating: 80,
-	leaning: 0,
-};
-
 export const politicsCoUk = {
 	origin: "UK",
 	name: "politics.co.uk",
