@@ -6,12 +6,16 @@ import { CronJob } from "cron";
 // There will be a formula for this somewhere
 // 1,16,31,46 * * * *
 
-export const staggerMinutes = (minutes: number, stagger: number) => {
+export const staggerMinutes = (
+	minutes: number,
+	stagger: number,
+	onSecond: number = 0
+) => {
 	const times = [];
 	for (let i = stagger; i < 60; i += minutes) {
 		times.push(i);
 	}
-	return `${times.join(",")} * * * *`;
+	return `${onSecond} ${times.join(",")} * * * *`;
 };
 
 export const staggerSeconds = (seconds: number, stagger: number) => {
@@ -22,8 +26,12 @@ export const staggerSeconds = (seconds: number, stagger: number) => {
 	return `${times.join(",")} * * * * *`;
 };
 
-export const everyNthHour = (n: number, minutesOffset: number = 0) => {
-	return `${minutesOffset} */${n} * * *`;
+export const everyNthHour = (
+	n: number,
+	minutesOffset: number = 0,
+	onSecond: number = 0
+) => {
+	return `${onSecond} ${minutesOffset} */${n} * * *`;
 };
 
 export const CRON_TIMES = {
