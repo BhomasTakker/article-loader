@@ -36,7 +36,7 @@ export const getArticle = async (article: CollectionItem) => {
 
 	try {
 		saveOrCreateArticleBySrc(newArticle).then((res) => {
-			console.log("Article Saved", src);
+			// console.log("Article Saved", src);
 		});
 	} catch (err) {
 		console.log(`Article Load Error ${src}`);

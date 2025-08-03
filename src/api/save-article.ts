@@ -22,7 +22,7 @@ export const saveArticle = async (
 
 	try {
 		saveOrCreateArticleBySrc(article).then((res) => {
-			console.log("Article Saved", src);
+			// console.log("Article Saved", src);
 		});
 	} catch (err) {
 		console.log(`Article Load Error ${src}`);
