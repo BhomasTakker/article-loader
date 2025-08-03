@@ -1,10 +1,9 @@
-import { NewsSources } from "../../../sources";
 import { manchesterUKSources } from "./sources";
 
 export const MANCHESTER_SOURCES = {
 	// better nesting
 	categories: ["news"],
-	region: ["Europe", "UK", "England", "North West", "Manchester"],
+	region: ["UK", "England", "North West", "Manchester"],
 	coverage: ["local"],
 	language: "en",
 	sources: [
@@ -29,7 +28,7 @@ export const MANCHESTER_SOURCES = {
 			src: "https://www.manchester.gov.uk/rss/news",
 		},
 		{
-			name: NewsSources.BBC,
+			name: manchesterUKSources.BBC,
 			src: "https://feeds.bbci.co.uk/news/england/manchester/rss.xml",
 		},
 		{

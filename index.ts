@@ -6,11 +6,11 @@ import { updateArticleProviders } from "./src/article-providers/update-article-p
 import { logMemoryUsage } from "./src/lib/mem";
 import { initApiRoutes } from "./routes/api-routes";
 import { initCronJobs } from "./src/cron/init-cron";
-import { initRssRoutes } from "./routes/rss-routes";
 import { podcastRssCronConfig } from "./src/cron/podcasts/podcast.config";
 import { pageQueriesCronConfig } from "./src/cron/api/search/page-queries";
 import { rssCronConfig } from "./src/cron/rss/rss-cron";
 import { RADIO_CRON_CONFIG } from "./src/cron/radio/radio-cron";
+import { ukRssCronConfig } from "./src/cron/rss/uk-rss-cron";
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -46,12 +46,14 @@ app.get("/update-providers", async (req, res) => {
 });
 
 // setup crtain routes / jobs etc depending on settings etc
-isRssRoute && initRssRoutes(app);
+// isRssRoute && initRssRoutes(app);
 isApiRoute && initApiRoutes(app);
 isCron && initCronJobs(podcastRssCronConfig);
 
 isApiCron && initCronJobs(pageQueriesCronConfig);
+
 isRSSCron && initCronJobs(rssCronConfig);
+isRSSCron && initCronJobs(ukRssCronConfig);
 
 isApiCron && initCronJobs(RADIO_CRON_CONFIG);
 

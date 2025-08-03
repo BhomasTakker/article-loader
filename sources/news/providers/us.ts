@@ -354,16 +354,6 @@ export const newYorkTimes = {
 	leaning: -0.1,
 };
 
-export const theEconomist = {
-	origin: "USA",
-	name: "The Economist",
-	description: "The Economist is an American newspaper.",
-	url: "https://www.economist.com/",
-	logo: "https://economist.prod.limio.com/public/8e54554b-dc88-48d8-845d-4cad0e847c00/favicon.f1ea9088.png",
-	rating: 85,
-	leaning: 0,
-};
-
 export const tennesseeHoller = {
 	origin: "USA",
 	name: "Tennessee Holler",

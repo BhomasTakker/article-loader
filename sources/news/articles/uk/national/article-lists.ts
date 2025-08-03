@@ -1,35 +1,21 @@
-import { NewsSources } from "../../sources";
+import { NewsSources } from "../../../sources";
+import {
+	BIRMINGHAM_ARTICLE_SOURCES,
+	BIRMINGHAM_VIDEO_SOURCES,
+} from "../england/birmingham";
+import {
+	LIVERPOOL_ARTICLE_SOURCES,
+	LIVERPOOL_VIDEO_SOURCES,
+} from "../england/liverpool";
+import { MANCHESTER_SOURCES } from "../england/manchester/article-list";
+import { MANCHESTER_VIDEO_SOURCES } from "../england/manchester/video-list";
+import { YORKSHIRE_ARTICLE_SOURCES } from "../england/yorkshire";
+import { NORTHERN_IRELAND_ARTICLE_SOURCES } from "../northern-ireland/article-list";
+import { SCOTLAND_ARTICLE_SOURCES } from "../scotland";
+import { WALES_ARTICLE_SOURCES } from "../wales";
+import { UK_LIVE, UK_VIDEO, UK_VIDEO_2 } from "./video-lists";
 
-// All news needs to be further categorized by international, continental, regional, national, sub-national, local.
-// i.e. world news, European news, UK news, English news, London news, etc.
-// Else local news will be in the same category as international news, etc.
-
-export const TEST = {
-	categories: ["news"],
-	region: ["UK"],
-	coverage: ["national"],
-	language: "en",
-	sources: [
-		{
-			name: NewsSources.BBC,
-			src: "https://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
-		},
-		{
-			name: NewsSources.BBC,
-			src: "https://feeds.bbci.co.uk/news/topics/cmj34zmwm1zt/rss.xml",
-		},
-		{
-			name: NewsSources.BBC,
-			src: "https://feeds.bbci.co.uk/news/world/australia/rss.xml",
-		},
-		{
-			name: NewsSources.BBC,
-			src: "https://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml",
-		},
-	],
-};
-
-export const UK_1 = {
+const UK_1 = {
 	categories: ["news"],
 	region: ["Europe", "UK"],
 	coverage: ["national"],
@@ -82,16 +68,12 @@ export const UK_1 = {
 	],
 };
 
-export const UK_2 = {
+const UK_2 = {
 	categories: ["news"],
 	region: ["Europe", "UK"],
 	coverage: ["national"],
 	language: "en",
 	sources: [
-		{
-			name: NewsSources.DAILY_RECORD,
-			src: "https://www.dailyrecord.co.uk/news/?service=rss",
-		},
 		{
 			name: NewsSources.POLITICS_CO_UK,
 			src: "https://www.politics.co.uk/feed/",
@@ -101,47 +83,21 @@ export const UK_2 = {
 			src: "https://theconversation.com/uk/articles.atom",
 		},
 		{
-			name: NewsSources.BIRMINGHAME_LIVE,
-			// src: 'https://www.birminghammail.co.uk/news/?service=rss',
-			src: "https://www.birminghammail.co.uk/news/uk-news/?service=rss",
-			region: ["UK", "England", "West Midlands", "Birmingham"],
-			coverage: ["regional", "local"],
-		},
-		{
 			name: NewsSources.THE_PINK_NEWS,
 			src: "https://www.thepinknews.com/news/uk/feed/",
-		},
-		{
-			name: NewsSources.NORTHERN_IRELAND_WORLD,
-			src: "https://www.northernirelandworld.com/news/rss",
-			region: ["UK", "NI"],
-			coverage: ["regional"],
-		},
-		{
-			name: NewsSources.WALES_ONLINE,
-			src: "https://www.walesonline.co.uk/news/?service=rss",
-			region: ["UK", "Wales"],
-			coverage: ["regional"],
-		},
-		{
-			name: NewsSources.HERALD_SCOTLAND,
-			src: "https://www.heraldscotland.com/news/national-news/rss/",
-			region: ["UK", "Scotland"],
-			coverage: ["regional"],
-		},
-		{
-			name: NewsSources.HERALD_SCOTLAND,
-			src: "https://www.heraldscotland.com/news/rss/",
-			coverage: ["regional"],
 		},
 		{
 			name: NewsSources.GB_NEWS,
 			src: "https://www.gbnews.com/feeds/news/uk.rss",
 		},
+		{
+			name: NewsSources.HERALD_SCOTLAND,
+			src: "https://www.heraldscotland.com/news/national-news/rss/",
+		},
 	],
 };
 
-export const UK_3 = {
+const UK_3 = {
 	categories: ["news"],
 	region: ["Europe", "UK"],
 	coverage: ["national"],
@@ -173,3 +129,26 @@ export const UK_3 = {
 		},
 	],
 };
+
+export const ukNationalArticles1 = [UK_1, UK_2, UK_3];
+export const ukNationalArticles2 = [
+	SCOTLAND_ARTICLE_SOURCES,
+	WALES_ARTICLE_SOURCES,
+	NORTHERN_IRELAND_ARTICLE_SOURCES,
+];
+
+export const ukNationalVideos = [UK_VIDEO, UK_VIDEO_2];
+export const ukLiveVideos = [UK_LIVE];
+
+export const ukRegionalArticles = [
+	MANCHESTER_SOURCES,
+	LIVERPOOL_ARTICLE_SOURCES,
+	BIRMINGHAM_ARTICLE_SOURCES,
+];
+export const ukRegionalArticles2 = [YORKSHIRE_ARTICLE_SOURCES];
+
+export const ukRegionalVideos = [
+	MANCHESTER_VIDEO_SOURCES,
+	LIVERPOOL_VIDEO_SOURCES,
+	BIRMINGHAM_VIDEO_SOURCES,
+];

@@ -1,4 +1,4 @@
-import { NewsSources } from "../sources";
+import { NewsSources } from "../../../sources";
 
 export const UK_LIVE = {
 	categories: ["news"],

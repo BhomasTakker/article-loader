@@ -215,17 +215,6 @@ export const theCipherBrief = {
 	leaning: -0.1,
 };
 
-export const express = {
-	origin: "UK",
-	name: "Daily Express",
-	description:
-		"The Daily Express is a daily national middle-market tabloid newspaper.",
-	url: "https://www.express.co.uk/",
-	logo: "https://cdn.images.express.co.uk/appletouchicons/20160608/apple-touch-icon-180x180.png",
-	rating: 85,
-	leaning: -0.1,
-};
-
 export const channelNewsAsia = {
 	origin: "Singapore",
 	name: "Channel News Asia",

@@ -30,6 +30,20 @@ export const WORLD_1 = {
 			name: NewsSources.NEW_YORK_TIMES,
 			src: "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
 		},
+		{
+			name: NewsSources.THE_NATIONAL,
+			src: "https://www.thenational.scot/news/world/rss/",
+		},
+		{
+			name: NewsSources.THE_NATIONAL,
+			src: "https://www.thenational.scot/news/europe/rss/",
+			region: ["Europe"],
+		},
+
+		{
+			name: NewsSources.HERALD_SCOTLAND,
+			src: "https://www.heraldscotland.com/news/world_news/rss/",
+		},
 		// {
 		// 	name: NewsSources.WASHINGTON_POST,
 		// 	src: "http://feeds.washingtonpost.com/rss/world",
