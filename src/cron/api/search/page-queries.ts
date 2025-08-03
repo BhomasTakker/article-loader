@@ -154,7 +154,7 @@ export const pageQueriesCronConfig: CronConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			time: staggerMinutes(15, 10),
+			time: staggerMinutes(15, 14, 0),
 			fetchFn: () =>
 				executeAndCacheQueriesFromPage(
 					[API_PROVIDERS.ARTICLES_SEARCH_API],
@@ -163,7 +163,7 @@ export const pageQueriesCronConfig: CronConfig = {
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(15, 11),
+			time: staggerMinutes(15, 14, 30),
 			fetchFn: () => pingApp(ROUTES_1),
 			onComplete: () => {},
 		},

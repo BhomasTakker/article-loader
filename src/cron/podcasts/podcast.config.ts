@@ -16,7 +16,7 @@ import {
 	NEWS_WORLD_1,
 	NEWS_WORLD_2,
 } from "../../../sources/audio/podbean/news/world";
-import { CRON_TIMES, staggerMinutes } from "../create-cron";
+import { everyNthHour, staggerMinutes } from "../create-cron";
 import { fetchPodcasts } from "../loaders/fetchPodcasts";
 import { CronConfig } from "../types";
 
@@ -25,58 +25,58 @@ export const podcastRssCronConfig: CronConfig = {
 	anyCommandsRequired: {},
 	cron: [
 		{
-			time: staggerMinutes(15, 0),
+			time: staggerMinutes(15, 8, 0),
 			fetchFn: fetchPodcasts([BITES_UK]),
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(15, 1),
+			time: staggerMinutes(15, 8, 30),
 			fetchFn: fetchPodcasts([BITES_US]),
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(15, 2),
+			time: staggerMinutes(15, 9, 0),
 			fetchFn: fetchPodcasts([BITES_WORLD]),
 			onComplete: () => {},
 		},
 		// These are spiking us a little - well to 16%
 		{
-			time: CRON_TIMES.hours_6,
+			time: everyNthHour(6, 9, 30),
 			fetchFn: fetchPodcasts([NEWS_UK_1]),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.hours_6_1,
+			time: everyNthHour(6, 10, 0),
 			fetchFn: fetchPodcasts([NEWS_UK_2]),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.hours_6_2,
+			time: everyNthHour(6, 10, 30),
 			fetchFn: fetchPodcasts([NEWS_US_1]),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.hours_6_3,
+			time: everyNthHour(6, 11, 0),
 			fetchFn: fetchPodcasts([NEWS_US_2]),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.hours_6_4,
+			time: everyNthHour(6, 11, 30),
 			fetchFn: fetchPodcasts([NEWS_US_3]),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.hours_6_5,
+			time: everyNthHour(6, 12, 0),
 			fetchFn: fetchPodcasts([NEWS_US_4]),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.hours_6_7,
+			time: everyNthHour(6, 12, 30),
 			fetchFn: fetchPodcasts([NEWS_WORLD_1]),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.hours_6_8,
+			time: everyNthHour(6, 13, 0),
 			fetchFn: fetchPodcasts([NEWS_WORLD_2]),
 			onComplete: () => {},
 		},
