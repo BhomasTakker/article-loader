@@ -24,7 +24,7 @@ export const fetchNoSave = async (urls: string[], callback: Callback) => {
 				const { items: items2, ...rest } = data;
 				const newData = { ...rest };
 
-				console.log("RSS Data", newData);
+				// console.log("RSS Data", newData);
 			});
 			prom.catch((error: Error) => {
 				// This should stop the crash but we need to remove null from promise list

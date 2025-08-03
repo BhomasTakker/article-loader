@@ -2,7 +2,7 @@ import { Station } from "radio-browser-api";
 import { fetchAPI } from "../../api/fetch-api";
 import { fetchNewsRadioStations } from "../../api/radio-browser";
 import { radioBrowserApiCallback } from "../../api/radio-browser/callback";
-import { CRON_TIMES } from "../create-cron";
+import { everyNDays } from "../create-cron";
 import { CronConfig } from "../types";
 import { UnknownObject } from "../../types/article/item";
 
@@ -127,27 +127,27 @@ export const RADIO_CRON_CONFIG: CronConfig = {
 		// 	onComplete: () => {},
 		// },
 		{
-			time: CRON_TIMES.days_7,
+			time: everyNDays({ day: 7, hour: 0, minute: 14 }),
 			fetchFn: () => runScripts({ limit: 100, offset: 0 }),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.days_7_1,
+			time: everyNDays({ day: 7, hour: 0, minute: 28 }),
 			fetchFn: () => runScripts({ limit: 100, offset: 100 }),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.days_7_2,
+			time: everyNDays({ day: 7, hour: 0, minute: 42 }),
 			fetchFn: () => runScripts({ limit: 100, offset: 200 }),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.days_7_3,
+			time: everyNDays({ day: 7, hour: 0, minute: 56 }),
 			fetchFn: () => runScripts({ limit: 100, offset: 300 }),
 			onComplete: () => {},
 		},
 		{
-			time: CRON_TIMES.days_7_4,
+			time: everyNDays({ day: 7, hour: 1, minute: 14 }),
 			fetchFn: () => runScripts({ limit: 100, offset: 400 }),
 			onComplete: () => {},
 		},

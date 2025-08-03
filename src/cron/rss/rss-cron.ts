@@ -61,22 +61,22 @@ export const rssCronConfig: CronConfig = {
 		// 	onComplete: () => {},
 		// },
 		{
-			time: staggerMinutes(15, 1),
+			time: staggerMinutes(15, 3, 0),
 			fetchFn: fetchRSS(us_articles_1),
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(15, 2),
+			time: staggerMinutes(15, 3, 30),
 			fetchFn: fetchRSS(us_articles_2),
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(15, 3),
+			time: staggerMinutes(15, 4, 0),
 			fetchFn: fetchRSS(world_articles_1),
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(15, 4),
+			time: staggerMinutes(15, 4, 30),
 			fetchFn: fetchRSS(world_articles_2),
 			onComplete: () => {},
 		},
@@ -87,27 +87,27 @@ export const rssCronConfig: CronConfig = {
 		},
 		// Split
 		{
-			time: staggerMinutes(30, 10),
+			time: staggerMinutes(30, 5, 30),
 			fetchFn: fetchRSS(newYorkArticles),
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(30, 11),
+			time: staggerMinutes(30, 6, 0),
 			fetchFn: fetchYoutubeRSS(newYorkVideos),
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(30, 12),
+			time: staggerMinutes(30, 6, 30),
 			fetchFn: fetchRSS(floridaArticles),
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(30, 13),
+			time: staggerMinutes(30, 6, 0),
 			fetchFn: fetchYoutubeRSS(floridaVideos),
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(15, 6),
+			time: staggerMinutes(15, 7, 0),
 			fetchFn: fetchYoutubeRSS(videos),
 			onComplete: () => {},
 		},

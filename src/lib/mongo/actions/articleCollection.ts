@@ -25,7 +25,7 @@ export const saveOrCreateArticleCollectionByFeed = async (
 		// if _updatedAt is old then we can assume that the collection is not new
 		// We don't need to load the collection addingto db etc
 		// logMemoryUsage();
-		console.log(`Saved Article Collection: ${feed}`);
+		// console.log(`Saved Article Collection: ${feed}`);
 
 		return { result: res, message: "Saved Article Collection!" };
 	} catch (err) {

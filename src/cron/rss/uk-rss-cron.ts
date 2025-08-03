@@ -21,39 +21,39 @@ export const ukRssCronConfig: CronConfig = {
 		// 	onComplete: () => {},
 		// },
 		{
-			time: staggerMinutes(15, 0),
+			time: staggerMinutes(15, 0, 0),
 			fetchFn: fetchRSS(ukNationalArticles1),
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(15, 1),
+			time: staggerMinutes(15, 0, 30),
 			fetchFn: fetchRSS(ukNationalArticles2),
 			onComplete: () => {},
 		},
 		{
-			time: staggerMinutes(15, 2),
+			time: staggerMinutes(15, 1, 0),
 			fetchFn: fetchYoutubeRSS(ukNationalVideos),
 			onComplete: () => {},
 		},
 		{
-			time: everyNthHour(24, 5),
+			time: everyNthHour(24, 1, 0),
 			fetchFn: fetchYoutubeRSS(ukLiveVideos),
 			onComplete: () => {},
 		},
 		{
-			time: everyNthHour(1, 3),
+			time: everyNthHour(1, 1, 30),
+			fetchFn: fetchYoutubeRSS(ukRegionalVideos),
+			onComplete: () => {},
+		},
+		{
+			time: everyNthHour(1, 2, 0),
 			fetchFn: fetchRSS(ukRegionalArticles),
 			onComplete: () => {},
 		},
 
 		{
-			time: everyNthHour(1, 4),
+			time: everyNthHour(1, 2, 30),
 			fetchFn: fetchRSS(ukRegionalArticles2),
-			onComplete: () => {},
-		},
-		{
-			time: everyNthHour(1, 6),
-			fetchFn: fetchYoutubeRSS(ukRegionalVideos),
 			onComplete: () => {},
 		},
 	],
