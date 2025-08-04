@@ -21,7 +21,7 @@
 		"start": "node dist/index.js",
 		"aws:stop": "pm2 stop article-loader",
 		"preaws:start": "npm run build",
-		"aws:start": "pm2 start dist/index.js --name article-loader --cron-restart=\"0 0 * * *\"",
+		"aws:start": "pm2 start dist/index.js --name article-loader --cron-restart=\"14 1 * * *\"",
 		"aws:reload": "pm2 reload article-loader",
 		"logs": "pm2 logs article-loader",
 		"kill": "pm2 kill",
