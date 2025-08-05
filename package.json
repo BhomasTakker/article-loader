@@ -28,7 +28,8 @@
 		"monitor": "pm2 monit article-loader",
 		"postinstall": "tsc",
 		"preserve": "npm run build",
-		"serve": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\""
+		"serve": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\"",
+		"script": "npx ts-node scripts/remove-shorts.ts"
 	},
 	"dependencies": {
 		"cheerio": "^1.0.0",
