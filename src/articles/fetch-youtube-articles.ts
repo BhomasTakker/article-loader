@@ -24,6 +24,8 @@ export type YouTubeRSSItem = {
 			["media:statistics"]: { $: { views: string } }[];
 		}[];
 	};
+	["yt:videoId"]?: string;
+	["yt:channelId"]?: string;
 };
 
 type ConvertYouTubeRssItemToArticle = {
@@ -45,6 +47,27 @@ const convertYouTubeRssItemToArticle = ({
 	const rating = mediaCommunity["media:starRating"][0].$.average;
 	const views = mediaCommunity["media:statistics"][0].$.views;
 
+	/////////////////////////////////////////////////////////
+	// Shorts in an rss feed does not return a usable link
+	// so if we receive a video id we can use it to create a link
+	// /////////////////////////////////////////////////// //
+	// Question to be asked
+	// do all youtube videos share this format?
+	// or is this from a certain date etc
+	//////////////////////////////////////////////////////////
+	// Add yt:videoId and yt:channelId to the item!!
+	// const ytVideoId = item["yt:videoId"]; // item.id is something like yt:video:jDUYuXawP7Q - so could be used as well
+	// const channelId = item["yt:channelId"];
+	// const link = ytVideoId
+	// 	? `https://www.youtube.com/watch?v=${ytVideoId}`
+	// 	: item.link;
+
+	const videoIdFromItemId = item.id.replace("yt:video:", "");
+
+	const link = videoIdFromItemId
+		? `https://www.youtube.com/watch?v=${videoIdFromItemId}`
+		: item.link;
+
 	const {
 		region,
 		coverage = [],
@@ -53,7 +76,7 @@ const convertYouTubeRssItemToArticle = ({
 		media: extraDataMedia = {},
 	} = extraData || {};
 
-	const { title, description, link, pubDate, author, id, isoDate } = item;
+	const { title, description, pubDate, author, id, isoDate } = item;
 	const newItem = {
 		title,
 		src: link,
