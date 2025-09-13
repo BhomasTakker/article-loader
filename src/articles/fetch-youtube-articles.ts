@@ -1,4 +1,5 @@
 import { ExtraData } from "../../sources/news/articles/types";
+import { filterLimit } from "../../utils";
 import { RSSItem } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
@@ -113,7 +114,8 @@ export const fetchYoutubeArticles = async ({
 	extraData,
 	provider,
 }: FetchArticles) => {
-	const data = items.map((item, i) => {
+	const filteredItems = filterLimit(items);
+	const data = filteredItems.map((item, i) => {
 		const newItem: YouTubeRSSItem = item as YouTubeRSSItem;
 		return saveArticle(
 			convertYouTubeRssItemToArticle({ item: newItem, extraData, provider })

@@ -1,4 +1,5 @@
 import { ExtraData } from "../../sources/news/articles/types";
+import { filterLimit } from "../../utils";
 import { logMemoryUsage } from "../lib/mem";
 import { CollectionItem } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
@@ -165,7 +166,8 @@ export const fetchPodcastArticles = async ({
 	collectionData,
 }: FetchArticles) => {
 	// We are not excuding articles with incorrect data.....
-	const data = items.map((item, i) => {
+	const filteredItems = filterLimit(items || []);
+	const data = filteredItems.map((item, i) => {
 		const newItem: PodcastRSSItem = item as unknown as PodcastRSSItem;
 		return saveArticle(
 			convertPodcastRssItemToArticle({
