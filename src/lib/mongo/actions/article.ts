@@ -11,7 +11,7 @@ export const saveOrCreateArticleBySrc = async (article: CollectionItem) => {
 	try {
 		await Article.updateOne(
 			{ src }, // find
-			article, // update
+			{ $set: article }, // update only specified fields
 			{
 				new: true,
 				upsert: true, // Make this update into an upsert
