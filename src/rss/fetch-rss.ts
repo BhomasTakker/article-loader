@@ -1,19 +1,11 @@
 import { ArticleSource, ExtraData } from "../../sources/news/articles/types";
-import { mergeStringOrArray } from "../../utils";
+import { filterLimit, mergeStringOrArray } from "../../utils";
 import { FetchArticles } from "../articles/fetch-articles";
 import { GetCollection } from "../collections/get-collection";
 import { getArticleProviderByName } from "../lib/mongo/actions/article-provider";
 import { DataResponse, UnknownObject } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { RSSParse } from "./parse-rss";
-
-const ITEMS_LIMIT = 50;
-const filterLimit = (items: any[]) => {
-	if (items.length > ITEMS_LIMIT) {
-		return items.slice(0, ITEMS_LIMIT);
-	}
-	return items;
-};
 
 type FetchRSS<T, G> = {
 	urls: string[];
