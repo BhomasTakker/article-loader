@@ -1,5 +1,6 @@
 import { ExtraData } from "../../sources/news/articles/types";
-import { filterLimit } from "../../utils";
+import { deepMerge, filterLimit } from "../../utils";
+import Article from "../models/Article";
 import { RSSItem } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
@@ -115,11 +116,20 @@ export const fetchYoutubeArticles = async ({
 	provider,
 }: FetchArticles) => {
 	const filteredItems = filterLimit(items);
-	const data = filteredItems.map((item, i) => {
+	const data = filteredItems.map(async (item, i) => {
 		const newItem: YouTubeRSSItem = item as YouTubeRSSItem;
-		return saveArticle(
-			convertYouTubeRssItemToArticle({ item: newItem, extraData, provider })
-		);
+		const convertedItem = convertYouTubeRssItemToArticle({
+			item: newItem,
+			extraData,
+			provider,
+		});
+
+		const existing = await Article.findOne({ src: convertedItem.src }).lean();
+		const merged = existing
+			? deepMerge(existing, convertedItem)
+			: convertedItem;
+
+		return saveArticle(merged);
 	});
 
 	return Promise.all(data);
