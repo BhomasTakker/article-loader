@@ -6,7 +6,7 @@ import {
 import { getMeta } from "../html/get-meta";
 import { ExtraData } from "../../sources/news/articles/types";
 import { ProviderItem } from "../types/article/provider";
-import { mergeStringOrArray } from "../../utils";
+import { mergeStringOrArray } from "../utils";
 
 // Do not do this with YouTube!!
 const stripQueryStringFromUrl = (url: URL) => {
