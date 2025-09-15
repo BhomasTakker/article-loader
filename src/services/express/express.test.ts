@@ -1,5 +1,5 @@
 import express from "express";
-import { initialiseExpress } from "./index";
+import { initialiseExpress, startServer } from "./index";
 
 // Mock express and its methods
 jest.mock("express", () => {
@@ -43,12 +43,14 @@ describe("Express Service", () => {
 			expect(express).toHaveBeenCalledTimes(1);
 			expect(result).toBe(mockApp);
 		});
+	});
 
+	describe("startServer", () => {
 		it("should use default port 4000 when PORT environment variable is not set", () => {
 			// Ensure PORT is not set
 			delete process.env.PORT;
 
-			initialiseExpress();
+			startServer(mockApp);
 
 			expect(mockListen).toHaveBeenCalledTimes(1);
 			expect(mockListen).toHaveBeenCalledWith(4000, expect.any(Function));
@@ -58,7 +60,7 @@ describe("Express Service", () => {
 			const testPort = "3000";
 			process.env.PORT = testPort;
 
-			initialiseExpress();
+			startServer(mockApp);
 
 			expect(mockListen).toHaveBeenCalledTimes(1);
 			expect(mockListen).toHaveBeenCalledWith(testPort, expect.any(Function));
@@ -70,7 +72,7 @@ describe("Express Service", () => {
 		it("should log the correct message when server starts with default port", () => {
 			delete process.env.PORT;
 
-			initialiseExpress();
+			startServer(mockApp);
 
 			// Get the callback function passed to listen and execute it
 			const listenCallback = mockListen.mock.calls[0][1];
@@ -83,7 +85,7 @@ describe("Express Service", () => {
 			const testPort = "8080";
 			process.env.PORT = testPort;
 
-			initialiseExpress();
+			startServer(mockApp);
 
 			// Get the callback function passed to listen and execute it
 			const listenCallback = mockListen.mock.calls[0][1];
@@ -101,7 +103,7 @@ describe("Express Service", () => {
 			const testPort = "5000";
 			process.env.PORT = testPort;
 
-			initialiseExpress();
+			startServer(mockApp);
 
 			expect(mockListen).toHaveBeenCalledTimes(1);
 			expect(mockListen).toHaveBeenCalledWith(testPort, expect.any(Function));
@@ -118,7 +120,7 @@ describe("Express Service", () => {
 			// Test that string ports work (common in environment variables)
 			process.env.PORT = "9000";
 
-			initialiseExpress();
+			startServer(mockApp);
 
 			expect(mockListen).toHaveBeenCalledWith("9000", expect.any(Function));
 
@@ -129,7 +131,7 @@ describe("Express Service", () => {
 		it("should work when PORT is an empty string", () => {
 			process.env.PORT = "";
 
-			initialiseExpress();
+			startServer(mockApp);
 
 			// Empty string is falsy, so should use default port
 			expect(mockListen).toHaveBeenCalledWith(4000, expect.any(Function));
@@ -140,19 +142,17 @@ describe("Express Service", () => {
 	});
 
 	describe("Integration tests", () => {
-		it("should initialize express app and set up server listening in one call", () => {
+		it("should initialize express app and start server in separate calls", () => {
 			const testPort = "7000";
 			process.env.PORT = testPort;
 
+			// Test initialiseExpress
 			const app = initialiseExpress();
-
-			// Verify express was called
 			expect(express).toHaveBeenCalledTimes(1);
-
-			// Verify app is returned
 			expect(app).toBe(mockApp);
 
-			// Verify listen was called with correct parameters
+			// Test startServer
+			startServer(app);
 			expect(mockListen).toHaveBeenCalledWith(testPort, expect.any(Function));
 
 			// Execute the callback and verify logging
