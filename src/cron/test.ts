@@ -15,7 +15,7 @@ import {
 	NEWS_WORLD_1,
 	NEWS_WORLD_2,
 } from "../../sources/audio/podbean/news/world";
-import { staggerSeconds } from "./create-cron";
+import { staggerSeconds } from "./cron-times";
 import { fetchPodcasts } from "./loaders/fetchPodcasts";
 
 const fetchPodcastsTest = () => {

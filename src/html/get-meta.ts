@@ -12,7 +12,7 @@ export type MetaData = {
 	url?: string | null;
 };
 
-const getOGMetaFromCheerio = (str: string) => {
+export const getOGMetaFromCheerio = (str: string) => {
 	const $ = cheerio.load(str);
 	const metaTags: any = {};
 

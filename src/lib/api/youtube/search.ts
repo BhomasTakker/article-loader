@@ -3,19 +3,27 @@ import { CollectionItem } from "../../../types/article/item";
 import { YouTubeItem } from "../../../types/youtube/youtube";
 import { setCache } from "../../redis/redis-fetch";
 
+const YOUTUBE_CONFIG = {
+	BASE_URL: "https://www.googleapis.com/youtube/v3",
+	ENDPOINT: "/search",
+	DEFAULTS: {
+		PART: "snippet",
+		TYPE: "video",
+		VIDEO_SYNDICATED: "true",
+		CACHE_TIME: 60 * 60,
+		MAX_RESULTS_LIMIT: 50,
+	},
+} as const;
+
 // https://developers.google.com/youtube/v3/docs/search/list
-const BASE_URL = "https://www.googleapis.com/youtube/v3";
-const ENDPOINT = "/search";
-const YOUTUBE_URL = BASE_URL + ENDPOINT;
-const PART = "snippet";
-// Search only for videos ant the moment / channel | playlist
-const TYPE = "video";
-// Restrict to videos allowed to be played outside of youtube
-const VIDEO_SYNDICATED = "true";
+const YOUTUBE_URL = `${YOUTUBE_CONFIG.BASE_URL}${YOUTUBE_CONFIG.ENDPOINT}`;
+const PART = YOUTUBE_CONFIG.DEFAULTS.PART;
+const TYPE = YOUTUBE_CONFIG.DEFAULTS.TYPE;
+const VIDEO_SYNDICATED = YOUTUBE_CONFIG.DEFAULTS.VIDEO_SYNDICATED;
 
 const API_KEY = getYouTubeApiKey();
 
-const CACHE_TIME = 60 * 60;
+const CACHE_TIME = YOUTUBE_CONFIG.DEFAULTS.CACHE_TIME;
 
 // 'videoCount' | <-channel sort option
 export type YouTubeSearchParams = {
@@ -76,6 +84,44 @@ export const convertYouTubeItems = (items: YouTubeItem[]): CollectionItem[] => {
 	});
 };
 
+export const buildYouTubeSearchUrl = (
+	params: YouTubeSearchParams,
+	apiKey: string
+): URL => {
+	const fetchUrl = new URL(YOUTUBE_URL);
+
+	// Add required parameters
+	fetchUrl.searchParams.append("key", apiKey);
+	fetchUrl.searchParams.append("part", PART);
+	fetchUrl.searchParams.append("type", TYPE);
+	fetchUrl.searchParams.append("videoSyndicated", VIDEO_SYNDICATED);
+
+	// Add optional parameters
+	for (const [key, value] of Object.entries(params)) {
+		if (value !== undefined && value !== null) {
+			fetchUrl.searchParams.append(key, String(value));
+		}
+	}
+
+	return fetchUrl;
+};
+
+export const fetchYouTubeAPIData = async (
+	fetchUrl: URL
+): Promise<CollectionItem[]> => {
+	const response = await fetch(fetchUrl);
+
+	if (!response.ok) {
+		throw new Error(
+			`YouTube API error: ${response.status} ${response.statusText}`
+		);
+	}
+
+	const data = await response.json();
+	const { items = [] } = data || {};
+	return convertYouTubeItems(items);
+};
+
 export const youtubeApiFetch = async (
 	params: YouTubeSearchParams,
 	cacheTime: number = CACHE_TIME
@@ -86,29 +132,13 @@ export const youtubeApiFetch = async (
 		throw new Error("No API Key found");
 	}
 
-	const fetchUrl = new URL(YOUTUBE_URL);
-
-	fetchUrl.searchParams.append("key", API_KEY);
-	fetchUrl.searchParams.append("part", PART);
-	fetchUrl.searchParams.append("type", TYPE);
-	fetchUrl.searchParams.append("videoSyndicated", VIDEO_SYNDICATED);
-
-	for (const [key, value] of Object.entries(rest)) {
-		if (value) fetchUrl.searchParams.append(key, `${value}`);
-	}
-
+	const fetchUrl = buildYouTubeSearchUrl(rest, API_KEY);
 	const clonedUrl = fetchUrl.toString().replace(API_KEY, "***REDACTED***");
 
 	try {
 		const items = await setCache<CollectionItem[]>(
 			async () => {
-				const response = await fetch(fetchUrl);
-				const data = await response.json();
-				const { items = [] } = data || {};
-				const collectionItems = convertYouTubeItems(items);
-
-				// Would we want to return anything from the wider data?
-				return collectionItems;
+				return await fetchYouTubeAPIData(fetchUrl);
 			},
 			// We are caching with the apikey!!!! REMOVE!!!!
 			clonedUrl,
