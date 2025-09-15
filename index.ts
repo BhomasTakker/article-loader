@@ -8,13 +8,14 @@ import { pageQueriesCronConfig } from "./src/cron/api/search/page-queries";
 import { rssCronConfig } from "./src/cron/rss/rss-cron";
 import { RADIO_CRON_CONFIG } from "./src/cron/radio/radio-cron";
 import { ukRssCronConfig } from "./src/cron/rss/uk-rss-cron";
-import { initialiseExpress } from "./src/services/express";
+import { initialiseExpress, startServer } from "./src/services/express";
 import { getEnv } from "./src/services/env";
 
 require("dotenv").config();
 
 export const initialiseServer = () => {
 	const app = initialiseExpress();
+	startServer(app);
 
 	const { isRssRoute, isApiRoute, isCron, isApiCron, isRSSCron } = getEnv();
 	logMemoryUsage();
