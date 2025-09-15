@@ -2,12 +2,10 @@ import express from "express";
 import { initialiseExpress, startServer } from "./index";
 
 // Mock express and its methods
-jest.mock("express", () => {
-	return jest.fn();
-});
+jest.mock("express", () => jest.fn());
 
 // Create a typed mock for express
-const mockExpress = express as jest.MockedFunction<typeof express>;
+const mockExpress = jest.mocked(express);
 
 describe("Express Service", () => {
 	let mockApp: any;
