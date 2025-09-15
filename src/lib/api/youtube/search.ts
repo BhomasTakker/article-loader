@@ -84,6 +84,44 @@ export const convertYouTubeItems = (items: YouTubeItem[]): CollectionItem[] => {
 	});
 };
 
+export const buildYouTubeSearchUrl = (
+	params: YouTubeSearchParams,
+	apiKey: string
+): URL => {
+	const fetchUrl = new URL(YOUTUBE_URL);
+
+	// Add required parameters
+	fetchUrl.searchParams.append("key", apiKey);
+	fetchUrl.searchParams.append("part", PART);
+	fetchUrl.searchParams.append("type", TYPE);
+	fetchUrl.searchParams.append("videoSyndicated", VIDEO_SYNDICATED);
+
+	// Add optional parameters
+	for (const [key, value] of Object.entries(params)) {
+		if (value !== undefined && value !== null) {
+			fetchUrl.searchParams.append(key, String(value));
+		}
+	}
+
+	return fetchUrl;
+};
+
+export const fetchYouTubeAPIData = async (
+	fetchUrl: URL
+): Promise<CollectionItem[]> => {
+	const response = await fetch(fetchUrl);
+
+	if (!response.ok) {
+		throw new Error(
+			`YouTube API error: ${response.status} ${response.statusText}`
+		);
+	}
+
+	const data = await response.json();
+	const { items = [] } = data || {};
+	return convertYouTubeItems(items);
+};
+
 export const youtubeApiFetch = async (
 	params: YouTubeSearchParams,
 	cacheTime: number = CACHE_TIME
@@ -94,29 +132,13 @@ export const youtubeApiFetch = async (
 		throw new Error("No API Key found");
 	}
 
-	const fetchUrl = new URL(YOUTUBE_URL);
-
-	fetchUrl.searchParams.append("key", API_KEY);
-	fetchUrl.searchParams.append("part", PART);
-	fetchUrl.searchParams.append("type", TYPE);
-	fetchUrl.searchParams.append("videoSyndicated", VIDEO_SYNDICATED);
-
-	for (const [key, value] of Object.entries(rest)) {
-		if (value) fetchUrl.searchParams.append(key, `${value}`);
-	}
-
+	const fetchUrl = buildYouTubeSearchUrl(rest, API_KEY);
 	const clonedUrl = fetchUrl.toString().replace(API_KEY, "***REDACTED***");
 
 	try {
 		const items = await setCache<CollectionItem[]>(
 			async () => {
-				const response = await fetch(fetchUrl);
-				const data = await response.json();
-				const { items = [] } = data || {};
-				const collectionItems = convertYouTubeItems(items);
-
-				// Would we want to return anything from the wider data?
-				return collectionItems;
+				return await fetchYouTubeAPIData(fetchUrl);
 			},
 			// We are caching with the apikey!!!! REMOVE!!!!
 			clonedUrl,
