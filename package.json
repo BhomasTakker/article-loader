@@ -30,7 +30,9 @@
 		"preserve": "npm run build",
 		"serve": "concurrently \"npx tsc -w\" \"nodemon dist/index.js\"",
 		"script": "npx ts-node scripts/remove-shorts.ts",
-		"test": "jest"
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "jest --coverage"
 	},
 	"dependencies": {
 		"cheerio": "^1.0.0",

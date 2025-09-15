@@ -1,167 +1,325 @@
 import express from "express";
 import { initialiseExpress, startServer } from "./index";
 
-// Mock express and its methods
-jest.mock("express", () => jest.fn());
-
-// Create a typed mock for express
-const mockExpress = jest.mocked(express);
+// Mock console.log to prevent output during tests
+const originalLog = console.log;
 
 describe("Express Service", () => {
-	let mockApp: any;
-	let mockListen: jest.Mock;
-	let consoleSpy: jest.SpyInstance;
-
 	beforeEach(() => {
-		// Reset all mocks before each test
-		jest.resetAllMocks();
-
-		// Create mock express app with listen method
-		mockListen = jest.fn();
-		mockApp = {
-			listen: mockListen,
-		};
-
-		// Mock express function to return our mock app
-		mockExpress.mockReturnValue(mockApp);
-
-		// Spy on console.log
-		consoleSpy = jest.spyOn(console, "log").mockImplementation(() => {});
+		// Mock console.log for each test
+		console.log = jest.fn();
 	});
 
 	afterEach(() => {
-		// Restore console.log
-		consoleSpy.mockRestore();
+		// Restore console.log after each test
+		console.log = originalLog;
+		// Clear all mocks
+		jest.clearAllMocks();
+		// Reset environment variables
+		delete process.env.PORT;
 	});
 
 	describe("initialiseExpress", () => {
-		it("should create and return an express app", () => {
-			const result = initialiseExpress();
+		it("should return an Express application instance", () => {
+			const app = initialiseExpress();
 
-			expect(express).toHaveBeenCalledTimes(1);
-			expect(result).toBe(mockApp);
+			expect(app).toBeDefined();
+			expect(typeof app).toBe("function");
+			expect(app).toHaveProperty("listen");
+			expect(app).toHaveProperty("use");
+			expect(app).toHaveProperty("get");
+			expect(app).toHaveProperty("post");
+		});
+
+		it("should create a new Express app instance each time it's called", () => {
+			const app1 = initialiseExpress();
+			const app2 = initialiseExpress();
+
+			expect(app1).toBeDefined();
+			expect(app2).toBeDefined();
+			expect(app1).not.toBe(app2);
+		});
+
+		it("should return an Express app that can handle middleware", () => {
+			const app = initialiseExpress();
+			const middleware = jest.fn((req, res, next) => next());
+
+			// Should not throw when adding middleware
+			expect(() => {
+				app.use(middleware);
+			}).not.toThrow();
+		});
+
+		it("should return an Express app that can define routes", () => {
+			const app = initialiseExpress();
+			const routeHandler = jest.fn((req, res) => res.send("test"));
+
+			// Should not throw when defining routes
+			expect(() => {
+				app.get("/test", routeHandler);
+				app.post("/test", routeHandler);
+			}).not.toThrow();
 		});
 	});
 
 	describe("startServer", () => {
-		it("should use default port 4000 when PORT environment variable is not set", () => {
-			// Ensure PORT is not set
-			delete process.env.PORT;
+		let mockApp: express.Express;
+		let mockListen: jest.Mock;
 
+		beforeEach(() => {
+			mockListen = jest.fn();
+			// Create a real Express app and mock its listen method
+			mockApp = express();
+			mockApp.listen = mockListen as any;
+		});
+
+		it("should call app.listen with default port 4000 when PORT env var is not set", () => {
 			startServer(mockApp);
 
 			expect(mockListen).toHaveBeenCalledTimes(1);
 			expect(mockListen).toHaveBeenCalledWith(4000, expect.any(Function));
 		});
 
-		it("should use PORT environment variable when set", () => {
-			const testPort = "3000";
-			process.env.PORT = testPort;
+		it("should call app.listen with PORT env var when set", () => {
+			process.env.PORT = "3000";
 
 			startServer(mockApp);
 
 			expect(mockListen).toHaveBeenCalledTimes(1);
-			expect(mockListen).toHaveBeenCalledWith(testPort, expect.any(Function));
-
-			// Clean up
-			delete process.env.PORT;
+			expect(mockListen).toHaveBeenCalledWith("3000", expect.any(Function));
 		});
 
-		it("should log the correct message when server starts with default port", () => {
-			delete process.env.PORT;
+		it("should call app.listen with custom PORT env var", () => {
+			process.env.PORT = "8080";
 
 			startServer(mockApp);
 
-			// Get the callback function passed to listen and execute it
-			const listenCallback = mockListen.mock.calls[0][1];
-			listenCallback();
-
-			expect(consoleSpy).toHaveBeenCalledWith("Server is running on port 4000");
+			expect(mockListen).toHaveBeenCalledTimes(1);
+			expect(mockListen).toHaveBeenCalledWith("8080", expect.any(Function));
 		});
 
-		it("should log the correct message when server starts with custom port", () => {
-			const testPort = "8080";
-			process.env.PORT = testPort;
+		it("should log server start message when callback is executed", () => {
+			mockListen.mockImplementation((port, callback) => {
+				callback();
+			});
 
 			startServer(mockApp);
 
-			// Get the callback function passed to listen and execute it
-			const listenCallback = mockListen.mock.calls[0][1];
-			listenCallback();
-
-			expect(consoleSpy).toHaveBeenCalledWith(
-				`Server is running on port ${testPort}`
+			expect(console.log).toHaveBeenCalledWith(
+				"Server is running on port 4000"
 			);
-
-			// Clean up
-			delete process.env.PORT;
 		});
 
-		it("should call app.listen with the correct parameters", () => {
-			const testPort = "5000";
-			process.env.PORT = testPort;
+		it("should log correct port in message when custom PORT is set", () => {
+			process.env.PORT = "5000";
+			mockListen.mockImplementation((port, callback) => {
+				callback();
+			});
 
 			startServer(mockApp);
 
-			expect(mockListen).toHaveBeenCalledTimes(1);
-			expect(mockListen).toHaveBeenCalledWith(testPort, expect.any(Function));
-
-			// Verify the callback is a function
-			const callback = mockListen.mock.calls[0][1];
-			expect(typeof callback).toBe("function");
-
-			// Clean up
-			delete process.env.PORT;
+			expect(console.log).toHaveBeenCalledWith(
+				"Server is running on port 5000"
+			);
 		});
 
-		it("should handle string port numbers correctly", () => {
-			// Test that string ports work (common in environment variables)
+		it("should handle numeric port values", () => {
 			process.env.PORT = "9000";
 
 			startServer(mockApp);
 
 			expect(mockListen).toHaveBeenCalledWith("9000", expect.any(Function));
-
-			// Clean up
-			delete process.env.PORT;
 		});
 
-		it("should work when PORT is an empty string", () => {
-			process.env.PORT = "";
+		it("should work with a real Express app instance", () => {
+			const realApp = express();
+			const originalAppListen = realApp.listen;
+			realApp.listen = jest.fn() as any;
 
-			startServer(mockApp);
+			startServer(realApp);
 
-			// Empty string is falsy, so should use default port
-			expect(mockListen).toHaveBeenCalledWith(4000, expect.any(Function));
-
-			// Clean up
-			delete process.env.PORT;
+			expect(realApp.listen).toHaveBeenCalledWith(4000, expect.any(Function));
 		});
 	});
 
-	describe("Integration tests", () => {
-		it("should initialize express app and start server in separate calls", () => {
-			const testPort = "7000";
-			process.env.PORT = testPort;
-
-			// Test initialiseExpress
+	describe("Integration Tests", () => {
+		it("should create and start a server with default configuration", () => {
 			const app = initialiseExpress();
-			expect(express).toHaveBeenCalledTimes(1);
-			expect(app).toBe(mockApp);
+			const mockListen = jest.fn();
+			app.listen = mockListen as any;
 
-			// Test startServer
 			startServer(app);
-			expect(mockListen).toHaveBeenCalledWith(testPort, expect.any(Function));
 
-			// Execute the callback and verify logging
-			const listenCallback = mockListen.mock.calls[0][1];
-			listenCallback();
-			expect(consoleSpy).toHaveBeenCalledWith(
-				`Server is running on port ${testPort}`
+			expect(mockListen).toHaveBeenCalledWith(4000, expect.any(Function));
+		});
+
+		it("should create and start a server with custom port", () => {
+			process.env.PORT = "7000";
+			const app = initialiseExpress();
+			const mockListen = jest.fn();
+			app.listen = mockListen as any;
+
+			startServer(app);
+
+			expect(mockListen).toHaveBeenCalledWith("7000", expect.any(Function));
+		});
+
+		it("should handle the complete flow of initializing and starting Express", () => {
+			process.env.PORT = "6000";
+			const app = initialiseExpress();
+
+			// Verify app is properly initialized
+			expect(app).toBeDefined();
+			expect(typeof app.listen).toBe("function");
+
+			// Mock the listen method
+			const mockListen = jest.fn((port, callback) => {
+				callback();
+			});
+			app.listen = mockListen as any;
+
+			// Start the server
+			startServer(app);
+
+			// Verify server started correctly
+			expect(mockListen).toHaveBeenCalledWith("6000", expect.any(Function));
+			expect(console.log).toHaveBeenCalledWith(
+				"Server is running on port 6000"
 			);
+		});
+	});
 
-			// Clean up
+	describe("Error Handling", () => {
+		it("should handle invalid PORT environment variable gracefully", () => {
+			process.env.PORT = "invalid-port";
+			const mockApp = express();
+			const mockListen = jest.fn();
+			mockApp.listen = mockListen as any;
+
+			startServer(mockApp);
+
+			expect(mockListen).toHaveBeenCalledWith(
+				"invalid-port",
+				expect.any(Function)
+			);
+		});
+
+		it("should handle empty PORT environment variable", () => {
+			process.env.PORT = "";
+			const mockApp = express();
+			const mockListen = jest.fn();
+			mockApp.listen = mockListen as any;
+
+			startServer(mockApp);
+
+			// Empty string is falsy, so should default to 4000
+			expect(mockListen).toHaveBeenCalledWith(4000, expect.any(Function));
+		});
+
+		it("should handle undefined PORT environment variable", () => {
 			delete process.env.PORT;
+			const mockApp = express();
+			const mockListen = jest.fn();
+			mockApp.listen = mockListen as any;
+
+			startServer(mockApp);
+
+			expect(mockListen).toHaveBeenCalledWith(4000, expect.any(Function));
+		});
+	});
+
+	describe("Type Safety", () => {
+		it("should accept Express application from initialiseExpress", () => {
+			const app = initialiseExpress();
+			const mockListen = jest.fn();
+			app.listen = mockListen as any;
+
+			expect(() => {
+				startServer(app);
+			}).not.toThrow();
+
+			expect(mockListen).toHaveBeenCalled();
+		});
+
+		it("should work with freshly created Express app", () => {
+			const app = express();
+			const mockListen = jest.fn();
+			app.listen = mockListen as any;
+
+			expect(() => {
+				startServer(app);
+			}).not.toThrow();
+
+			expect(mockListen).toHaveBeenCalled();
+		});
+	});
+
+	describe("Environment Variable Edge Cases", () => {
+		it("should handle PORT as string number", () => {
+			process.env.PORT = "3000";
+			const mockApp = express();
+			const mockListen = jest.fn();
+			mockApp.listen = mockListen as any;
+
+			startServer(mockApp);
+
+			expect(mockListen).toHaveBeenCalledWith("3000", expect.any(Function));
+		});
+
+		it("should handle PORT with whitespace", () => {
+			process.env.PORT = " 4500 ";
+			const mockApp = express();
+			const mockListen = jest.fn();
+			mockApp.listen = mockListen as any;
+
+			startServer(mockApp);
+
+			expect(mockListen).toHaveBeenCalledWith(" 4500 ", expect.any(Function));
+		});
+
+		it("should handle PORT as zero", () => {
+			process.env.PORT = "0";
+			const mockApp = express();
+			const mockListen = jest.fn();
+			mockApp.listen = mockListen as any;
+
+			startServer(mockApp);
+
+			expect(mockListen).toHaveBeenCalledWith("0", expect.any(Function));
+		});
+	});
+
+	describe("Console Logging", () => {
+		it("should log with correct format", () => {
+			const mockApp = express();
+			const mockListen = jest.fn((port, callback) => callback());
+			mockApp.listen = mockListen as any;
+
+			startServer(mockApp);
+
+			expect(console.log).toHaveBeenCalledWith(
+				"Server is running on port 4000"
+			);
+			expect(console.log).toHaveBeenCalledTimes(1);
+		});
+
+		it("should log different ports correctly", () => {
+			const testPorts = ["3000", "8080", "5432"];
+
+			testPorts.forEach((port) => {
+				jest.clearAllMocks();
+				process.env.PORT = port;
+
+				const mockApp = express();
+				const mockListen = jest.fn((port, callback) => callback());
+				mockApp.listen = mockListen as any;
+
+				startServer(mockApp);
+
+				expect(console.log).toHaveBeenCalledWith(
+					`Server is running on port ${port}`
+				);
+			});
 		});
 	});
 });
