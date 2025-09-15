@@ -9,15 +9,31 @@ import { newsDataHubCallback } from "../src/api/newsdatahub/callback";
 import { fetchNewsRadioStations } from "../src/api/radio-browser";
 import { Station } from "radio-browser-api";
 import { radioBrowserApiCallback } from "../src/api/radio-browser/callback";
+import { connectToMongoDB } from "../src/lib/mongo/db";
+import { updateArticleProviders } from "../src/article-providers/update-article-providers";
+import { logMemoryUsage } from "../src/lib/mem";
 
+// these current endpoints are just for manual triggering and testing
+// update-providers is required to be run manually
 export const initApiRoutes = (app: Express) => {
-	////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////
-	// For speed and ease we will create new endpoints for aws
-	// We will create a better way of doing this later
-	// for now it is enough that we determine what we trigger and when
-	// either by endpoing or env file var
-	////////////////////////////////////////////////////////
+	app.get("/", async (req, res) => {
+		logMemoryUsage();
+		// we want a ui for management and triggering etc
+		res.send("I guess manual trigger? - Add sources, etc.");
+	});
+
+	app.get("/update-providers", async (req, res) => {
+		try {
+			await connectToMongoDB();
+			// get data to respond with
+			await updateArticleProviders();
+			res.send("Success");
+		} catch (error) {
+			console.log(error);
+			res.send("Error");
+		}
+	});
+
 	app.get("/newsdatahub/search", async (req, res) => {
 		const params = req.query;
 		const result = await fetchAPI({
