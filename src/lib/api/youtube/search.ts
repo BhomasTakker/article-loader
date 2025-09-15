@@ -3,19 +3,27 @@ import { CollectionItem } from "../../../types/article/item";
 import { YouTubeItem } from "../../../types/youtube/youtube";
 import { setCache } from "../../redis/redis-fetch";
 
+const YOUTUBE_CONFIG = {
+	BASE_URL: "https://www.googleapis.com/youtube/v3",
+	ENDPOINT: "/search",
+	DEFAULTS: {
+		PART: "snippet",
+		TYPE: "video",
+		VIDEO_SYNDICATED: "true",
+		CACHE_TIME: 60 * 60,
+		MAX_RESULTS_LIMIT: 50,
+	},
+} as const;
+
 // https://developers.google.com/youtube/v3/docs/search/list
-const BASE_URL = "https://www.googleapis.com/youtube/v3";
-const ENDPOINT = "/search";
-const YOUTUBE_URL = BASE_URL + ENDPOINT;
-const PART = "snippet";
-// Search only for videos ant the moment / channel | playlist
-const TYPE = "video";
-// Restrict to videos allowed to be played outside of youtube
-const VIDEO_SYNDICATED = "true";
+const YOUTUBE_URL = `${YOUTUBE_CONFIG.BASE_URL}${YOUTUBE_CONFIG.ENDPOINT}`;
+const PART = YOUTUBE_CONFIG.DEFAULTS.PART;
+const TYPE = YOUTUBE_CONFIG.DEFAULTS.TYPE;
+const VIDEO_SYNDICATED = YOUTUBE_CONFIG.DEFAULTS.VIDEO_SYNDICATED;
 
 const API_KEY = getYouTubeApiKey();
 
-const CACHE_TIME = 60 * 60;
+const CACHE_TIME = YOUTUBE_CONFIG.DEFAULTS.CACHE_TIME;
 
 // 'videoCount' | <-channel sort option
 export type YouTubeSearchParams = {
