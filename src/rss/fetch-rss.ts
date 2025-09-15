@@ -1,5 +1,5 @@
 import { ArticleSource, ExtraData } from "../../sources/news/articles/types";
-import { filterLimit, mergeStringOrArray } from "../../utils";
+import { filterLimit, mergeStringOrArray } from "../utils";
 import { FetchArticles } from "../articles/fetch-articles";
 import { GetCollection } from "../collections/get-collection";
 import { getArticleProviderByName } from "../lib/mongo/actions/article-provider";

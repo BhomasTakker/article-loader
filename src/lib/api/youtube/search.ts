@@ -1,3 +1,4 @@
+import { getYouTubeApiKey } from "../../../services/env";
 import { CollectionItem } from "../../../types/article/item";
 import { YouTubeItem } from "../../../types/youtube/youtube";
 import { setCache } from "../../redis/redis-fetch";
@@ -12,7 +13,7 @@ const TYPE = "video";
 // Restrict to videos allowed to be played outside of youtube
 const VIDEO_SYNDICATED = "true";
 
-const API_KEY = process.env.YOUTUBE_API_KEY;
+const API_KEY = getYouTubeApiKey();
 
 const CACHE_TIME = 60 * 60;
 
@@ -40,7 +41,7 @@ export type YouTubeSearchParams = {
 	videoDuration?: "any" | "long" | "medium" | "short";
 };
 
-const convertYouTubeItems = (items: YouTubeItem[]): CollectionItem[] => {
+export const convertYouTubeItems = (items: YouTubeItem[]): CollectionItem[] => {
 	return items.map((item) => {
 		const { snippet, id } = item;
 		const { title, description, thumbnails, channelTitle, publishedAt } =

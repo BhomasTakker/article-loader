@@ -1,5 +1,5 @@
 import { ExtraData } from "../../sources/news/articles/types";
-import { filterLimit } from "../../utils";
+import { filterLimit } from "../utils";
 import { logMemoryUsage } from "../lib/mem";
 import { CollectionItem } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
