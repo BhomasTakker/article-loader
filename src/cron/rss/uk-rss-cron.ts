@@ -7,7 +7,7 @@ import {
 	ukRegionalArticles2,
 	ukRegionalVideos,
 } from "../../../sources/news/articles/uk/national";
-import { everyNthHour, staggerMinutes, staggerSeconds } from "../create-cron";
+import { staggerMinutes, everyNthHour } from "../cron-times";
 import { CronConfig } from "../types";
 import { fetchRSS, fetchYoutubeRSS } from "./utils";
 

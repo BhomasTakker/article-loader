@@ -28,9 +28,9 @@ import {
 	WORLD_VIDEO,
 	WORLD_VIDEO_2,
 } from "../../../sources/news/videos/world";
-import { staggerMinutes, staggerSeconds } from "../create-cron";
 import { CronConfig } from "../types";
 import { fetchRSS, fetchYoutubeRSS } from "./utils";
+import { staggerMinutes } from "../cron-times";
 
 // live videos - or 24 hour streams don't need to be fetched regularly at all.
 const live_videos = [US_LIVE, WORLD_LIVE];

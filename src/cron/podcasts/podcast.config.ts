@@ -16,7 +16,7 @@ import {
 	NEWS_WORLD_1,
 	NEWS_WORLD_2,
 } from "../../../sources/audio/podbean/news/world";
-import { everyNthHour, staggerMinutes } from "../create-cron";
+import { staggerMinutes, everyNthHour } from "../cron-times";
 import { fetchPodcasts } from "../loaders/fetchPodcasts";
 import { CronConfig } from "../types";
 

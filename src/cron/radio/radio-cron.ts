@@ -2,9 +2,9 @@ import { Station } from "radio-browser-api";
 import { fetchAPI } from "../../api/fetch-api";
 import { fetchNewsRadioStations } from "../../api/radio-browser";
 import { radioBrowserApiCallback } from "../../api/radio-browser/callback";
-import { everyNDays } from "../create-cron";
 import { CronConfig } from "../types";
 import { UnknownObject } from "../../types/article/item";
+import { everyNDays } from "../cron-times";
 
 type Options = UnknownObject;
 export const runScripts = async (options: Options) => {

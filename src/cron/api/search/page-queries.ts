@@ -7,7 +7,7 @@ import {
 } from "../../../lib/mongo/actions/page/get-page";
 import { connectToMongoDB } from "../../../lib/mongo/db";
 import { IPage, WithQuery } from "../../../types/page/page";
-import { staggerMinutes, staggerSeconds } from "../../create-cron";
+import { staggerMinutes } from "../../cron-times";
 import { CronConfig } from "../../types";
 import { ROUTES_1 } from "./routes";
 
