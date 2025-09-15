@@ -7,3 +7,8 @@ const isRSSCron = process.env.RSS_CRON === "true" || false;
 export const getEnv = () => {
 	return { isRssRoute, isApiRoute, isCron, isApiCron, isRSSCron };
 };
+
+export const getYouTubeApiKey = () => {
+	const apiKey = process.env.YOUTUBE_API_KEY;
+	return apiKey;
+};
