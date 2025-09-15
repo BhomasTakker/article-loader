@@ -13,6 +13,8 @@ import { connectToMongoDB } from "../src/lib/mongo/db";
 import { updateArticleProviders } from "../src/article-providers/update-article-providers";
 import { logMemoryUsage } from "../src/lib/mem";
 
+// these current endpoints are just for manual triggering and testing
+// update-providers is required to be run manually
 export const initApiRoutes = (app: Express) => {
 	app.get("/", async (req, res) => {
 		logMemoryUsage();
