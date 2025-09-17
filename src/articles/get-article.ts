@@ -9,7 +9,7 @@ import { ProviderItem } from "../types/article/provider";
 import { mergeStringOrArray } from "../utils";
 
 // Do not do this with YouTube!!
-const stripQueryStringFromUrl = (url: URL) => {
+export const stripQueryStringFromUrl = (url: URL) => {
 	const { pathname, origin } = url;
 	const newUrl = new URL(origin + pathname);
 	// Remove query string from the URL
@@ -19,7 +19,7 @@ const stripQueryStringFromUrl = (url: URL) => {
 	return newUrl.toString();
 };
 
-const convertRssItem = (data: RSSItem) => {
+export const convertRssItem = (data: RSSItem) => {
 	const {
 		title,
 		// content potentially more likely to have html
@@ -65,6 +65,7 @@ export type GetArticle = {
 	extraData?: ExtraData;
 	provider?: ProviderItem;
 };
+// Needs reafctor
 // We're doing unnecessary work here
 // convert to required format
 // get article data from meta
