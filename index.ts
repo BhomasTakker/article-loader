@@ -4,12 +4,12 @@ import { logMemoryUsage } from "./src/lib/mem";
 import { initApiRoutes } from "./routes/api-routes";
 import { initCronJobs } from "./src/cron/init-cron";
 import { podcastRssCronConfig } from "./src/cron/podcasts/podcast.config";
-import { pageQueriesCronConfig } from "./src/cron/api/search/page-queries";
 import { rssCronConfig } from "./src/cron/rss/rss-cron";
-import { RADIO_CRON_CONFIG } from "./src/cron/radio/radio-cron";
 import { ukRssCronConfig } from "./src/cron/rss/uk-rss-cron";
 import { initialiseExpress, startServer } from "./src/services/express";
 import { getEnv } from "./src/services/env";
+import { pageQueriesCronConfig } from "./src/cron/api/search/config";
+import { RADIO_CRON_CONFIG } from "./src/cron/radio/config";
 
 require("dotenv").config();
 

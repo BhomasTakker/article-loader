@@ -36,7 +36,7 @@ type ConvertYouTubeRssItemToArticle = {
 	provider?: ProviderItem;
 };
 // need update type etc
-const convertYouTubeRssItemToArticle = ({
+export const convertYouTubeRssItemToArticle = ({
 	item,
 	extraData,
 	provider,

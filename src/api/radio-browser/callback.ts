@@ -6,7 +6,7 @@ import {
 	mapToBaseRegion,
 	mapToRegion,
 	mapToState,
-} from "../../cron/radio/radio-cron";
+} from "../../cron/radio/index";
 
 const convertRadioBrowserStationToArticle = (
 	station: Station,
