@@ -1,31 +1,15 @@
-import { youtubeApiFetch } from "../../../lib/api/youtube/search";
+import { API_PROVIDERS, apiMap } from ".";
 import { logMemoryUsage } from "../../../lib/mem";
-import { searchArticles } from "../../../lib/mongo/actions/articles/search";
 import {
 	getPageByRoute,
 	getPagesByUser,
 } from "../../../lib/mongo/actions/page/get-page";
 import { connectToMongoDB } from "../../../lib/mongo/db";
 import { IPage, WithQuery } from "../../../types/page/page";
-import { staggerMinutes } from "../../cron-times";
-import { CronConfig } from "../../types";
-import { ROUTES_1 } from "./routes";
 
 require("dotenv").config();
 
-const API_PROVIDERS = {
-	ARTICLES_SEARCH_API: "articles-search-api",
-	YOUTUBE_API: "youtube-api",
-} as const;
-
-type API_PROVIDERS = (typeof API_PROVIDERS)[keyof typeof API_PROVIDERS];
-
-const apiMap = new Map<string, any>([
-	[API_PROVIDERS.ARTICLES_SEARCH_API, searchArticles],
-	[API_PROVIDERS.YOUTUBE_API, youtubeApiFetch],
-]);
-
-const getQueriesFromPage = ({ content }: IPage) => {
+export const getQueriesFromPage = ({ content }: IPage) => {
 	const { components } = content;
 	logMemoryUsage();
 
@@ -47,7 +31,7 @@ const getQueriesFromPage = ({ content }: IPage) => {
 	return queries;
 };
 
-const executeQuery = (query: WithQuery) => {
+export const executeQuery = (query: WithQuery) => {
 	const { provider, params } = query;
 	const api = apiMap.get(provider);
 	if (!api) {
@@ -58,7 +42,7 @@ const executeQuery = (query: WithQuery) => {
 	return api(params); // 1 hour cache
 };
 
-const getPageRoutes = async () => {
+export const getPageRoutes = async () => {
 	await connectToMongoDB();
 	// Better by name - then get the id and use that.
 	const USER_ID = process.env.ADMIN_USER;
@@ -77,7 +61,7 @@ const getPageRoutes = async () => {
 	return pageRoutes;
 };
 
-const executeAndCacheQueriesFromPage = async (
+export const executeAndCacheQueriesFromPage = async (
 	apis: API_PROVIDERS[],
 	filter: string[]
 ) => {
@@ -147,25 +131,4 @@ export const pingApp = async (includes: string[]) => {
 	await Promise.all(promises);
 	console.log("All routes pinged successfully:", pageRoutes);
 	return Promise.resolve();
-};
-
-export const pageQueriesCronConfig: CronConfig = {
-	id: "Search Queries",
-	anyCommandsRequired: {},
-	cron: [
-		{
-			time: staggerMinutes(15, 14, 0),
-			fetchFn: () =>
-				executeAndCacheQueriesFromPage(
-					[API_PROVIDERS.ARTICLES_SEARCH_API],
-					ROUTES_1
-				),
-			onComplete: () => {},
-		},
-		{
-			time: staggerMinutes(15, 14, 30),
-			fetchFn: () => pingApp(ROUTES_1),
-			onComplete: () => {},
-		},
-	],
 };
