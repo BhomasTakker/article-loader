@@ -13,6 +13,7 @@ import {
 import {
 	addFields,
 	addProviderLookup,
+	addProviderMatchBeforeLookup,
 	matchLeaning,
 	matchOrigin,
 	matchTrust,
@@ -32,6 +33,7 @@ jest.mock("./search-query-functions", () => ({
 jest.mock("./aggregator-functions", () => ({
 	addFields: jest.fn(),
 	addProviderLookup: jest.fn(),
+	addProviderMatchBeforeLookup: jest.fn(),
 	matchLeaning: jest.fn(),
 	matchOrigin: jest.fn(),
 	matchTrust: jest.fn(),
@@ -49,6 +51,9 @@ describe("createSearchAggregate", () => {
 	let mockAddWithinTimeFrame: jest.MockedFunction<typeof addWithinTimeFrame>;
 	let mockAddFields: jest.MockedFunction<typeof addFields>;
 	let mockAddProviderLookup: jest.MockedFunction<typeof addProviderLookup>;
+	let mockAddProviderMatchBeforeLookup: jest.MockedFunction<
+		typeof addProviderMatchBeforeLookup
+	>;
 	let mockMatchLeaning: jest.MockedFunction<typeof matchLeaning>;
 	let mockMatchOrigin: jest.MockedFunction<typeof matchOrigin>;
 	let mockMatchTrust: jest.MockedFunction<typeof matchTrust>;
@@ -71,6 +76,10 @@ describe("createSearchAggregate", () => {
 		mockAddProviderLookup = addProviderLookup as jest.MockedFunction<
 			typeof addProviderLookup
 		>;
+		mockAddProviderMatchBeforeLookup =
+			addProviderMatchBeforeLookup as jest.MockedFunction<
+				typeof addProviderMatchBeforeLookup
+			>;
 		mockMatchLeaning = matchLeaning as jest.MockedFunction<typeof matchLeaning>;
 		mockMatchOrigin = matchOrigin as jest.MockedFunction<typeof matchOrigin>;
 		mockMatchTrust = matchTrust as jest.MockedFunction<typeof matchTrust>;
@@ -84,6 +93,13 @@ describe("createSearchAggregate", () => {
 		mockGetLimit.mockReturnValue(100);
 
 		// Mock the pipeline stage functions to actually add stages
+		mockAddProviderMatchBeforeLookup.mockImplementation(
+			(aggregator, providerObjectIds) => {
+				// Mock implementation - do nothing for most tests
+				// Tests can override this if needed
+			}
+		);
+
 		mockAddProviderLookup.mockImplementation((aggregator) => {
 			aggregator.push({
 				$lookup: {
@@ -122,11 +138,11 @@ describe("createSearchAggregate", () => {
 	});
 
 	describe("Basic functionality", () => {
-		it("should return aggregator with basic $search stage for empty parameters", () => {
+		it("should return aggregator with basic $search stage for empty parameters", async () => {
 			const queryParams: GetLatestArticlesProps = {};
 			const aggregator: Aggregator = [];
 
-			const result = createSearchAggregate(queryParams, aggregator);
+			const result = await createSearchAggregate(queryParams, aggregator);
 
 			expect(result).toHaveLength(4); // $search, addProviderLookup, addFields, $limit
 			expect(result[0]).toEqual({
@@ -149,22 +165,22 @@ describe("createSearchAggregate", () => {
 			expect(result[3]).toEqual({ $limit: 100 });
 		});
 
-		it("should preserve existing aggregator stages", () => {
+		it("should preserve existing aggregator stages", async () => {
 			const queryParams: GetLatestArticlesProps = {};
 			const existingStage = { $match: { test: "value" } };
 			const aggregator: Aggregator = [existingStage];
 
-			const result = createSearchAggregate(queryParams, aggregator);
+			const result = await createSearchAggregate(queryParams, aggregator);
 
 			expect(result[0]).toEqual(existingStage);
 			expect(result[1]).toHaveProperty("$search");
 		});
 
-		it("should call required functions with correct parameters", () => {
+		it("should call required functions with correct parameters", async () => {
 			const queryParams: GetLatestArticlesProps = {};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddDateRange).toHaveBeenCalledWith([], queryParams);
 			expect(mockAddWithinTimeFrame).toHaveBeenCalledWith([], queryParams);
@@ -178,29 +194,29 @@ describe("createSearchAggregate", () => {
 	});
 
 	describe("Filter construction", () => {
-		it("should add variant filter when variant is provided", () => {
+		it("should add variant filter when variant is provided", async () => {
 			const queryParams: GetLatestArticlesProps = { variant: "news" };
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith([], "news", "variant");
 		});
 
-		it("should add language filter when language is provided", () => {
+		it("should add language filter when language is provided", async () => {
 			const queryParams: GetLatestArticlesProps = { language: "en" };
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith([], "en", "details.languge");
 		});
 
-		it("should add mediaType filter when mediaType is provided", () => {
+		it("should add mediaType filter when mediaType is provided", async () => {
 			const queryParams: GetLatestArticlesProps = { mediaType: "video" };
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith(
 				[],
@@ -209,7 +225,7 @@ describe("createSearchAggregate", () => {
 			);
 		});
 
-		it("should add geographic filters when provided", () => {
+		it("should add geographic filters when provided", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				region: "North America",
 				continent: "North America",
@@ -219,7 +235,7 @@ describe("createSearchAggregate", () => {
 			};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith(
 				[],
@@ -248,11 +264,11 @@ describe("createSearchAggregate", () => {
 			);
 		});
 
-		it("should add coverage filter when coverage is provided", () => {
+		it("should add coverage filter when coverage is provided", async () => {
 			const queryParams: GetLatestArticlesProps = { coverage: "national" };
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith(
 				[],
@@ -261,11 +277,11 @@ describe("createSearchAggregate", () => {
 			);
 		});
 
-		it("should not add filters when parameters are not provided", () => {
+		it("should not add filters when parameters are not provided", async () => {
 			const queryParams: GetLatestArticlesProps = {};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			// Should only be called for range filters, not for the optional filters
 			expect(mockAddFilter).not.toHaveBeenCalledWith(
@@ -287,13 +303,13 @@ describe("createSearchAggregate", () => {
 	});
 
 	describe("Categories handling", () => {
-		it("should parse categories string and add filter", () => {
+		it("should parse categories string and add filter", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				categories: "technology,science,innovation",
 			};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith(
 				[],
@@ -302,13 +318,13 @@ describe("createSearchAggregate", () => {
 			);
 		});
 
-		it("should trim whitespace from categories", () => {
+		it("should trim whitespace from categories", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				categories: "  technology  ,  science  ,  innovation  ",
 			};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith(
 				[],
@@ -317,11 +333,11 @@ describe("createSearchAggregate", () => {
 			);
 		});
 
-		it("should handle single category", () => {
+		it("should handle single category", async () => {
 			const queryParams: GetLatestArticlesProps = { categories: "technology" };
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith(
 				[],
@@ -330,11 +346,11 @@ describe("createSearchAggregate", () => {
 			);
 		});
 
-		it("should not add filter when categories is empty", () => {
+		it("should not add filter when categories is empty", async () => {
 			const queryParams: GetLatestArticlesProps = { categories: "" };
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).not.toHaveBeenCalledWith(
 				[],
@@ -343,11 +359,11 @@ describe("createSearchAggregate", () => {
 			);
 		});
 
-		it("should not add filter when categories is undefined", () => {
+		it("should not add filter when categories is undefined", async () => {
 			const queryParams: GetLatestArticlesProps = {};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).not.toHaveBeenCalledWith(
 				[],
@@ -358,37 +374,37 @@ describe("createSearchAggregate", () => {
 	});
 
 	describe("Text search arrays", () => {
-		it("should process mustContain array", () => {
+		it("should process mustContain array", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				mustContain: ["technology", "AI"],
 			};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith([], "technology", "title");
 			expect(mockAddFilter).toHaveBeenCalledWith([], "AI", "title");
 		});
 
-		it("should process mustNotContain array", () => {
+		it("should process mustNotContain array", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				mustNotContain: ["spam", "fake"],
 			};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith([], "spam", "title");
 			expect(mockAddFilter).toHaveBeenCalledWith([], "fake", "title");
 		});
 
-		it("should process shouldContain array", () => {
+		it("should process shouldContain array", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				shouldContain: ["machine learning", "neural networks"],
 			};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith(
 				[],
@@ -402,13 +418,13 @@ describe("createSearchAggregate", () => {
 			);
 		});
 
-		it("should process filterContain array with text type", () => {
+		it("should process filterContain array with text type", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				filterContain: ["innovation", "research"],
 			};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFilter).toHaveBeenCalledWith(
 				[],
@@ -424,7 +440,7 @@ describe("createSearchAggregate", () => {
 			);
 		});
 
-		it("should handle empty arrays gracefully", () => {
+		it("should handle empty arrays gracefully", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				mustContain: [],
 				mustNotContain: [],
@@ -433,7 +449,7 @@ describe("createSearchAggregate", () => {
 			};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			// Should not call addFilter for empty arrays
 			const filterCalls = mockAddFilter.mock.calls.filter(
@@ -442,11 +458,11 @@ describe("createSearchAggregate", () => {
 			expect(filterCalls).toHaveLength(0);
 		});
 
-		it("should use default empty arrays when not provided", () => {
+		it("should use default empty arrays when not provided", async () => {
 			const queryParams: GetLatestArticlesProps = {};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			// Should not throw errors and should not call addFilter for title path
 			const filterCalls = mockAddFilter.mock.calls.filter(
@@ -457,7 +473,7 @@ describe("createSearchAggregate", () => {
 	});
 
 	describe("$search stage construction", () => {
-		it("should create $search stage with filters when filters are present", () => {
+		it("should create $search stage with filters when filters are present", async () => {
 			// Mock addFilter to simulate adding filters
 			mockAddFilter.mockImplementation((filterArray, query, path) => {
 				filterArray.push({ text: { query, path } });
@@ -470,7 +486,7 @@ describe("createSearchAggregate", () => {
 			};
 			const aggregator: Aggregator = [];
 
-			const result = createSearchAggregate(queryParams, aggregator);
+			const result = await createSearchAggregate(queryParams, aggregator);
 
 			const searchStage = result.find((stage) => (stage as any).$search);
 			expect(searchStage).toBeDefined();
@@ -491,7 +507,7 @@ describe("createSearchAggregate", () => {
 			});
 		});
 
-		it("should create $search stage with all compound query types", () => {
+		it("should create $search stage with all compound query types", async () => {
 			// Mock addFilter to simulate different filter types
 			mockAddFilter.mockImplementation((filterArray, query, path) => {
 				filterArray.push({ text: { query, path } });
@@ -507,7 +523,7 @@ describe("createSearchAggregate", () => {
 			};
 			const aggregator: Aggregator = [];
 
-			const result = createSearchAggregate(queryParams, aggregator);
+			const result = await createSearchAggregate(queryParams, aggregator);
 
 			const searchStage = result.find((stage) => (stage as any).$search);
 			expect((searchStage as any)?.$search.compound).toEqual({
@@ -522,20 +538,20 @@ describe("createSearchAggregate", () => {
 			});
 		});
 
-		it("should handle sort parameter", () => {
+		it("should handle sort parameter", async () => {
 			const mockSortObject = { "details.published": -1 };
 			mockAddSort.mockReturnValue(mockSortObject);
 
 			const queryParams: GetLatestArticlesProps = { sort: "date-descending" };
 			const aggregator: Aggregator = [];
 
-			const result = createSearchAggregate(queryParams, aggregator);
+			const result = await createSearchAggregate(queryParams, aggregator);
 
 			const searchStage = result.find((stage) => (stage as any).$search);
 			expect((searchStage as any)?.$search.sort).toEqual(mockSortObject);
 		});
 
-		it("should handle minimumShouldMatch parameter", () => {
+		it("should handle minimumShouldMatch parameter", async () => {
 			mockAddMinimumShouldMatch.mockReturnValue(2);
 
 			const queryParams: GetLatestArticlesProps = {
@@ -544,7 +560,7 @@ describe("createSearchAggregate", () => {
 			};
 			const aggregator: Aggregator = [];
 
-			const result = createSearchAggregate(queryParams, aggregator);
+			const result = await createSearchAggregate(queryParams, aggregator);
 
 			const searchStage = result.find((stage) => (stage as any).$search);
 			expect((searchStage as any)?.$search.compound.minimumShouldMatch).toBe(2);
@@ -552,41 +568,41 @@ describe("createSearchAggregate", () => {
 	});
 
 	describe("Post-search pipeline stages", () => {
-		it("should call addProviderLookup with aggregator", () => {
+		it("should call addProviderLookup with aggregator", async () => {
 			const queryParams: GetLatestArticlesProps = {};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddProviderLookup).toHaveBeenCalledWith(aggregator);
 		});
 
-		it("should call addFields with aggregator", () => {
+		it("should call addFields with aggregator", async () => {
 			const queryParams: GetLatestArticlesProps = {};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddFields).toHaveBeenCalledWith(aggregator);
 		});
 
-		it("should call matchTrust with trust parameters", () => {
+		it("should call matchTrust with trust parameters", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				trustHigher: "70",
 				trustLower: "90",
 			};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockMatchTrust).toHaveBeenCalledWith(aggregator, "70", "90");
 		});
 
-		it("should call matchTrust with undefined parameters when not provided", () => {
+		it("should call matchTrust with undefined parameters when not provided", async () => {
 			const queryParams: GetLatestArticlesProps = {};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockMatchTrust).toHaveBeenCalledWith(
 				aggregator,
@@ -595,18 +611,18 @@ describe("createSearchAggregate", () => {
 			);
 		});
 
-		it("should add limit stage at the end", () => {
+		it("should add limit stage at the end", async () => {
 			mockGetLimit.mockReturnValue(50);
 
 			const queryParams: GetLatestArticlesProps = { limit: "50" };
 			const aggregator: Aggregator = [];
 
-			const result = createSearchAggregate(queryParams, aggregator);
+			const result = await createSearchAggregate(queryParams, aggregator);
 
 			expect(result[result.length - 1]).toEqual({ $limit: 50 });
 		});
 
-		it("should call range filter functions", () => {
+		it("should call range filter functions", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				before: new Date("2023-12-31"),
 				after: new Date("2023-01-01"),
@@ -616,7 +632,7 @@ describe("createSearchAggregate", () => {
 			};
 			const aggregator: Aggregator = [];
 
-			createSearchAggregate(queryParams, aggregator);
+			await createSearchAggregate(queryParams, aggregator);
 
 			expect(mockAddDateRange).toHaveBeenCalledWith(
 				expect.any(Array),
@@ -634,7 +650,7 @@ describe("createSearchAggregate", () => {
 	});
 
 	describe("Integration scenarios", () => {
-		it("should handle comprehensive query with all parameters", () => {
+		it("should handle comprehensive query with all parameters", async () => {
 			// Mock functions to simulate real behavior
 			mockAddFilter.mockImplementation(
 				(filterArray, query, path, type = "text") => {
@@ -666,7 +682,7 @@ describe("createSearchAggregate", () => {
 			};
 			const aggregator: Aggregator = [];
 
-			const result = createSearchAggregate(queryParams, aggregator);
+			const result = await createSearchAggregate(queryParams, aggregator);
 
 			// Verify the structure
 			expect(result).toHaveLength(5); // $search, provider lookup, add fields, trust match, limit
@@ -712,12 +728,12 @@ describe("createSearchAggregate", () => {
 			expect(result[result.length - 1]).toEqual({ $limit: 25 });
 		});
 
-		it("should maintain correct pipeline order", () => {
+		it("should maintain correct pipeline order", async () => {
 			const queryParams: GetLatestArticlesProps = { variant: "news" };
 			const existingStage = { $match: { existing: true } };
 			const aggregator: Aggregator = [existingStage];
 
-			const result = createSearchAggregate(queryParams, aggregator);
+			const result = await createSearchAggregate(queryParams, aggregator);
 
 			// Order should be: existing stages, $search, provider lookup, add fields, trust match, limit
 			expect(result[0]).toEqual(existingStage);
@@ -725,11 +741,11 @@ describe("createSearchAggregate", () => {
 			expect(result[result.length - 1]).toHaveProperty("$limit");
 		});
 
-		it("should handle minimal parameters gracefully", () => {
+		it("should handle minimal parameters gracefully", async () => {
 			const queryParams: GetLatestArticlesProps = {};
 			const aggregator: Aggregator = [];
 
-			const result = createSearchAggregate(queryParams, aggregator);
+			const result = await createSearchAggregate(queryParams, aggregator);
 
 			expect(result).toHaveLength(4); // Basic pipeline: $search, provider lookup, add fields, limit
 			expect(result[0]).toHaveProperty("$search");

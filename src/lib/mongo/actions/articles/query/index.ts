@@ -12,7 +12,7 @@ export const buildArticleSearchQuery = async (
 	queryParams: GetLatestArticlesProps
 ) => {
 	const res = await Article.aggregate(
-		createSearchAggregate(queryParams, [] as Aggregator)
+		await createSearchAggregate(queryParams, [] as Aggregator)
 	);
 
 	return res;
