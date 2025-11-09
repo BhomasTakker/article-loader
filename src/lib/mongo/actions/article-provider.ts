@@ -5,6 +5,13 @@ export const getArticleProviderByName = async (name: string) => {
 	return await ArticleProvider.findOne({ name }).lean();
 };
 
+export const getArticleProviderByNameFuzzy = async (name: string) => {
+	// Case-insensitive partial match - supports "bbc", "BBC", "BBC News", etc.
+	return await ArticleProvider.findOne({
+		name: { $regex: new RegExp(name, "i") },
+	}).lean();
+};
+
 export const getArticleProviderByDomain = async (domain: string) => {
 	return await ArticleProvider.findOne({ url: domain }).lean();
 };

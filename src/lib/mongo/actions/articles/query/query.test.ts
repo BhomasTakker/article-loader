@@ -77,7 +77,7 @@ describe("Query Index Functions", () => {
 			];
 			const mockResult = [{ id: 1, title: "Test Article" }];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);
@@ -92,7 +92,7 @@ describe("Query Index Functions", () => {
 			const mockPipeline: Aggregator = [{ $limit: 100 }];
 			const mockResult: any[] = [];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);
@@ -132,7 +132,7 @@ describe("Query Index Functions", () => {
 				{ id: 2, title: "Machine Learning Guide" },
 			];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);
@@ -167,7 +167,7 @@ describe("Query Index Functions", () => {
 			];
 			const mockResult = [{ id: 1, title: "Recent Article" }];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);
@@ -203,7 +203,7 @@ describe("Query Index Functions", () => {
 			];
 			const mockResult = [{ id: 1, title: "Tech Video" }];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);
@@ -242,7 +242,7 @@ describe("Query Index Functions", () => {
 			];
 			const mockResult = [{ id: 1, title: "Trusted US Article" }];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);
@@ -267,7 +267,7 @@ describe("Query Index Functions", () => {
 			];
 			const mockResult = [{ id: 1, title: "Most Relevant Article" }];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);
@@ -302,7 +302,7 @@ describe("Query Index Functions", () => {
 			];
 			const mockResult = [{ id: 1, title: "SF Local News" }];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);
@@ -315,7 +315,7 @@ describe("Query Index Functions", () => {
 			const queryParams: GetLatestArticlesProps = { limit: "5" };
 			const mockPipeline: Aggregator = [{ $limit: 5 }];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue([]);
 
 			await buildArticleSearchQuery(queryParams);
@@ -330,7 +330,7 @@ describe("Query Index Functions", () => {
 			const queryParams: GetLatestArticlesProps = { limit: "10" };
 			const mockError = new Error("Database connection failed");
 
-			mockCreateSearchAggregate.mockReturnValue([]);
+			mockCreateSearchAggregate.mockResolvedValue([]);
 			mockArticleAggregate.mockRejectedValue(mockError);
 
 			await expect(buildArticleSearchQuery(queryParams)).rejects.toThrow(
@@ -342,9 +342,7 @@ describe("Query Index Functions", () => {
 			const queryParams: GetLatestArticlesProps = { limit: "10" };
 			const mockError = new Error("Invalid aggregation pipeline");
 
-			mockCreateSearchAggregate.mockImplementation(() => {
-				throw mockError;
-			});
+			mockCreateSearchAggregate.mockRejectedValue(mockError);
 
 			await expect(buildArticleSearchQuery(queryParams)).rejects.toThrow(
 				"Invalid aggregation pipeline"
@@ -356,7 +354,7 @@ describe("Query Index Functions", () => {
 			const mockPipeline: Aggregator = [];
 			const mockResult: any[] = [];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);
@@ -370,7 +368,7 @@ describe("Query Index Functions", () => {
 			const mockPipeline: Aggregator = [];
 			const mockResult: any[] = [];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);
@@ -490,7 +488,7 @@ describe("Query Index Functions", () => {
 				{ id: 2, title: "Machine Learning Innovation" },
 			];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);
@@ -515,7 +513,7 @@ describe("Query Index Functions", () => {
 			];
 			const mockResult: any[] = [];
 
-			mockCreateSearchAggregate.mockReturnValue(mockPipeline);
+			mockCreateSearchAggregate.mockResolvedValue(mockPipeline);
 			mockArticleAggregate.mockResolvedValue(mockResult);
 
 			const result = await buildArticleSearchQuery(queryParams);

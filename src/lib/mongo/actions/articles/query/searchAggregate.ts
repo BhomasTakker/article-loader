@@ -15,14 +15,17 @@ import {
 	matchLeaning,
 	matchOrigin,
 	matchTrust,
+	addProviderMatchBeforeLookup,
 } from "./aggregator-functions";
+import { getArticleProviderByNameFuzzy } from "../../article-provider";
+import mongoose from "mongoose";
 
 // MongoDB Atlas Search Course
 // https://learn.mongodb.com/learning-paths/atlas-search
 
 // Clean me up!!
 
-export const createSearchAggregate = (
+export const createSearchAggregate = async (
 	queryParams: GetLatestArticlesProps,
 	aggregator: Aggregator
 ) => {
@@ -41,6 +44,7 @@ export const createSearchAggregate = (
 		leaningHigher,
 		leaningLower,
 		origin,
+		provider,
 		categories,
 		mustContain = [],
 		mustNotContain = [],
@@ -143,6 +147,38 @@ export const createSearchAggregate = (
 			},
 		},
 	});
+
+	// This needs refactor - too long - move provider logic out to file/function etc
+	// Resolve provider name(s) to ObjectId(s) and add match BEFORE lookup for performance
+	// Uses fuzzy matching (case-insensitive partial match)
+	// Supports single provider or array of providers (OR logic)
+	let providerObjectIds:
+		| mongoose.Types.ObjectId
+		| mongoose.Types.ObjectId[]
+		| undefined;
+	if (provider) {
+		const providers = Array.isArray(provider) ? provider : [provider];
+
+		// Resolve all provider names to ObjectIds in parallel
+		const providerDocs = await Promise.all(
+			providers.map((name) => getArticleProviderByNameFuzzy(name))
+		);
+
+		// Filter out nulls and extract ObjectIds
+		const validObjectIds: mongoose.Types.ObjectId[] = [];
+		providerDocs.forEach((doc) => {
+			if (doc && !Array.isArray(doc) && doc._id) {
+				validObjectIds.push(doc._id as mongoose.Types.ObjectId);
+			}
+		});
+
+		if (validObjectIds.length > 0) {
+			providerObjectIds =
+				validObjectIds.length === 1 ? validObjectIds[0] : validObjectIds;
+		}
+	}
+	addProviderMatchBeforeLookup(aggregator, providerObjectIds);
+
 	// we need to use provider for filtering trust
 	addProviderLookup(aggregator);
 	addFields(aggregator);
