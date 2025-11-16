@@ -20,7 +20,7 @@ const ArticleSourceSchema = new Schema<ArticleSource>(
 		},
 		variant: {
 			type: String,
-			required: true,
+			required: false,
 			default: "",
 		},
 		categories: {
