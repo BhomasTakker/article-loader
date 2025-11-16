@@ -114,10 +114,6 @@ export const articleSourceLists = [
 		list,
 		title: `UK National Articles ${i + 1}`,
 	})),
-	...ukNationalArticles2.map((list, i) => ({
-		list,
-		title: `UK National Articles (Nations) ${i + 1}`,
-	})),
 	// UK Regional - Nations
 	{
 		list: NORTHERN_IRELAND_ARTICLE_SOURCES,
@@ -127,22 +123,6 @@ export const articleSourceLists = [
 	{ list: WALES_ARTICLE_SOURCES, title: "Wales Articles" },
 	// UK Regional - England
 	{ list: ENGLAND_ARTICLE_SOURCES, title: "England Articles" },
-	...ukRegionalArticles.map((list, i) => ({
-		list,
-		title: `UK Regional Articles ${i + 1}`,
-	})),
-	...ukRegionalArticles2.map((list, i) => ({
-		list,
-		title: `UK Regional Articles 2 ${i + 1}`,
-	})),
-	...englandNorthWestArticlesSourceList.map((list, i) => ({
-		list,
-		title: `England North West Articles ${i + 1}`,
-	})),
-	...englandMidlandsArticlesSourceList.map((list, i) => ({
-		list,
-		title: `England Midlands Articles ${i + 1}`,
-	})),
 	{ list: BIRMINGHAM_ARTICLE_SOURCES, title: "Birmingham Articles" },
 	{ list: LIVERPOOL_ARTICLE_SOURCES, title: "Liverpool Articles" },
 	{ list: MANCHESTER_SOURCES, title: "Manchester Articles" },
