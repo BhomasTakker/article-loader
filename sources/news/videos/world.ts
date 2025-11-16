@@ -98,8 +98,8 @@ export const WORLD_VIDEO_2 = {
 	sources: [
 		{
 			name: NewsSources.QUDS_NEWS,
-			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCVG72F2Q5yCmLQfctNK6M2A",
-			region: ["world", "Asia", "Middle East", "Iran"],
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCr3tVUYEqvVJTPqkggTFnyg",
+			region: ["world", "Asia", "Middle East", "Palestine"],
 		},
 		{
 			name: NewsSources.MIDDLE_EAST_EYE,

@@ -90,10 +90,6 @@ const UK_2 = {
 			name: NewsSources.GB_NEWS,
 			src: "https://www.gbnews.com/feeds/news/uk.rss",
 		},
-		{
-			name: NewsSources.HERALD_SCOTLAND,
-			src: "https://www.heraldscotland.com/news/national-news/rss/",
-		},
 	],
 };
 
