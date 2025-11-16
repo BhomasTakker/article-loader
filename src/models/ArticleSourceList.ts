@@ -7,7 +7,7 @@ const ArticleSourceListSchema = new Schema<ArticleSourceList>(
 			type: String,
 			required: true,
 		},
-		articleType: {
+		variant: {
 			type: String,
 			required: true,
 		},

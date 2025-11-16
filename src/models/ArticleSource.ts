@@ -14,14 +14,9 @@ const ArticleSourceSchema = new Schema<ArticleSource>(
 			type: String,
 			required: true,
 		},
-		articleType: {
-			type: String,
-			required: true,
-		},
 		variant: {
 			type: String,
-			required: false,
-			default: "",
+			required: true,
 		},
 		categories: {
 			type: [String],

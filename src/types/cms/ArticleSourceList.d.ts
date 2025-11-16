@@ -2,7 +2,7 @@ import { ArticleSource } from "./ArticleSource";
 
 export type ArticleSourceList = {
 	title: string;
-	articleType: "article" | "audio" | "video";
+	variant: "article" | "audio" | "video";
 	categories: string[];
 	region: string[];
 	coverage: string[];
