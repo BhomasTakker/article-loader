@@ -1,6 +1,6 @@
 import { CronConfig } from "../types";
 import { fetchRSS, fetchYoutubeRSS } from "./utils";
-import { staggerMinutes } from "../cron-times";
+import { staggerMinutes, staggerSeconds } from "../cron-times";
 import { loadSourceListsFromDB } from "./db-source-loader";
 import { connectToMongoDB } from "../../lib/mongo/db";
 
@@ -112,6 +112,11 @@ export function createRssCronConfig(): CronConfig {
 		id: "RSS Cron Queries",
 		anyCommandsRequired: {},
 		cron: [
+			// {
+			// 	time: staggerSeconds(30, 0),
+			// 	fetchFn: fetchRSS(cachedUSArticles1),
+			// 	onComplete: () => {},
+			// },
 			{
 				time: staggerMinutes(15, 3, 0),
 				fetchFn: fetchRSS(cachedUSArticles1),
