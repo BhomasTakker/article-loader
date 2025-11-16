@@ -38,6 +38,9 @@ const ArticleSourceSchema = new Schema<ArticleSource>(
 			type: String,
 			default: "",
 		},
+		mediaType: {
+			type: String,
+		},
 	},
 	{
 		strict: false,

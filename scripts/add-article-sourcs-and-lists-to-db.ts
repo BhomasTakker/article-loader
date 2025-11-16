@@ -48,6 +48,7 @@ const processSourceList = async (
 		region = [],
 		coverage = [],
 		language = "en",
+		media = {},
 		sources = [],
 	} = sourceList;
 
@@ -70,6 +71,13 @@ const processSourceList = async (
 			// Add optional fields if present
 			if (source.collectionTitle) {
 				articleSource.collectionTitle = source.collectionTitle;
+			}
+
+			// Add mediaType from either source-level or list-level media object
+			if (source.media?.mediaType) {
+				articleSource.mediaType = source.media.mediaType;
+			} else if (media.mediaType) {
+				articleSource.mediaType = media.mediaType;
 			}
 
 			// Check for duplicates
