@@ -5,6 +5,7 @@ export type ArticleSource = {
 	language: string;
 	variant: "article" | "audio" | "video";
 	source?: string; // i.e. subStack, youtube
+	mediaType?: string; // i.e. 24/7, live
 
 	collectionTitle?: string;
 	name: string;
