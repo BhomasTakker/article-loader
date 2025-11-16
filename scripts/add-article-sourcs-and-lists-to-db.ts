@@ -1,3 +1,5 @@
+// "script": "npx ts-node scripts/add-article-sourcs-and-lists-to-db.ts",
+
 import { connectToMongoDB } from "../src/lib/mongo/db";
 import ArticleSourceModel from "../src/models/ArticleSource";
 import ArticleSourceListModel from "../src/models/ArticleSourceList";
@@ -37,7 +39,18 @@ const processSourceList = async (
 	sourceList: any,
 	articleType: "article" | "audio" | "video",
 	listTitle: string,
-	stats: { created: number; duplicates: number; errors: number }
+	stats: {
+		created: number;
+		duplicates: number;
+		errors: number;
+		duplicateList: Array<{ name: string; src: string; list: string }>;
+		errorList: Array<{
+			name: string;
+			src: string;
+			list: string;
+			error: string;
+		}>;
+	}
 ) => {
 	const {
 		categories = [],
@@ -51,12 +64,16 @@ const processSourceList = async (
 
 	for (const source of sources) {
 		try {
+			// Determine variant value (ensure it's always set, even if empty string)
+			const variant =
+				source.variant || getVariant(source.src, articleType) || "";
+
 			// Merge base metadata with source-specific overrides
-			const articleSource: Partial<ArticleSource> = {
+			const articleSource: ArticleSource = {
 				name: source.name,
 				src: source.src,
 				articleType,
-				variant: source.variant || getVariant(source.src, articleType),
+				variant,
 				categories: source.categories || categories,
 				region: source.region || region,
 				coverage: source.coverage || coverage,
@@ -79,6 +96,11 @@ const processSourceList = async (
 					`  [DUPLICATE] ${articleSource.name} - ${articleSource.src}`
 				);
 				stats.duplicates++;
+				stats.duplicateList.push({
+					name: articleSource.name,
+					src: articleSource.src,
+					list: listTitle,
+				});
 				createdSourceIds.push(existing._id.toString());
 				continue;
 			}
@@ -88,11 +110,19 @@ const processSourceList = async (
 			createdSourceIds.push(created._id.toString());
 			stats.created++;
 		} catch (error) {
+			const errorMessage =
+				error instanceof Error ? error.message : String(error);
 			console.error(
 				`  [ERROR] Failed to process source: ${source.name}`,
-				error
+				errorMessage
 			);
 			stats.errors++;
+			stats.errorList.push({
+				name: source.name,
+				src: source.src,
+				list: listTitle,
+				error: errorMessage,
+			});
 		}
 	}
 
@@ -129,6 +159,13 @@ const runScript = async () => {
 		created: 0,
 		duplicates: 0,
 		errors: 0,
+		duplicateList: [] as Array<{ name: string; src: string; list: string }>,
+		errorList: [] as Array<{
+			name: string;
+			src: string;
+			list: string;
+			error: string;
+		}>,
 	};
 
 	console.log("\n=== Processing Audio Sources ===");
@@ -169,6 +206,25 @@ const runScript = async () => {
 	console.log(`Duplicates: ${totalStats.duplicates}`);
 	console.log(`Errors: ${totalStats.errors}`);
 	console.log(`Total Processed: ${totalStats.created + totalStats.duplicates}`);
+
+	// Log duplicate details
+	if (totalStats.duplicateList.length > 0) {
+		console.log("\n=== Duplicate Sources ===");
+		totalStats.duplicateList.forEach((dup, index) => {
+			console.log(`${index + 1}. [${dup.list}] ${dup.name}`);
+			console.log(`   URL: ${dup.src}`);
+		});
+	}
+
+	// Log error details
+	if (totalStats.errorList.length > 0) {
+		console.log("\n=== Failed Sources ===");
+		totalStats.errorList.forEach((err, index) => {
+			console.log(`${index + 1}. [${err.list}] ${err.name}`);
+			console.log(`   URL: ${err.src}`);
+			console.log(`   Error: ${err.error}`);
+		});
+	}
 
 	process.exit(0);
 };
