@@ -3,7 +3,10 @@
 import { logMemoryUsage } from "./src/lib/mem";
 import { initApiRoutes } from "./routes/api-routes";
 import { initCronJobs } from "./src/cron/init-cron";
-import { podcastRssCronConfig } from "./src/cron/podcasts/podcast.config";
+import {
+	createPodcastRssCronConfig,
+	initializePodcastSources,
+} from "./src/cron/podcasts/podcast.config";
 import {
 	createRssCronConfig,
 	initializeRSSSources,
@@ -27,7 +30,12 @@ export const initialiseServer = async () => {
 	logMemoryUsage();
 
 	isApiRoute && initApiRoutes(app);
-	isCron && initCronJobs(podcastRssCronConfig);
+
+	// Initialize podcast sources from DB before starting podcast cron jobs
+	if (isCron) {
+		await initializePodcastSources();
+		initCronJobs(createPodcastRssCronConfig());
+	}
 
 	isApiCron && initCronJobs(pageQueriesCronConfig);
 
