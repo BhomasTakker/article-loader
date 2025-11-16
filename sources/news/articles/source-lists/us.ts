@@ -241,27 +241,27 @@ export const US_5 = {
 			src: "https://www.rollingstone.com/feed/",
 		},
 		{
-			news: NewsSources.MINT_PRESS_NEWS,
+			name: NewsSources.MINT_PRESS_NEWS,
 			src: "https://www.mintpressnews.com/feed/",
 		},
 		{
-			news: NewsSources.TRUTHOUT,
+			name: NewsSources.TRUTHOUT,
 			src: "https://truthout.org/feed/",
 		},
 		{
-			news: NewsSources.REVEAL_NEWS,
+			name: NewsSources.REVEAL_NEWS,
 			src: "https://www.revealnews.org/feed/",
 		},
 		{
-			news: NewsSources.DAILY_WIRE,
+			name: NewsSources.DAILY_WIRE,
 			src: "https://www.dailywire.com/feeds/rss.xml",
 		},
 		{
-			news: NewsSources.SLATE,
+			name: NewsSources.SLATE,
 			src: "https://slate.com/feeds/all.rss",
 		},
 		{
-			news: NewsSources.ZETEO,
+			name: NewsSources.ZETEO,
 			src: "https://zeteo.com/feed",
 		},
 		{

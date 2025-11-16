@@ -113,12 +113,6 @@ export const NEW_YORK_ARTICLES = {
 		},
 		{
 			name: ny_sources.PIX11,
-			region: ["NYC", "New York City"],
-			coverage: ["regional", "local"],
-			src: "https://pix11.com/news/feed/",
-		},
-		{
-			name: ny_sources.PIX11,
 			region: ["New York", "NYC", "New York City"],
 			coverage: ["regional", "local"],
 			src: "https://pix11.com/news/feed/",
@@ -264,7 +258,7 @@ export const NEW_YORK_VIDEOS = {
 			name: NewsSources.WENY,
 			region: ["Elmira"],
 			coverage: ["local"],
-			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCENwe4N7FQCfIWY5wEjimNA",
+			src: "https://www.youtube.com/feeds/videos.xml?channel_id=UCdvIvnFcJc_CB60etgBywUg",
 		},
 	],
 };

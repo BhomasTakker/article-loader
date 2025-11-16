@@ -39,19 +39,6 @@ export const WORLD_1 = {
 			src: "https://www.thenational.scot/news/europe/rss/",
 			region: ["Europe"],
 		},
-
-		{
-			name: NewsSources.HERALD_SCOTLAND,
-			src: "https://www.heraldscotland.com/news/world_news/rss/",
-		},
-		// {
-		// 	name: NewsSources.WASHINGTON_POST,
-		// 	src: "http://feeds.washingtonpost.com/rss/world",
-		// },
-		// {
-		// 	name: NewsSources.ARAB_NEWS,
-		// 	src: "https://www.arabnews.com/taxonomy/term/3/feed",
-		// },
 		{
 			name: NewsSources.CNBC,
 			src: "https://www.cnbc.com/id/100727362/device/rss/rss.html",
@@ -197,10 +184,6 @@ export const WORLD_4 = {
 			src: "https://timesofindia.indiatimes.com/rssfeeds/296589292.cms",
 			region: ["Asia", "India"],
 			coverage: ["international", "national"],
-		},
-		{
-			name: NewsSources.LA_TIMES,
-			src: "https://www.latimes.com/world-nation/rss2.0.xml",
 		},
 		{
 			name: NewsSources.SEATTLE_TIMES,

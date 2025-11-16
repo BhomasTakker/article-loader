@@ -8,6 +8,7 @@ export const US_LIVE = {
 	media: { mediaType: "24/7" },
 	sources: [
 		{
+			name: "LIVE SOURCES",
 			src: "https://www.youtube.com/feeds/videos.xml?playlist_id=PLSoFrAUKXUriLHmJ64QCHgITgIjalbgMl",
 		},
 	],
