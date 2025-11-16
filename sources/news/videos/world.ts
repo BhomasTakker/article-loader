@@ -8,9 +8,11 @@ export const WORLD_LIVE = {
 	media: { mediaType: "24/7" },
 	sources: [
 		{
+			name: "LIVE SOURCES",
 			src: "https://www.youtube.com/feeds/videos.xml?playlist_id=PLSoFrAUKXUrimAmeTbZsrKOn5-vM8SrVi",
 		},
 		{
+			name: "LIVE SOURCES",
 			src: "https://www.youtube.com/feeds/videos.xml?playlist_id=PLSoFrAUKXUrgy54B6mRKOMlhXgSWj2JEV",
 		},
 	],
