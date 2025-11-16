@@ -39,12 +39,6 @@ export const NEWS_UK_1 = {
 			src: "https://feeds.transistor.fm/uk-news",
 		},
 		{
-			name: NewsSources.BBC,
-			collectionTitle: "Newshour",
-			coverage: ["international", "national"],
-			src: "https://podcasts.files.bbci.co.uk/p002vsnk.rss",
-		},
-		{
 			name: NewsSources.SKY,
 			collectionTitle: "Sky News Daily",
 			coverage: ["international", "national"],
