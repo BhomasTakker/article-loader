@@ -25,15 +25,6 @@ const getSourceType = (src: string): string => {
 	return "";
 };
 
-// Helper function to determine variant
-const getVariant = (src: string, articleType: string): string => {
-	if (articleType === "video") {
-		if (src.includes("playlist_id")) return "live";
-		return "";
-	}
-	return "";
-};
-
 // Process a single source list
 const processSourceList = async (
 	sourceList: any,
@@ -64,16 +55,11 @@ const processSourceList = async (
 
 	for (const source of sources) {
 		try {
-			// Determine variant value (ensure it's always set, even if empty string)
-			const variant =
-				source.variant || getVariant(source.src, articleType) || "";
-
 			// Merge base metadata with source-specific overrides
 			const articleSource: ArticleSource = {
 				name: source.name,
 				src: source.src,
-				articleType,
-				variant,
+				variant: articleType,
 				categories: source.categories || categories,
 				region: source.region || region,
 				coverage: source.coverage || coverage,
@@ -131,7 +117,7 @@ const processSourceList = async (
 		try {
 			await ArticleSourceListModel.create({
 				title: listTitle,
-				articleType,
+				variant: articleType,
 				categories,
 				region,
 				coverage,
