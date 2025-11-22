@@ -53,10 +53,6 @@ const ArticleCollectionSchema = new Schema<RSSArticleCollection>(
 			required: [true, "Please provide a provider."],
 			ref: "ArticleProvider",
 		},
-		updatedAt: {
-			type: Date,
-			default: Date.now,
-		},
 	},
 	{
 		timestamps: true,
