@@ -15,6 +15,8 @@ export type RSSArticleCollection = {
 	image?: RSSImage;
 	provider?: ProviderItem;
 	collectionType?: string;
+	updatedAt?: Date;
+	createdAt?: Date;
 };
 
 export type RSSPodcastCollection = {
