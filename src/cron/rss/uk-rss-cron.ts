@@ -21,11 +21,6 @@ const USE_DB_SOURCES = true; // Set to true to load from database
  * This runs once before cron jobs are scheduled
  */
 export async function initializeUKSources() {
-	if (!USE_DB_SOURCES) {
-		console.log("Using hardcoded UK sources");
-		return;
-	}
-
 	await connectToMongoDB();
 
 	try {
@@ -55,11 +50,6 @@ export async function initializeUKSources() {
 			titles: ["UK Video News", "UK Video News 2"],
 			variant: "video",
 		});
-
-		// console.log("UK sources loaded from database successfully", {
-		// 	cachedUKNationalVideosSrcs: cachedUKNationalVideos[0].sources,
-		// 	ukNationalVideosSrcs: ukNationalVideos[0].sources,
-		// });
 
 		// ukLiveVideos contains UK_LIVE
 		cachedUKLiveVideos = await loadSourceListsFromDB({
@@ -98,11 +88,6 @@ export async function initializeUKSources() {
 		console.error("Error loading UK sources from database:", error);
 		// console.log("Falling back to hardcoded sources");
 	}
-}
-
-// Helper function to get the appropriate source list
-function getSourceList(dbCache: any[], fallback: any[]) {
-	return dbCache;
 }
 
 /**

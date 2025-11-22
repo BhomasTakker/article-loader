@@ -24,15 +24,13 @@ const USE_DB_SOURCES = true; // Set to true to load from database
  * This runs once before cron jobs are scheduled
  */
 export async function initializeRSSSources() {
-	if (!USE_DB_SOURCES) {
-		console.log("Using hardcoded RSS sources");
-		return;
-	}
-
 	await connectToMongoDB();
 
 	try {
 		// Load US articles
+		// This all needs to be dynamic based on DB entries
+		// load list etcjob db entry reference
+		// then create cron
 		cachedUSArticles1 = await loadSourceListsFromDB({
 			titles: ["US National Articles 1", "US National Articles 2"],
 			variant: "article",
