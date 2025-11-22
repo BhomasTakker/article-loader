@@ -39,6 +39,7 @@ export async function loadSourceListsFromDB(criteria: {
 		.lean<ArticleSourceList[]>();
 
 	// Transform to the format expected by fetchRSS
+	// ceck fetchYouTubeRss... and others
 	const transformedSources = sourceLists.map((list) => ({
 		categories: list.categories,
 		region: list.region,
@@ -55,22 +56,4 @@ export async function loadSourceListsFromDB(criteria: {
 		})),
 	}));
 	return transformedSources;
-}
-
-/**
- * Load a specific article source list by title
- */
-export async function loadSourceListByTitle(
-	title: string
-): Promise<ArticleSourceList[]> {
-	return loadSourceListsFromDB({ titles: [title] });
-}
-
-/**
- * Load multiple article source lists by titles
- */
-export async function loadSourceListsByTitles(
-	titles: string[]
-): Promise<ArticleSourceList[]> {
-	return loadSourceListsFromDB({ titles });
 }
