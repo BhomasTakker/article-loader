@@ -5,6 +5,7 @@ import {
 	getCollection,
 	getYoutubeCollection,
 } from "../../collections/get-collection";
+import { FetchFunction } from "../types";
 
 export const fetchRSS = (srcs: any[]) =>
 	fetchCollections({
@@ -23,3 +24,14 @@ export const fetchYoutubeRSS = (srcs: any[]) =>
 			item: ["media:group"],
 		},
 	});
+
+const functionMap = new Map<string, Function>([
+	[FetchFunction.RSS, fetchRSS],
+	[FetchFunction.YoutubeRSS, fetchYoutubeRSS],
+]);
+
+export function getFetchFunction(
+	funcName: string
+): (...args: any[]) => Promise<any> {
+	return functionMap.get(funcName) as (...args: any[]) => Promise<any>;
+}
