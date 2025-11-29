@@ -4,7 +4,6 @@ import { createCronJobData } from "../create-cron-data";
 export const createRssCronConfigData = async () => {
 	return {
 		id: "RSS Cron Queries",
-		anyCommandsRequired: {},
 		cron: [
 			await createCronJobData({
 				titles: ["US National Articles 1", "US National Articles 2"],

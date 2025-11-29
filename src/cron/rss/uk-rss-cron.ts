@@ -4,7 +4,16 @@ import { createCronJobData } from "../create-cron-data";
 export const createUkRssCronConfigData = async () => {
 	return {
 		id: "RSS Test Cron Queries",
-		anyCommandsRequired: {},
+		// test_cron: [
+		// 	await createCronJobData({
+		// 		titles: ["UK Video News", "UK Video News 2"],
+		// 		sourceVariant: SourceVariant.VIDEO,
+		// 		timeFunction: TimeFunction.StaggerSeconds,
+		// 		timeParams: [30, 0, 0],
+		// 		fetchFunction: FetchFunction.YoutubeRSS,
+		// 		onComplete: () => {},
+		// 	}),
+		// ],
 		cron: [
 			await createCronJobData({
 				titles: [

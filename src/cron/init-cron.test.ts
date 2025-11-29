@@ -21,7 +21,6 @@ describe("Init Cron", () => {
 
 			const config: CronConfig = {
 				id: "test-config",
-				anyCommandsRequired: {},
 				cron: [
 					{
 						time: "0 */15 * * * *",
@@ -50,7 +49,6 @@ describe("Init Cron", () => {
 
 			const config: CronConfig = {
 				id: "multi-job-config",
-				anyCommandsRequired: {},
 				cron: [
 					{
 						time: "0 */5 * * * *",
@@ -93,7 +91,6 @@ describe("Init Cron", () => {
 		it("should handle empty cron array in config", () => {
 			const config: CronConfig = {
 				id: "empty-config",
-				anyCommandsRequired: {},
 				cron: [],
 			};
 
@@ -107,7 +104,6 @@ describe("Init Cron", () => {
 
 			const config: CronConfig = {
 				id: "minimal-config",
-				anyCommandsRequired: {},
 				cron: [
 					{
 						time: "0 0 12 * * *",
@@ -137,7 +133,6 @@ describe("Init Cron", () => {
 
 			const config: CronConfig = {
 				id: "property-test-config",
-				anyCommandsRequired: { someProperty: "value" },
 				cron: [
 					{
 						time: "30 2,17,32,47 * * * *",
@@ -172,7 +167,6 @@ describe("Init Cron", () => {
 
 			const config: CronConfig = {
 				id: "time-expression-config",
-				anyCommandsRequired: {},
 				cron: timeExpressions.map((time) => ({
 					time,
 					fetchFn: mockFetchFn,
@@ -198,7 +192,6 @@ describe("Init Cron", () => {
 
 			const config: CronConfig = {
 				id: "function-reference-config",
-				anyCommandsRequired: {},
 				cron: [
 					{
 						time: "0 0 9 * * *",
@@ -221,11 +214,6 @@ describe("Init Cron", () => {
 		it("should accept valid CronConfig with all properties", () => {
 			const validConfig: CronConfig = {
 				id: "valid-config",
-				anyCommandsRequired: {
-					apiKey: "test-key",
-					maxRetries: 3,
-					timeout: 5000,
-				},
 				cron: [
 					{
 						time: "0 */20 * * * *",
@@ -254,7 +242,6 @@ describe("Init Cron", () => {
 
 			const config: CronConfig = {
 				id: "function-types-config",
-				anyCommandsRequired: {},
 				cron: [
 					{
 						time: "0 0 6 * * *",
@@ -305,10 +292,6 @@ describe("Init Cron", () => {
 
 			const articleLoaderConfig: CronConfig = {
 				id: "article-loader-config",
-				anyCommandsRequired: {
-					apiEndpoint: "https://api.example.com",
-					authToken: "bearer-token-123",
-				},
 				cron: [
 					{
 						time: "0 */15 * * * *", // Every 15 minutes
@@ -357,10 +340,6 @@ describe("Init Cron", () => {
 
 			const apiConfig: CronConfig = {
 				id: "api-polling-config",
-				anyCommandsRequired: {
-					retryAttempts: 3,
-					timeout: 10000,
-				},
 				cron: [
 					{
 						time: "0 */30 * * * *", // Every 30 minutes
@@ -392,7 +371,6 @@ describe("Init Cron", () => {
 
 			const mixedConfig: CronConfig = {
 				id: "mixed-jobs-config",
-				anyCommandsRequired: {},
 				cron: [
 					{
 						time: "0 */5 * * * *",
@@ -425,17 +403,6 @@ describe("Init Cron", () => {
 		it("should demonstrate proper config structure handling", () => {
 			const config: CronConfig = {
 				id: "structured-config-test",
-				anyCommandsRequired: {
-					database: {
-						host: "localhost",
-						port: 5432,
-						name: "articles",
-					},
-					api: {
-						baseUrl: "https://api.example.com",
-						version: "v1",
-					},
-				},
 				cron: [
 					{
 						time: "0 0 3 * * *", // Daily at 3 AM
@@ -448,8 +415,6 @@ describe("Init Cron", () => {
 					},
 				],
 			};
-
-			// Should handle complex anyCommandsRequired structure
 			expect(() => {
 				initCronJobs(config);
 			}).not.toThrow();
@@ -466,7 +431,6 @@ describe("Init Cron", () => {
 
 			const config: CronConfig = {
 				id: "error-handling-config",
-				anyCommandsRequired: {},
 				cron: [
 					{
 						time: "0 */1 * * * *",
@@ -491,7 +455,6 @@ describe("Init Cron", () => {
 
 			const config: CronConfig = {
 				id: "order-test-config",
-				anyCommandsRequired: {},
 				cron: [
 					{
 						time: "0 0 6 * * *",

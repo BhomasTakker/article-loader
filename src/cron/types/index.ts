@@ -25,7 +25,6 @@ export enum SourceVariant {
 
 export type CronConfig = {
 	id: string;
-	anyCommandsRequired: {};
 	cron: CronJobConfig[];
 };
 

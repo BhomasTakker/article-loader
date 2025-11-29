@@ -4,7 +4,16 @@ import { createCronJobData } from "../create-cron-data";
 export const createPodcastRssCronConfigData = async () => {
 	return {
 		id: "Podcast RSS Cron Config",
-		anyCommandsRequired: {},
+		// test_cron: [
+		// 	await createCronJobData({
+		// 		titles: ["UK News Bites"],
+		// 		sourceVariant: SourceVariant.AUDIO,
+		// 		timeFunction: TimeFunction.StaggerSeconds,
+		// 		timeParams: [30, 0, 0],
+		// 		fetchFunction: FetchFunction.Podcasts,
+		// 		onComplete: () => {},
+		// 	}),
+		// ],
 		cron: [
 			await createCronJobData({
 				titles: ["UK News Bites"],
