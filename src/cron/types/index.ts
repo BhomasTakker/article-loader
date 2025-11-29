@@ -39,4 +39,5 @@ export enum TimeFunction {
 export enum FetchFunction {
 	RSS = "fetchRSS",
 	YoutubeRSS = "fetchYoutubeRSS",
+	Podcasts = "fetchPodcasts",
 }

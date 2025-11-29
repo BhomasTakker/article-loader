@@ -3,10 +3,7 @@
 import { logMemoryUsage } from "./src/lib/mem";
 import { initApiRoutes } from "./routes/api-routes";
 import { initCronJobs } from "./src/cron/init-cron";
-import {
-	createPodcastRssCronConfig,
-	initializePodcastSources,
-} from "./src/cron/podcasts/podcast.config";
+import { createPodcastRssCronConfigData } from "./src/cron/podcasts/podcast.config";
 import { createRssCronConfigData } from "./src/cron/rss/rss-cron";
 import { createUkRssCronConfigData } from "./src/cron/rss/uk-rss-cron";
 import { initialiseExpress, startServer } from "./src/services/express";
@@ -25,14 +22,14 @@ export const initialiseServer = async () => {
 
 	isApiRoute && initApiRoutes(app);
 
-	// Initialize podcast sources from DB before starting podcast cron jobs
 	if (isCron) {
-		await initializePodcastSources();
-		initCronJobs(createPodcastRssCronConfig());
+		const cronConfig = await createPodcastRssCronConfigData();
+		initCronJobs(cronConfig);
 	}
 
 	isApiCron && initCronJobs(pageQueriesCronConfig);
 
+	// function for all RSS feeds cron jobs
 	if (isRSSCron) {
 		const cronConfig = await createRssCronConfigData();
 		initCronJobs(cronConfig);
