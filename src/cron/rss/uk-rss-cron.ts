@@ -1,10 +1,6 @@
 import { FetchFunction, SourceVariant, TimeFunction } from "../types";
 import { createCronJobData } from "../create-cron-data";
 
-/**
- * Create UK RSS cron configuration
- * This function should be called AFTER initializeUKSources() to ensure cached values are populated
- */
 export const createUkRssCronConfigData = async () => {
 	return {
 		id: "RSS Test Cron Queries",
