@@ -1,144 +1,87 @@
-import { staggerMinutes, everyNthHour, staggerSeconds } from "../cron-times";
-import { CronConfig } from "../types";
-import { fetchRSS, fetchYoutubeRSS } from "./utils";
-import { loadSourceListsFromDB } from "./db-source-loader";
-import { connectToMongoDB } from "../../lib/mongo/db";
-
-// Cached sources loaded from database
-let cachedUKNationalArticles1: any[] = [];
-let cachedUKNationalArticles2: any[] = [];
-let cachedUKNationalVideos: any[] = [];
-let cachedUKLiveVideos: any[] = [];
-let cachedUKRegionalVideos: any[] = [];
-let cachedUKRegionalArticles: any[] = [];
-let cachedUKRegionalArticles2: any[] = [];
-
-// Flag to track if we're using DB sources
-const USE_DB_SOURCES = true; // Set to true to load from database
-
-/**
- * Initialize and cache all UK sources from the database
- * This runs once before cron jobs are scheduled
- */
-export async function initializeUKSources() {
-	await connectToMongoDB();
-
-	try {
-		// Load each source list from DB
-		// ukNationalArticles1 contains 3 lists: UK_1, UK_2, UK_3
-		cachedUKNationalArticles1 = await loadSourceListsFromDB({
-			titles: [
-				"UK National Articles 1",
-				"UK National Articles 2",
-				"UK National Articles 3",
-			],
-			variant: "article",
-		});
-
-		// ukNationalArticles2 contains Scotland, Wales, Northern Ireland
-		cachedUKNationalArticles2 = await loadSourceListsFromDB({
-			titles: [
-				"Scotland Articles",
-				"Wales Articles",
-				"Northern Ireland Articles",
-			],
-			variant: "article",
-		});
-
-		// ukNationalVideos contains UK_VIDEO and UK_VIDEO_2
-		cachedUKNationalVideos = await loadSourceListsFromDB({
-			titles: ["UK Video News", "UK Video News 2"],
-			variant: "video",
-		});
-
-		// ukLiveVideos contains UK_LIVE
-		cachedUKLiveVideos = await loadSourceListsFromDB({
-			titles: ["UK Live Video"], // Note: singular "Video" not "Videos"
-			variant: "video",
-		});
-
-		// ukRegionalVideos contains Manchester, Liverpool, Birmingham videos
-		cachedUKRegionalVideos = await loadSourceListsFromDB({
-			titles: [
-				"Manchester Video News",
-				"Liverpool Video News",
-				"Birmingham Video News",
-			],
-			variant: "video",
-		});
-
-		// ukRegionalArticles contains Manchester, Liverpool, Birmingham articles
-		cachedUKRegionalArticles = await loadSourceListsFromDB({
-			titles: [
-				"Manchester Articles",
-				"Liverpool Articles",
-				"Birmingham Articles",
-			],
-			variant: "article",
-		});
-
-		// ukRegionalArticles2 contains Yorkshire
-		cachedUKRegionalArticles2 = await loadSourceListsFromDB({
-			titles: ["Yorkshire Articles"],
-			variant: "article",
-		});
-
-		console.log("UK sources loaded from database successfully");
-	} catch (error) {
-		console.error("Error loading UK sources from database:", error);
-		// console.log("Falling back to hardcoded sources");
-	}
-}
+import { FetchFunction, SourceVariant, TimeFunction } from "../types";
+import { createCronJobData } from "../create-cron-data";
 
 /**
  * Create UK RSS cron configuration
  * This function should be called AFTER initializeUKSources() to ensure cached values are populated
  */
-export function createUkRssCronConfig(): CronConfig {
+export const createUkRssCronConfigData = async () => {
 	return {
-		id: "RSS Cron Queries",
+		id: "RSS Test Cron Queries",
 		anyCommandsRequired: {},
 		cron: [
-			// {
-			// 	time: staggerSeconds(30, 0),
-			// 	fetchFn: fetchYoutubeRSS(cachedUKNationalVideos),
-			// 	onComplete: () => {},
-			// },
-			{
-				time: staggerMinutes(15, 0, 0),
-				fetchFn: fetchRSS(cachedUKNationalArticles1),
+			await createCronJobData({
+				titles: [
+					"UK National Articles 1",
+					"UK National Articles 2",
+					"UK National Articles 3",
+				],
+				sourceVariant: SourceVariant.ARTICLE,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [15, 0, 0],
+				fetchFunction: FetchFunction.RSS,
 				onComplete: () => {},
-			},
-			{
-				time: staggerMinutes(15, 0, 30),
-				fetchFn: fetchRSS(cachedUKNationalArticles2),
+			}),
+			await createCronJobData({
+				titles: [
+					"Scotland Articles",
+					"Wales Articles",
+					"Northern Ireland Articles",
+				],
+				sourceVariant: SourceVariant.ARTICLE,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [15, 0, 30],
+				fetchFunction: FetchFunction.RSS,
 				onComplete: () => {},
-			},
-			{
-				time: staggerMinutes(15, 1, 0),
-				fetchFn: fetchYoutubeRSS(cachedUKNationalVideos),
+			}),
+			await createCronJobData({
+				titles: ["UK Video News", "UK Video News 2"],
+				sourceVariant: SourceVariant.VIDEO,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [15, 1, 0],
+				fetchFunction: FetchFunction.YoutubeRSS,
 				onComplete: () => {},
-			},
-			{
-				time: everyNthHour(24, 1, 0),
-				fetchFn: fetchYoutubeRSS(cachedUKLiveVideos),
+			}),
+			await createCronJobData({
+				titles: ["UK Live Video"],
+				sourceVariant: SourceVariant.VIDEO,
+				timeFunction: TimeFunction.EveryNthHour,
+				timeParams: [24, 1, 0],
+				fetchFunction: FetchFunction.YoutubeRSS,
 				onComplete: () => {},
-			},
-			{
-				time: everyNthHour(1, 1, 30),
-				fetchFn: fetchYoutubeRSS(cachedUKRegionalVideos),
+			}),
+			await createCronJobData({
+				titles: [
+					"Manchester Video News",
+					"Liverpool Video News",
+					"Birmingham Video News",
+				],
+				sourceVariant: SourceVariant.VIDEO,
+				timeFunction: TimeFunction.EveryNthHour,
+				timeParams: [1, 1, 30],
+				fetchFunction: FetchFunction.YoutubeRSS,
 				onComplete: () => {},
-			},
-			{
-				time: everyNthHour(1, 2, 0),
-				fetchFn: fetchRSS(cachedUKRegionalArticles),
+			}),
+			await createCronJobData({
+				titles: [
+					"Manchester Articles",
+					"Liverpool Articles",
+					"Birmingham Articles",
+				],
+				sourceVariant: SourceVariant.ARTICLE,
+				timeFunction: TimeFunction.EveryNthHour,
+				timeParams: [1, 2, 0],
+				fetchFunction: FetchFunction.RSS,
 				onComplete: () => {},
-			},
-			{
-				time: everyNthHour(1, 2, 30),
-				fetchFn: fetchRSS(cachedUKRegionalArticles2),
+			}),
+			await createCronJobData({
+				titles: ["Yorkshire Articles"],
+				sourceVariant: SourceVariant.ARTICLE,
+				timeFunction: TimeFunction.EveryNthHour,
+				timeParams: [1, 2, 30],
+				fetchFunction: FetchFunction.RSS,
 				onComplete: () => {},
-			},
+			}),
 		],
 	};
-}
+};

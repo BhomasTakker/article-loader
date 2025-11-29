@@ -11,10 +11,7 @@ import {
 	createRssCronConfig,
 	initializeRSSSources,
 } from "./src/cron/rss/rss-cron";
-import {
-	createUkRssCronConfig,
-	initializeUKSources,
-} from "./src/cron/rss/uk-rss-cron";
+import { createUkRssCronConfigData } from "./src/cron/rss/uk-rss-cron";
 import { initialiseExpress, startServer } from "./src/services/express";
 import { getEnv } from "./src/services/env";
 import { pageQueriesCronConfig } from "./src/cron/api/search/config";
@@ -45,8 +42,10 @@ export const initialiseServer = async () => {
 	}
 
 	if (isRSSCron) {
-		await initializeUKSources();
-		initCronJobs(createUkRssCronConfig());
+		// await initializeUKSources();
+		// initCronJobs(createUkRssCronConfig());
+		const cronConfig = await createUkRssCronConfigData();
+		initCronJobs(cronConfig);
 	}
 
 	isApiCron && initCronJobs(RADIO_CRON_CONFIG);
