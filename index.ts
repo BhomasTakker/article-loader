@@ -22,24 +22,16 @@ export const initialiseServer = async () => {
 
 	isApiRoute && initApiRoutes(app);
 
-	if (isCron) {
-		const cronConfig = await createPodcastRssCronConfigData();
-		initCronJobs(cronConfig);
-	}
-
+	// Create API Cron Jobs
 	isApiCron && initCronJobs(pageQueriesCronConfig);
 
-	// function for all RSS feeds cron jobs
 	if (isRSSCron) {
-		const cronConfig = await createRssCronConfigData();
-		initCronJobs(cronConfig);
+		initCronJobs(await createRssCronConfigData());
+		initCronJobs(await createUkRssCronConfigData());
+		initCronJobs(await createPodcastRssCronConfigData());
 	}
 
-	if (isRSSCron) {
-		const cronConfig = await createUkRssCronConfigData();
-		initCronJobs(cronConfig);
-	}
-
+	// Create Radio Cron Jobs
 	isApiCron && initCronJobs(RADIO_CRON_CONFIG);
 };
 
