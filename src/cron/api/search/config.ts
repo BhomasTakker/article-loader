@@ -4,9 +4,9 @@ import { CronConfig } from "../../types";
 import { executeAndCacheQueriesFromPage, pingApp } from "./page-queries";
 import { ROUTES_1 } from "./routes";
 
+// remove routes from this - we should do all
 export const pageQueriesCronConfig: CronConfig = {
 	id: "Search Queries",
-	anyCommandsRequired: {},
 	cron: [
 		{
 			time: staggerMinutes(15, 14, 0),

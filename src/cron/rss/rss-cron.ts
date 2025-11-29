@@ -1,170 +1,101 @@
-import { CronConfig } from "../types";
-import { fetchRSS, fetchYoutubeRSS } from "./utils";
-import { staggerMinutes, staggerSeconds } from "../cron-times";
-import { loadSourceListsFromDB } from "./db-source-loader";
-import { connectToMongoDB } from "../../lib/mongo/db";
+import { FetchFunction, SourceVariant, TimeFunction } from "../types";
+import { createCronJobData } from "../create-cron-data";
 
-// Cached sources loaded from database
-let cachedUSArticles1: any[] = [];
-let cachedUSArticles2: any[] = [];
-let cachedWorldArticles1: any[] = [];
-let cachedWorldArticles2: any[] = [];
-let cachedWorldArticles3: any[] = [];
-let cachedNewYorkArticles: any[] = [];
-let cachedNewYorkVideos: any[] = [];
-let cachedFloridaArticles: any[] = [];
-let cachedFloridaVideos: any[] = [];
-let cachedVideos: any[] = [];
-
-// Flag to track if we're using DB sources
-const USE_DB_SOURCES = true; // Set to true to load from database
-
-/**
- * Initialize and cache all RSS sources from the database
- * This runs once before cron jobs are scheduled
- */
-export async function initializeRSSSources() {
-	await connectToMongoDB();
-
-	try {
-		// Load US articles
-		// This all needs to be dynamic based on DB entries
-		// load list etcjob db entry reference
-		// then create cron
-		cachedUSArticles1 = await loadSourceListsFromDB({
-			titles: ["US National Articles 1", "US National Articles 2"],
-			variant: "article",
-		});
-
-		cachedUSArticles2 = await loadSourceListsFromDB({
-			titles: [
-				"US National Articles 3",
-				"US National Articles 4",
-				"US National Articles 5",
-			],
-			variant: "article",
-		});
-
-		// Load World articles
-		cachedWorldArticles1 = await loadSourceListsFromDB({
-			titles: ["World Articles 1", "World Articles 2"],
-			variant: "article",
-		});
-
-		cachedWorldArticles2 = await loadSourceListsFromDB({
-			titles: ["World Articles 3", "World Articles 4", "World Articles 5"],
-			variant: "article",
-		});
-
-		cachedWorldArticles3 = await loadSourceListsFromDB({
-			titles: ["World Articles 5", "World Articles 6", "World Articles 7"],
-			variant: "article",
-		});
-
-		// Load regional sources
-		cachedNewYorkArticles = await loadSourceListsFromDB({
-			titles: ["New York Articles"],
-			variant: "article",
-		});
-
-		cachedNewYorkVideos = await loadSourceListsFromDB({
-			titles: ["New York Video News"],
-			variant: "video",
-		});
-
-		cachedFloridaArticles = await loadSourceListsFromDB({
-			titles: ["Florida Articles"],
-			variant: "article",
-		});
-
-		cachedFloridaVideos = await loadSourceListsFromDB({
-			titles: ["Florida Video News"],
-			variant: "video",
-		});
-
-		// Load all video sources
-		cachedVideos = await loadSourceListsFromDB({
-			titles: [
-				"US Video News",
-				"US Video News 2",
-				"US Live Video",
-				"World Video News",
-				"World Video News 2",
-				"World Live Video",
-			],
-			variant: "video",
-		});
-
-		console.log("RSS sources loaded from database successfully");
-	} catch (error) {
-		console.error("Error loading RSS sources from database:", error);
-	}
-}
-
-/**
- * Create RSS cron configuration
- * This function should be called AFTER initializeRSSSources() to ensure cached values are populated
- */
-export function createRssCronConfig(): CronConfig {
+export const createRssCronConfigData = async () => {
 	return {
 		id: "RSS Cron Queries",
-		anyCommandsRequired: {},
 		cron: [
-			// {
-			// 	time: staggerSeconds(30, 0),
-			// 	fetchFn: fetchRSS(cachedUSArticles1),
-			// 	onComplete: () => {},
-			// },
-			{
-				time: staggerMinutes(15, 3, 0),
-				fetchFn: fetchRSS(cachedUSArticles1),
+			await createCronJobData({
+				titles: ["US National Articles 1", "US National Articles 2"],
+				sourceVariant: SourceVariant.ARTICLE,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [15, 3, 0],
+				fetchFunction: FetchFunction.RSS,
 				onComplete: () => {},
-			},
-			{
-				time: staggerMinutes(15, 3, 30),
-				fetchFn: fetchRSS(cachedUSArticles2),
+			}),
+			await createCronJobData({
+				titles: [
+					"US National Articles 3",
+					"US National Articles 4",
+					"US National Articles 5",
+				],
+				sourceVariant: SourceVariant.ARTICLE,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [15, 3, 30],
+				fetchFunction: FetchFunction.RSS,
 				onComplete: () => {},
-			},
-			{
-				time: staggerMinutes(15, 4, 0),
-				fetchFn: fetchRSS(cachedWorldArticles1),
+			}),
+			await createCronJobData({
+				titles: ["World Articles 1", "World Articles 2"],
+				sourceVariant: SourceVariant.ARTICLE,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [15, 4, 0],
+				fetchFunction: FetchFunction.RSS,
 				onComplete: () => {},
-			},
-			{
-				time: staggerMinutes(15, 4, 30),
-				fetchFn: fetchRSS(cachedWorldArticles2),
+			}),
+			await createCronJobData({
+				titles: ["World Articles 3", "World Articles 4", "World Articles 5"],
+				sourceVariant: SourceVariant.ARTICLE,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [15, 4, 30],
+				fetchFunction: FetchFunction.RSS,
 				onComplete: () => {},
-			},
-			{
-				time: staggerMinutes(15, 5),
-				fetchFn: fetchRSS(cachedWorldArticles3),
+			}),
+			await createCronJobData({
+				titles: ["World Articles 5", "World Articles 6", "World Articles 7"],
+				sourceVariant: SourceVariant.ARTICLE,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [15, 5],
+				fetchFunction: FetchFunction.RSS,
 				onComplete: () => {},
-			},
-			{
-				time: staggerMinutes(30, 5, 30),
-				fetchFn: fetchRSS(cachedNewYorkArticles),
+			}),
+			await createCronJobData({
+				titles: ["New York Articles"],
+				sourceVariant: SourceVariant.ARTICLE,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [30, 5, 30],
+				fetchFunction: FetchFunction.RSS,
 				onComplete: () => {},
-			},
-			{
-				time: staggerMinutes(30, 6, 0),
-				fetchFn: fetchYoutubeRSS(cachedNewYorkVideos),
+			}),
+			await createCronJobData({
+				titles: ["New York Video News"],
+				sourceVariant: SourceVariant.VIDEO,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [30, 6, 0],
+				fetchFunction: FetchFunction.YoutubeRSS,
 				onComplete: () => {},
-			},
-			{
-				time: staggerMinutes(30, 6, 30),
-				fetchFn: fetchRSS(cachedFloridaArticles),
+			}),
+			await createCronJobData({
+				titles: ["Florida Articles"],
+				sourceVariant: SourceVariant.ARTICLE,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [30, 6, 30],
+				fetchFunction: FetchFunction.RSS,
 				onComplete: () => {},
-			},
-			{
-				time: staggerMinutes(30, 6, 0),
-				fetchFn: fetchYoutubeRSS(cachedFloridaVideos),
+			}),
+			await createCronJobData({
+				titles: ["Florida Video News"],
+				sourceVariant: SourceVariant.VIDEO,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [30, 6, 0],
+				fetchFunction: FetchFunction.YoutubeRSS,
 				onComplete: () => {},
-			},
-			{
-				time: staggerMinutes(15, 7, 0),
-				fetchFn: fetchYoutubeRSS(cachedVideos),
+			}),
+			await createCronJobData({
+				titles: [
+					"US Video News",
+					"US Video News 2",
+					"US Live Video",
+					"World Video News",
+					"World Video News 2",
+					"World Live Video",
+				],
+				sourceVariant: SourceVariant.VIDEO,
+				timeFunction: TimeFunction.StaggerMinutes,
+				timeParams: [15, 7, 0],
+				fetchFunction: FetchFunction.YoutubeRSS,
 				onComplete: () => {},
-			},
+			}),
 		],
 	};
-}
+};

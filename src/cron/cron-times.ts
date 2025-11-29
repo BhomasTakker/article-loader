@@ -1,5 +1,7 @@
 // https://crontab.cronhub.io/
 
+import { Cron, TimeFunction } from "./types";
+
 // every 15 minutes staggered by a minute
 // There will be a formula for this somewhere
 // 1,16,31,46 * * * *
@@ -24,13 +26,6 @@ export const staggerSeconds = (seconds: number, stagger: number) => {
 	return `${times.join(",")} * * * * *`;
 };
 
-type Cron = {
-	day: number;
-	hour?: number;
-	minute?: number;
-	second?: number;
-};
-
 export const everyNDays = ({ day, hour = 0, minute = 0, second = 0 }: Cron) => {
 	return `${second} ${minute} ${hour} */${day} * *`;
 };
@@ -43,3 +38,16 @@ export const everyNthHour = (
 ) => {
 	return `${onSecond} ${minutesOffset} */${n} * * *`;
 };
+
+const functionMap = new Map<string, Function>([
+	[TimeFunction.StaggerMinutes, staggerMinutes],
+	[TimeFunction.StaggerSeconds, staggerSeconds],
+	[TimeFunction.EveryNthHour, everyNthHour],
+	[TimeFunction.EveryNDays, everyNDays],
+]);
+
+export function getTimeFunction(
+	funcName: string
+): (...args: number[]) => string {
+	return functionMap.get(funcName) as (...args: number[]) => string;
+}

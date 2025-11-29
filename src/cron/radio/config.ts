@@ -3,8 +3,7 @@ import { CronConfig } from "../types";
 import { runScripts } from "./radio-cron";
 
 export const RADIO_CRON_CONFIG: CronConfig = {
-	id: "RSS Cron Queries",
-	anyCommandsRequired: {},
+	id: "Radio Cron Queries",
 	cron: [
 		// {
 		// 	// TEST DO NOT KEEP!!!!!!!!!!!!!!!!!!!!

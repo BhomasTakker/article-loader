@@ -1,10 +1,13 @@
 import { fetchArticles } from "../../articles/fetch-articles";
+import { fetchPodcastArticles } from "../../articles/fetch-podcast-articles";
 import { fetchYoutubeArticles } from "../../articles/fetch-youtube-articles";
 import { fetchCollections } from "../../collections/fetch-collections";
 import {
 	getCollection,
+	getPodcastCollection,
 	getYoutubeCollection,
 } from "../../collections/get-collection";
+import { FetchFunction } from "../types";
 
 export const fetchRSS = (srcs: any[]) =>
 	fetchCollections({
@@ -23,3 +26,22 @@ export const fetchYoutubeRSS = (srcs: any[]) =>
 			item: ["media:group"],
 		},
 	});
+
+export const fetchPodcasts = (srcs: any[]) =>
+	fetchCollections({
+		sources: [...srcs],
+		feedCallback: getPodcastCollection,
+		itemsCallback: fetchPodcastArticles,
+	});
+
+const functionMap = new Map<string, Function>([
+	[FetchFunction.RSS, fetchRSS],
+	[FetchFunction.YoutubeRSS, fetchYoutubeRSS],
+	[FetchFunction.Podcasts, fetchPodcasts],
+]);
+
+export function getFetchFunction(
+	funcName: string
+): (...args: any[]) => Promise<any> {
+	return functionMap.get(funcName) as (...args: any[]) => Promise<any>;
+}
