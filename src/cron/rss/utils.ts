@@ -7,7 +7,20 @@ import {
 	getPodcastCollection,
 	getYoutubeCollection,
 } from "../../collections/get-collection";
-import { FetchFunction } from "../types";
+import { connectToMongoDB } from "../../lib/mongo/db";
+import { FetchFunction, SourceVariant } from "../types";
+import { loadSourceListsFromDB } from "./db-source-loader";
+
+export const loadSourceList = async (
+	articles: string[],
+	sourceVariant: SourceVariant
+) => {
+	await connectToMongoDB();
+	return await loadSourceListsFromDB({
+		titles: articles,
+		variant: sourceVariant,
+	});
+};
 
 export const fetchRSS = (srcs: any[]) =>
 	fetchCollections({
