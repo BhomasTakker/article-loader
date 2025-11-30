@@ -1,7 +1,5 @@
 import { createCronJobData } from "../create-cron-data";
-import { everyNDays } from "../cron-times";
-import { CronConfig, FetchFunction, TimeFunction } from "../types";
-import { runScripts } from "./radio-cron";
+import { FetchFunction, TimeFunction } from "../types";
 
 export const createRadioCronConfigData = async () => {
 	return {
