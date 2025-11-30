@@ -40,4 +40,6 @@ export enum FetchFunction {
 	YoutubeRSS = "fetchYoutubeRSS",
 	Podcasts = "fetchPodcasts",
 	RadioScripts = "fetchRadioScripts",
+	PageQueries = "fetchPageQueries",
+	PingRoutes = "pingRoutes",
 }
