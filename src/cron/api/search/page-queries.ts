@@ -61,6 +61,13 @@ export const getPageRoutes = async () => {
 	return pageRoutes;
 };
 
+export const cachePageQueries = async (
+	apis: API_PROVIDERS[],
+	filter: string[]
+) => {
+	await executeAndCacheQueriesFromPage(apis, filter);
+};
+
 export const executeAndCacheQueriesFromPage = async (
 	apis: API_PROVIDERS[],
 	filter: string[]
@@ -99,6 +106,10 @@ export const executeAndCacheQueriesFromPage = async (
 		});
 	});
 	await Promise.all(pagePromises);
+};
+
+export const pingRoutes = async (includes: string[]) => {
+	await pingApp(includes);
 };
 
 export const pingApp = async (includes: string[]) => {

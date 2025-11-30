@@ -7,7 +7,22 @@ import {
 	getPodcastCollection,
 	getYoutubeCollection,
 } from "../../collections/get-collection";
-import { FetchFunction } from "../types";
+import { connectToMongoDB } from "../../lib/mongo/db";
+import { cachePageQueries, pingRoutes } from "../api/search/page-queries";
+import { fetchRadioStations } from "../radio/radio-cron";
+import { FetchFunction, SourceVariant } from "../types";
+import { loadSourceListsFromDB } from "./db-source-loader";
+
+export const loadSourceList = async (
+	articles: string[],
+	sourceVariant: SourceVariant
+) => {
+	await connectToMongoDB();
+	return await loadSourceListsFromDB({
+		titles: articles,
+		variant: sourceVariant,
+	});
+};
 
 export const fetchRSS = (srcs: any[]) =>
 	fetchCollections({
@@ -38,6 +53,9 @@ const functionMap = new Map<string, Function>([
 	[FetchFunction.RSS, fetchRSS],
 	[FetchFunction.YoutubeRSS, fetchYoutubeRSS],
 	[FetchFunction.Podcasts, fetchPodcasts],
+	[FetchFunction.RadioScripts, fetchRadioStations],
+	[FetchFunction.PageQueries, cachePageQueries],
+	[FetchFunction.PingRoutes, pingRoutes],
 ]);
 
 export function getFetchFunction(

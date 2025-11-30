@@ -26,7 +26,12 @@ export const staggerSeconds = (seconds: number, stagger: number) => {
 	return `${times.join(",")} * * * * *`;
 };
 
-export const everyNDays = ({ day, hour = 0, minute = 0, second = 0 }: Cron) => {
+export const everyNDays = (
+	day: number,
+	hour: number = 0,
+	minute: number = 0,
+	second: number = 0
+) => {
 	return `${second} ${minute} ${hour} */${day} * *`;
 };
 

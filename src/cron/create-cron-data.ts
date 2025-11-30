@@ -1,42 +1,30 @@
-import { connectToMongoDB } from "../lib/mongo/db";
 import { getTimeFunction } from "./cron-times";
-import { loadSourceListsFromDB } from "./rss/db-source-loader";
 import { getFetchFunction } from "./rss/utils";
-import { FetchFunction, SourceVariant, TimeFunction } from "./types";
-
-const loadSourceList = async (
-	articles: string[],
-	sourceVariant: SourceVariant
-) => {
-	await connectToMongoDB();
-	return await loadSourceListsFromDB({
-		titles: articles,
-		variant: sourceVariant,
-	});
-};
+import { FetchFunction, TimeFunction } from "./types";
 
 type CreateCronJobDataParams = {
-	titles: string[];
-	sourceVariant: SourceVariant;
+	fetchFunctionData: any; // typeof fecthFunctionData; / argument for fetch data function
 	timeFunction: TimeFunction;
 	timeParams: number[];
 	fetchFunction: FetchFunction;
 	onComplete: () => void;
 };
 
+// For now createRSS Cron Job Data
 export const createCronJobData = async ({
-	titles,
-	sourceVariant,
+	fetchFunctionData,
 	timeFunction,
 	timeParams,
 	fetchFunction,
 	onComplete,
 }: CreateCronJobDataParams) => {
-	const sources = await loadSourceList(titles, sourceVariant);
+	// fetchData function could be the way?
 	// nice pattern but not yet
 	// const time = TimeFunction.getTimeFunction(timeFunction)(...timeParams);
 	const cronTime = getTimeFunction(timeFunction)(...timeParams);
-	const cronFetchFunction = await getFetchFunction(fetchFunction)(sources);
+	const cronFetchFunction = await getFetchFunction(fetchFunction)(
+		fetchFunctionData
+	);
 
 	return {
 		time: cronTime,
