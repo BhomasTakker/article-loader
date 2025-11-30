@@ -62,9 +62,9 @@ export const getPageRoutes = async () => {
 };
 
 export const cachePageQueries = async (
-	apis: API_PROVIDERS[],
-	filter: string[]
+	args: [apis: API_PROVIDERS[], filter: string[]]
 ) => {
+	const [apis, filter] = args;
 	await executeAndCacheQueriesFromPage(apis, filter);
 };
 
@@ -77,6 +77,9 @@ export const executeAndCacheQueriesFromPage = async (
 
 	const pagePromises = pageRoutes.map(async (route) => {
 		let cacheRoute = false;
+		// filter here is useless.
+		// We need alive/published or similar check
+		// we are filtering by '/' which returns true for everything
 		filter.forEach((f) => {
 			if (route.includes(f)) {
 				cacheRoute = true;

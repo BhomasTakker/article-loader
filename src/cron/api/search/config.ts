@@ -1,8 +1,6 @@
 import { API_PROVIDERS } from ".";
 import { createCronJobData } from "../../create-cron-data";
-import { staggerMinutes } from "../../cron-times";
-import { CronConfig, FetchFunction, TimeFunction } from "../../types";
-import { executeAndCacheQueriesFromPage, pingApp } from "./page-queries";
+import { FetchFunction, TimeFunction } from "../../types";
 import { ROUTES_1 } from "./routes";
 
 export const createPageQueriesConfigData = async () => {
