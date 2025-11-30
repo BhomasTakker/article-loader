@@ -39,4 +39,5 @@ export enum FetchFunction {
 	RSS = "fetchRSS",
 	YoutubeRSS = "fetchYoutubeRSS",
 	Podcasts = "fetchPodcasts",
+	RadioScripts = "fetchRadioScripts",
 }

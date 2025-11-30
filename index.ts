@@ -9,7 +9,7 @@ import { createUkRssCronConfigData } from "./src/cron/rss/uk-rss-cron";
 import { initialiseExpress, startServer } from "./src/services/express";
 import { getEnv } from "./src/services/env";
 import { pageQueriesCronConfig } from "./src/cron/api/search/config";
-import { RADIO_CRON_CONFIG } from "./src/cron/radio/config";
+import { createRadioCronConfigData } from "./src/cron/radio/config";
 
 require("dotenv").config();
 
@@ -22,17 +22,18 @@ export const initialiseServer = async () => {
 
 	isApiRoute && initApiRoutes(app);
 
-	// Create API Cron Jobs
-	isApiCron && initCronJobs(pageQueriesCronConfig);
-
 	if (isRSSCron) {
 		initCronJobs(await createRssCronConfigData());
 		initCronJobs(await createUkRssCronConfigData());
 		initCronJobs(await createPodcastRssCronConfigData());
 	}
 
-	// Create Radio Cron Jobs
-	isApiCron && initCronJobs(RADIO_CRON_CONFIG);
+	if (isApiCron) {
+		// Create API Cron Jobs
+		initCronJobs(pageQueriesCronConfig);
+		// Create Radio Cron Jobs
+		initCronJobs(await createRadioCronConfigData());
+	}
 };
 
 initialiseServer();

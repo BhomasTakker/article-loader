@@ -8,6 +8,7 @@ import {
 	getYoutubeCollection,
 } from "../../collections/get-collection";
 import { connectToMongoDB } from "../../lib/mongo/db";
+import { fetchRadioStations } from "../radio/radio-cron";
 import { FetchFunction, SourceVariant } from "../types";
 import { loadSourceListsFromDB } from "./db-source-loader";
 
@@ -51,6 +52,7 @@ const functionMap = new Map<string, Function>([
 	[FetchFunction.RSS, fetchRSS],
 	[FetchFunction.YoutubeRSS, fetchYoutubeRSS],
 	[FetchFunction.Podcasts, fetchPodcasts],
+	[FetchFunction.RadioScripts, fetchRadioStations],
 ]);
 
 export function getFetchFunction(

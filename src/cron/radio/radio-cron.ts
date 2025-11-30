@@ -4,6 +4,9 @@ import { fetchNewsRadioStations } from "../../api/radio-browser";
 import { radioBrowserApiCallback } from "../../api/radio-browser/callback";
 import { UnknownObject } from "../../types/article/item";
 
+export const fetchRadioStations = async (options: Options) =>
+	runScripts(options);
+
 type Options = UnknownObject;
 export const runScripts = async (options: Options) => {
 	// Example params for fetching radio stations

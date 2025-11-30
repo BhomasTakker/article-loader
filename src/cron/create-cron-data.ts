@@ -3,7 +3,7 @@ import { getFetchFunction } from "./rss/utils";
 import { FetchFunction, TimeFunction } from "./types";
 
 type CreateCronJobDataParams = {
-	fetchFunctionData: any; // typeof fecthFunctionData;
+	fetchFunctionData: any; // typeof fecthFunctionData; / argument for fetch data function
 	timeFunction: TimeFunction;
 	timeParams: number[];
 	fetchFunction: FetchFunction;
