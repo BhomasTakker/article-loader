@@ -131,52 +131,52 @@ describe("Cron Times", () => {
 
 	describe("everyNDays", () => {
 		it("should generate cron expression for every day with default values", () => {
-			const result = everyNDays({ day: 1 });
+			const result = everyNDays(1);
 			expect(result).toBe("0 0 0 */1 * *");
 		});
 
 		it("should generate cron expression for every 2 days", () => {
-			const result = everyNDays({ day: 2 });
+			const result = everyNDays(2);
 			expect(result).toBe("0 0 0 */2 * *");
 		});
 
 		it("should generate cron expression for every 7 days (weekly)", () => {
-			const result = everyNDays({ day: 7 });
+			const result = everyNDays(7);
 			expect(result).toBe("0 0 0 */7 * *");
 		});
 
 		it("should generate cron expression with custom hour", () => {
-			const result = everyNDays({ day: 1, hour: 14 });
+			const result = everyNDays(1, 14);
 			expect(result).toBe("0 0 14 */1 * *");
 		});
 
 		it("should generate cron expression with custom minute", () => {
-			const result = everyNDays({ day: 1, minute: 30 });
+			const result = everyNDays(1, 0, 30);
 			expect(result).toBe("0 30 0 */1 * *");
 		});
 
 		it("should generate cron expression with custom second", () => {
-			const result = everyNDays({ day: 1, second: 45 });
+			const result = everyNDays(1, 0, 0, 45);
 			expect(result).toBe("45 0 0 */1 * *");
 		});
 
 		it("should generate cron expression with all custom values", () => {
-			const result = everyNDays({ day: 3, hour: 15, minute: 30, second: 45 });
+			const result = everyNDays(3, 15, 30, 45);
 			expect(result).toBe("45 30 15 */3 * *");
 		});
 
 		it("should handle edge cases for time values", () => {
-			const result = everyNDays({ day: 1, hour: 23, minute: 59, second: 59 });
+			const result = everyNDays(1, 23, 59, 59);
 			expect(result).toBe("59 59 23 */1 * *");
 		});
 
 		it("should handle minimum values", () => {
-			const result = everyNDays({ day: 1, hour: 0, minute: 0, second: 0 });
+			const result = everyNDays(1, 0, 0, 0);
 			expect(result).toBe("0 0 0 */1 * *");
 		});
 
 		it("should generate cron expression for every 30 days (monthly-ish)", () => {
-			const result = everyNDays({ day: 30, hour: 12 });
+			const result = everyNDays(30, 12);
 			expect(result).toBe("0 0 12 */30 * *");
 		});
 	});
@@ -260,7 +260,7 @@ describe("Cron Times", () => {
 			const cronPatterns = [
 				staggerMinutes(15, 0),
 				staggerSeconds(30, 5),
-				everyNDays({ day: 1 }),
+				everyNDays(1),
 				everyNthHour(6, 30, 15),
 			];
 
@@ -293,8 +293,8 @@ describe("Cron Times", () => {
 			const result2 = staggerMinutes(10, 5);
 			expect(result1).toBe(result2);
 
-			const result3 = everyNDays({ day: 2, hour: 14, minute: 30 });
-			const result4 = everyNDays({ day: 2, hour: 14, minute: 30 });
+			const result3 = everyNDays(2, 14, 30);
+			const result4 = everyNDays(2, 14, 30);
 			expect(result3).toBe(result4);
 		});
 	});
