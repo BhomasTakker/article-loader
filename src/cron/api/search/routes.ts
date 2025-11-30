@@ -1,4 +1,11 @@
-export const ROUTES_1 = ["/", "/uk", "/us", "/ukraine", "/world"];
+export const ROUTES_1 = [
+	"/uk",
+	"/us",
+	"/ukraine",
+	"/world",
+	"/features",
+	"/business",
+];
 
 export const WORLD_FEATURES = [
 	"/world/pope-leo",
