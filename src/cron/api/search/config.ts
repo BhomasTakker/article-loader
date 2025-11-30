@@ -26,24 +26,3 @@ export const createPageQueriesConfigData = async () => {
 		],
 	};
 };
-
-// remove routes from this - we should do all
-export const pageQueriesCronConfig: CronConfig = {
-	id: "Search Queries",
-	cron: [
-		{
-			time: staggerMinutes(15, 14, 0),
-			fetchFn: () =>
-				executeAndCacheQueriesFromPage(
-					[API_PROVIDERS.ARTICLES_SEARCH_API],
-					ROUTES_1
-				),
-			onComplete: () => {},
-		},
-		{
-			time: staggerMinutes(15, 14, 30),
-			fetchFn: () => pingApp(ROUTES_1),
-			onComplete: () => {},
-		},
-	],
-};
