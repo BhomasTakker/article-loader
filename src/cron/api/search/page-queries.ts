@@ -75,20 +75,8 @@ export const executeAndCacheQueriesFromPage = async (
 	await connectToMongoDB();
 	const pageRoutes = await getPageRoutes();
 
+	// Filter removed - but we should filter by live page etc
 	const pagePromises = pageRoutes.map(async (route) => {
-		let cacheRoute = false;
-		// filter here is useless.
-		// We need alive/published or similar check
-		// we are filtering by '/' which returns true for everything
-		filter.forEach((f) => {
-			if (route.includes(f)) {
-				cacheRoute = true;
-			}
-		});
-		if (cacheRoute === false) {
-			return Promise.resolve(null);
-		}
-
 		const pageDocument = getPageByRoute(route);
 		pageDocument.then((page) => {
 			if (!page) return Promise.resolve(null);
@@ -111,7 +99,8 @@ export const executeAndCacheQueriesFromPage = async (
 	await Promise.all(pagePromises);
 };
 
-export const pingRoutes = async (includes: string[]) => {
+export const pingRoutes = async (args: [includes: string[]]) => {
+	const [includes] = args;
 	await pingApp(includes);
 };
 
@@ -132,6 +121,7 @@ export const pingApp = async (includes: string[]) => {
 				shouldPing = true;
 			}
 		});
+
 		if (!shouldPing) return Promise.resolve(null);
 
 		return fetch(`https://datatattat.com${route}`, {
