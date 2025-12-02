@@ -3,7 +3,17 @@ import { SourceVariant, TimeFunction, FetchFunction, CronType } from "../types";
 export const UKRSSCronQueriesConfig = {
 	id: "UK RSS Cron Queries",
 	type: CronType.RSS,
-	cron: [
+	test_cron: [
+		{
+			titles: ["UK National Articles 1"],
+			variant: SourceVariant.ARTICLE,
+			timeFunction: TimeFunction.StaggerSeconds,
+			timeParams: [30],
+			fetchFunction: FetchFunction.RSS,
+			onComplete: () => {},
+		},
+	],
+	test: [
 		{
 			titles: [
 				"UK National Articles 1",
