@@ -26,15 +26,6 @@ export const initCronJobs = (config: CronConfig) => {
 	});
 };
 
-// Assuming you get a list from the db
-const CRON_IDS = [
-	"RSS Cron Queries",
-	// "UK RSS Cron Queries",
-	// "Podcast RSS Cron Queries",
-	// "Page Queries Cron",
-	// "Radio Cron Queries",
-];
-
 const createRssCronJob = async (configData: RSSCronJobConfig) => {
 	const { titles, variant, timeFunction, timeParams, fetchFunction } =
 		configData;
@@ -54,13 +45,13 @@ const createApiCronJob = async (configData: APICronJobConfig) => {
 	const { timeFunction, timeParams, fetchFunction, fetchFunctionData } =
 		configData;
 
-	return {
+	return Promise.resolve({
 		fetchFunctionData,
 		timeFunction,
 		timeParams,
 		fetchFunction,
 		onComplete: () => {},
-	};
+	});
 };
 
 type CronTypeMapType = typeof createRssCronJob | typeof createApiCronJob;
@@ -76,9 +67,6 @@ const createCronJobsFromConfig = async (config: GenericCronConfig) => {
 	const createCronJob = CronTypeMap.get(type);
 
 	for (const jobConfig of cron) {
-		// perhaps get different job creators based on type
-		// Or pass in data fetcher by type etc
-
 		if (!createCronJob) {
 			// should log warning
 			// should return just data?
@@ -95,21 +83,27 @@ const createCronJobsFromConfig = async (config: GenericCronConfig) => {
 		cron: jobs,
 	};
 };
+// Assuming you get a list from the db
+const CRON_IDS = [
+	RSSCronQueriesConfig.id,
+	UKRSSCronQueriesConfig.id,
+	podcastRSSCronQueriesConfig.id,
+	pageQueriesCronConfig.id,
+	radioCronConfig.id,
+];
+// Would be a get from db in reality
+const tempConfigMap = new Map<string, GenericCronConfig>([
+	[RSSCronQueriesConfig.id, RSSCronQueriesConfig],
+	[UKRSSCronQueriesConfig.id, UKRSSCronQueriesConfig],
+	[podcastRSSCronQueriesConfig.id, podcastRSSCronQueriesConfig],
+	[pageQueriesCronConfig.id, pageQueriesCronConfig],
+	[radioCronConfig.id, radioCronConfig],
+]);
 
 export const initialiseCronJobs = async () => {
-	// initCronJobs(await createRssCronConfigData());
-	// Something like this for each config
-	initCronJobs(await createCronJobsFromConfig(RSSCronQueriesConfig));
-
-	initCronJobs(await createCronJobsFromConfig(UKRSSCronQueriesConfig));
-
-	initCronJobs(await createCronJobsFromConfig(podcastRSSCronQueriesConfig));
-
-	initCronJobs(await createCronJobsFromConfig(pageQueriesCronConfig));
-
-	initCronJobs(await createCronJobsFromConfig(radioCronConfig));
-
-	CRON_IDS.forEach(async (id) => {
-		console.log(`Initialized cron job with ID: ${id}`);
-	});
+	for (const id of CRON_IDS) {
+		const config = tempConfigMap.get(id);
+		if (!config) continue;
+		initCronJobs(await createCronJobsFromConfig(config));
+	}
 };
