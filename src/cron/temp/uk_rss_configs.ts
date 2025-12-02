@@ -13,7 +13,7 @@ export const UKRSSCronQueriesConfig = {
 			onComplete: () => {},
 		},
 	],
-	test: [
+	cron: [
 		{
 			titles: [
 				"UK National Articles 1",
