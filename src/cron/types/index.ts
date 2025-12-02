@@ -43,3 +43,8 @@ export enum FetchFunction {
 	PageQueries = "fetchPageQueries",
 	PingRoutes = "pingRoutes",
 }
+
+export enum CronType {
+	RSS = "rss",
+	API = "api",
+}
