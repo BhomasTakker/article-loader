@@ -1,10 +1,10 @@
 import { API_PROVIDERS } from "../api/search";
 import { ROUTES_1 } from "../api/search/routes";
-import { TimeFunction, FetchFunction } from "../types";
+import { TimeFunction, FetchFunction, CronType } from "../types";
 
 export const pageQueriesCronConfig = {
 	id: "Cache Page Queries",
-	type: "api",
+	type: CronType.API,
 	cron: [
 		{
 			fetchFunctionData: [[API_PROVIDERS.ARTICLES_SEARCH_API], ROUTES_1],

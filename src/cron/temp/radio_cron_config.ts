@@ -1,8 +1,8 @@
-import { TimeFunction, FetchFunction } from "../types";
+import { TimeFunction, FetchFunction, CronType } from "../types";
 
 export const radioCronConfig = {
 	id: "Radio Cron Config",
-	type: "api",
+	type: CronType.API,
 	cron: [
 		{
 			fetchFunctionData: { limit: 100, offset: 0 },
