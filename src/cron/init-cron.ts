@@ -1,11 +1,12 @@
 import { createCron } from "./create-cron";
 import { loadSourceList } from "./rss/utils";
 import {
+	APICronJobConfig,
 	CronConfig,
 	CronJob,
 	CronType,
-	FetchFunction,
-	TimeFunction,
+	GenericCronConfig,
+	RSSCronJobConfig,
 } from "./types";
 import { createCronJobData } from "./create-cron-data";
 import { RSSCronQueriesConfig } from "./temp/rss_config";
@@ -34,7 +35,7 @@ const CRON_IDS = [
 	// "Radio Cron Queries",
 ];
 
-const createRssCronJob = async (configData: any) => {
+const createRssCronJob = async (configData: RSSCronJobConfig) => {
 	const { titles, variant, timeFunction, timeParams, fetchFunction } =
 		configData;
 	const data = await loadSourceList(titles, variant);
@@ -49,21 +50,15 @@ const createRssCronJob = async (configData: any) => {
 	};
 };
 
-type CreateApiCronJobParams = {
-	cronType: TimeFunction;
-	cronTime: number[];
-	fetchType: FetchFunction;
-	fetchFunctionData: any;
-};
-
-const createApiCronJob = async (configData: CreateApiCronJobParams) => {
-	const { cronType, cronTime, fetchType, fetchFunctionData } = configData;
+const createApiCronJob = async (configData: APICronJobConfig) => {
+	const { timeFunction, timeParams, fetchFunction, fetchFunctionData } =
+		configData;
 
 	return {
 		fetchFunctionData,
-		timeFunction: cronType,
-		timeParams: cronTime,
-		fetchFunction: fetchType,
+		timeFunction,
+		timeParams,
+		fetchFunction,
 		onComplete: () => {},
 	};
 };
@@ -75,7 +70,7 @@ const CronTypeMap = new Map<CronType, CronTypeMapType>([
 	[CronType.API, createApiCronJob], // Example for other types
 ]);
 
-const createCronJobsFromConfig = async (config: any) => {
+const createCronJobsFromConfig = async (config: GenericCronConfig) => {
 	const { cron, type } = config;
 	const jobs = [];
 	const createCronJob = CronTypeMap.get(type);
@@ -91,7 +86,7 @@ const createCronJobsFromConfig = async (config: any) => {
 			continue;
 		}
 
-		const job = await createCronJob(jobConfig);
+		const job = await createCronJob(jobConfig as any);
 		jobs.push(await createCronJobData(job));
 	}
 
