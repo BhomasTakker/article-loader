@@ -100,7 +100,7 @@ export const initialiseCronJobs = async () => {
 	// initCronJobs(await createRssCronConfigData());
 	// Something like this for each config
 	initCronJobs(await createCronJobsFromConfig(RSSCronQueriesConfig));
-	// initCronJobs(await createUkRssCronConfigData());
+
 	initCronJobs(await createCronJobsFromConfig(UKRSSCronQueriesConfig));
 
 	initCronJobs(await createCronJobsFromConfig(podcastRSSCronQueriesConfig));
