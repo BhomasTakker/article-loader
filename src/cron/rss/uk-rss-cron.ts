@@ -5,22 +5,22 @@ import { loadSourceList } from "./utils";
 export const createUkRssCronConfigData = async () => {
 	return {
 		id: "RSS Test Cron Queries",
-		cron_test: [
-			await createCronJobData({
-				fetchFunctionData: await loadSourceList(
-					[
-						"UK National Articles 1",
-						"UK National Articles 2",
-						"UK National Articles 3",
-					],
-					SourceVariant.ARTICLE
-				),
-				timeFunction: TimeFunction.StaggerSeconds,
-				timeParams: [30, 0, 0],
-				fetchFunction: FetchFunction.YoutubeRSS,
-				onComplete: () => {},
-			}),
-		],
+		// cron_test: [
+		// 	await createCronJobData({
+		// 		fetchFunctionData: await loadSourceList(
+		// 			[
+		// 				"UK National Articles 1",
+		// 				"UK National Articles 2",
+		// 				"UK National Articles 3",
+		// 			],
+		// 			SourceVariant.ARTICLE
+		// 		),
+		// 		timeFunction: TimeFunction.StaggerSeconds,
+		// 		timeParams: [30, 0, 0],
+		// 		fetchFunction: FetchFunction.YoutubeRSS,
+		// 		onComplete: () => {},
+		// 	}),
+		// ],
 		cron: [
 			await createCronJobData({
 				fetchFunctionData: await loadSourceList(
