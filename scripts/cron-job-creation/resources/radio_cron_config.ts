@@ -1,4 +1,4 @@
-import { TimeFunction, FetchFunction, CronType } from "../types";
+import { TimeFunction, FetchFunction, CronType } from "../../../src/cron/types";
 
 export const radioCronConfig = {
 	id: "Radio Cron Config",

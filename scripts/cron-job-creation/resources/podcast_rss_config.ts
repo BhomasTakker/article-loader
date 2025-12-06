@@ -1,4 +1,9 @@
-import { SourceVariant, TimeFunction, FetchFunction, CronType } from "../types";
+import {
+	SourceVariant,
+	TimeFunction,
+	FetchFunction,
+	CronType,
+} from "../../../src/cron/types";
 
 export const podcastRSSCronQueriesConfig = {
 	id: "Podcast RSS Cron Queries",

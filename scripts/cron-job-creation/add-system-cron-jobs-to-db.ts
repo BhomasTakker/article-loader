@@ -1,12 +1,12 @@
 // "script": "npx ts-node scripts/add-system-cron-jobs-to-db.ts",
 
-import { connectToMongoDB } from "../src/lib/mongo/db";
-import CronJobModel from "../src/models/CronJob";
-import { RSSCronQueriesConfig } from "../src/cron/temp/rss_config";
-import { UKRSSCronQueriesConfig } from "../src/cron/temp/uk_rss_configs";
-import { podcastRSSCronQueriesConfig } from "../src/cron/temp/podcast_rss_config";
-import { pageQueriesCronConfig } from "../src/cron/temp/page_queries_config";
-import { radioCronConfig } from "../src/cron/temp/radio_cron_config";
+import { connectToMongoDB } from "../../src/lib/mongo/db";
+import CronJobModel from "../../src/models/CronJob";
+import { RSSCronQueriesConfig } from "./resources/rss_config";
+import { UKRSSCronQueriesConfig } from "./resources/uk_rss_configs";
+import { podcastRSSCronQueriesConfig } from "./resources/podcast_rss_config";
+import { pageQueriesCronConfig } from "./resources/page_queries_config";
+import { radioCronConfig } from "./resources/radio_cron_config";
 
 const cronConfigs = [
 	RSSCronQueriesConfig,

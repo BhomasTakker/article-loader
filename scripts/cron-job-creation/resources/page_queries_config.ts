@@ -1,6 +1,6 @@
-import { API_PROVIDERS } from "../api/search";
-import { ROUTES_1 } from "../api/search/routes";
-import { TimeFunction, FetchFunction, CronType } from "../types";
+import { API_PROVIDERS } from "../../../src/cron/api/search";
+import { ROUTES_1 } from "../../../src/cron/api/search/routes";
+import { TimeFunction, FetchFunction, CronType } from "../../../src/cron/types";
 
 export const pageQueriesCronConfig = {
 	id: "Cache Page Queries",
