@@ -101,9 +101,9 @@ const tempConfigMap = new Map<string, GenericCronConfig>([
 ]);
 
 export const initialiseCronJobs = async () => {
-	for (const id of CRON_IDS) {
+	CRON_IDS.forEach(async (id) => {
 		const config = tempConfigMap.get(id);
-		if (!config) continue;
+		if (!config) return;
 		initCronJobs(await createCronJobsFromConfig(config));
-	}
+	});
 };
