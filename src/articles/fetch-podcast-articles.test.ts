@@ -8,7 +8,7 @@ import { saveArticle } from "./save";
 import { filterLimit } from "../utils";
 import { logMemoryUsage } from "../lib/mem";
 import { convertDurationToSeconds } from "./utils";
-import { ExtraData } from "../../sources/news/articles/types";
+import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
 

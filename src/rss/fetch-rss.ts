@@ -1,4 +1,4 @@
-import { ArticleSource, ExtraData } from "../../sources/news/articles/types";
+import { ArticleSource, ExtraData } from "../types/types";
 import { filterLimit, mergeStringOrArray } from "../utils";
 import { FetchArticles } from "../articles/fetch-articles";
 import { GetCollection } from "../collections/get-collection";

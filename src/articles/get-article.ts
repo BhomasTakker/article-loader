@@ -4,7 +4,7 @@ import {
 	saveOrCreateArticleBySrc,
 } from "../lib/mongo/actions/article";
 import { getMeta } from "../html/get-meta";
-import { ExtraData } from "../../sources/news/articles/types";
+import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
 import { mergeStringOrArray } from "../utils";
 
@@ -37,6 +37,7 @@ export const convertRssItem = (data: RSSItem) => {
 	const { url = "" } = enclosure || {};
 	const contentEncoded = data["content:encoded"];
 
+	// we need to test this properly
 	const parsedUrl = new URL(link);
 	const strippedUrl = stripQueryStringFromUrl(parsedUrl);
 

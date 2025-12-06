@@ -11,7 +11,7 @@ import {
 import { getMeta } from "../html/get-meta";
 import { mergeStringOrArray } from "../utils";
 import { RSSItem } from "../types/article/item";
-import { ExtraData } from "../../sources/news/articles/types";
+import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
 
 // Mock the dependencies

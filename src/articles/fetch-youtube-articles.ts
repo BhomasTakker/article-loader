@@ -1,4 +1,4 @@
-import { ExtraData } from "../../sources/news/articles/types";
+import { ExtraData } from "../types/types";
 import { deepMerge, filterLimit } from "../utils";
 import Article from "../models/Article";
 import { RSSItem } from "../types/article/item";

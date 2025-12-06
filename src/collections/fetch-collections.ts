@@ -1,4 +1,4 @@
-import { SourceObject } from "../../sources/news/articles/types";
+import { SourceObject } from "../types/types";
 import { FetchArticles } from "../articles/fetch-articles";
 import { connectToMongoDB } from "../lib/mongo/db";
 import { fetchRss } from "../rss/fetch-rss";
