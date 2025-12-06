@@ -1,4 +1,4 @@
-import { ExtraData } from "../../sources/news/articles/types";
+import { ExtraData } from "../types/types";
 import { RSSItem, UnknownObject } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { getArticle } from "./get-article";

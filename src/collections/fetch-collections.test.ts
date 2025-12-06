@@ -2,7 +2,7 @@ import { fetchCollections } from "./fetch-collections";
 import { connectToMongoDB } from "../lib/mongo/db";
 import { fetchRss } from "../rss/fetch-rss";
 import { Service, ServiceState } from "../service";
-import { SourceObject } from "../../sources/news/articles/types";
+import { SourceObject } from "../types/types";
 
 // Mock all dependencies
 jest.mock("../lib/mongo/db");

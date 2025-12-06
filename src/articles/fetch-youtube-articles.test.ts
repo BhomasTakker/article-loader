@@ -6,7 +6,7 @@ import {
 import { saveArticle } from "./save";
 import { filterLimit, deepMerge } from "../utils";
 import Article from "../models/Article";
-import { ExtraData } from "../../sources/news/articles/types";
+import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
 

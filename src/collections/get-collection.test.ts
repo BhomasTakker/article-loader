@@ -8,7 +8,7 @@ import {
 import { saveOrCreateArticleCollectionByFeed } from "../lib/mongo/actions/articleCollection";
 import { DataResponse } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
-import { ExtraData } from "../../sources/news/articles/types";
+import { ExtraData } from "../types/types";
 import { RSSArticleCollection } from "../types/rss";
 
 // Mock the mongo action

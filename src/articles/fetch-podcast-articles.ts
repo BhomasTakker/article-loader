@@ -1,4 +1,4 @@
-import { ExtraData } from "../../sources/news/articles/types";
+import { ExtraData } from "../types/types";
 import { filterLimit } from "../utils";
 import { logMemoryUsage } from "../lib/mem";
 import { CollectionItem } from "../types/article/item";

@@ -1,7 +1,7 @@
 import { fetchArticles, FetchArticles } from "./fetch-articles";
 import { getArticle } from "./get-article";
 import { RSSItem } from "../types/article/item";
-import { ExtraData } from "../../sources/news/articles/types";
+import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
 
 // Mock the getArticle dependency

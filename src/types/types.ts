@@ -1,4 +1,4 @@
-import { UnknownObject } from "../../../src/types/article/item";
+import { UnknownObject } from "./article/item";
 
 export type ArticleSource = {
 	name: string;
