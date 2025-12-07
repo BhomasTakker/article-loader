@@ -4,7 +4,7 @@ import { apiKeyAuth } from "./middleware";
 
 export const articleRoute = Router();
 
-articleRoute.get("/get", apiKeyAuth, async (req, res) => {
+articleRoute.get("/get", async (req, res) => {
 	try {
 		const { src, title, id } = req.query;
 
@@ -37,7 +37,7 @@ articleRoute.get("/get", apiKeyAuth, async (req, res) => {
 });
 
 // Update article
-articleRoute.put("/update/:id", apiKeyAuth, async (req, res) => {
+articleRoute.put("/update/:id", async (req, res) => {
 	try {
 		const allowedUpdates = ["variant", "media", "disabled", "ttl"];
 
@@ -67,7 +67,7 @@ articleRoute.put("/update/:id", apiKeyAuth, async (req, res) => {
 });
 
 // Disable/Enable article (soft delete)
-articleRoute.patch("/disable/:id", apiKeyAuth, async (req, res) => {
+articleRoute.patch("/disable/:id", async (req, res) => {
 	try {
 		const { disabled = true } = req.body;
 
@@ -91,7 +91,7 @@ articleRoute.patch("/disable/:id", apiKeyAuth, async (req, res) => {
 });
 
 // Set TTL for article
-articleRoute.patch("/ttl/:id", apiKeyAuth, async (req, res) => {
+articleRoute.patch("/ttl/:id", async (req, res) => {
 	try {
 		const { ttl } = req.body;
 
@@ -121,7 +121,7 @@ articleRoute.patch("/ttl/:id", apiKeyAuth, async (req, res) => {
 });
 
 // Delete article (hard delete)
-articleRoute.delete("/delete/:id", apiKeyAuth, async (req, res) => {
+articleRoute.delete("/delete/:id", async (req, res) => {
 	try {
 		const article = await Article.findByIdAndDelete(req.params.id)
 			.populate("provider")
