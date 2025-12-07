@@ -96,6 +96,12 @@ type Temp = {
 	duration?: number;
 };
 
+type Management = {
+	disabled?: boolean;
+	// Would you add this here?
+	ttl?: number; // Time-to-live in seconds or timestamp
+};
+
 export type BaseInfo = {
 	title: string;
 	src: string; // URL format
@@ -103,7 +109,8 @@ export type BaseInfo = {
 	guid: string;
 	variant: string; // union
 	// use for youtube, podcast/mp3, etc?
-} & Temp;
+} & Temp &
+	Management;
 
 export type Details = {
 	docs?: string[];
