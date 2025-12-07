@@ -5,8 +5,8 @@ import { initApiRoutes } from "./routes/api-routes";
 import { initialiseCronJobs } from "./src/cron/init-cron";
 import { initialiseExpress, startServer } from "./src/services/express";
 import { getEnv } from "./src/services/env";
-import { initCMSRoutes } from "./routes/cms";
 import { connectToMongoDB } from "./src/lib/mongo/db";
+import { initRoutes } from "./routes";
 
 require("dotenv").config();
 
@@ -24,7 +24,7 @@ export const initialiseServer = async () => {
 	isApiRoute && initApiRoutes(app);
 	isRSSCron && (await initialiseCronJobs());
 
-	initCMSRoutes(app);
+	initRoutes(app);
 
 	// Start server AFTER routes are initialized
 	startServer(app);
