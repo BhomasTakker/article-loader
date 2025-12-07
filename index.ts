@@ -6,12 +6,15 @@ import { initialiseCronJobs } from "./src/cron/init-cron";
 import { initialiseExpress, startServer } from "./src/services/express";
 import { getEnv } from "./src/services/env";
 import { initCMSRoutes } from "./routes/cms";
+import { connectToMongoDB } from "./src/lib/mongo/db";
 
 require("dotenv").config();
 
 export const initialiseServer = async () => {
+	// Connect to MongoDB once at startup
+	await connectToMongoDB();
+
 	const app = initialiseExpress();
-	startServer(app);
 
 	const { isRssRoute, isApiRoute, isCron, isApiCron, isRSSCron } = getEnv();
 	logMemoryUsage();
@@ -19,10 +22,12 @@ export const initialiseServer = async () => {
 	// We can maybe do away with this?
 	// We aren't using it for anything
 	isApiRoute && initApiRoutes(app);
+	isRSSCron && (await initialiseCronJobs());
 
 	initCMSRoutes(app);
 
-	await initialiseCronJobs();
+	// Start server AFTER routes are initialized
+	startServer(app);
 };
 
 initialiseServer();
