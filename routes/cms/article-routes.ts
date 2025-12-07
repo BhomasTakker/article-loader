@@ -1,9 +1,10 @@
 import { Express } from "express";
 import Article from "../../src/models/Article";
+import { apiKeyAuth } from "./middleware";
 
 export const initArticleRoutes = (app: Express) => {
 	// Get article by source URL, title, or ID (use query param: ?src=... or ?title=... or ?id=...)
-	app.get("/cms/articles/get", async (req, res) => {
+	app.get("/cms/articles/get", apiKeyAuth, async (req, res) => {
 		try {
 			const { src, title, id } = req.query;
 
@@ -16,12 +17,12 @@ export const initArticleRoutes = (app: Express) => {
 
 			let article;
 			if (id) {
-				article = await Article.findById(id).populate("provider");
+				article = await Article.findById(id).populate("provider").lean();
 			} else {
 				const query: any = {};
 				if (src) query.src = src;
 				if (title) query.title = title;
-				article = await Article.findOne(query).populate("provider");
+				article = await Article.findOne(query).populate("provider").lean();
 			}
 
 			if (!article) {
@@ -36,7 +37,7 @@ export const initArticleRoutes = (app: Express) => {
 	});
 
 	// Update article
-	app.put("/cms/articles/:id", async (req, res) => {
+	app.put("/cms/articles/:id/update", apiKeyAuth, async (req, res) => {
 		try {
 			const allowedUpdates = ["variant", "media", "disabled", "ttl"];
 
@@ -50,7 +51,9 @@ export const initArticleRoutes = (app: Express) => {
 			const article = await Article.findByIdAndUpdate(req.params.id, updates, {
 				new: true,
 				runValidators: true,
-			}).populate("provider");
+			})
+				.populate("provider")
+				.lean();
 
 			if (!article) {
 				res.status(404).json({ error: "Article not found" });
@@ -64,7 +67,7 @@ export const initArticleRoutes = (app: Express) => {
 	});
 
 	// Disable/Enable article (soft delete)
-	app.patch("/cms/articles/:id/disable", async (req, res) => {
+	app.patch("/cms/articles/:id/disable", apiKeyAuth, async (req, res) => {
 		try {
 			const { disabled = true } = req.body;
 
@@ -72,7 +75,9 @@ export const initArticleRoutes = (app: Express) => {
 				req.params.id,
 				{ disabled: disabled },
 				{ new: true, runValidators: true }
-			).populate("provider");
+			)
+				.populate("provider")
+				.lean();
 
 			if (!article) {
 				res.status(404).json({ error: "Article not found" });
@@ -86,7 +91,7 @@ export const initArticleRoutes = (app: Express) => {
 	});
 
 	// Set TTL for article
-	app.patch("/cms/articles/:id/ttl", async (req, res) => {
+	app.patch("/cms/articles/:id/ttl", apiKeyAuth, async (req, res) => {
 		try {
 			const { ttl } = req.body;
 
@@ -100,7 +105,9 @@ export const initArticleRoutes = (app: Express) => {
 				req.params.id,
 				{ ttl: ttl },
 				{ new: true, runValidators: true }
-			).populate("provider");
+			)
+				.populate("provider")
+				.lean();
 
 			if (!article) {
 				res.status(404).json({ error: "Article not found" });
@@ -114,9 +121,11 @@ export const initArticleRoutes = (app: Express) => {
 	});
 
 	// Delete article (hard delete)
-	app.delete("/cms/articles/:id", async (req, res) => {
+	app.delete("/cms/articles/:id/delete", apiKeyAuth, async (req, res) => {
 		try {
-			const article = await Article.findByIdAndDelete(req.params.id);
+			const article = await Article.findByIdAndDelete(req.params.id)
+				.populate("provider")
+				.lean();
 
 			if (!article) {
 				res.status(404).json({ error: "Article not found" });
