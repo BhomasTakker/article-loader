@@ -1,6 +1,5 @@
-import { Express, Router } from "express";
+import { Router } from "express";
 import Article from "../../src/models/Article";
-import { apiKeyAuth } from "./middleware";
 
 export const articleRoute = Router();
 
