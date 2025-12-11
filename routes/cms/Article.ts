@@ -1,18 +1,12 @@
 import { Router } from "express";
 import Article from "../../src/models/Article";
+import { validateSelectArticleQuery } from "./middleware";
 
 export const articleRoute = Router();
 
-articleRoute.get("/get", async (req, res) => {
+articleRoute.get("/get", validateSelectArticleQuery, async (req, res) => {
 	try {
 		const { src, title, id } = req.query;
-
-		if (!src && !title && !id) {
-			res.status(400).json({
-				error: "Please provide 'src', 'title', or 'id' query parameter",
-			});
-			return;
-		}
 
 		let article;
 		if (id) {
