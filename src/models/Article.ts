@@ -53,11 +53,11 @@ const ArticleSchema = new Schema<CollectionItem>(
 		title: {
 			type: String,
 			required: [true, "Please provide a title."],
-			unique: [true, "Title must be unique"],
 		},
 		src: {
 			type: String,
 			required: [true, "Please provide a src."],
+			unique: true,
 		},
 		description: {
 			type: String,
