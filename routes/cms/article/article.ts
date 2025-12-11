@@ -1,6 +1,6 @@
 import { Router } from "express";
-import Article from "../../src/models/Article";
-import { validateSelectArticleQuery } from "./middleware";
+import Article from "../../../src/models/Article";
+import { validateSelectArticleQuery } from "../middleware";
 
 export const articleRoute = Router();
 

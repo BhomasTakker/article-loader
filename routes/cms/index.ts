@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { articleRoute } from "./Article";
+import { articleRoute } from "./article/article";
 import { apiKeyAuth } from "./middleware";
 
 export const cmsRoute = Router();
