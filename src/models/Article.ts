@@ -53,11 +53,11 @@ const ArticleSchema = new Schema<CollectionItem>(
 		title: {
 			type: String,
 			required: [true, "Please provide a title."],
-			unique: [true, "Title must be unique"],
 		},
 		src: {
 			type: String,
 			required: [true, "Please provide a src."],
+			unique: true,
 		},
 		description: {
 			type: String,
@@ -87,6 +87,15 @@ const ArticleSchema = new Schema<CollectionItem>(
 		duration: {
 			type: Number,
 		},
+		// Management fields
+		disabled: {
+			type: Boolean,
+			default: false,
+		},
+		// We would like to be able to remove error articles after a certain time
+		// ttl: {
+		// 	type: Number, // Time-to-live in seconds or timestamp
+		// },
 	},
 	{ timestamps: true }
 );

@@ -96,6 +96,10 @@ type Temp = {
 	duration?: number;
 };
 
+type Management = {
+	disabled?: boolean;
+};
+
 export type BaseInfo = {
 	title: string;
 	src: string; // URL format
@@ -103,7 +107,8 @@ export type BaseInfo = {
 	guid: string;
 	variant: string; // union
 	// use for youtube, podcast/mp3, etc?
-} & Temp;
+} & Temp &
+	Management;
 
 export type Details = {
 	docs?: string[];
