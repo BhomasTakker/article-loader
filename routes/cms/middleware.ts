@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import Article from "../../src/models/Article";
 
 export const apiKeyAuth = (req: Request, res: Response, next: NextFunction) => {
 	const apiKey = req.headers["x-api-key"];
