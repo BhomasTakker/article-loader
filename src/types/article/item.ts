@@ -98,8 +98,6 @@ type Temp = {
 
 type Management = {
 	disabled?: boolean;
-	// Would you add this here?
-	ttl?: number; // Time-to-live in seconds or timestamp
 };
 
 export type BaseInfo = {
