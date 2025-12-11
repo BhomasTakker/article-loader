@@ -38,7 +38,7 @@ articleRoute.get("/get", async (req, res) => {
 // Update article
 articleRoute.put("/update/:id", async (req, res) => {
 	try {
-		const allowedUpdates = ["variant", "media", "disabled", "ttl"];
+		const allowedUpdates = ["variant", "media", "disabled"];
 
 		const updates: any = {};
 		Object.keys(req.body).forEach((key) => {

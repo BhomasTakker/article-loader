@@ -92,9 +92,10 @@ const ArticleSchema = new Schema<CollectionItem>(
 			type: Boolean,
 			default: false,
 		},
-		ttl: {
-			type: Number, // Time-to-live in seconds or timestamp
-		},
+		// We would like to be able to remove error articles after a certain time
+		// ttl: {
+		// 	type: Number, // Time-to-live in seconds or timestamp
+		// },
 	},
 	{ timestamps: true }
 );
