@@ -65,60 +65,6 @@ articleRoute.put("/update/:id", async (req, res) => {
 	}
 });
 
-// Disable/Enable article (soft delete)
-articleRoute.patch("/disable/:id", async (req, res) => {
-	try {
-		const { disabled = true } = req.body;
-
-		const article = await Article.findByIdAndUpdate(
-			req.params.id,
-			{ disabled: disabled },
-			{ new: true, runValidators: true }
-		)
-			.populate("provider")
-			.lean();
-
-		if (!article) {
-			res.status(404).json({ error: "Article not found" });
-			return;
-		}
-
-		res.json(article);
-	} catch (error: any) {
-		res.status(400).json({ error: error.message });
-	}
-});
-
-// Set TTL for article
-articleRoute.patch("/ttl/:id", async (req, res) => {
-	try {
-		const { ttl } = req.body;
-
-		if (ttl === undefined || ttl === null) {
-			res.status(400).json({ error: "TTL value is required" });
-			return;
-		}
-
-		// TTL can be a timestamp or duration in seconds
-		const article = await Article.findByIdAndUpdate(
-			req.params.id,
-			{ ttl: ttl },
-			{ new: true, runValidators: true }
-		)
-			.populate("provider")
-			.lean();
-
-		if (!article) {
-			res.status(404).json({ error: "Article not found" });
-			return;
-		}
-
-		res.json(article);
-	} catch (error: any) {
-		res.status(400).json({ error: error.message });
-	}
-});
-
 // Delete article (hard delete)
 articleRoute.delete("/delete/:id", async (req, res) => {
 	try {
