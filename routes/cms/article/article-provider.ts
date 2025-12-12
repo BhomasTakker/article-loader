@@ -3,6 +3,80 @@ import ArticleProvider from "../../../src/models/ArticleProvider";
 
 export const articleProviderRoute = Router();
 
+// Get all article providers with filtering and pagination
+articleProviderRoute.get("/search", async (req, res) => {
+	try {
+		const {
+			name,
+			url,
+			origin,
+			leaning,
+			minRating,
+			maxRating,
+			page = "1",
+			limit = "10",
+			sortBy = "createdAt",
+			sortOrder = "desc",
+		} = req.query;
+
+		// Build filter query
+		const filter: any = {};
+
+		if (name) {
+			filter.name = { $regex: name, $options: "i" }; // Case-insensitive search
+		}
+
+		if (url) {
+			filter.url = { $regex: url, $options: "i" };
+		}
+
+		if (origin) {
+			filter.origin = { $regex: origin, $options: "i" };
+		}
+
+		if (leaning) {
+			filter.leaning = Number(leaning);
+		}
+
+		if (minRating !== undefined || maxRating !== undefined) {
+			filter.rating = {};
+			if (minRating !== undefined) {
+				filter.rating.$gte = Number(minRating);
+			}
+			if (maxRating !== undefined) {
+				filter.rating.$lte = Number(maxRating);
+			}
+		}
+
+		// Pagination
+		const pageNum = parseInt(page as string);
+		const limitNum = parseInt(limit as string);
+		const skip = (pageNum - 1) * limitNum;
+
+		// Sort
+		const sort: any = {};
+		sort[sortBy as string] = sortOrder === "asc" ? 1 : -1;
+
+		// Execute query
+		const [providers, total] = await Promise.all([
+			ArticleProvider.find(filter).sort(sort).skip(skip).limit(limitNum).lean(),
+			ArticleProvider.countDocuments(filter),
+		]);
+
+		res.json({
+			data: providers,
+			pagination: {
+				page: pageNum,
+				limit: limitNum,
+				total,
+				pages: Math.ceil(total / limitNum),
+			},
+		});
+	} catch (error: any) {
+		res.status(500).json({ error: error.message });
+	}
+});
+
 // Get single article provider
 articleProviderRoute.get("/get", async (req, res) => {
 	try {
