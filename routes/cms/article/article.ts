@@ -4,96 +4,110 @@ import { validateSelectArticleQuery } from "../middleware";
 
 export const articleRoute = Router();
 
+const addFilter = (filter: any, query: any) => {
+	const { title, src, variant, provider, disabled, minDuration, maxDuration } =
+		query;
+
+	if (title) {
+		filter.title = { $regex: title, $options: "i" }; // Case-insensitive search
+	}
+
+	if (src) {
+		filter.src = { $regex: src, $options: "i" };
+	}
+
+	if (variant) {
+		filter.variant = variant;
+	}
+
+	if (provider) {
+		filter.provider = provider;
+	}
+
+	if (disabled !== undefined) {
+		filter.disabled = disabled === "true";
+	}
+
+	if (minDuration !== undefined || maxDuration !== undefined) {
+		filter.duration = {};
+		if (minDuration !== undefined) {
+			filter.duration.$gte = Number(minDuration);
+		}
+		if (maxDuration !== undefined) {
+			filter.duration.$lte = Number(maxDuration);
+		}
+	}
+	return filter;
+};
+
+const addDetailsFilter = (filter: any, query: any) => {
+	// Details filters
+	const { category, author, publisher, region, coverage, language } = query;
+	// Details filters
+	if (category) {
+		filter["details.categories"] = { $regex: category, $options: "i" };
+	}
+
+	if (author) {
+		filter["details.authors"] = { $regex: author, $options: "i" };
+	}
+
+	if (publisher) {
+		filter["details.publishers"] = { $regex: publisher, $options: "i" };
+	}
+
+	if (region) {
+		filter["details.region"] = { $regex: region, $options: "i" };
+	}
+
+	if (coverage) {
+		const coverageArray = Array.isArray(coverage) ? coverage : [coverage];
+		filter["details.coverage"] = { $in: coverageArray };
+	}
+
+	if (language) {
+		filter["details.language"] = { $regex: language, $options: "i" };
+	}
+	return filter;
+};
+
+const createSort = (query: any) => {
+	const { sortBy = "createdAt", sortOrder = "desc" } = query;
+	////////////
+	// sort //
+	const sort: any = {};
+	const allowedSortFields = [
+		"createdAt",
+		"title",
+		"src",
+		"disabled",
+		"duration",
+	];
+	const safeSortBy = allowedSortFields.includes(sortBy as string)
+		? sortBy
+		: "createdAt";
+	sort[safeSortBy as string] = sortOrder === "asc" ? 1 : -1;
+
+	return sort;
+};
+
 // Search articles with filtering and pagination
 articleRoute.get("/search", async (req, res) => {
 	try {
-		const {
-			title,
-			src,
-			variant,
-			provider,
-			disabled,
-			minDuration,
-			maxDuration,
-			category,
-			author,
-			publisher,
-			region,
-			coverage,
-			language,
-			page = "1",
-			limit = "10",
-			sortBy = "createdAt",
-			sortOrder = "desc",
-		} = req.query;
+		const { page = "1", limit = "10" } = req.query;
 
-		// Build filter query
-		const filter: any = {};
-
-		if (title) {
-			filter.title = { $regex: title, $options: "i" }; // Case-insensitive search
-		}
-
-		if (src) {
-			filter.src = { $regex: src, $options: "i" };
-		}
-
-		if (variant) {
-			filter.variant = variant;
-		}
-
-		if (provider) {
-			filter.provider = provider;
-		}
-
-		if (disabled !== undefined) {
-			filter.disabled = disabled === "true";
-		}
-
-		if (minDuration !== undefined || maxDuration !== undefined) {
-			filter.duration = {};
-			if (minDuration !== undefined) {
-				filter.duration.$gte = Number(minDuration);
-			}
-			if (maxDuration !== undefined) {
-				filter.duration.$lte = Number(maxDuration);
-			}
-		}
-
-		// Details filters
-		if (category) {
-			filter["details.categories"] = { $regex: category, $options: "i" };
-		}
-
-		if (author) {
-			filter["details.authors"] = { $regex: author, $options: "i" };
-		}
-
-		if (publisher) {
-			filter["details.publishers"] = { $regex: publisher, $options: "i" };
-		}
-
-		if (region) {
-			filter["details.region"] = { $regex: region, $options: "i" };
-		}
-
-		if (coverage) {
-			filter["details.coverage"] = coverage;
-		}
-
-		if (language) {
-			filter["details.language"] = { $regex: language, $options: "i" };
-		}
+		// builder really
+		let filter = addFilter({}, req.query);
+		filter = addDetailsFilter(filter, req.query);
 
 		// Pagination
 		const pageNum = parseInt(page as string);
 		const limitNum = parseInt(limit as string);
 		const skip = (pageNum - 1) * limitNum;
 
-		// Sort
-		const sort: any = {};
-		sort[sortBy as string] = sortOrder === "asc" ? 1 : -1;
+		const sort = createSort(req.query);
 
+		// We should quite possibly use the existing get articles.
 		// Execute query
 		const [articles, total] = await Promise.all([
 			Article.find(filter)

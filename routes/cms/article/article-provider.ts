@@ -1,52 +1,76 @@
 import { Router } from "express";
 import ArticleProvider from "../../../src/models/ArticleProvider";
+import { add } from "cheerio/dist/commonjs/api/traversing";
 
 export const articleProviderRoute = Router();
+
+const addFilter = (filter: any, query: any) => {
+	const {
+		name,
+		url,
+		origin,
+		leaning,
+		minRating,
+		maxRating,
+		page = "1",
+		limit = "10",
+		sortBy = "createdAt",
+		sortOrder = "desc",
+	} = query;
+
+	if (name) {
+		filter.name = { $regex: name, $options: "i" }; // Case-insensitive search
+	}
+
+	if (url) {
+		filter.url = { $regex: url, $options: "i" };
+	}
+
+	if (origin) {
+		filter.origin = { $regex: origin, $options: "i" };
+	}
+
+	if (leaning) {
+		filter.leaning = Number(leaning);
+	}
+
+	if (minRating !== undefined || maxRating !== undefined) {
+		filter.rating = {};
+		if (minRating !== undefined) {
+			filter.rating.$gte = Number(minRating);
+		}
+		if (maxRating !== undefined) {
+			filter.rating.$lte = Number(maxRating);
+		}
+	}
+	return filter;
+};
+
+const createSort = (query: any) => {
+	const { sortBy = "createdAt", sortOrder = "desc" } = query;
+	const sort: any = {};
+	const allowedSortFields = [
+		"createdAt",
+		"rating",
+		"leaning",
+		"name",
+		"origin",
+	];
+	const safeSortBy = allowedSortFields.includes(sortBy as string)
+		? sortBy
+		: "createdAt";
+	sort[safeSortBy as string] = sortOrder === "asc" ? 1 : -1;
+
+	return sort;
+};
 
 // Get all article providers with filtering and pagination
 articleProviderRoute.get("/search", async (req, res) => {
 	try {
-		const {
-			name,
-			url,
-			origin,
-			leaning,
-			minRating,
-			maxRating,
-			page = "1",
-			limit = "10",
-			sortBy = "createdAt",
-			sortOrder = "desc",
-		} = req.query;
+		const { page = "1", limit = "10" } = req.query;
 
 		// Build filter query
-		const filter: any = {};
-
-		if (name) {
-			filter.name = { $regex: name, $options: "i" }; // Case-insensitive search
-		}
-
-		if (url) {
-			filter.url = { $regex: url, $options: "i" };
-		}
-
-		if (origin) {
-			filter.origin = { $regex: origin, $options: "i" };
-		}
-
-		if (leaning) {
-			filter.leaning = Number(leaning);
-		}
-
-		if (minRating !== undefined || maxRating !== undefined) {
-			filter.rating = {};
-			if (minRating !== undefined) {
-				filter.rating.$gte = Number(minRating);
-			}
-			if (maxRating !== undefined) {
-				filter.rating.$lte = Number(maxRating);
-			}
-		}
+		const filter = addFilter({}, req.query);
 
 		// Pagination
 		const pageNum = parseInt(page as string);
@@ -54,8 +78,7 @@ articleProviderRoute.get("/search", async (req, res) => {
 		const skip = (pageNum - 1) * limitNum;
 
 		// Sort
-		const sort: any = {};
-		sort[sortBy as string] = sortOrder === "asc" ? 1 : -1;
+		const sort = createSort(req.query);
 
 		// Execute query
 		const [providers, total] = await Promise.all([
