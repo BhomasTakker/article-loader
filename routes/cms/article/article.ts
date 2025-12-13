@@ -41,9 +41,8 @@ const addFilter = (filter: any, query: any) => {
 };
 
 const addDetailsFilter = (filter: any, query: any) => {
-	// Details filters
 	const { category, author, publisher, region, coverage, language } = query;
-	// Details filters
+
 	if (category) {
 		filter["details.categories"] = { $regex: category, $options: "i" };
 	}
@@ -73,8 +72,7 @@ const addDetailsFilter = (filter: any, query: any) => {
 
 const createSort = (query: any) => {
 	const { sortBy = "createdAt", sortOrder = "desc" } = query;
-	////////////
-	// sort //
+
 	const sort: any = {};
 	const allowedSortFields = [
 		"createdAt",
@@ -91,7 +89,6 @@ const createSort = (query: any) => {
 	return sort;
 };
 
-// Search articles with filtering and pagination
 articleRoute.get("/search", async (req, res) => {
 	try {
 		const { page = "1", limit = "10" } = req.query;
@@ -108,7 +105,6 @@ articleRoute.get("/search", async (req, res) => {
 		const sort = createSort(req.query);
 
 		// We should quite possibly use the existing get articles.
-		// Execute query
 		const [articles, total] = await Promise.all([
 			Article.find(filter)
 				.sort(sort)
@@ -158,7 +154,6 @@ articleRoute.get("/get", validateSelectArticleQuery, async (req, res) => {
 	}
 });
 
-// Update article
 articleRoute.put("/update/:id", async (req, res) => {
 	try {
 		const allowedUpdates = ["variant", "media", "disabled"];
@@ -188,7 +183,6 @@ articleRoute.put("/update/:id", async (req, res) => {
 	}
 });
 
-// Delete article (hard delete)
 articleRoute.delete("/delete/:id", async (req, res) => {
 	try {
 		const article = await Article.findByIdAndDelete(req.params.id)
