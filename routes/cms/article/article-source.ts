@@ -1,5 +1,9 @@
 import { Router } from "express";
 import ArticleSource from "../../../src/models/ArticleSource";
+import {
+	buildPaginationParams,
+	buildPaginationResponse,
+} from "../utils/pagination";
 
 export const articleSourceRoute = Router();
 
@@ -78,42 +82,27 @@ const createSort = (query: any) => {
 	return sort;
 };
 
-const MAX_LIMIT = 25;
-
 // Get all article sources with filtering and pagination
 articleSourceRoute.get("/search", async (req, res) => {
 	try {
-		const { page = "1", limit = "10" } = req.query;
-
 		// Build filter query
 		const filter = addFilter({}, req.query);
 
-		// Create Pagination Object
-		let pageNum = parseInt(page as string, 10);
-		let limitNum = parseInt(limit as string, 10);
-		const skip = (pageNum - 1) * limitNum;
-
-		if (limitNum > MAX_LIMIT) limitNum = MAX_LIMIT;
-		if (pageNum < 1) pageNum = 1;
-		if (limitNum < 1) limitNum = 1;
+		// Pagination
+		const { page, limit, skip } = buildPaginationParams(req.query, 25);
 
 		// Sort
 		const sort = createSort(req.query);
 
 		// Execute query
 		const [sources, total] = await Promise.all([
-			ArticleSource.find(filter).sort(sort).skip(skip).limit(limitNum).lean(),
+			ArticleSource.find(filter).sort(sort).skip(skip).limit(limit).lean(),
 			ArticleSource.countDocuments(filter),
 		]);
 
 		res.json({
 			data: sources,
-			pagination: {
-				page: pageNum,
-				limit: limitNum,
-				total,
-				pages: Math.ceil(total / limitNum),
-			},
+			pagination: buildPaginationResponse(page, limit, total),
 		});
 	} catch (error: any) {
 		res.status(500).json({ error: error.message });
