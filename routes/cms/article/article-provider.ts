@@ -1,5 +1,9 @@
 import { Router } from "express";
 import ArticleProvider from "../../../src/models/ArticleProvider";
+import {
+	buildPaginationParams,
+	buildPaginationResponse,
+} from "../utils/pagination";
 
 export const articleProviderRoute = Router();
 
@@ -52,42 +56,27 @@ const createSort = (query: any) => {
 	return sort;
 };
 
-const MAX_LIMIT = 25;
-
 // Get all article providers with filtering and pagination
 articleProviderRoute.get("/search", async (req, res) => {
 	try {
-		const { page = "1", limit = "10" } = req.query;
-
 		// Build filter query
 		const filter = addFilter({}, req.query);
 
-		// Create Pagination Object
-		let pageNum = parseInt(page as string, 10);
-		let limitNum = parseInt(limit as string, 10);
-		const skip = (pageNum - 1) * limitNum;
-
-		if (limitNum > MAX_LIMIT) limitNum = MAX_LIMIT;
-		if (pageNum < 1) pageNum = 1;
-		if (limitNum < 1) limitNum = 1;
+		// Pagination
+		const { page, limit, skip } = buildPaginationParams(req.query, 25);
 
 		// Sort
 		const sort = createSort(req.query);
 
 		// Execute query
 		const [providers, total] = await Promise.all([
-			ArticleProvider.find(filter).sort(sort).skip(skip).limit(limitNum).lean(),
+			ArticleProvider.find(filter).sort(sort).skip(skip).limit(limit).lean(),
 			ArticleProvider.countDocuments(filter),
 		]);
 
 		res.json({
 			data: providers,
-			pagination: {
-				page: pageNum,
-				limit: limitNum,
-				total,
-				pages: Math.ceil(total / limitNum),
-			},
+			pagination: buildPaginationResponse(page, limit, total),
 		});
 	} catch (error: any) {
 		res.status(500).json({ error: error.message });

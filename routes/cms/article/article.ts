@@ -1,6 +1,10 @@
 import { Router } from "express";
 import Article from "../../../src/models/Article";
 import { validateSelectArticleQuery } from "../middleware";
+import {
+	buildPaginationParams,
+	buildPaginationResponse,
+} from "../utils/pagination";
 
 export const articleRoute = Router();
 
@@ -89,24 +93,14 @@ const createSort = (query: any) => {
 	return sort;
 };
 
-const MAX_LIMIT = 100;
-
 articleRoute.get("/search", async (req, res) => {
 	try {
-		const { page = "1", limit = "10" } = req.query;
-
 		// builder really
 		let filter = addFilter({}, req.query);
 		filter = addDetailsFilter(filter, req.query);
 
 		// Pagination
-		let pageNum = parseInt(page as string);
-		let limitNum = parseInt(limit as string);
-		const skip = (pageNum - 1) * limitNum;
-
-		if (limitNum > MAX_LIMIT) limitNum = MAX_LIMIT;
-		if (pageNum < 1) pageNum = 1;
-		if (limitNum < 1) limitNum = 1;
+		const { page, limit, skip } = buildPaginationParams(req.query);
 
 		const sort = createSort(req.query);
 
@@ -115,7 +109,7 @@ articleRoute.get("/search", async (req, res) => {
 			Article.find(filter)
 				.sort(sort)
 				.skip(skip)
-				.limit(limitNum)
+				.limit(limit)
 				.populate("provider")
 				.lean(),
 			Article.countDocuments(filter),
@@ -123,12 +117,7 @@ articleRoute.get("/search", async (req, res) => {
 
 		res.json({
 			data: articles,
-			pagination: {
-				page: pageNum,
-				limit: limitNum,
-				total,
-				pages: Math.ceil(total / limitNum),
-			},
+			pagination: buildPaginationResponse(page, limit, total),
 		});
 	} catch (error: any) {
 		res.status(500).json({ error: error.message });
