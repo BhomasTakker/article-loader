@@ -89,6 +89,8 @@ const createSort = (query: any) => {
 	return sort;
 };
 
+const MAX_LIMIT = 100;
+
 articleRoute.get("/search", async (req, res) => {
 	try {
 		const { page = "1", limit = "10" } = req.query;
@@ -98,9 +100,13 @@ articleRoute.get("/search", async (req, res) => {
 		filter = addDetailsFilter(filter, req.query);
 
 		// Pagination
-		const pageNum = parseInt(page as string);
-		const limitNum = parseInt(limit as string);
+		let pageNum = parseInt(page as string);
+		let limitNum = parseInt(limit as string);
 		const skip = (pageNum - 1) * limitNum;
+
+		if (limitNum > MAX_LIMIT) limitNum = MAX_LIMIT;
+		if (pageNum < 1) pageNum = 1;
+		if (limitNum < 1) limitNum = 1;
 
 		const sort = createSort(req.query);
 
@@ -165,6 +171,10 @@ articleRoute.put("/update/:id", async (req, res) => {
 			}
 		});
 
+		if (Object.keys(updates).length === 0) {
+			res.status(400).json({ error: "No valid fields provided for update." });
+		}
+
 		const article = await Article.findByIdAndUpdate(req.params.id, updates, {
 			new: true,
 			runValidators: true,
@@ -174,7 +184,6 @@ articleRoute.put("/update/:id", async (req, res) => {
 
 		if (!article) {
 			res.status(404).json({ error: "Article not found" });
-			return;
 		}
 
 		res.json(article);

@@ -1,22 +1,10 @@
 import { Router } from "express";
 import ArticleProvider from "../../../src/models/ArticleProvider";
-import { add } from "cheerio/dist/commonjs/api/traversing";
 
 export const articleProviderRoute = Router();
 
 const addFilter = (filter: any, query: any) => {
-	const {
-		name,
-		url,
-		origin,
-		leaning,
-		minRating,
-		maxRating,
-		page = "1",
-		limit = "10",
-		sortBy = "createdAt",
-		sortOrder = "desc",
-	} = query;
+	const { name, url, origin, leaning, minRating, maxRating } = query;
 
 	if (name) {
 		filter.name = { $regex: name, $options: "i" }; // Case-insensitive search
@@ -64,6 +52,8 @@ const createSort = (query: any) => {
 	return sort;
 };
 
+const MAX_LIMIT = 25;
+
 // Get all article providers with filtering and pagination
 articleProviderRoute.get("/search", async (req, res) => {
 	try {
@@ -72,10 +62,14 @@ articleProviderRoute.get("/search", async (req, res) => {
 		// Build filter query
 		const filter = addFilter({}, req.query);
 
-		// Pagination
-		const pageNum = parseInt(page as string);
-		const limitNum = parseInt(limit as string);
+		// Create Pagination Object
+		let pageNum = parseInt(page as string, 10);
+		let limitNum = parseInt(limit as string, 10);
 		const skip = (pageNum - 1) * limitNum;
+
+		if (limitNum > MAX_LIMIT) limitNum = MAX_LIMIT;
+		if (pageNum < 1) pageNum = 1;
+		if (limitNum < 1) limitNum = 1;
 
 		// Sort
 		const sort = createSort(req.query);
@@ -112,6 +106,7 @@ articleProviderRoute.get("/get", async (req, res) => {
 			const query: any = {};
 			if (name) query.name = name;
 			if (url) query.url = url;
+
 			articleProvider = await ArticleProvider.findOne(query).lean();
 		}
 
@@ -146,6 +141,10 @@ articleProviderRoute.put("/update/:id", async (req, res) => {
 			}
 		});
 
+		if (Object.keys(updates).length === 0) {
+			res.status(400).json({ error: "No valid fields provided for update." });
+		}
+
 		const articleProvider = await ArticleProvider.findByIdAndUpdate(
 			req.params.id,
 			updates,
@@ -157,7 +156,6 @@ articleProviderRoute.put("/update/:id", async (req, res) => {
 
 		if (!articleProvider) {
 			res.status(404).json({ error: "Article provider not found" });
-			return;
 		}
 
 		res.json(articleProvider);
