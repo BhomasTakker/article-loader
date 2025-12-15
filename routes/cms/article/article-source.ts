@@ -136,6 +136,44 @@ articleSourceRoute.get("/get", async (req, res) => {
 	}
 });
 
+// Create article source
+articleSourceRoute.post("/create", async (req, res) => {
+	try {
+		const {
+			name,
+			src,
+			variant,
+			categories,
+			region,
+			coverage,
+			language,
+			source,
+			mediaType,
+			collectionTitle,
+		} = req.body;
+
+		// Create new article source
+		const articleSource = new ArticleSource({
+			name,
+			src,
+			variant,
+			categories,
+			region,
+			coverage,
+			language,
+			source,
+			mediaType,
+			collectionTitle,
+		});
+
+		await articleSource.save();
+
+		res.status(201).json(articleSource);
+	} catch (error: any) {
+		res.status(400).json({ error: error.message });
+	}
+});
+
 // Update article source
 articleSourceRoute.put("/update/:id", async (req, res) => {
 	try {
