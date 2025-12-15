@@ -110,6 +110,30 @@ articleProviderRoute.get("/get", async (req, res) => {
 	}
 });
 
+// Create article provider
+articleProviderRoute.post("/create", async (req, res) => {
+	try {
+		const { name, description, url, rating, leaning, origin, logo } = req.body;
+
+		// Create new article provider
+		const articleProvider = new ArticleProvider({
+			name,
+			description,
+			url,
+			rating,
+			leaning,
+			origin,
+			logo,
+		});
+
+		await articleProvider.save();
+
+		res.status(201).json(articleProvider);
+	} catch (error: any) {
+		res.status(400).json({ error: error.message });
+	}
+});
+
 // Update article provider
 articleProviderRoute.put("/update/:id", async (req, res) => {
 	try {
