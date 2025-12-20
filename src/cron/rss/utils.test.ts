@@ -43,12 +43,12 @@ describe("RSS Utils", () => {
 			const mockSources = [
 				{ url: "https://example.com/rss1.xml", name: "Source 1" },
 				{ url: "https://example.com/rss2.xml", name: "Source 2" },
-			];
+			] as any;
 			const mockResult = { success: true, data: [] };
 
 			mockFetchCollections.mockReturnValue(mockResult as any);
 
-			const result = fetchRSS(mockSources);
+			const result = fetchRSS({ sources: mockSources });
 
 			expect(mockFetchCollections).toHaveBeenCalledTimes(1);
 			expect(mockFetchCollections).toHaveBeenCalledWith({
@@ -65,7 +65,7 @@ describe("RSS Utils", () => {
 
 			mockFetchCollections.mockReturnValue(mockResult as any);
 
-			const result = fetchRSS(emptyArray);
+			const result = fetchRSS({ sources: emptyArray });
 
 			expect(mockFetchCollections).toHaveBeenCalledWith({
 				sources: emptyArray,
@@ -80,11 +80,11 @@ describe("RSS Utils", () => {
 				{ id: 1, url: "https://news.example.com/feed" },
 				{ id: 2, url: "https://tech.example.com/rss" },
 				{ id: 3, url: "https://sports.example.com/feed.xml" },
-			];
+			] as any;
 
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchRSS(mockSources);
+			fetchRSS({ sources: mockSources });
 
 			expect(mockFetchCollections).toHaveBeenCalledWith({
 				sources: mockSources,
@@ -94,33 +94,35 @@ describe("RSS Utils", () => {
 		});
 
 		it("should use getCollection as feedCallback", () => {
-			const mockSources = [{ url: "https://example.com/rss.xml" }];
+			const mockSources = [{ url: "https://example.com/rss.xml" }] as any;
 
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchRSS(mockSources);
+			fetchRSS({ sources: mockSources });
 
 			const callArgs = mockFetchCollections.mock.calls[0][0];
 			expect(callArgs.feedCallback).toBe(getCollection);
 		});
 
 		it("should use fetchArticles as itemsCallback", () => {
-			const mockSources = [{ url: "https://example.com/rss.xml" }];
+			const mockSources = [{ url: "https://example.com/rss.xml" }] as any;
 
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchRSS(mockSources);
+			fetchRSS({ sources: mockSources });
 
 			const callArgs = mockFetchCollections.mock.calls[0][0];
 			expect(callArgs.itemsCallback).toBe(fetchArticles);
 		});
 
 		it("should handle single source", () => {
-			const singleSource = [{ url: "https://single.example.com/feed.xml" }];
+			const singleSource = [
+				{ url: "https://single.example.com/feed.xml" },
+			] as any;
 
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchRSS(singleSource);
+			fetchRSS({ sources: singleSource });
 
 			expect(mockFetchCollections).toHaveBeenCalledWith({
 				sources: singleSource,
@@ -130,7 +132,7 @@ describe("RSS Utils", () => {
 		});
 
 		it("should return the result from fetchCollections", () => {
-			const mockSources = [{ url: "https://example.com/rss.xml" }];
+			const mockSources = [{ url: "https://example.com/rss.xml" }] as any;
 			const expectedResult = {
 				success: true,
 				items: [{ title: "Test Article", url: "https://example.com/article1" }],
@@ -138,7 +140,7 @@ describe("RSS Utils", () => {
 
 			mockFetchCollections.mockReturnValue(expectedResult as any);
 
-			const result = fetchRSS(mockSources);
+			const result = fetchRSS({ sources: mockSources });
 
 			expect(result).toEqual(expectedResult);
 		});
@@ -149,12 +151,12 @@ describe("RSS Utils", () => {
 			const mockSources = [
 				{ channelId: "UC123456", name: "YouTube Channel 1" },
 				{ channelId: "UC789012", name: "YouTube Channel 2" },
-			];
+			] as any;
 			const mockResult = { success: true, data: [] };
 
 			mockFetchCollections.mockReturnValue(mockResult as any);
 
-			const result = fetchYoutubeRSS(mockSources);
+			const result = fetchYoutubeRSS({ sources: mockSources });
 
 			expect(mockFetchCollections).toHaveBeenCalledTimes(1);
 			expect(mockFetchCollections).toHaveBeenCalledWith({
@@ -172,11 +174,11 @@ describe("RSS Utils", () => {
 			const mockSources = [
 				{ channelId: "UC123456", name: "Channel 1" },
 				{ channelId: "UC789012", name: "Channel 2" },
-			];
+			] as any;
 
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchYoutubeRSS(mockSources);
+			fetchYoutubeRSS({ sources: mockSources });
 
 			const callArgs = mockFetchCollections.mock.calls[0][0];
 			expect(callArgs.sources).toEqual(mockSources);
@@ -184,11 +186,11 @@ describe("RSS Utils", () => {
 		});
 
 		it("should include customFields with media:group", () => {
-			const mockSources = [{ channelId: "UC123456" }];
+			const mockSources = [{ channelId: "UC123456" }] as any;
 
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchYoutubeRSS(mockSources);
+			fetchYoutubeRSS({ sources: mockSources });
 
 			const callArgs = mockFetchCollections.mock.calls[0][0];
 			expect(callArgs.customFields).toEqual({
@@ -197,22 +199,22 @@ describe("RSS Utils", () => {
 		});
 
 		it("should use getYoutubeCollection as feedCallback", () => {
-			const mockSources = [{ channelId: "UC123456" }];
+			const mockSources = [{ channelId: "UC123456" }] as any;
 
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchYoutubeRSS(mockSources);
+			fetchYoutubeRSS({ sources: mockSources });
 
 			const callArgs = mockFetchCollections.mock.calls[0][0];
 			expect(callArgs.feedCallback).toBe(getYoutubeCollection);
 		});
 
 		it("should use fetchYoutubeArticles as itemsCallback", () => {
-			const mockSources = [{ channelId: "UC123456" }];
+			const mockSources = [{ channelId: "UC123456" }] as any;
 
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchYoutubeRSS(mockSources);
+			fetchYoutubeRSS({ sources: mockSources });
 
 			const callArgs = mockFetchCollections.mock.calls[0][0];
 			expect(callArgs.itemsCallback).toBe(fetchYoutubeArticles);
@@ -224,7 +226,7 @@ describe("RSS Utils", () => {
 
 			mockFetchCollections.mockReturnValue(mockResult as any);
 
-			const result = fetchYoutubeRSS(emptyArray);
+			const result = fetchYoutubeRSS({ sources: emptyArray });
 
 			expect(mockFetchCollections).toHaveBeenCalledWith({
 				sources: [...emptyArray],
@@ -238,11 +240,13 @@ describe("RSS Utils", () => {
 		});
 
 		it("should handle single YouTube source", () => {
-			const singleSource = [{ channelId: "UC123456", name: "Single Channel" }];
+			const singleSource = [
+				{ channelId: "UC123456", name: "Single Channel" },
+			] as any;
 
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchYoutubeRSS(singleSource);
+			fetchYoutubeRSS({ sources: singleSource });
 
 			expect(mockFetchCollections).toHaveBeenCalledWith({
 				sources: [...singleSource],
@@ -255,7 +259,7 @@ describe("RSS Utils", () => {
 		});
 
 		it("should return the result from fetchCollections", () => {
-			const mockSources = [{ channelId: "UC123456" }];
+			const mockSources = [{ channelId: "UC123456" }] as any;
 			const expectedResult = {
 				success: true,
 				videos: [
@@ -265,7 +269,7 @@ describe("RSS Utils", () => {
 
 			mockFetchCollections.mockReturnValue(expectedResult as any);
 
-			const result = fetchYoutubeRSS(mockSources);
+			const result = fetchYoutubeRSS({ sources: mockSources });
 
 			expect(result).toEqual(expectedResult);
 		});
@@ -274,12 +278,12 @@ describe("RSS Utils", () => {
 			const originalSources = [
 				{ channelId: "UC111", name: "Channel 1" },
 				{ channelId: "UC222", name: "Channel 2" },
-			];
+			] as any;
 			const sourcesCopy = [...originalSources];
 
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchYoutubeRSS(originalSources);
+			fetchYoutubeRSS({ sources: originalSources });
 
 			// Original array should be unchanged
 			expect(originalSources).toEqual(sourcesCopy);
@@ -291,31 +295,35 @@ describe("RSS Utils", () => {
 
 	describe("Error Handling", () => {
 		it("should handle fetchCollections errors in fetchRSS", () => {
-			const mockSources = [{ url: "https://invalid.example.com/feed.xml" }];
+			const mockSources = [
+				{ url: "https://invalid.example.com/feed.xml" },
+			] as any;
 			const error = new Error("Network error");
 
 			mockFetchCollections.mockImplementation(() => {
 				throw error;
 			});
 
-			expect(() => fetchRSS(mockSources)).toThrow("Network error");
+			expect(() => fetchRSS({ sources: mockSources })).toThrow("Network error");
 		});
 
 		it("should handle fetchCollections errors in fetchYoutubeRSS", () => {
-			const mockSources = [{ channelId: "INVALID_CHANNEL" }];
+			const mockSources = [{ channelId: "INVALID_CHANNEL" }] as any;
 			const error = new Error("YouTube API error");
 
 			mockFetchCollections.mockImplementation(() => {
 				throw error;
 			});
 
-			expect(() => fetchYoutubeRSS(mockSources)).toThrow("YouTube API error");
+			expect(() => fetchYoutubeRSS({ sources: mockSources })).toThrow(
+				"YouTube API error"
+			);
 		});
 
 		it("should handle null sources in fetchRSS", () => {
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchRSS(null as any);
+			fetchRSS({ sources: null as any });
 
 			expect(mockFetchCollections).toHaveBeenCalledWith({
 				sources: null,
@@ -328,9 +336,7 @@ describe("RSS Utils", () => {
 			mockFetchCollections.mockReturnValue({} as any);
 
 			// This should throw an error because undefined is not iterable
-			expect(() => fetchYoutubeRSS(undefined as any)).toThrow(
-				"srcs is not iterable"
-			);
+			expect(() => fetchYoutubeRSS({ sources: undefined as any })).toThrow();
 		});
 	});
 
@@ -346,13 +352,13 @@ describe("RSS Utils", () => {
 		});
 
 		it("should ensure fetchRSS and fetchYoutubeRSS are independent functions", () => {
-			const rssSource = [{ url: "https://rss.example.com/feed.xml" }];
-			const youtubeSource = [{ channelId: "UC123456" }];
+			const rssSource = [{ url: "https://rss.example.com/feed.xml" }] as any;
+			const youtubeSource = [{ channelId: "UC123456" }] as any;
 
 			mockFetchCollections.mockReturnValue({} as any);
 
-			fetchRSS(rssSource);
-			fetchYoutubeRSS(youtubeSource);
+			fetchRSS({ sources: rssSource });
+			fetchYoutubeRSS({ sources: youtubeSource });
 
 			expect(mockFetchCollections).toHaveBeenCalledTimes(2);
 

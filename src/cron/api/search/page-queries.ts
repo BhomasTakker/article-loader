@@ -61,9 +61,14 @@ export const getPageRoutes = async () => {
 	return pageRoutes;
 };
 
+export type CachePageQueriesArgs = {
+	apis: API_PROVIDERS[];
+	filter: string[];
+};
+
 export const cachePageQueries =
-	async (args: [apis: API_PROVIDERS[], filter: string[]]) => async () => {
-		const [apis, filter] = args;
+	async ({ apis, filter }: CachePageQueriesArgs) =>
+	async () => {
 		await executeAndCacheQueriesFromPage(apis, filter);
 	};
 
@@ -98,8 +103,13 @@ export const executeAndCacheQueriesFromPage = async (
 	await Promise.all(pagePromises);
 };
 
-export const pingRoutes = (args: [includes: string[]]) => async () => {
-	const [includes] = args;
+export type PingRoutesArgs = {
+	includes: string[];
+};
+
+// We need to convert each function to accept an object - args: { includes: [] }
+export const pingRoutes = (args: PingRoutesArgs) => async () => {
+	const { includes } = args;
 	await pingApp(includes);
 };
 

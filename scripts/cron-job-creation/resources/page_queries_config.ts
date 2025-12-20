@@ -1,5 +1,5 @@
 import { API_PROVIDERS } from "../../../src/cron/api/search";
-import { ROUTES_1 } from "../../../src/cron/api/search/routes";
+import { ROUTES_1 } from "./routes";
 import { TimeFunction, FetchFunction, CronType } from "../../../src/cron/types";
 
 export const pageQueriesCronConfig = {

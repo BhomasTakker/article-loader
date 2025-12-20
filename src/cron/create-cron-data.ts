@@ -1,9 +1,10 @@
 import { getTimeFunction } from "./cron-times";
 import { getFetchFunction } from "./rss/utils";
-import { FetchFunction, TimeFunction } from "./types";
+import { FetchFunction, FetchFunctionProps, TimeFunction } from "./types";
 
+// one of
 type CreateCronJobDataParams = {
-	fetchFunctionData: any; // typeof fecthFunctionData; / argument for fetch data function
+	fetchFunctionData: FetchFunctionProps; // typeof fecthFunctionData; / argument for fetch data function
 	timeFunction: TimeFunction;
 	timeParams: number[];
 	fetchFunction: FetchFunction;

@@ -8,7 +8,7 @@ export const createRssCronJob = async (configData: RSSCronJobConfig) => {
 
 	// basic cron job
 	return {
-		fetchFunctionData: data,
+		fetchFunctionData: { sources: data },
 		timeFunction,
 		timeParams,
 		fetchFunction,
