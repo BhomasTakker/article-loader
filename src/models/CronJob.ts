@@ -4,6 +4,7 @@ import {
 	FetchFunction,
 	TimeFunction,
 	SourceVariant,
+	FetchFunctionProps,
 } from "../cron/types";
 
 // Base cron job item schema
@@ -75,7 +76,7 @@ export interface ICronJobItem {
 	fetchFunction: FetchFunction;
 	titles?: string[];
 	variant?: SourceVariant;
-	fetchFunctionData?: any;
+	fetchFunctionData?: FetchFunctionProps;
 }
 
 export interface ICronJob {

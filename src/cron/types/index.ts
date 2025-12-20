@@ -1,3 +1,10 @@
+import {
+	CachePageQueriesArgs,
+	PingRoutesArgs,
+} from "../api/search/page-queries";
+import { FetchRadioStationsArgs } from "../radio/radio-cron";
+import { FetchCollectionsArgs } from "../rss/utils";
+
 export type Cron = {
 	day: number;
 	hour?: number;
@@ -49,8 +56,15 @@ export enum CronType {
 	API = "api",
 }
 
+export type FetchFunctionProps =
+	| FetchCollectionsArgs
+	| FetchRadioStationsArgs
+	| PingRoutesArgs
+	| CachePageQueriesArgs;
+
 // RSS Cron Job Configuration
 export type RSSCronJobConfig = {
+	// titles is really fetchFunctionProps
 	titles: string[];
 	variant: SourceVariant;
 	timeFunction: TimeFunction;
@@ -61,7 +75,7 @@ export type RSSCronJobConfig = {
 
 // API Cron Job Configuration
 export type APICronJobConfig = {
-	fetchFunctionData: any;
+	fetchFunctionData: FetchFunctionProps;
 	timeFunction: TimeFunction;
 	timeParams: number[];
 	fetchFunction: FetchFunction;

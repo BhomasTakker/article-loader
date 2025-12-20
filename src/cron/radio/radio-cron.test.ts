@@ -1,4 +1,4 @@
-import { runScripts } from "./radio-cron";
+import { Options, runScripts } from "./radio-cron";
 import { fetchAPI } from "../../api/fetch-api";
 import { fetchNewsRadioStations } from "../../api/radio-browser";
 import { radioBrowserApiCallback } from "../../api/radio-browser/callback";
@@ -114,7 +114,6 @@ describe("Radio Cron", () => {
 			// Verify the parameters passed to radioBrowserApiCallback
 			expect(mockRadioBrowserApiCallback).toHaveBeenCalledWith({
 				tag: "news",
-				limit: 25,
 				order: "votes",
 				reverse: true,
 				hideBroken: true,
@@ -123,11 +122,10 @@ describe("Radio Cron", () => {
 		});
 
 		it("should merge custom options with default parameters", async () => {
-			const customOptions: UnknownObject = {
-				tag: "music",
+			const customOptions: Options = {
 				limit: 50,
-				country: "United States",
-				newParam: "custom-value",
+				offset: 0,
+				tag: "music",
 			};
 
 			const mockStations: Station[] = [];
@@ -142,8 +140,7 @@ describe("Radio Cron", () => {
 			expect(mockRadioBrowserApiCallback).toHaveBeenCalledWith({
 				tag: "music", // overridden
 				limit: 50, // overridden
-				country: "United States", // added
-				newParam: "custom-value", // added
+				offset: 0, // added
 				order: "votes", // from defaults
 				reverse: true, // from defaults
 				hideBroken: true, // from defaults
@@ -161,7 +158,6 @@ describe("Radio Cron", () => {
 
 			const expectedParams = {
 				tag: "news",
-				limit: 25,
 				order: "votes",
 				reverse: true,
 				hideBroken: true,
