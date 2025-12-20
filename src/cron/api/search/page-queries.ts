@@ -62,16 +62,19 @@ export const getPageRoutes = async () => {
 };
 
 export type CachePageQueriesArgs = {
-	apis: API_PROVIDERS[];
+	api: API_PROVIDERS;
 	routes: string[];
 };
 
 export const cachePageQueries =
-	async ({ apis, routes }: CachePageQueriesArgs) =>
+	async ({ api, routes }: CachePageQueriesArgs) =>
 	async () => {
-		await executeAndCacheQueriesFromPage(apis, routes);
+		await executeAndCacheQueriesFromPage([api], routes);
 	};
 
+// apis - the list of apis available that we are willing to cache
+// we wouldn't do youtube at the same rate as articles for instance
+// At the moment we are only caching articles search
 export const executeAndCacheQueriesFromPage = async (
 	apis: API_PROVIDERS[],
 	routes: string[]
