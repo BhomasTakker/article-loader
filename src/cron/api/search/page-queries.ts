@@ -63,18 +63,18 @@ export const getPageRoutes = async () => {
 
 export type CachePageQueriesArgs = {
 	apis: API_PROVIDERS[];
-	filter: string[];
+	routes: string[];
 };
 
 export const cachePageQueries =
-	async ({ apis, filter }: CachePageQueriesArgs) =>
+	async ({ apis, routes }: CachePageQueriesArgs) =>
 	async () => {
-		await executeAndCacheQueriesFromPage(apis, filter);
+		await executeAndCacheQueriesFromPage(apis, routes);
 	};
 
 export const executeAndCacheQueriesFromPage = async (
 	apis: API_PROVIDERS[],
-	filter: string[]
+	routes: string[]
 ) => {
 	await connectToMongoDB();
 	const pageRoutes = await getPageRoutes();
@@ -104,16 +104,16 @@ export const executeAndCacheQueriesFromPage = async (
 };
 
 export type PingRoutesArgs = {
-	includes: string[];
+	routes: string[];
 };
 
 // We need to convert each function to accept an object - args: { includes: [] }
 export const pingRoutes = (args: PingRoutesArgs) => async () => {
-	const { includes } = args;
-	await pingApp(includes);
+	const { routes } = args;
+	await pingApp(routes);
 };
 
-export const pingApp = async (includes: string[]) => {
+export const pingApp = async (routes: string[]) => {
 	logMemoryUsage();
 	const pageRoutes = await getPageRoutes();
 
@@ -125,8 +125,8 @@ export const pingApp = async (includes: string[]) => {
 		if (route === "/") {
 			shouldPing = true;
 		}
-		includes.forEach((include) => {
-			if (route.includes(include)) {
+		routes.forEach((routeToPing) => {
+			if (route.includes(routeToPing)) {
 				shouldPing = true;
 			}
 		});
