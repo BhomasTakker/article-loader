@@ -72,9 +72,16 @@ export const cachePageQueries =
 		await executeAndCacheQueriesFromPage([api], routes);
 	};
 
-// apis - the list of apis available that we are willing to cache
-// we wouldn't do youtube at the same rate as articles for instance
-// At the moment we are only caching articles search
+/**
+ *
+ * @param apis
+ * @param routes
+ *
+ * runs page queries for the given apis tocache the data
+ * We should implement routes so we can control routes, time, and frequency
+ * currently runs for all pages since routes not implemented
+ * AND we are only running for article search at the moment
+ */
 export const executeAndCacheQueriesFromPage = async (
 	apis: API_PROVIDERS[],
 	routes: string[]
@@ -116,6 +123,11 @@ export const pingRoutes = (args: PingRoutesArgs) => async () => {
 	await pingApp(routes);
 };
 
+/**
+ *
+ * @param routes
+ * Pings the given routes to keep the site active
+ */
 export const pingApp = async (routes: string[]) => {
 	logMemoryUsage();
 	const pageRoutes = await getPageRoutes();
