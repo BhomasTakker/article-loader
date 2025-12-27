@@ -6,6 +6,7 @@ const ArticleProviderSchema = new Schema<ProviderItem>(
 		name: {
 			type: String,
 			required: [true, "Please provide a name."],
+			unique: true,
 		},
 		description: {
 			type: String,

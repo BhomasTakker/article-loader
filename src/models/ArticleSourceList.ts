@@ -6,6 +6,7 @@ const ArticleSourceListSchema = new Schema<ArticleSourceList>(
 		title: {
 			type: String,
 			required: true,
+			unique: true,
 		},
 		variant: {
 			type: String,
