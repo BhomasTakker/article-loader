@@ -13,6 +13,7 @@ const ArticleSourceSchema = new Schema<ArticleSource>(
 		src: {
 			type: String,
 			required: true,
+			unique: true,
 		},
 		variant: {
 			type: String,
