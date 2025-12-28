@@ -53,6 +53,14 @@ export async function loadSourceListsFromDB(criteria: {
 			}),
 			...(source.source && { source: source.source }),
 			...(source.mediaType && { mediaType: source.mediaType }),
+			// Include ArticleSource-specific fields so they can be merged
+			...(source.region &&
+				source.region.length > 0 && { region: source.region }),
+			...(source.categories &&
+				source.categories.length > 0 && { categories: source.categories }),
+			...(source.coverage &&
+				source.coverage.length > 0 && { coverage: source.coverage }),
+			...(source.language && { language: source.language }),
 		})),
 	}));
 	return transformedSources;
