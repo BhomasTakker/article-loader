@@ -279,10 +279,6 @@ describe("Query Index Functions", () => {
 		it("should handle geographic filters", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				region: "North America",
-				country: "United States",
-				state: "California",
-				city: "San Francisco",
-				continent: "North America",
 				coverage: "national",
 			};
 			const mockPipeline: Aggregator = [
@@ -291,9 +287,6 @@ describe("Query Index Functions", () => {
 						compound: {
 							filter: [
 								{ text: { query: "North America", path: "details.region" } },
-								{ text: { query: "United States", path: "details.region" } },
-								{ text: { query: "California", path: "details.region" } },
-								{ text: { query: "San Francisco", path: "details.region" } },
 								{ text: { query: "national", path: "details.coverage" } },
 							],
 						},
@@ -400,7 +393,6 @@ describe("Query Index Functions", () => {
 				categories: "technology,science,innovation",
 				language: "en",
 				region: "North America",
-				country: "United States",
 				coverage: "national",
 				sort: "date-descending",
 				limit: "25",

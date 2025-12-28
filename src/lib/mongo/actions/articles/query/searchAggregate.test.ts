@@ -228,10 +228,6 @@ describe("createSearchAggregate", () => {
 		it("should add geographic filters when provided", async () => {
 			const queryParams: GetLatestArticlesProps = {
 				region: "North America",
-				continent: "North America",
-				country: "United States",
-				state: "California",
-				city: "San Francisco",
 			};
 			const aggregator: Aggregator = [];
 
@@ -240,26 +236,6 @@ describe("createSearchAggregate", () => {
 			expect(mockAddFilter).toHaveBeenCalledWith(
 				[],
 				"North America",
-				"details.region"
-			);
-			expect(mockAddFilter).toHaveBeenCalledWith(
-				[],
-				"North America",
-				"details.region"
-			);
-			expect(mockAddFilter).toHaveBeenCalledWith(
-				[],
-				"United States",
-				"details.region"
-			);
-			expect(mockAddFilter).toHaveBeenCalledWith(
-				[],
-				"California",
-				"details.region"
-			);
-			expect(mockAddFilter).toHaveBeenCalledWith(
-				[],
-				"San Francisco",
 				"details.region"
 			);
 		});
@@ -667,7 +643,6 @@ describe("createSearchAggregate", () => {
 				language: "en",
 				mediaType: "text",
 				region: "North America",
-				country: "United States",
 				coverage: "national",
 				categories: "technology,science",
 				mustContain: ["AI", "technology"],
