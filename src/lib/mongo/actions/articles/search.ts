@@ -43,7 +43,7 @@ export type GetLatestArticlesProps = {
 	durationHigher?: string;
 	durationLower?: string;
 
-	region?: string;
+	region?: string | string[];
 	// coverage used for scoping articles.
 	// i.e. local news is IN US
 	// but I want US && national news - maybe add sub-local

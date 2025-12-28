@@ -69,12 +69,17 @@ export const createSearchAggregate = async (
 	if (language) addFilter(filter, language, "details.languge");
 	if (mediaType) addFilter(filter, mediaType, "media.mediaType");
 
+	if (region) {
+		const regions = Array.isArray(region) ? region : [region];
+		regions.forEach((r) => addFilter(filter, r, "details.region"));
+	}
+
 	// eventually this OR this
-	if (region) addFilter(filter, region, "details.region");
-	if (continent) addFilter(filter, continent, "details.region");
-	if (country) addFilter(filter, country, "details.region");
-	if (state) addFilter(filter, state, "details.region");
-	if (city) addFilter(filter, city, "details.region");
+	// if (region) addFilter(filter, region, "details.region");
+	// if (continent) addFilter(filter, continent, "details.region");
+	// if (country) addFilter(filter, country, "details.region");
+	// if (state) addFilter(filter, state, "details.region");
+	// if (city) addFilter(filter, city, "details.region");
 	// add continent, country, state, city, etc - all use region
 	// UK and Birmingham excludes Birmingham Alabama etc
 	// ultimately we want this AND this
