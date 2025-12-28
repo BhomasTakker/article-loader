@@ -81,11 +81,11 @@ export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 		...categories,
 	]);
 
-	const region1 = details.region || [];
+	const region1 = details?.region || [];
 	const region2 = region || [];
 	const mergedRegion = mergeStringOrArray(region1, region2);
 
-	const coverage1 = details.coverage || [];
+	const coverage1 = details?.coverage || [];
 	const coverage2 = coverage || [];
 	const mergedCoverage = mergeStringOrArray(coverage1, coverage2);
 
