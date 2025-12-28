@@ -45,9 +45,14 @@ const deepMerge = (obj1: ExtraData, obj2: Partial<ExtraData>) => {
 	const coverage2 = obj2?.coverage || [];
 	const coverage = mergeStringOrArray(coverage1, coverage2);
 
+	// Create a clean merged object, excluding region/categories/coverage from spreads
+	// to prevent them from being overwritten before we set the merged values
+	const { region: _, categories: __, coverage: ___, ...rest1 } = obj1;
+	const { region: ____, categories: _____, coverage: ______, ...rest2 } = obj2;
+
 	return structuredClone({
-		...obj1,
-		...obj2,
+		...rest1,
+		...rest2,
 		region,
 		coverage,
 		categories,
@@ -83,10 +88,13 @@ export const fetchRss = async <T, G>({
 
 				const updatedRawCollection = { ...data, items };
 
+				// Merge extraData with source-specific data ONCE and use consistently
+				const mergedExtraData = deepMerge(extraData, rest);
+
 				await feedCallback({
 					url: src,
 					rssFeed: updatedRawCollection,
-					extraData,
+					extraData: mergedExtraData,
 					provider,
 				});
 				const collectionData = { ...updatedRawCollection, items: null };
@@ -94,9 +102,8 @@ export const fetchRss = async <T, G>({
 				// just don't store them in the collection
 				await itemsCallback({
 					items,
-					// This 'merge' isn't good enough - it overwrites etc
-					// merge data from both individual source AND rss 'group'
-					extraData: deepMerge(extraData, rest),
+					// Use the same merged extraData for consistency
+					extraData: mergedExtraData,
 					provider,
 					collectionData,
 				});
