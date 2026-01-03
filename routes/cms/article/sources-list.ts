@@ -132,21 +132,20 @@ sourcesListRoute.get("/get", async (req, res) => {
 // Create article source list
 sourcesListRoute.post("/create", async (req, res) => {
 	try {
-		const { title, variant, categories, region, coverage, language, sources } =
-			req.body;
+		const {
+			title,
+			variant,
+			categories = [],
+			region = [],
+			coverage = [],
+			language,
+			sources,
+		} = req.body;
 
 		// Validate required fields
-		if (
-			!title ||
-			!variant ||
-			!categories ||
-			!region ||
-			!coverage ||
-			!language
-		) {
+		if (!title || !variant || !language) {
 			res.status(400).json({
-				error:
-					"Missing required fields: title, variant, categories, region, coverage, language",
+				error: "Missing required fields: title, variant, language",
 			});
 			return;
 		}
