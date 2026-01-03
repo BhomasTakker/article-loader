@@ -7,6 +7,7 @@ import { initialiseExpress, startServer } from "./src/services/express";
 import { getEnv } from "./src/services/env";
 import { connectToMongoDB } from "./src/lib/mongo/db";
 import { initRoutes } from "./routes";
+import { testRssJob } from "./src/cron/test-rss-job";
 
 require("dotenv").config();
 
@@ -28,6 +29,9 @@ export const initialiseServer = async () => {
 
 	// Start server AFTER routes are initialized
 	startServer(app);
+
+	// if test perhaps
+	// const result = await testRssJob(["Europe Articles 1", "Europe Articles 2"]);
 };
 
 initialiseServer();
