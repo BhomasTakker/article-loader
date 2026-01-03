@@ -231,13 +231,17 @@ describe("createSearchAggregate", () => {
 			};
 			const aggregator: Aggregator = [];
 
-			await createSearchAggregate(queryParams, aggregator);
+			const result = await createSearchAggregate(queryParams, aggregator);
 
-			expect(mockAddFilter).toHaveBeenCalledWith(
-				[],
-				"North America",
-				"details.region"
+			// Region filtering now uses $match stage instead of addFilter
+			const matchStage = result.find(
+				(stage) =>
+					(stage as any).$match && (stage as any).$match["details.region"]
 			);
+			expect(matchStage).toBeDefined();
+			expect((matchStage as any)?.$match["details.region"]).toEqual({
+				$in: ["North America"],
+			});
 		});
 
 		it("should add coverage filter when coverage is provided", async () => {
@@ -660,7 +664,7 @@ describe("createSearchAggregate", () => {
 			const result = await createSearchAggregate(queryParams, aggregator);
 
 			// Verify the structure
-			expect(result).toHaveLength(5); // $search, provider lookup, add fields, trust match, limit
+			expect(result).toHaveLength(6); // $search, $match (region), provider lookup, add fields, trust match, limit
 
 			// Verify $search stage
 			const searchStage = result.find((stage) => (stage as any).$search);

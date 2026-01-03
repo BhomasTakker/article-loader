@@ -67,20 +67,6 @@ export const createSearchAggregate = async (
 	if (language) addFilter(filter, language, "details.languge");
 	if (mediaType) addFilter(filter, mediaType, "media.mediaType");
 
-	if (region) {
-		const regions = Array.isArray(region) ? region : [region];
-		regions.forEach((r) => addFilter(filter, r, "details.region"));
-	}
-
-	if (orRegion.length > 0) {
-		//filter NOT should
-		addFilter(filter, orRegion, "details.region");
-	}
-
-	if (excludeRegions.length > 0) {
-		addFilter(mustNot, excludeRegions, "details.region");
-	}
-
 	// coverage used for scoping articles. Give me US && national news
 	if (coverage) addFilter(filter, coverage, "details.coverage");
 
@@ -177,6 +163,39 @@ export const createSearchAggregate = async (
 				validObjectIds.length === 1 ? validObjectIds[0] : validObjectIds;
 		}
 	}
+
+	///////////////////////////////////////////////
+	// Region Filtering - is there a better way? //
+	///////////////////////////////////////////////
+	if (region) {
+		const regions = Array.isArray(region) ? region : [region];
+		aggregator.push({
+			$match: {
+				"details.region": { $in: regions },
+			},
+		});
+	}
+	// OR Region Logic - using should - potentially interferes with other shoulds
+	// i.e. minimumShouldMatch would either or rules - i.e. this region OR this match
+	// MongoDB Atlas Search treats array queries as OR by default
+	if (orRegion.length > 0) {
+		aggregator.push({
+			$match: {
+				"details.region": { $in: orRegion },
+			},
+		});
+	}
+
+	if (excludeRegions.length > 0) {
+		aggregator.push({
+			$match: {
+				"details.region": { $in: excludeRegions },
+			},
+		});
+	}
+
+	///////////////////////////////////////////
+
 	addProviderMatchBeforeLookup(aggregator, providerObjectIds);
 
 	// we need to use provider for filtering trust
