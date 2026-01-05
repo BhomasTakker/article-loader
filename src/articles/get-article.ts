@@ -36,6 +36,7 @@ export const convertRssItem = (data: RSSItem) => {
 	} = data;
 	const { url = "" } = enclosure || {};
 	const contentEncoded = data["content:encoded"];
+	const dcDate = data["dc:date"];
 
 	// we need to test this properly
 	const parsedUrl = new URL(link);
@@ -50,7 +51,7 @@ export const convertRssItem = (data: RSSItem) => {
 		guid: "",
 		variant: "article",
 		details: {
-			published: pubDate,
+			published: pubDate || dcDate || "",
 			categories: category ? [category] : [],
 			publishers: author ? [author] : [],
 		},

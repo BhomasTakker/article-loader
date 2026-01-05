@@ -44,6 +44,7 @@ export type RSSItem = {
 	title: string;
 	description: string;
 	["content:encoded"]?: string;
+	["dc:date"]?: string;
 	author?: string;
 	category?: string;
 	content?: string;
