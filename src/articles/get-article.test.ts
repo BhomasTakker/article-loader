@@ -649,7 +649,7 @@ describe("Get Article", () => {
 				expect(mockSaveOrCreateArticleBySrc).toHaveBeenCalledWith(
 					expect.objectContaining({
 						details: expect.objectContaining({
-							published: undefined,
+							published: "",
 							categories: [],
 							publishers: [],
 						}),
