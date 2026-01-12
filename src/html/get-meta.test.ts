@@ -282,16 +282,16 @@ describe("HTML Meta Extraction", () => {
 			expect(result?.title).toBe("YouTube Video");
 		});
 
-		it("should preserve existing type if present", async () => {
+		it("should default to article if type is not valid", async () => {
 			const mockHtml = `
-				<html>
-					<head>
-						<meta property="og:title" content="Test Content" />
-						<meta property="og:type" content="website" />
-					</head>
-					<body></body>
-				</html>
-			`;
+			<html>
+				<head>
+					<meta property="og:title" content="Test Content" />
+					<meta property="og:type" content="website" />
+				</head>
+				<body></body>
+			</html>
+		`;
 
 			mockFetch.mockResolvedValue({
 				ok: true,
@@ -301,9 +301,33 @@ describe("HTML Meta Extraction", () => {
 
 			const result = await getMeta("https://example.com/test");
 
-			expect(result?.type).toBe("website");
+			expect(result?.type).toBe("article");
 		});
+		it("should preserve valid types (video, audio, article)", async () => {
+			const validTypes = ["video", "audio", "article"];
 
+			for (const validType of validTypes) {
+				const mockHtml = `
+				<html>
+					<head>
+						<meta property="og:title" content="Test Content" />
+						<meta property="og:type" content="${validType}" />
+					</head>
+					<body></body>
+				</html>
+			`;
+
+				mockFetch.mockResolvedValue({
+					ok: true,
+					status: 200,
+					text: jest.fn().mockResolvedValue(mockHtml),
+				});
+
+				const result = await getMeta("https://example.com/test");
+
+				expect(result?.type).toBe(validType);
+			}
+		});
 		it("should return null on HTTP error", async () => {
 			mockFetch.mockResolvedValue({
 				ok: false,

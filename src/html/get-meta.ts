@@ -52,7 +52,8 @@ export const getMeta = async (src: string) => {
 
 		// Do this properly
 		// set media type if possible - video/youtube
-		if (!meta.type) {
+		const validTypes = ["article", "video", "audio"];
+		if (!meta.type || !validTypes.includes(meta.type)) {
 			meta.type = "article";
 			if (src.includes("youtube")) {
 				meta.type = "video";
