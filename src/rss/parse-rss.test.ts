@@ -44,7 +44,7 @@ describe("RSSParse", () => {
 			expect(result).toEqual(mockRSSData);
 			expect(MockedParser).toHaveBeenCalledWith({
 				customFields: undefined,
-				timeout: 5000,
+				timeout: 10000,
 			});
 			expect(mockParseURL).toHaveBeenCalledWith("https://example.com/rss");
 		});
@@ -67,7 +67,7 @@ describe("RSSParse", () => {
 			expect(result).toEqual(mockRSSData);
 			expect(MockedParser).toHaveBeenCalledWith({
 				customFields,
-				timeout: 5000,
+				timeout: 10000,
 			});
 			expect(mockParseURL).toHaveBeenCalledWith("https://example.com/rss");
 		});
@@ -138,14 +138,14 @@ describe("RSSParse", () => {
 	});
 
 	describe("parser configuration", () => {
-		it("should always set timeout to 5000ms", async () => {
+		it("should always set timeout to 10000ms", async () => {
 			mockParseURL.mockResolvedValue({ items: [] });
 
 			await RSSParse("https://example.com/rss");
 
 			expect(MockedParser).toHaveBeenCalledWith({
 				customFields: undefined,
-				timeout: 5000,
+				timeout: 10000,
 			});
 		});
 
@@ -161,7 +161,7 @@ describe("RSSParse", () => {
 
 			expect(MockedParser).toHaveBeenCalledWith({
 				customFields,
-				timeout: 5000,
+				timeout: 10000,
 			});
 		});
 
@@ -172,7 +172,7 @@ describe("RSSParse", () => {
 
 			expect(MockedParser).toHaveBeenCalledWith({
 				customFields: {},
-				timeout: 5000,
+				timeout: 10000,
 			});
 		});
 	});

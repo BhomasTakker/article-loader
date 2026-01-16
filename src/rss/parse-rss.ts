@@ -8,7 +8,7 @@ export const RSSParse = async (
 	const parser = new Parser({
 		// Todo:- Config
 		customFields,
-		timeout: 5000,
+		timeout: 10000,
 	});
 	// if error do something!
 	try {
