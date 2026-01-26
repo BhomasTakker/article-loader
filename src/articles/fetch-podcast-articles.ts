@@ -5,7 +5,7 @@ import { CollectionItem } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
 import { saveArticle } from "./save";
-import { convertDurationToSeconds, parseDate } from "./utils";
+import { convertDurationToSeconds } from "./utils";
 
 export type PodcastRSSCollection = {
 	items: PodcastRSSItem[];
@@ -119,7 +119,7 @@ export const convertPodcastRssItemToArticle = ({
 			collectionTitle: seriesTitle,
 		},
 		details: {
-			published: parseDate(pubDate) || "",
+			published: pubDate,
 			publishers: [author],
 			categories: [...categories, ...collectionCategories],
 			authors: [collectionAuthor || author],
