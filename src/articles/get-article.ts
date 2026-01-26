@@ -7,6 +7,7 @@ import { getMeta } from "../html/get-meta";
 import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
 import { mergeStringOrArray } from "../utils";
+import { parseDate } from "./utils";
 
 // Do not do this with YouTube!!
 export const stripQueryStringFromUrl = (url: URL) => {
@@ -51,7 +52,7 @@ export const convertRssItem = (data: RSSItem) => {
 		guid: "",
 		variant: "article",
 		details: {
-			published: pubDate || dcDate || "",
+			published: parseDate(pubDate || dcDate) || "",
 			categories: category ? [category] : [],
 			publishers: author ? [author] : [],
 		},

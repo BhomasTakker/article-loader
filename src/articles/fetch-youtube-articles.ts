@@ -5,6 +5,7 @@ import { RSSItem } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
 import { saveArticle } from "./save";
+import { parseDate } from "./utils";
 
 type Items = RSSItem[];
 
@@ -91,7 +92,7 @@ export const convertYouTubeRssItemToArticle = ({
 			alt: mediaTitle || "",
 		},
 		details: {
-			published: pubDate,
+			published: parseDate(pubDate) || parseDate(isoDate),
 			publishers: [author],
 			categories,
 			region,

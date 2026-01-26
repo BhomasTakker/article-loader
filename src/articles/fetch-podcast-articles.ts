@@ -5,7 +5,7 @@ import { CollectionItem } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
 import { saveArticle } from "./save";
-import { convertDurationToSeconds } from "./utils";
+import { convertDurationToSeconds, parseDate } from "./utils";
 
 export type PodcastRSSCollection = {
 	items: PodcastRSSItem[];
@@ -119,7 +119,7 @@ export const convertPodcastRssItemToArticle = ({
 			collectionTitle: seriesTitle,
 		},
 		details: {
-			published: pubDate,
+			published: parseDate(pubDate) || "",
 			publishers: [author],
 			categories: [...categories, ...collectionCategories],
 			authors: [collectionAuthor || author],
@@ -149,7 +149,7 @@ export const fetchPodcastArticles = async ({
 				extraData: extraData as PodcastExtraData,
 				provider,
 				collectionData: collectionData as PodcastRSSCollection,
-			})
+			}),
 		);
 	});
 
