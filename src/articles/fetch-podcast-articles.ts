@@ -149,7 +149,7 @@ export const fetchPodcastArticles = async ({
 				extraData: extraData as PodcastExtraData,
 				provider,
 				collectionData: collectionData as PodcastRSSCollection,
-			})
+			}),
 		);
 	});
 
