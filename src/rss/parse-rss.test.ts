@@ -96,7 +96,7 @@ describe("RSSParse", () => {
 
 			expect(result).toBeNull();
 			expect(consoleErrorSpy).toHaveBeenCalledWith(
-				'RSS parsing failed [Error] for "https://invalid-url.com/rss": Network error',
+				'RSS parsing failed for "https://invalid-url.com/rss" [Error]: Network error',
 			);
 
 			consoleErrorSpy.mockRestore();
@@ -110,7 +110,7 @@ describe("RSSParse", () => {
 
 			expect(result).toBeNull();
 			expect(consoleErrorSpy).toHaveBeenCalledWith(
-				'RSS parsing failed [Error] for "https://slow-endpoint.com/rss": Timeout',
+				'RSS parsing failed for "https://slow-endpoint.com/rss" [Error]: Timeout',
 			);
 
 			consoleErrorSpy.mockRestore();
@@ -124,7 +124,7 @@ describe("RSSParse", () => {
 
 			expect(result).toBeNull();
 			expect(consoleErrorSpy).toHaveBeenCalledWith(
-				'RSS parsing failed [Error] for "https://example.com/malformed-rss": Invalid XML',
+				'RSS parsing failed for "https://example.com/malformed-rss" [Error]: Invalid XML',
 			);
 
 			consoleErrorSpy.mockRestore();
@@ -138,7 +138,7 @@ describe("RSSParse", () => {
 
 			expect(result).toBeNull();
 			expect(consoleErrorSpy).toHaveBeenCalledWith(
-				'RSS parsing failed [Error] for "https://example.com/non-existent-feed": 404 Not Found',
+				'RSS parsing failed for "https://example.com/non-existent-feed" [Error]: 404 Not Found',
 			);
 
 			consoleErrorSpy.mockRestore();
