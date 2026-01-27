@@ -6,6 +6,7 @@ import { getArticleProviderByName } from "../lib/mongo/actions/article-provider"
 import { DataResponse, UnknownObject } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { RSSParse } from "./parse-rss";
+import { logError } from "../error/logging/logger";
 
 type FetchRSS<T, G> = {
 	urls: string[];
@@ -76,7 +77,7 @@ export const fetchRss = async <T, G>({
 			const prom = RSSParse(src, customFields) as Promise<DataResponse>;
 			// get Provider
 			const provider = (await getArticleProviderByName(
-				name
+				name,
 			)) as unknown as ProviderItem;
 			// could just pass a single callbck?
 			prom.then(async (data) => {
@@ -109,7 +110,7 @@ export const fetchRss = async <T, G>({
 				});
 			});
 			prom.catch((error: Error) => {
-				console.error("Error fetching rss");
+				logError("Error fetching rss[1]", error);
 			});
 			////////////////////////////////////
 			// add redis data fetch and cache //
@@ -118,7 +119,7 @@ export const fetchRss = async <T, G>({
 				fetches.push(prom);
 			}
 		} catch (error) {
-			console.error("Error fetching rss");
+			logError("Error fetching rss[2]", error);
 		}
 	});
 
@@ -127,7 +128,7 @@ export const fetchRss = async <T, G>({
 			console.log("We havve completed all loads!");
 		})
 		.catch((error) => {
-			console.error("Error fetching rss log me!");
+			logError("Error fetching rss[3]", error);
 		})
 		.finally(() => {
 			console.log("Error or successful completion. Reset fetch");
