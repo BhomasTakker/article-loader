@@ -40,7 +40,7 @@ describe("Get Article", () => {
 				const arrayVal1 = typeof val1 === "string" ? [val1] : val1;
 				const arrayVal2 = typeof val2 === "string" ? [val2] : val2;
 				return [...new Set([...arrayVal1, ...arrayVal2])];
-			}
+			},
 		);
 		// Set up default successful mock for saveOrCreateArticleBySrc
 		mockSaveOrCreateArticleBySrc.mockResolvedValue({
@@ -53,7 +53,7 @@ describe("Get Article", () => {
 		title: "Test Article Title",
 		description: "Test article description",
 		link: "https://example.com/article/test?param=value#section",
-		pubDate: "2023-01-01T00:00:00Z",
+		pubDate: "2023-01-01T00:00:00.000Z",
 		author: "Test Author",
 		category: "Technology",
 		content: "Test content",
@@ -70,7 +70,7 @@ describe("Get Article", () => {
 
 	// Helper function to create mock ExtraData
 	const createMockExtraData = (
-		overrides: Partial<ExtraData> = {}
+		overrides: Partial<ExtraData> = {},
 	): ExtraData => ({
 		categories: ["News"],
 		region: "US",
@@ -81,7 +81,7 @@ describe("Get Article", () => {
 
 	// Helper function to create mock ProviderItem
 	const createMockProvider = (
-		overrides: Partial<ProviderItem> = {}
+		overrides: Partial<ProviderItem> = {},
 	): ProviderItem => ({
 		name: "Test Provider",
 		description: "Test provider description",
@@ -109,7 +109,7 @@ describe("Get Article", () => {
 
 		it("should remove both query string and hash fragment", () => {
 			const url = new URL(
-				"https://example.com/path?param=value&other=test#section"
+				"https://example.com/path?param=value&other=test#section",
 			);
 			const result = stripQueryStringFromUrl(url);
 
@@ -132,7 +132,7 @@ describe("Get Article", () => {
 
 		it("should handle complex nested paths", () => {
 			const url = new URL(
-				"https://subdomain.example.com/path/to/article?id=123&category=tech#comments"
+				"https://subdomain.example.com/path/to/article?id=123&category=tech#comments",
 			);
 			const result = stripQueryStringFromUrl(url);
 
@@ -160,7 +160,7 @@ describe("Get Article", () => {
 				guid: "",
 				variant: "article",
 				details: {
-					published: "2023-01-01T00:00:00Z",
+					published: "2023-01-01T00:00:00.000Z",
 					categories: ["Technology"],
 					publishers: ["Test Author"],
 				},
@@ -242,7 +242,7 @@ describe("Get Article", () => {
 
 				expect(result).toBeNull();
 				expect(mockGetArticleExists).toHaveBeenCalledWith(
-					"https://example.com/article/test"
+					"https://example.com/article/test",
 				);
 				expect(mockGetMeta).not.toHaveBeenCalled();
 			});
@@ -263,10 +263,10 @@ describe("Get Article", () => {
 				await getArticle(mockRequest);
 
 				expect(mockGetArticleExists).toHaveBeenCalledWith(
-					"https://example.com/article/test"
+					"https://example.com/article/test",
 				);
 				expect(mockGetMeta).toHaveBeenCalledWith(
-					"https://example.com/article/test"
+					"https://example.com/article/test",
 				);
 			});
 		});
@@ -369,7 +369,7 @@ describe("Get Article", () => {
 					guid: "",
 					variant: "article",
 					details: {
-						published: "2023-01-01T00:00:00Z",
+						published: "2023-01-01T00:00:00.000Z",
 						categories: ["Technology"],
 						publishers: ["Test Author"],
 						region: [],
@@ -405,11 +405,11 @@ describe("Get Article", () => {
 
 				expect(mockMergeStringOrArray).toHaveBeenCalledWith(
 					[],
-					["US", "Global"]
+					["US", "Global"],
 				);
 				expect(mockMergeStringOrArray).toHaveBeenCalledWith(
 					[],
-					["National", "International"]
+					["National", "International"],
 				);
 
 				expect(mockSaveOrCreateArticleBySrc).toHaveBeenCalledWith(
@@ -424,7 +424,7 @@ describe("Get Article", () => {
 						region: ["US", "Global"],
 						coverage: ["National", "International"],
 						language: "en-US",
-					})
+					}),
 				);
 			});
 
@@ -441,7 +441,7 @@ describe("Get Article", () => {
 				expect(mockSaveOrCreateArticleBySrc).toHaveBeenCalledWith(
 					expect.objectContaining({
 						provider: mockProvider,
-					})
+					}),
 				);
 			});
 
@@ -462,7 +462,7 @@ describe("Get Article", () => {
 				expect(mockSaveOrCreateArticleBySrc).toHaveBeenCalledWith(
 					expect.objectContaining({
 						description: "",
-					})
+					}),
 				);
 			});
 
@@ -486,7 +486,7 @@ describe("Get Article", () => {
 							src: "https://example.com/meta-image.jpg",
 							alt: "",
 						},
-					})
+					}),
 				);
 			});
 
@@ -507,7 +507,7 @@ describe("Get Article", () => {
 				expect(mockSaveOrCreateArticleBySrc).toHaveBeenCalledWith(
 					expect.objectContaining({
 						variant: "",
-					})
+					}),
 				);
 			});
 		});
@@ -531,11 +531,11 @@ describe("Get Article", () => {
 				const mockRequest: GetArticle = { item: mockItem };
 
 				mockGetArticleExists.mockRejectedValue(
-					new Error("Database connection error")
+					new Error("Database connection error"),
 				);
 
 				await expect(getArticle(mockRequest)).rejects.toThrow(
-					"Database connection error"
+					"Database connection error",
 				);
 			});
 		});
@@ -653,7 +653,7 @@ describe("Get Article", () => {
 							categories: [],
 							publishers: [],
 						}),
-					})
+					}),
 				);
 			});
 		});

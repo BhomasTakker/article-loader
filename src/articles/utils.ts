@@ -25,13 +25,15 @@ export const convertDurationToSeconds = (duration: string) => {
 	return seconds;
 };
 
-export const parseDate = (dateString: string | undefined): Date | undefined => {
+export const parseDate = (
+	dateString: string | undefined,
+): string | undefined => {
 	if (!dateString) return undefined;
 
 	const parsed = new Date(dateString);
 	// Check if valid date
 	if (!isNaN(parsed.getTime())) {
-		return parsed;
+		return parsed.toISOString();
 	}
 
 	// If invalid, return undefined or current date
