@@ -1,3 +1,4 @@
+import { ArticleSource } from "../cms/ArticleSource";
 import { ProviderItem } from "./provider";
 
 export type UnknownObject = Record<string, unknown>;
@@ -140,4 +141,5 @@ export type CollectionItem = BaseInfo & {
 	avatar?: Avatar;
 	provider?: ProviderItem;
 	media?: Media;
+	feed?: ArticleSource;
 };
