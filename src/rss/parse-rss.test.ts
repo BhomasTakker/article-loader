@@ -18,7 +18,7 @@ describe("RSSParse", () => {
 			() =>
 				({
 					parseURL: mockParseURL,
-				} as any)
+				}) as any,
 		);
 	});
 
@@ -82,7 +82,7 @@ describe("RSSParse", () => {
 
 			await RSSParse("https://feeds.example.com/rss.xml");
 			expect(mockParseURL).toHaveBeenCalledWith(
-				"https://feeds.example.com/rss.xml"
+				"https://feeds.example.com/rss.xml",
 			);
 		});
 	});
@@ -95,7 +95,9 @@ describe("RSSParse", () => {
 			const result = await RSSParse("https://invalid-url.com/rss");
 
 			expect(result).toBeNull();
-			expect(consoleErrorSpy).toHaveBeenCalledWith("Error fetching rss");
+			expect(consoleErrorSpy).toHaveBeenCalledWith(
+				'RSS parsing failed [Error] for "https://invalid-url.com/rss": Network error',
+			);
 
 			consoleErrorSpy.mockRestore();
 		});
@@ -107,7 +109,9 @@ describe("RSSParse", () => {
 			const result = await RSSParse("https://slow-endpoint.com/rss");
 
 			expect(result).toBeNull();
-			expect(consoleErrorSpy).toHaveBeenCalledWith("Error fetching rss");
+			expect(consoleErrorSpy).toHaveBeenCalledWith(
+				'RSS parsing failed [Error] for "https://slow-endpoint.com/rss": Timeout',
+			);
 
 			consoleErrorSpy.mockRestore();
 		});
@@ -119,7 +123,9 @@ describe("RSSParse", () => {
 			const result = await RSSParse("https://example.com/malformed-rss");
 
 			expect(result).toBeNull();
-			expect(consoleErrorSpy).toHaveBeenCalledWith("Error fetching rss");
+			expect(consoleErrorSpy).toHaveBeenCalledWith(
+				'RSS parsing failed [Error] for "https://example.com/malformed-rss": Invalid XML',
+			);
 
 			consoleErrorSpy.mockRestore();
 		});
@@ -131,7 +137,9 @@ describe("RSSParse", () => {
 			const result = await RSSParse("https://example.com/non-existent-feed");
 
 			expect(result).toBeNull();
-			expect(consoleErrorSpy).toHaveBeenCalledWith("Error fetching rss");
+			expect(consoleErrorSpy).toHaveBeenCalledWith(
+				'RSS parsing failed [Error] for "https://example.com/non-existent-feed": 404 Not Found',
+			);
 
 			consoleErrorSpy.mockRestore();
 		});

@@ -3,7 +3,7 @@ import { UnknownObject } from "../types/article/item";
 
 export const RSSParse = async (
 	endpoint: string,
-	customFields?: UnknownObject
+	customFields?: UnknownObject,
 ) => {
 	const parser = new Parser({
 		// Todo:- Config
@@ -14,7 +14,11 @@ export const RSSParse = async (
 	try {
 		return await parser.parseURL(endpoint.toString());
 	} catch (error) {
-		console.error("Error fetching rss");
+		const errorMessage = error instanceof Error ? error.message : String(error);
+		const errorType = error instanceof Error ? error.name : "Unknown";
+		console.error(
+			`RSS parsing failed [${errorType}] for "${endpoint}": ${errorMessage}`,
+		);
 		return null;
 	}
 };
