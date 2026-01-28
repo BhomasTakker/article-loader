@@ -8,9 +8,18 @@ import {
 
 export const articleRoute = Router();
 
+// any...
 const addFilter = (filter: any, query: any) => {
-	const { title, src, variant, provider, disabled, minDuration, maxDuration } =
-		query;
+	const {
+		title,
+		src,
+		variant,
+		provider,
+		feed,
+		disabled,
+		minDuration,
+		maxDuration,
+	} = query;
 
 	if (title) {
 		filter.title = { $regex: title, $options: "i" }; // Case-insensitive search
@@ -26,6 +35,10 @@ const addFilter = (filter: any, query: any) => {
 
 	if (provider) {
 		filter.provider = provider;
+	}
+
+	if (feed) {
+		filter.feed = feed;
 	}
 
 	if (disabled !== undefined) {
