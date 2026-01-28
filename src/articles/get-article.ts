@@ -8,6 +8,7 @@ import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
 import { mergeStringOrArray } from "../utils";
 import { parseDate } from "./utils";
+import { ArticleSource } from "../types/cms/ArticleSource";
 
 // Do not do this with YouTube!!
 export const stripQueryStringFromUrl = (url: URL) => {
@@ -67,12 +68,18 @@ export type GetArticle = {
 	item: RSSItem;
 	extraData?: ExtraData;
 	provider?: ProviderItem;
+	feed?: ArticleSource;
 };
 // Needs reafctor
 // We're doing unnecessary work here
 // convert to required format
 // get article data from meta
-export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
+export const getArticle = async ({
+	item,
+	extraData,
+	provider,
+	feed,
+}: GetArticle) => {
 	// We're not doing anything with converted item - we're just getting the src and details
 	const { src, details = {} } = convertRssItem(item);
 	const { region, coverage = [], language, categories = [] } = extraData || {};
@@ -128,6 +135,7 @@ export const getArticle = async ({ item, extraData, provider }: GetArticle) => {
 		},
 		...extraData,
 		provider,
+		feed,
 	};
 
 	try {

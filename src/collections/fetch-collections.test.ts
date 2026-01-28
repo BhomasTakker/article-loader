@@ -20,6 +20,17 @@ const mockServiceInstance = {
 	setState: jest.fn(),
 } as any;
 
+// Reusable mock ArticleSource
+const mockArticleSource = {
+	name: "Test Source",
+	src: "http://example.com/rss",
+	categories: ["test"],
+	region: ["global"],
+	coverage: ["general"],
+	language: "en",
+	variant: "article" as const,
+};
+
 // Mock the Service class properly
 (Service.getInstance as jest.Mock) = jest
 	.fn()
@@ -73,7 +84,7 @@ describe("fetchCollections", () => {
 			const mockFeedCallback = jest.fn().mockResolvedValue({});
 			const sources: SourceObject[] = [
 				{
-					sources: [{ name: "Test Source", src: "http://example.com/rss" }],
+					sources: [mockArticleSource],
 					categories: ["test"],
 				},
 			];
@@ -94,14 +105,31 @@ describe("fetchCollections", () => {
 	describe("with sources", () => {
 		const mockSources: SourceObject[] = [
 			{
-				sources: [{ name: "Example News 1", src: "http://example1.com/rss" }],
+				sources: [
+					{
+						...mockArticleSource,
+						name: "Example News 1",
+						src: "http://example1.com/rss",
+						categories: ["news"],
+					},
+				],
 				categories: ["news"],
 				region: "provider1",
 			},
 			{
 				sources: [
-					{ name: "Example Tech 1", src: "http://example2.com/rss" },
-					{ name: "Example Tech 2", src: "http://example2.com/rss2" },
+					{
+						...mockArticleSource,
+						name: "Example Tech 1",
+						src: "http://example2.com/rss",
+						categories: ["tech"],
+					},
+					{
+						...mockArticleSource,
+						name: "Example Tech 2",
+						src: "http://example2.com/rss2",
+						categories: ["tech"],
+					},
 				],
 				categories: ["tech"],
 				region: "provider2",
@@ -121,7 +149,7 @@ describe("fetchCollections", () => {
 			await fetchFunc();
 
 			expect(mockServiceInstance.setState).toHaveBeenCalledWith(
-				ServiceState.running
+				ServiceState.running,
 			);
 		});
 
@@ -198,7 +226,7 @@ describe("fetchCollections", () => {
 			expect(mockFetchRss).toHaveBeenCalledWith(
 				expect.objectContaining({
 					customFields: undefined,
-				})
+				}),
 			);
 		});
 	});
@@ -209,7 +237,7 @@ describe("fetchCollections", () => {
 			const mockFeedCallback = jest.fn().mockResolvedValue({});
 			const sources: SourceObject[] = [
 				{
-					sources: [{ name: "Test Source", src: "http://example.com/rss" }],
+					sources: [mockArticleSource],
 					categories: ["test"],
 				},
 			];
@@ -229,7 +257,7 @@ describe("fetchCollections", () => {
 			callbackFn();
 
 			expect(mockServiceInstance.setState).toHaveBeenCalledWith(
-				ServiceState.ready
+				ServiceState.ready,
 			);
 		});
 	});
@@ -271,7 +299,7 @@ describe("fetchCollections", () => {
 	describe("error handling", () => {
 		it("should handle MongoDB connection errors gracefully", async () => {
 			mockConnectToMongoDB.mockRejectedValue(
-				new Error("MongoDB connection failed")
+				new Error("MongoDB connection failed"),
 			);
 
 			const mockItemsCallback = jest.fn().mockResolvedValue({});

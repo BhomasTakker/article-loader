@@ -1,9 +1,5 @@
 import { UnknownObject } from "./article/item";
-
-export type ArticleSource = {
-	name: string;
-	src: string;
-};
+import { ArticleSource } from "./cms/ArticleSource";
 
 // I guess just add to this ??
 // and update the model?
