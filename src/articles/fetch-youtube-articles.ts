@@ -5,6 +5,7 @@ import { RSSItem } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
 import { saveArticle } from "./save";
+import { ArticleSource } from "../types/cms/ArticleSource";
 
 type Items = RSSItem[];
 
@@ -34,12 +35,14 @@ type ConvertYouTubeRssItemToArticle = {
 	item: YouTubeRSSItem;
 	extraData?: ExtraData;
 	provider?: ProviderItem;
+	feed?: ArticleSource;
 };
 // need update type etc
 export const convertYouTubeRssItemToArticle = ({
 	item,
 	extraData,
 	provider,
+	feed,
 }: ConvertYouTubeRssItemToArticle) => {
 	const media = item["media:group"];
 	const mediaTitle = media["media:title"][0];
@@ -105,6 +108,7 @@ export const convertYouTubeRssItemToArticle = ({
 			views,
 		},
 		provider,
+		feed,
 	};
 
 	return newItem;
@@ -112,6 +116,7 @@ export const convertYouTubeRssItemToArticle = ({
 
 export const fetchYoutubeArticles = async ({
 	items,
+	feed,
 	extraData,
 	provider,
 }: FetchArticles) => {
@@ -122,6 +127,7 @@ export const fetchYoutubeArticles = async ({
 			item: newItem,
 			extraData,
 			provider,
+			feed,
 		});
 
 		const existing = await Article.findOne({ src: convertedItem.src }).lean();

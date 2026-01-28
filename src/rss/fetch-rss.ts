@@ -1,4 +1,4 @@
-import { ArticleSource, ExtraData } from "../types/types";
+import { ExtraData } from "../types/types";
 import { filterLimit, mergeStringOrArray } from "../utils";
 import { FetchArticles } from "../articles/fetch-articles";
 import { GetCollection } from "../collections/get-collection";
@@ -7,6 +7,8 @@ import { DataResponse, UnknownObject } from "../types/article/item";
 import { ProviderItem } from "../types/article/provider";
 import { RSSParse } from "./parse-rss";
 import { logError } from "../error/logging/logger";
+import { ArticleSource } from "../types/cms/ArticleSource";
+import { getArticleSourceBySource } from "../lib/mongo/actions/article-source";
 
 type FetchRSS<T, G> = {
 	urls: string[];
@@ -15,6 +17,7 @@ type FetchRSS<T, G> = {
 	callback: Callback;
 	itemsCallback: ({
 		items,
+		feed,
 		extraData,
 		provider,
 		collectionData,
@@ -75,11 +78,16 @@ export const fetchRss = async <T, G>({
 	sources.forEach(async ({ name, src, ...rest }) => {
 		try {
 			const prom = RSSParse(src, customFields) as Promise<DataResponse>;
-			// get Provider
+			// get Provider - is name safe?
 			const provider = (await getArticleProviderByName(
 				name,
 			)) as unknown as ProviderItem;
-			// could just pass a single callbck?
+
+			const articleSource = (await getArticleSourceBySource(
+				src,
+			)) as unknown as ArticleSource;
+
+			// could just pass a single callback?
 			prom.then(async (data) => {
 				const items = filterLimit(data?.items || []);
 				if (items.length === 0) {
@@ -106,7 +114,7 @@ export const fetchRss = async <T, G>({
 					// Use the same merged extraData for consistency
 					extraData: mergedExtraData,
 					provider,
-					collectionData,
+					feed: articleSource,
 				});
 			});
 			prom.catch((error: Error) => {

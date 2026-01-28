@@ -11,7 +11,7 @@ import { SourceVariant } from "./types";
 
 export const testRssJob = async (
 	titles: string[],
-	variant: SourceVariant = SourceVariant.ARTICLE
+	variant: SourceVariant = SourceVariant.ARTICLE,
 ) => {
 	console.log(`\n=== Testing RSS Job ===`);
 	console.log(`Titles: ${titles.join(", ")}`);

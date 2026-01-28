@@ -6,6 +6,7 @@ import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
 import { saveArticle } from "./save";
 import { convertDurationToSeconds } from "./utils";
+import { ArticleSource } from "../types/cms/ArticleSource";
 
 export type PodcastRSSCollection = {
 	items: PodcastRSSItem[];
@@ -69,6 +70,7 @@ type ConvertPodcastRssItemToArticle = {
 	extraData?: PodcastExtraData;
 	provider?: ProviderItem;
 	collectionData?: PodcastRSSCollection;
+	feed?: ArticleSource;
 };
 
 export const convertPodcastRssItemToArticle = ({
@@ -76,6 +78,7 @@ export const convertPodcastRssItemToArticle = ({
 	extraData,
 	provider,
 	collectionData,
+	feed,
 }: ConvertPodcastRssItemToArticle) => {
 	const { itunes } = item;
 	const { duration, author, summary } = itunes;
@@ -128,6 +131,7 @@ export const convertPodcastRssItemToArticle = ({
 			language,
 		},
 		provider,
+		feed,
 	};
 
 	return newItem;
@@ -135,6 +139,7 @@ export const convertPodcastRssItemToArticle = ({
 
 export const fetchPodcastArticles = async ({
 	items,
+	feed,
 	extraData,
 	provider,
 	collectionData,
@@ -148,6 +153,7 @@ export const fetchPodcastArticles = async ({
 				item: newItem,
 				extraData: extraData as PodcastExtraData,
 				provider,
+				feed,
 				collectionData: collectionData as PodcastRSSCollection,
 			}),
 		);
