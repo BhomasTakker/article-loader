@@ -1,13 +1,21 @@
-import { CollectionItem, RSSItem } from "../types/article/item";
 import {
-	getArticleExists,
+	CollectionItem,
+	CollectionItemDocument,
+	RSSItem,
+} from "../types/article/item";
+import {
+	getArticleBySrc,
 	saveOrCreateArticleBySrc,
 } from "../lib/mongo/actions/article";
 import { getMeta } from "../html/get-meta";
 import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
 import { mergeStringOrArray } from "../utils";
-import { parseDate } from "./utils";
+import {
+	checkUpdateArticleCategories,
+	checkUpdateArticleRegions,
+	parseDate,
+} from "./utils";
 import { ArticleSource } from "../types/cms/ArticleSource";
 
 // Do not do this with YouTube!!
@@ -70,7 +78,7 @@ export type GetArticle = {
 	provider?: ProviderItem;
 	feed?: ArticleSource;
 };
-// Needs reafctor
+// Needs major refactor
 // We're doing unnecessary work here
 // convert to required format
 // get article data from meta
@@ -84,6 +92,8 @@ export const getArticle = async ({
 	const { src, details = {} } = convertRssItem(item);
 	const { region, coverage = [], language, categories = [] } = extraData || {};
 
+	///////////////////////////
+	// Merge details
 	// Do elsewhere and prbably check performance.....
 	const mergedCategories = new Set([
 		...(details.categories || []),
@@ -105,15 +115,21 @@ export const getArticle = async ({
 		language,
 		categories: Array.from(mergedCategories),
 	};
+	///////////////////////////
 
-	const exists = await getArticleExists(src);
+	// get by source if exists check update
+	const exists = (await getArticleBySrc(src)) as CollectionItemDocument | null;
 	if (exists) {
+		await checkUpdateArticleRegions(exists, mergedRegion);
+		await checkUpdateArticleCategories(exists, Array.from(mergedCategories));
+		// console.log(`Article Exists ${src}`);
 		return null;
 	}
 
 	const { title, description, image, imageAlt, type } =
 		(await getMeta(src)) || {};
 
+	// checks
 	if (!title || !image) {
 		// We need a better or proper check here
 		// based on type / we may not always expect an image
@@ -122,6 +138,7 @@ export const getArticle = async ({
 		return null;
 	}
 
+	// conversion
 	const newArticle = {
 		title,
 		src,

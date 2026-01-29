@@ -1,3 +1,9 @@
+import {
+	updateArticleCategories,
+	updateArticleRegions,
+} from "../lib/mongo/actions/article";
+import { CollectionItemDocument } from "../types/article/item";
+
 // Utils and make better
 export const convertDurationToSeconds = (duration: string) => {
 	if (!duration) {
@@ -38,4 +44,42 @@ export const parseDate = (
 
 	// If invalid, return undefined or current date
 	return undefined;
+};
+
+export const checkUpdateArticleRegions = async (
+	exists: CollectionItemDocument,
+	regionArray: string[],
+) => {
+	const existingRegions = new Set(exists.details?.region || []);
+	const hasNewRegions = regionArray.some(
+		(region) => !existingRegions.has(region),
+	);
+
+	if (hasNewRegions) {
+		// Update existing article with merged regions
+		const updatedRegions = Array.from(
+			new Set([...(exists.details?.region || []), ...regionArray]),
+		);
+
+		await updateArticleRegions(exists._id, updatedRegions);
+	}
+};
+
+export const checkUpdateArticleCategories = async (
+	exists: CollectionItemDocument,
+	categoryArray: string[],
+) => {
+	const existingCategories = new Set(exists.details?.categories || []);
+	const hasNewCategories = categoryArray.some(
+		(category) => !existingCategories.has(category),
+	);
+
+	if (hasNewCategories) {
+		// Update existing article with merged categories
+		const updatedCategories = Array.from(
+			new Set([...(exists.details?.categories || []), ...categoryArray]),
+		);
+
+		await updateArticleCategories(exists._id, updatedCategories);
+	}
 };
