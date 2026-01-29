@@ -5,7 +5,7 @@ import {
 	GetArticle,
 } from "./get-article";
 import {
-	getArticleExists,
+	getArticleBySrc,
 	saveOrCreateArticleBySrc,
 } from "../lib/mongo/actions/article";
 import { getMeta } from "../html/get-meta";
@@ -19,8 +19,8 @@ jest.mock("../lib/mongo/actions/article");
 jest.mock("../html/get-meta");
 jest.mock("../utils");
 
-const mockGetArticleExists = getArticleExists as jest.MockedFunction<
-	typeof getArticleExists
+const mockGetArticleBySrc = getArticleBySrc as jest.MockedFunction<
+	typeof getArticleBySrc
 >;
 const mockSaveOrCreateArticleBySrc =
 	saveOrCreateArticleBySrc as jest.MockedFunction<
@@ -232,16 +232,19 @@ describe("Get Article", () => {
 
 	describe("getArticle", () => {
 		describe("Article Exists Check", () => {
-			it("should return null when article already exists", async () => {
+			it("should return the existing article when article already exists", async () => {
 				const mockItem = createMockRSSItem();
 				const mockRequest: GetArticle = { item: mockItem };
 
-				mockGetArticleExists.mockResolvedValue({ _id: "some-id" });
+				mockGetArticleBySrc.mockResolvedValue({
+					...mockItem,
+					_id: "mock-id",
+					__v: 0,
+				} as any);
 
-				const result = await getArticle(mockRequest);
+				await getArticle(mockRequest);
 
-				expect(result).toBeNull();
-				expect(mockGetArticleExists).toHaveBeenCalledWith(
+				expect(mockGetArticleBySrc).toHaveBeenCalledWith(
 					"https://example.com/article/test",
 				);
 				expect(mockGetMeta).not.toHaveBeenCalled();
@@ -251,7 +254,7 @@ describe("Get Article", () => {
 				const mockItem = createMockRSSItem();
 				const mockRequest: GetArticle = { item: mockItem };
 
-				mockGetArticleExists.mockResolvedValue(null);
+				mockGetArticleBySrc.mockResolvedValue(null);
 				mockGetMeta.mockResolvedValue({
 					title: "Meta Title",
 					description: "Meta Description",
@@ -262,7 +265,7 @@ describe("Get Article", () => {
 
 				await getArticle(mockRequest);
 
-				expect(mockGetArticleExists).toHaveBeenCalledWith(
+				expect(mockGetArticleBySrc).toHaveBeenCalledWith(
 					"https://example.com/article/test",
 				);
 				expect(mockGetMeta).toHaveBeenCalledWith(
@@ -273,7 +276,7 @@ describe("Get Article", () => {
 
 		describe("Meta Extraction", () => {
 			beforeEach(() => {
-				mockGetArticleExists.mockResolvedValue(null);
+				mockGetArticleBySrc.mockResolvedValue(null);
 			});
 
 			it("should return null when getMeta returns null", async () => {
@@ -345,7 +348,7 @@ describe("Get Article", () => {
 
 		describe("Successful Article Processing", () => {
 			beforeEach(() => {
-				mockGetArticleExists.mockResolvedValue(null);
+				mockGetArticleBySrc.mockResolvedValue(null);
 				mockGetMeta.mockResolvedValue({
 					title: "Meta Title",
 					description: "Meta Description",
@@ -514,7 +517,7 @@ describe("Get Article", () => {
 
 		describe("Error Handling", () => {
 			beforeEach(() => {
-				mockGetArticleExists.mockResolvedValue(null);
+				mockGetArticleBySrc.mockResolvedValue(null);
 			});
 
 			it("should handle getMeta errors", async () => {
@@ -526,11 +529,11 @@ describe("Get Article", () => {
 				await expect(getArticle(mockRequest)).rejects.toThrow("Network error");
 			});
 
-			it("should handle getArticleExists errors", async () => {
+			it("should handle mockGetArticleBySrc errors", async () => {
 				const mockItem = createMockRSSItem();
 				const mockRequest: GetArticle = { item: mockItem };
 
-				mockGetArticleExists.mockRejectedValue(
+				mockGetArticleBySrc.mockRejectedValue(
 					new Error("Database connection error"),
 				);
 
@@ -542,7 +545,7 @@ describe("Get Article", () => {
 
 		describe("Data Merging", () => {
 			beforeEach(() => {
-				mockGetArticleExists.mockResolvedValue(null);
+				mockGetArticleBySrc.mockResolvedValue(null);
 				mockGetMeta.mockResolvedValue({
 					title: "Meta Title",
 					description: "Meta Description",
@@ -613,7 +616,7 @@ describe("Get Article", () => {
 
 		describe("Edge Cases", () => {
 			beforeEach(() => {
-				mockGetArticleExists.mockResolvedValue(null);
+				mockGetArticleBySrc.mockResolvedValue(null);
 				mockGetMeta.mockResolvedValue({
 					title: "Meta Title",
 					description: "Meta Description",
