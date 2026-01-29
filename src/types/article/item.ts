@@ -143,3 +143,10 @@ export type CollectionItem = BaseInfo & {
 	media?: Media;
 	feed?: ArticleSource;
 };
+
+export type CollectionItemDocument = CollectionItem & {
+	// after lean?
+	_id: string;
+	createdAt?: Date;
+	updatedAt?: Date;
+};
