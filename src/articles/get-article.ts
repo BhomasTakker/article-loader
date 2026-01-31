@@ -3,9 +3,26 @@ import {
 	doesArticleExist,
 	loadAndValidateArticleMeta,
 	mergeArticleDetails,
+	setType,
+	validateArticleData,
+	ValidateArticleDataParams,
 } from "./utils";
 import { convertRssItem } from "./transformers/article";
 import { GetArticle } from "./types";
+import { CollectionItem, RSSItem } from "../types/article/item";
+
+const rssArticleFallback = (item: RSSItem, src: string) => {
+	const { title, description, image } = item;
+	return {
+		title,
+		src,
+		description: description || "",
+		image: image?.link || image?.url || "",
+		imageAlt:
+			image?.title || "There is no alternative text provided for this image",
+		type: setType({}, src),
+	};
+};
 
 export const getArticle = async ({
 	item,
@@ -24,15 +41,16 @@ export const getArticle = async ({
 	}
 
 	const articleMetaData = await loadAndValidateArticleMeta(src);
-	if (!articleMetaData) {
+
+	const articleData = articleMetaData || rssArticleFallback(item, src);
+
+	if (!validateArticleData(articleData as ValidateArticleDataParams)) {
 		return null;
 	}
-
-	const { title, description, image, imageAlt, type } = articleMetaData;
-
+	const { title, description, image, imageAlt, type } = articleData;
 	// conversion
-	const newArticle = {
-		title,
+	const newArticle: CollectionItem = {
+		title: title || "",
 		src,
 		description: description || "",
 		guid: "",
@@ -40,17 +58,20 @@ export const getArticle = async ({
 		details: mergedDetails,
 		// We want avatar as null so we can actually filter by missing image
 		// and try to load it on the client side matybe
-		avatar: {
-			src: image || "",
-			alt: imageAlt || "",
-		},
-		...extraData,
+		// if no image return undefined for avatar
+		avatar: image
+			? {
+					src: image || "",
+					alt: imageAlt || "",
+				}
+			: undefined,
 		provider,
 		feed,
+		media: extraData?.media,
 	};
 
 	try {
-		saveOrCreateArticleBySrc(newArticle);
+		await saveOrCreateArticleBySrc(newArticle);
 		// logMemoryUsage();
 	} catch (err) {
 		// console.log(`Article Load Error ${src}`);
