@@ -1,9 +1,4 @@
-import {
-	stripQueryStringFromUrl,
-	convertRssItem,
-	getArticle,
-	GetArticle,
-} from "./get-article";
+import { convertRssItem, getArticle, GetArticle } from "./get-article";
 import {
 	getArticleBySrc,
 	saveOrCreateArticleBySrc,
@@ -13,12 +8,12 @@ import { mergeStringOrArray } from "../utils";
 import { RSSItem } from "../types/article/item";
 import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
+import { stripQueryStringFromUrl } from "./utils";
 
 // Mock the dependencies
 jest.mock("../lib/mongo/actions/article");
 jest.mock("../html/get-meta");
 jest.mock("../utils");
-
 const mockGetArticleBySrc = getArticleBySrc as jest.MockedFunction<
 	typeof getArticleBySrc
 >;

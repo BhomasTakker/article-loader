@@ -83,3 +83,14 @@ export const checkUpdateArticleCategories = async (
 		await updateArticleCategories(exists._id, updatedCategories);
 	}
 };
+
+// Do not do this with YouTube!!
+export const stripQueryStringFromUrl = (url: URL) => {
+	const { pathname, origin } = url;
+	const newUrl = new URL(origin + pathname);
+	// Remove query string from the URL
+	newUrl.search = "";
+	// Remove any hash fragments from the URL
+	newUrl.hash = "";
+	return newUrl.toString();
+};

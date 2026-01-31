@@ -15,19 +15,9 @@ import {
 	checkUpdateArticleCategories,
 	checkUpdateArticleRegions,
 	parseDate,
+	stripQueryStringFromUrl,
 } from "./utils";
 import { ArticleSource } from "../types/cms/ArticleSource";
-
-// Do not do this with YouTube!!
-export const stripQueryStringFromUrl = (url: URL) => {
-	const { pathname, origin } = url;
-	const newUrl = new URL(origin + pathname);
-	// Remove query string from the URL
-	newUrl.search = "";
-	// Remove any hash fragments from the URL
-	newUrl.hash = "";
-	return newUrl.toString();
-};
 
 export const convertRssItem = (data: RSSItem) => {
 	const {
