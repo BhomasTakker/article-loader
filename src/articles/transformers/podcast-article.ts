@@ -1,15 +1,6 @@
-import { filterLimit } from "../utils";
-import { logMemoryUsage } from "../lib/mem";
-import { CollectionItem } from "../types/article/item";
-import { FetchArticles } from "./fetch-articles";
-import { saveArticle } from "./save";
-import { convertDurationToSeconds } from "./utils";
-import {
-	ConvertPodcastRssItemToArticle,
-	PodcastExtraData,
-	PodcastRSSCollection,
-	PodcastRSSItem,
-} from "./types";
+import { CollectionItem } from "../../types/article/item";
+import { ConvertPodcastRssItemToArticle } from "../types";
+import { convertDurationToSeconds } from "../utils";
 
 export const convertPodcastRssItemToArticle = ({
 	item,
@@ -73,32 +64,4 @@ export const convertPodcastRssItemToArticle = ({
 	};
 
 	return newItem;
-};
-
-export const fetchPodcastArticles = async ({
-	items,
-	feed,
-	extraData,
-	provider,
-	collectionData,
-}: FetchArticles) => {
-	// We are not excuding articles with incorrect data.....
-	const filteredItems = filterLimit(items || []);
-	const data = filteredItems.map((item, i) => {
-		const newItem: PodcastRSSItem = item as unknown as PodcastRSSItem;
-		return saveArticle(
-			convertPodcastRssItemToArticle({
-				item: newItem,
-				extraData: extraData as PodcastExtraData,
-				provider,
-				feed,
-				collectionData: collectionData as PodcastRSSCollection,
-			}),
-		);
-	});
-
-	logMemoryUsage();
-	const results = await Promise.all(data);
-	logMemoryUsage();
-	return results; //Promise.all(data);
 };

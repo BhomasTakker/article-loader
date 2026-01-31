@@ -1,4 +1,4 @@
-import { convertRssItem, getArticle, GetArticle } from "./get-article";
+import { getArticle } from "./get-article";
 import {
 	getArticleBySrc,
 	saveOrCreateArticleBySrc,
@@ -9,6 +9,8 @@ import { RSSItem } from "../types/article/item";
 import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
 import { stripQueryStringFromUrl } from "./utils";
+import { convertRssItem } from "./transformers/article";
+import { GetArticle } from "./types";
 
 // Mock the dependencies
 jest.mock("../lib/mongo/actions/article");

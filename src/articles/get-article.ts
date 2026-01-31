@@ -1,73 +1,17 @@
-import {
-	CollectionItem,
-	CollectionItemDocument,
-	RSSItem,
-} from "../types/article/item";
+import { CollectionItemDocument } from "../types/article/item";
 import {
 	getArticleBySrc,
 	saveOrCreateArticleBySrc,
 } from "../lib/mongo/actions/article";
 import { getMeta } from "../html/get-meta";
-import { ExtraData } from "../types/types";
-import { ProviderItem } from "../types/article/provider";
 import { mergeStringOrArray } from "../utils";
 import {
 	checkUpdateArticleCategories,
 	checkUpdateArticleRegions,
-	parseDate,
-	stripQueryStringFromUrl,
 } from "./utils";
-import { ArticleSource } from "../types/cms/ArticleSource";
+import { convertRssItem } from "./transformers/article";
+import { GetArticle } from "./types";
 
-export const convertRssItem = (data: RSSItem) => {
-	const {
-		title,
-		// content potentially more likely to have html
-
-		description,
-		author,
-		category,
-		link,
-		pubDate,
-		enclosure,
-		// What is?
-		content,
-		contentSnippet,
-	} = data;
-	const { url = "" } = enclosure || {};
-	const contentEncoded = data["content:encoded"];
-	const dcDate = data["dc:date"];
-
-	// we need to test this properly
-	const parsedUrl = new URL(link);
-	const strippedUrl = stripQueryStringFromUrl(parsedUrl);
-
-	return {
-		title: title,
-		src: strippedUrl,
-		// feels wrong to use contentSnippet and content
-		description: description || contentEncoded, //contentSnippet || content || description,
-		contentEncoded,
-		guid: "",
-		variant: "article",
-		details: {
-			published: parseDate(pubDate || dcDate) || "",
-			categories: category ? [category] : [],
-			publishers: author ? [author] : [],
-		},
-		avatar: {
-			src: url,
-			alt: title,
-		},
-	} as CollectionItem;
-};
-
-export type GetArticle = {
-	item: RSSItem;
-	extraData?: ExtraData;
-	provider?: ProviderItem;
-	feed?: ArticleSource;
-};
 // Needs major refactor
 // We're doing unnecessary work here
 // convert to required format
