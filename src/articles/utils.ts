@@ -1,8 +1,12 @@
+import { getMeta } from "../html/get-meta";
 import {
+	getArticleBySrc,
 	updateArticleCategories,
 	updateArticleRegions,
 } from "../lib/mongo/actions/article";
-import { CollectionItemDocument } from "../types/article/item";
+import { CollectionItemDocument, Details } from "../types/article/item";
+import { ExtraData } from "../types/types";
+import { mergeStringOrArray } from "../utils";
 
 // Utils and make better
 export const convertDurationToSeconds = (duration: string) => {
@@ -93,4 +97,69 @@ export const stripQueryStringFromUrl = (url: URL) => {
 	// Remove any hash fragments from the URL
 	newUrl.hash = "";
 	return newUrl.toString();
+};
+
+export const mergeArticleDetails = (obj1: Details, obj2: ExtraData) => {
+	const {
+		region: obj1Region,
+		coverage: obj1Coverage,
+		categories: obj1Categories,
+	} = obj1;
+	const {
+		region: obj2Region,
+		coverage: obj2Coverage,
+		categories: obj2Categories,
+	} = obj2;
+
+	const categories1 = obj1Categories || [];
+	const categories2 = obj2Categories || [];
+	const mergedCategories = mergeStringOrArray(categories1, categories2);
+
+	const region1 = obj1Region || [];
+	const region2 = obj2Region || [];
+	const mergedRegion = mergeStringOrArray(region1, region2);
+
+	const coverage1 = obj1Coverage || [];
+	const coverage2 = obj2Coverage || [];
+	const mergedCoverage = mergeStringOrArray(coverage1, coverage2);
+
+	const mergedDetails = {
+		...obj1,
+		region: mergedRegion || [],
+		coverage: mergedCoverage || [],
+		categories: Array.from(mergedCategories) || [],
+	};
+	return mergedDetails;
+};
+
+type DoesArticleExistParams = {
+	region: string[];
+	categories: string[];
+};
+
+export const doesArticleExist = async (
+	src: string,
+	{ region = [], categories = [] }: DoesArticleExistParams,
+) => {
+	const exists = (await getArticleBySrc(src)) as CollectionItemDocument | null;
+	if (exists) {
+		await checkUpdateArticleRegions(exists, region);
+		await checkUpdateArticleCategories(exists, categories);
+		return true;
+	}
+	return false;
+};
+
+export const loadAndValidateArticleMeta = async (src: string) => {
+	const { title, description, image, imageAlt, type } =
+		(await getMeta(src)) || {};
+	if (!title) {
+		// We need a better or proper check here
+		// based on type / we may not always expect an image
+		// BlueSky/Reddit post or some such
+		return null;
+	}
+	// we need a transform and more data?
+	// twitter:stream for instance might be a video/audio source
+	return { title, description, image, imageAlt, type };
 };
