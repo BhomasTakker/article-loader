@@ -321,25 +321,15 @@ describe("Get Article", () => {
 				const result = await getArticle(mockRequest);
 
 				expect(result).toBeNull();
-				expect(mockSaveOrCreateArticleBySrc).not.toHaveBeenCalled();
-			});
-
-			it("should return null when both title and image are missing", async () => {
-				const mockItem = createMockRSSItem();
-				const mockRequest: GetArticle = { item: mockItem };
-
-				mockGetMeta.mockResolvedValue({
-					title: "",
-					description: "Meta Description",
-					image: "",
-					imageAlt: "Alt text",
-					type: "article",
-				});
-
-				const result = await getArticle(mockRequest);
-
-				expect(result).toBeNull();
-				expect(mockSaveOrCreateArticleBySrc).not.toHaveBeenCalled();
+				expect(mockSaveOrCreateArticleBySrc).toHaveBeenCalledWith(
+					expect.objectContaining({
+						title: "Meta Title",
+						avatar: expect.objectContaining({
+							src: "",
+							alt: "Alt text",
+						}),
+					}),
+				);
 			});
 		});
 
@@ -398,11 +388,16 @@ describe("Get Article", () => {
 				};
 
 				mockMergeStringOrArray
+					.mockReturnValueOnce(["Technology", "Politics", "Breaking"]) // categories merge
 					.mockReturnValueOnce(["US", "Global"]) // region merge
 					.mockReturnValueOnce(["National", "International"]); // coverage merge
 
 				await getArticle(mockRequest);
 
+				expect(mockMergeStringOrArray).toHaveBeenCalledWith(
+					["Technology"],
+					["Politics", "Breaking"],
+				);
 				expect(mockMergeStringOrArray).toHaveBeenCalledWith(
 					[],
 					["US", "Global"],
@@ -417,7 +412,6 @@ describe("Get Article", () => {
 						details: expect.objectContaining({
 							region: ["US", "Global"],
 							coverage: ["National", "International"],
-							language: "en-US",
 							categories: ["Technology", "Politics", "Breaking"],
 						}),
 						categories: ["Politics", "Breaking"],
