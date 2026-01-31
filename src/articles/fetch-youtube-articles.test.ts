@@ -1,14 +1,12 @@
-import {
-	fetchYoutubeArticles,
-	convertYouTubeRssItemToArticle,
-	YouTubeRSSItem,
-} from "./fetch-youtube-articles";
+import { fetchYoutubeArticles } from "./fetch-youtube-articles";
 import { saveArticle } from "./save";
 import { filterLimit, deepMerge } from "../utils";
 import Article from "../models/Article";
 import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
+import { YouTubeRSSItem } from "./types";
+import { convertYouTubeRssItemToArticle } from "./transformers/youtube-article";
 
 // Mock the dependencies
 jest.mock("./save");
@@ -162,7 +160,7 @@ describe("fetch-youtube-articles", () => {
 			});
 
 			expect(result.src).toBe(
-				"https://www.youtube.com/watch?v=customVideoId456"
+				"https://www.youtube.com/watch?v=customVideoId456",
 			);
 		});
 
@@ -342,7 +340,7 @@ describe("fetch-youtube-articles", () => {
 				expect.objectContaining({
 					title: "Video 1",
 					variant: "video",
-				})
+				}),
 			);
 		});
 
@@ -396,7 +394,7 @@ describe("fetch-youtube-articles", () => {
 						quality: "4K",
 						format: "video/youtube",
 					}),
-				})
+				}),
 			);
 		});
 
@@ -498,7 +496,7 @@ describe("fetch-youtube-articles", () => {
 
 			// Should reject due to database error
 			await expect(fetchYoutubeArticles(fetchParams)).rejects.toThrow(
-				"Database error"
+				"Database error",
 			);
 		});
 

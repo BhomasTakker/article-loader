@@ -1,9 +1,4 @@
-import {
-	stripQueryStringFromUrl,
-	convertRssItem,
-	getArticle,
-	GetArticle,
-} from "./get-article";
+import { getArticle } from "./get-article";
 import {
 	getArticleBySrc,
 	saveOrCreateArticleBySrc,
@@ -13,12 +8,14 @@ import { mergeStringOrArray } from "../utils";
 import { RSSItem } from "../types/article/item";
 import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
+import { stripQueryStringFromUrl } from "./utils";
+import { convertRssItem } from "./transformers/article";
+import { GetArticle } from "./types";
 
 // Mock the dependencies
 jest.mock("../lib/mongo/actions/article");
 jest.mock("../html/get-meta");
 jest.mock("../utils");
-
 const mockGetArticleBySrc = getArticleBySrc as jest.MockedFunction<
 	typeof getArticleBySrc
 >;
@@ -288,7 +285,8 @@ describe("Get Article", () => {
 				const result = await getArticle(mockRequest);
 
 				expect(result).toBeNull();
-				expect(mockSaveOrCreateArticleBySrc).not.toHaveBeenCalled();
+				// When getMeta returns null, rssArticleFallback is used which provides valid data
+				expect(mockSaveOrCreateArticleBySrc).toHaveBeenCalled();
 			});
 
 			it("should return null when title is missing", async () => {
@@ -306,7 +304,8 @@ describe("Get Article", () => {
 				const result = await getArticle(mockRequest);
 
 				expect(result).toBeNull();
-				expect(mockSaveOrCreateArticleBySrc).not.toHaveBeenCalled();
+				// When getMeta title is empty, rssArticleFallback is used which provides valid data
+				expect(mockSaveOrCreateArticleBySrc).toHaveBeenCalled();
 			});
 
 			it("should return null when image is missing", async () => {
@@ -324,25 +323,13 @@ describe("Get Article", () => {
 				const result = await getArticle(mockRequest);
 
 				expect(result).toBeNull();
-				expect(mockSaveOrCreateArticleBySrc).not.toHaveBeenCalled();
-			});
-
-			it("should return null when both title and image are missing", async () => {
-				const mockItem = createMockRSSItem();
-				const mockRequest: GetArticle = { item: mockItem };
-
-				mockGetMeta.mockResolvedValue({
-					title: "",
-					description: "Meta Description",
-					image: "",
-					imageAlt: "Alt text",
-					type: "article",
-				});
-
-				const result = await getArticle(mockRequest);
-
-				expect(result).toBeNull();
-				expect(mockSaveOrCreateArticleBySrc).not.toHaveBeenCalled();
+				// When image is empty string, avatar is set to undefined
+				expect(mockSaveOrCreateArticleBySrc).toHaveBeenCalledWith(
+					expect.objectContaining({
+						title: "Meta Title",
+						avatar: undefined,
+					}),
+				);
 			});
 		});
 
@@ -401,11 +388,16 @@ describe("Get Article", () => {
 				};
 
 				mockMergeStringOrArray
+					.mockReturnValueOnce(["Technology", "Politics", "Breaking"]) // categories merge
 					.mockReturnValueOnce(["US", "Global"]) // region merge
 					.mockReturnValueOnce(["National", "International"]); // coverage merge
 
 				await getArticle(mockRequest);
 
+				expect(mockMergeStringOrArray).toHaveBeenCalledWith(
+					["Technology"],
+					["Politics", "Breaking"],
+				);
 				expect(mockMergeStringOrArray).toHaveBeenCalledWith(
 					[],
 					["US", "Global"],
@@ -420,13 +412,8 @@ describe("Get Article", () => {
 						details: expect.objectContaining({
 							region: ["US", "Global"],
 							coverage: ["National", "International"],
-							language: "en-US",
 							categories: ["Technology", "Politics", "Breaking"],
 						}),
-						categories: ["Politics", "Breaking"],
-						region: ["US", "Global"],
-						coverage: ["National", "International"],
-						language: "en-US",
 					}),
 				);
 			});

@@ -1,8 +1,6 @@
 import {
 	fetchPodcastArticles,
 	convertPodcastRssItemToArticle,
-	PodcastRSSItem,
-	PodcastRSSCollection,
 } from "./fetch-podcast-articles";
 import { saveArticle } from "./save";
 import { filterLimit } from "../utils";
@@ -11,6 +9,7 @@ import { convertDurationToSeconds } from "./utils";
 import { ExtraData } from "../types/types";
 import { ProviderItem } from "../types/article/provider";
 import { FetchArticles } from "./fetch-articles";
+import { PodcastRSSCollection, PodcastRSSItem } from "./types";
 
 // Mock the dependencies
 jest.mock("./save");
@@ -405,7 +404,7 @@ describe("fetch-podcast-articles", () => {
 					media: expect.objectContaining({
 						collectionTitle: "Test Series",
 					}),
-				})
+				}),
 			);
 		});
 
@@ -552,7 +551,7 @@ describe("fetch-podcast-articles", () => {
 
 			expect(result.media?.duration).toBe(0);
 			expect(mockConvertDurationToSeconds).toHaveBeenCalledWith(
-				"invalid-duration"
+				"invalid-duration",
 			);
 		});
 	});

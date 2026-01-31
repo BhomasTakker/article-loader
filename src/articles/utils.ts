@@ -1,8 +1,16 @@
+import { getMeta } from "../html/get-meta";
 import {
+	getArticleBySrc,
 	updateArticleCategories,
 	updateArticleRegions,
 } from "../lib/mongo/actions/article";
-import { CollectionItemDocument } from "../types/article/item";
+import {
+	CollectionItem,
+	CollectionItemDocument,
+	Details,
+} from "../types/article/item";
+import { ExtraData } from "../types/types";
+import { mergeStringOrArray } from "../utils";
 
 // Utils and make better
 export const convertDurationToSeconds = (duration: string) => {
@@ -82,4 +90,102 @@ export const checkUpdateArticleCategories = async (
 
 		await updateArticleCategories(exists._id, updatedCategories);
 	}
+};
+
+// Do not do this with YouTube!!
+export const stripQueryStringFromUrl = (url: URL) => {
+	const { pathname, origin } = url;
+	const newUrl = new URL(origin + pathname);
+	// Remove query string from the URL
+	newUrl.search = "";
+	// Remove any hash fragments from the URL
+	newUrl.hash = "";
+	return newUrl.toString();
+};
+
+export const mergeArticleDetails = (obj1: Details, obj2: ExtraData) => {
+	const {
+		region: obj1Region,
+		coverage: obj1Coverage,
+		categories: obj1Categories,
+	} = obj1;
+	const {
+		region: obj2Region,
+		coverage: obj2Coverage,
+		categories: obj2Categories,
+	} = obj2;
+
+	const categories1 = obj1Categories || [];
+	const categories2 = obj2Categories || [];
+	const mergedCategories = mergeStringOrArray(categories1, categories2);
+
+	const region1 = obj1Region || [];
+	const region2 = obj2Region || [];
+	const mergedRegion = mergeStringOrArray(region1, region2);
+
+	const coverage1 = obj1Coverage || [];
+	const coverage2 = obj2Coverage || [];
+	const mergedCoverage = mergeStringOrArray(coverage1, coverage2);
+
+	const mergedDetails = {
+		...obj1,
+		region: mergedRegion || [],
+		coverage: mergedCoverage || [],
+		categories: Array.from(mergedCategories) || [],
+	};
+	return mergedDetails;
+};
+
+type DoesArticleExistParams = {
+	region: string[];
+	categories: string[];
+};
+
+export const doesArticleExist = async (
+	src: string,
+	{ region = [], categories = [] }: DoesArticleExistParams,
+) => {
+	const exists = (await getArticleBySrc(src)) as CollectionItemDocument | null;
+	if (exists) {
+		await checkUpdateArticleRegions(exists, region);
+		await checkUpdateArticleCategories(exists, categories);
+		return true;
+	}
+	return false;
+};
+
+export const loadAndValidateArticleMeta = async (src: string) => {
+	const { title, description, image, imageAlt, type } =
+		(await getMeta(src)) || {};
+
+	if (!validateArticleData({ title } as ValidateArticleDataParams)) {
+		return null;
+	}
+	// we need a transform and more data?
+	// twitter:stream for instance might be a video/audio source
+	return { title, description, image, imageAlt, type };
+};
+
+export const setType = (
+	obj: { type?: string | null | undefined },
+	src: string,
+) => {
+	const validTypes = ["article", "video", "audio"];
+	if (!obj.type || !validTypes.includes(obj.type)) {
+		obj.type = "article";
+		if (src.includes("youtube")) {
+			obj.type = "video";
+		}
+	}
+};
+
+export type ValidateArticleDataParams = {
+	title: string | undefined | null;
+} & Partial<CollectionItem>;
+
+export const validateArticleData = (obj: ValidateArticleDataParams) => {
+	if (!obj.title) {
+		return false;
+	}
+	return true;
 };

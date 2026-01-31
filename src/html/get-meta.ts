@@ -1,4 +1,5 @@
 import * as cheerio from "cheerio";
+import { setType } from "../articles/utils";
 
 // Probably get meta data and split/get card data from it
 export type MetaData = {
@@ -29,7 +30,11 @@ export const getOGMetaFromCheerio = (str: string) => {
 		imageAlt: metaTags["og:image:alt"],
 		locale: metaTags["og:locale"],
 		site_name: metaTags["og:site_name"],
-		title: metaTags["og:title"],
+		title:
+			metaTags["og:title"] ||
+			metaTags["twitter:title"] ||
+			metaTags["title"] ||
+			undefined,
 		type: metaTags["og:type"],
 		url: metaTags["og:url"],
 	} as MetaData;
@@ -50,15 +55,7 @@ export const getMeta = async (src: string) => {
 
 		const meta = getOGMetaFromCheerio(result);
 
-		// Do this properly
-		// set media type if possible - video/youtube
-		const validTypes = ["article", "video", "audio"];
-		if (!meta.type || !validTypes.includes(meta.type)) {
-			meta.type = "article";
-			if (src.includes("youtube")) {
-				meta.type = "video";
-			}
-		}
+		setType(meta, src);
 
 		return meta;
 	} catch (error) {

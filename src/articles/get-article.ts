@@ -1,87 +1,29 @@
+import { saveOrCreateArticleBySrc } from "../lib/mongo/actions/article";
 import {
-	CollectionItem,
-	CollectionItemDocument,
-	RSSItem,
-} from "../types/article/item";
-import {
-	getArticleBySrc,
-	saveOrCreateArticleBySrc,
-} from "../lib/mongo/actions/article";
-import { getMeta } from "../html/get-meta";
-import { ExtraData } from "../types/types";
-import { ProviderItem } from "../types/article/provider";
-import { mergeStringOrArray } from "../utils";
-import {
-	checkUpdateArticleCategories,
-	checkUpdateArticleRegions,
-	parseDate,
+	doesArticleExist,
+	loadAndValidateArticleMeta,
+	mergeArticleDetails,
+	setType,
+	validateArticleData,
+	ValidateArticleDataParams,
 } from "./utils";
-import { ArticleSource } from "../types/cms/ArticleSource";
+import { convertRssItem } from "./transformers/article";
+import { GetArticle } from "./types";
+import { CollectionItem, RSSItem } from "../types/article/item";
 
-// Do not do this with YouTube!!
-export const stripQueryStringFromUrl = (url: URL) => {
-	const { pathname, origin } = url;
-	const newUrl = new URL(origin + pathname);
-	// Remove query string from the URL
-	newUrl.search = "";
-	// Remove any hash fragments from the URL
-	newUrl.hash = "";
-	return newUrl.toString();
-};
-
-export const convertRssItem = (data: RSSItem) => {
-	const {
-		title,
-		// content potentially more likely to have html
-
-		description,
-		author,
-		category,
-		link,
-		pubDate,
-		enclosure,
-		// What is?
-		content,
-		contentSnippet,
-	} = data;
-	const { url = "" } = enclosure || {};
-	const contentEncoded = data["content:encoded"];
-	const dcDate = data["dc:date"];
-
-	// we need to test this properly
-	const parsedUrl = new URL(link);
-	const strippedUrl = stripQueryStringFromUrl(parsedUrl);
-
+const rssArticleFallback = (item: RSSItem, src: string) => {
+	const { title, description, image } = item;
 	return {
-		title: title,
-		src: strippedUrl,
-		// feels wrong to use contentSnippet and content
-		description: description || contentEncoded, //contentSnippet || content || description,
-		contentEncoded,
-		guid: "",
-		variant: "article",
-		details: {
-			published: parseDate(pubDate || dcDate) || "",
-			categories: category ? [category] : [],
-			publishers: author ? [author] : [],
-		},
-		avatar: {
-			src: url,
-			alt: title,
-		},
-	} as CollectionItem;
+		title,
+		src,
+		description: description || "",
+		image: image?.link || image?.url || "",
+		imageAlt:
+			image?.title || "There is no alternative text provided for this image",
+		type: setType({}, src),
+	};
 };
 
-export type GetArticle = {
-	item: RSSItem;
-	extraData?: ExtraData;
-	provider?: ProviderItem;
-	feed?: ArticleSource;
-};
-// Needs major refactor
-// We're doing unnecessary work here
-// convert to required format
-// get article data from meta
 export const getArticle = async ({
 	item,
 	extraData,
@@ -90,73 +32,46 @@ export const getArticle = async ({
 }: GetArticle) => {
 	// We're not doing anything with converted item - we're just getting the src and details
 	const { src, details = {} } = convertRssItem(item);
-	const { region, coverage = [], language, categories = [] } = extraData || {};
 
-	///////////////////////////
-	// Merge details
-	// Do elsewhere and prbably check performance.....
-	const mergedCategories = new Set([
-		...(details.categories || []),
-		...categories,
-	]);
+	const mergedDetails = mergeArticleDetails(details, extraData || {});
 
-	const region1 = details?.region || [];
-	const region2 = region || [];
-	const mergedRegion = mergeStringOrArray(region1, region2);
-
-	const coverage1 = details?.coverage || [];
-	const coverage2 = coverage || [];
-	const mergedCoverage = mergeStringOrArray(coverage1, coverage2);
-
-	const mergedDetails = {
-		...details,
-		region: mergedRegion,
-		coverage: mergedCoverage,
-		language,
-		categories: Array.from(mergedCategories),
-	};
-	///////////////////////////
-
-	// get by source if exists check update
-	const exists = (await getArticleBySrc(src)) as CollectionItemDocument | null;
-	if (exists) {
-		await checkUpdateArticleRegions(exists, mergedRegion);
-		await checkUpdateArticleCategories(exists, Array.from(mergedCategories));
-		// console.log(`Article Exists ${src}`);
+	const doesExist = await doesArticleExist(src, mergedDetails);
+	if (doesExist) {
 		return null;
 	}
 
-	const { title, description, image, imageAlt, type } =
-		(await getMeta(src)) || {};
+	const articleMetaData = await loadAndValidateArticleMeta(src);
 
-	// checks
-	if (!title || !image) {
-		// We need a better or proper check here
-		// based on type / we may not always expect an image
-		// BlueSky post or some such
-		// console.log(`Check Failed - Do not save ${src}`);
+	const articleData = articleMetaData || rssArticleFallback(item, src);
+
+	if (!validateArticleData(articleData as ValidateArticleDataParams)) {
 		return null;
 	}
-
+	const { title, description, image, imageAlt, type } = articleData;
 	// conversion
-	const newArticle = {
-		title,
+	const newArticle: CollectionItem = {
+		title: title || "",
 		src,
 		description: description || "",
 		guid: "",
 		variant: type || "",
 		details: mergedDetails,
-		avatar: {
-			src: image,
-			alt: imageAlt || "",
-		},
-		...extraData,
+		// We want avatar as null so we can actually filter by missing image
+		// and try to load it on the client side matybe
+		// if no image return undefined for avatar
+		avatar: image
+			? {
+					src: image || "",
+					alt: imageAlt || "",
+				}
+			: undefined,
 		provider,
 		feed,
+		media: extraData?.media,
 	};
 
 	try {
-		saveOrCreateArticleBySrc(newArticle);
+		await saveOrCreateArticleBySrc(newArticle);
 		// logMemoryUsage();
 	} catch (err) {
 		// console.log(`Article Load Error ${src}`);
