@@ -4,7 +4,11 @@ import {
 	updateArticleCategories,
 	updateArticleRegions,
 } from "../lib/mongo/actions/article";
-import { CollectionItemDocument, Details } from "../types/article/item";
+import {
+	CollectionItem,
+	CollectionItemDocument,
+	Details,
+} from "../types/article/item";
 import { ExtraData } from "../types/types";
 import { mergeStringOrArray } from "../utils";
 
@@ -153,13 +157,35 @@ export const doesArticleExist = async (
 export const loadAndValidateArticleMeta = async (src: string) => {
 	const { title, description, image, imageAlt, type } =
 		(await getMeta(src)) || {};
-	if (!title) {
-		// We need a better or proper check here
-		// based on type / we may not always expect an image
-		// BlueSky/Reddit post or some such
+
+	if (!validateArticleData({ title } as ValidateArticleDataParams)) {
 		return null;
 	}
 	// we need a transform and more data?
 	// twitter:stream for instance might be a video/audio source
 	return { title, description, image, imageAlt, type };
+};
+
+export const setType = (
+	obj: { type?: string | null | undefined },
+	src: string,
+) => {
+	const validTypes = ["article", "video", "audio"];
+	if (!obj.type || !validTypes.includes(obj.type)) {
+		obj.type = "article";
+		if (src.includes("youtube")) {
+			obj.type = "video";
+		}
+	}
+};
+
+export type ValidateArticleDataParams = {
+	title: string | undefined | null;
+} & Partial<CollectionItem>;
+
+export const validateArticleData = (obj: ValidateArticleDataParams) => {
+	if (!obj.title) {
+		return false;
+	}
+	return true;
 };
