@@ -177,6 +177,8 @@ export const setType = (
 			obj.type = "video";
 		}
 	}
+
+	return obj.type;
 };
 
 export type ValidateArticleDataParams = {
