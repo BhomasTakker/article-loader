@@ -79,7 +79,7 @@ const ArticleSchema = new Schema<CollectionItem>(
 		},
 		feed: {
 			type: mongoose.Schema.Types.ObjectId,
-			required: [true, "Please provide a source feed."],
+			// required: [true, "Please provide a source feed."],
 			ref: "ArticleSource",
 		},
 		rating: {
