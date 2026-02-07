@@ -72,8 +72,15 @@ articleRoute.get("/get", validateSelectArticleQuery, async (req, res) => {
 	}
 });
 
+// Proper validation required... or at least some
 articleRoute.post("/create", async (req, res) => {
 	try {
+		// we need to check the article doesn't already exist, otherwise we will get a duplicate key error from MongoDB due to the unique index on src. This is a common issue when multiple requests try to create the same article at the same time.
+		const existingArticle = await Article.findOne({ src: req.body.src }).lean();
+		if (existingArticle) {
+			res.status(400).json({ error: "Article with this src already exists." });
+			return;
+		}
 		const article = await createArticle(req.body);
 
 		// Populate provider and feed for the response

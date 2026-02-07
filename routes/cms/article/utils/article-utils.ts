@@ -29,7 +29,7 @@ export const createArticle = async (articleData: any) => {
 		avatar,
 		media,
 		provider,
-		feed,
+		feed: feed && feed !== "" ? feed : undefined, // Only include feed if it's provided and not an empty string
 		rating,
 		views,
 		duration,
