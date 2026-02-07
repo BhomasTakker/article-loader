@@ -5,106 +5,14 @@ import {
 	buildPaginationParams,
 	buildPaginationResponse,
 } from "../utils/pagination";
+import {
+	addDetailsFilter,
+	addFilter,
+	createArticle,
+	createSort,
+} from "./utils/article-utils";
 
 export const articleRoute = Router();
-
-// any...
-const addFilter = (filter: any, query: any) => {
-	const {
-		title,
-		src,
-		variant,
-		provider,
-		feed,
-		disabled,
-		minDuration,
-		maxDuration,
-	} = query;
-
-	if (title) {
-		filter.title = { $regex: title, $options: "i" }; // Case-insensitive search
-	}
-
-	if (src) {
-		filter.src = { $regex: src, $options: "i" };
-	}
-
-	if (variant) {
-		filter.variant = variant;
-	}
-
-	if (provider) {
-		filter.provider = provider;
-	}
-
-	if (feed) {
-		filter.feed = feed;
-	}
-
-	if (disabled !== undefined) {
-		filter.disabled = disabled === "true";
-	}
-
-	if (minDuration !== undefined || maxDuration !== undefined) {
-		filter.duration = {};
-		if (minDuration !== undefined) {
-			filter.duration.$gte = Number(minDuration);
-		}
-		if (maxDuration !== undefined) {
-			filter.duration.$lte = Number(maxDuration);
-		}
-	}
-	return filter;
-};
-
-const addDetailsFilter = (filter: any, query: any) => {
-	const { category, author, publisher, region, coverage, language } = query;
-
-	if (category) {
-		filter["details.categories"] = { $regex: category, $options: "i" };
-	}
-
-	if (author) {
-		filter["details.authors"] = { $regex: author, $options: "i" };
-	}
-
-	if (publisher) {
-		filter["details.publishers"] = { $regex: publisher, $options: "i" };
-	}
-
-	if (region) {
-		filter["details.region"] = { $regex: region, $options: "i" };
-	}
-
-	if (coverage) {
-		const coverageArray = Array.isArray(coverage) ? coverage : [coverage];
-		filter["details.coverage"] = { $in: coverageArray };
-	}
-
-	if (language) {
-		filter["details.language"] = { $regex: language, $options: "i" };
-	}
-	return filter;
-};
-
-const createSort = (query: any) => {
-	const { sortBy = "createdAt", sortOrder = "desc" } = query;
-
-	const sort: any = {};
-	const allowedSortFields = [
-		"createdAt",
-		"title",
-		"src",
-		"disabled",
-		"duration",
-	];
-	const safeSortBy = allowedSortFields.includes(sortBy as string)
-		? sortBy
-		: "createdAt";
-	sort[safeSortBy as string] = sortOrder === "asc" ? 1 : -1;
-
-	return sort;
-};
 
 articleRoute.get("/search", async (req, res) => {
 	try {
@@ -112,6 +20,7 @@ articleRoute.get("/search", async (req, res) => {
 		let filter = addFilter({}, req.query);
 		filter = addDetailsFilter(filter, req.query);
 
+		// abstract this into utils
 		// Pagination
 		const { page, limit, skip } = buildPaginationParams(req.query);
 
@@ -127,6 +36,7 @@ articleRoute.get("/search", async (req, res) => {
 				.lean(),
 			Article.countDocuments(filter),
 		]);
+		////
 
 		res.json({
 			data: articles,
@@ -162,8 +72,23 @@ articleRoute.get("/get", validateSelectArticleQuery, async (req, res) => {
 	}
 });
 
+articleRoute.post("/create", async (req, res) => {
+	try {
+		const article = await createArticle(req.body);
+
+		// Populate provider and feed for the response
+		await article.populate("provider");
+		await article.populate("feed");
+
+		res.status(201).json(article);
+	} catch (error: any) {
+		res.status(400).json({ error: error.message });
+	}
+});
+
 articleRoute.put("/update/:id", async (req, res) => {
 	try {
+		// utils
 		const allowedUpdates = ["variant", "media", "disabled"];
 
 		const updates: any = {};
@@ -176,13 +101,16 @@ articleRoute.put("/update/:id", async (req, res) => {
 		if (Object.keys(updates).length === 0) {
 			res.status(400).json({ error: "No valid fields provided for update." });
 		}
+		/////
 
+		// utils
 		const article = await Article.findByIdAndUpdate(req.params.id, updates, {
 			new: true,
 			runValidators: true,
 		})
 			.populate("provider")
 			.lean();
+		////
 
 		if (!article) {
 			res.status(404).json({ error: "Article not found" });
