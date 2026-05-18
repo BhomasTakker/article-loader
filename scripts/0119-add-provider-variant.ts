@@ -54,7 +54,7 @@ const runScript = async () => {
 			rating: String(provider.rating),
 			details: {
 				...(provider.language && { language: provider.language }),
-				...(provider.region && { region: provider.region }),
+				...(provider.origin && { region: provider.origin }),
 			},
 		};
 
