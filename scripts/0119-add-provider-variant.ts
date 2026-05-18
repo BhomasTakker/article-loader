@@ -1,4 +1,5 @@
 // linked to 0227-provider-page
+// npx ts-node scripts/0119-add-provider-variant.ts
 import { Types } from "mongoose";
 import { connectToMongoDB } from "../src/lib/mongo/db";
 import ArticleProvider from "../src/models/ArticleProvider";
