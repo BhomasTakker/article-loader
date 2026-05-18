@@ -11,7 +11,7 @@ const _ = ArticleSourceModel;
  */
 export async function loadSourceListsFromDB(criteria: {
 	titles?: string[];
-	variant?: "article" | "audio" | "video";
+	variant?: "article" | "audio" | "video" | "provider";
 	region?: string[];
 	categories?: string[];
 	language?: string;

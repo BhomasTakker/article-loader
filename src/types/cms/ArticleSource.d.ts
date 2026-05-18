@@ -3,7 +3,7 @@ export type ArticleSource = {
 	region: string[];
 	coverage: string[];
 	language: string;
-	variant: "article" | "audio" | "video";
+	variant: "article" | "audio" | "video" | "provider";
 	source?: string; // i.e. subStack, youtube
 	mediaType?: string; // i.e. 24/7, live
 
