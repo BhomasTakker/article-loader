@@ -36,6 +36,7 @@ const runScript = async () => {
 
 	let created = 0;
 	let updated = 0;
+	let errors = 0;
 
 	for (const provider of providers) {
 		const normalizedName = provider.name.toLowerCase().replace(/\s+/g, "-");
@@ -56,25 +57,30 @@ const runScript = async () => {
 			},
 		};
 
-		const result = await Article.updateOne(
-			{ src: url },
-			{ $set: articleData },
-			{ upsert: true },
-		);
+		try {
+			const result = await Article.updateOne(
+				{ src: url },
+				{ $set: articleData },
+				{ upsert: true },
+			);
 
-		if (result.upsertedCount > 0) {
-			created++;
-			console.log(`  [created] ${provider.name}`);
-		} else if (result.modifiedCount > 0) {
-			updated++;
-			console.log(`  [updated] ${provider.name}`);
-		} else {
-			console.log(`  [unchanged] ${provider.name}`);
+			if (result.upsertedCount > 0) {
+				created++;
+				console.log(`  [created] ${provider.name}`);
+			} else if (result.modifiedCount > 0) {
+				updated++;
+				console.log(`  [updated] ${provider.name}`);
+			} else {
+				console.log(`  [unchanged] ${provider.name}`);
+			}
+		} catch (err: any) {
+			errors++;
+			console.error(`  [error] ${provider.name} — ${err.message}`);
 		}
 	}
 
 	console.log(
-		`\nDone. Created: ${created}, Updated: ${updated}, Unchanged: ${providers.length - created - updated}`,
+		`\nDone. Created: ${created}, Updated: ${updated}, Unchanged: ${providers.length - created - updated - errors}, Errors: ${errors}`,
 	);
 };
 
