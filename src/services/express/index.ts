@@ -10,8 +10,8 @@ export const initialiseExpress = () => {
 		cors({
 			origin: process.env.ADMIN_ORIGIN || "http://localhost:3000",
 			credentials: true,
-			methods: ["GET", "PUT", "PATCH", "DELETE"],
-		})
+			methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+		}),
 	);
 
 	// Add middleware for parsing JSON request bodies
