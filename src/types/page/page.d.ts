@@ -74,6 +74,7 @@ export type IPage = {
 	profile: PageProfile;
 	route: string;
 	creator: ObjectId;
+	live: boolean;
 
 	createdAt: Date;
 	updatedAt: Date;
