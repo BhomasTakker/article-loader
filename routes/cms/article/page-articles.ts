@@ -24,7 +24,8 @@ pageArticleRoute.post("/sync", async (req, res) => {
 	try {
 		const result = await syncPageArticles(baseUrl);
 		res.json({ env, baseUrl, result });
-	} catch (err: any) {
-		res.status(500).json({ error: err.message });
+	} catch (err) {
+		console.error("[sync-page-articles]", err);
+		res.status(500).json({ error: "Internal server error" });
 	}
 });
