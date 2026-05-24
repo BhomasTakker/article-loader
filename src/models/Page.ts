@@ -13,7 +13,7 @@ const ComponentSchema = new Schema(
 		componentProps: Object,
 		_with: Object,
 	},
-	{ _id: false }
+	{ _id: false },
 );
 
 const ContentSchema = new Schema(
@@ -26,7 +26,7 @@ const ContentSchema = new Schema(
 		props: Schema.Types.Mixed,
 		components: [ComponentSchema],
 	},
-	{ _id: false }
+	{ _id: false },
 );
 
 const PageSchema = new Schema<IPage>(
@@ -45,9 +45,13 @@ const PageSchema = new Schema<IPage>(
 			type: Schema.Types.ObjectId,
 			required: true,
 		},
+		live: {
+			type: Boolean,
+			default: false,
+		},
 		content: ContentSchema,
 	},
-	{ timestamps: true }
+	{ timestamps: true },
 );
 
 export default mongoose.models.Page ||
