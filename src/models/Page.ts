@@ -41,13 +41,6 @@ const PageSchema = new Schema<IPage>(
 			required: true,
 		},
 
-		views: [
-			{
-				timestamp: { type: Date, default: Date.now },
-				userId: { type: Schema.Types.ObjectId, required: false }, // Optional: track user if logged in
-			},
-		],
-
 		creator: {
 			type: Schema.Types.ObjectId,
 			required: true,
@@ -61,6 +54,7 @@ const PageSchema = new Schema<IPage>(
 			enum: ["Content", "User", "Landing"],
 			required: true,
 		},
+		totalViewCount: { type: Number, default: 0 },
 		content: ContentSchema,
 	},
 	{ timestamps: true },

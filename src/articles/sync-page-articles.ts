@@ -107,8 +107,7 @@ export const syncPageArticles = async (
 			},
 			media: {
 				type: page.pageType || "Content",
-				viewCount: page.views?.length || 0,
-				views: page.views || [],
+				views: page.totalViewCount || 0,
 			},
 			details: {
 				published: page.createdAt,
