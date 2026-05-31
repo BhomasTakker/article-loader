@@ -27,7 +27,7 @@ import mongoose from "mongoose";
 
 export const createSearchAggregate = async (
 	queryParams: GetLatestArticlesProps,
-	aggregator: Aggregator
+	aggregator: Aggregator,
 ) => {
 	const {
 		variant,
@@ -42,6 +42,7 @@ export const createSearchAggregate = async (
 		leaningHigher,
 		leaningLower,
 		origin,
+		pageType,
 		provider,
 		categories,
 		mustContain = [],
@@ -66,6 +67,8 @@ export const createSearchAggregate = async (
 
 	if (language) addFilter(filter, language, "details.languge");
 	if (mediaType) addFilter(filter, mediaType, "media.mediaType");
+
+	if (pageType) addFilter(filter, pageType, "media.type");
 
 	// coverage used for scoping articles. Give me US && national news
 	if (coverage) addFilter(filter, coverage, "details.coverage");
@@ -147,7 +150,7 @@ export const createSearchAggregate = async (
 
 		// Resolve all provider names to ObjectIds in parallel
 		const providerDocs = await Promise.all(
-			providers.map((name) => getArticleProviderByNameFuzzy(name))
+			providers.map((name) => getArticleProviderByNameFuzzy(name)),
 		);
 
 		// Filter out nulls and extract ObjectIds

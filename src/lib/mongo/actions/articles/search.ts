@@ -53,13 +53,15 @@ export type GetLatestArticlesProps = {
 
 	language?: string;
 
+	pageType?: string;
+
 	sort?: string;
 	limit?: string;
 };
 
 export const searchArticles = async (
 	params: GetLatestArticlesProps,
-	cacheTime: number = CACHE_TIME
+	cacheTime: number = CACHE_TIME,
 ) => {
 	const queryCacheKey = JSON.stringify(params);
 	const articles = await setCache<CollectionItem[]>(
@@ -67,7 +69,7 @@ export const searchArticles = async (
 			return await buildArticleSearchQuery(params);
 		},
 		queryCacheKey,
-		cacheTime
+		cacheTime,
 	);
 
 	return {
