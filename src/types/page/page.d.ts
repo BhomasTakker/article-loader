@@ -78,15 +78,12 @@ export type IPage = {
 	creator: ObjectId;
 	live: boolean;
 
-	views?: Array<{
-		timestamp: Date;
-		userId?: string;
-	}>;
-
 	pageType: PageType;
 
 	createdAt: Date;
 	updatedAt: Date;
+
+	totalViewCount: number;
 
 	content: PageContent;
 };
