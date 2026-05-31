@@ -31,6 +31,7 @@ type PageArticleData = Pick<
 		Details,
 		"published" | "modified" | "categories" | "publishers"
 	>;
+	media: object;
 };
 
 // Converts a page route to a readable title, used when pageTitle is absent.
@@ -103,6 +104,11 @@ export const syncPageArticles = async (
 			avatar: {
 				src: page.meta?.pageImage || FALLBACK_IMAGE,
 				alt: title,
+			},
+			media: {
+				type: page.pageType || "Content",
+				viewCount: page.views?.length || 0,
+				views: page.views || [],
 			},
 			details: {
 				published: page.createdAt,
