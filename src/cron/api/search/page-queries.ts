@@ -77,14 +77,14 @@ export const cachePageQueries =
  * @param apis
  * @param routes
  *
- * runs page queries for the given apis tocache the data
+ * runs page queries for the given apis to cache the data
  * We should implement routes so we can control routes, time, and frequency
  * currently runs for all pages since routes not implemented
  * AND we are only running for article search at the moment
  */
 export const executeAndCacheQueriesFromPage = async (
 	apis: API_PROVIDERS[],
-	routes: string[]
+	routes: string[],
 ) => {
 	await connectToMongoDB();
 	const pageRoutes = await getPageRoutes();
