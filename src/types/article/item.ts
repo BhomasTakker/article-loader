@@ -132,6 +132,12 @@ export type Avatar = {
 	alt: string;
 };
 
+export type Metadata = {
+	views?: {
+		total?: number;
+	};
+};
+
 export type Pagination = {
 	results: number;
 };
@@ -142,6 +148,7 @@ export type CollectionItem = BaseInfo & {
 	provider?: ProviderItem;
 	media?: Media;
 	feed?: ArticleSource;
+	metadata?: Metadata;
 };
 
 export type CollectionItemDocument = CollectionItem & {
