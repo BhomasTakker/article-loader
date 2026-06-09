@@ -48,6 +48,23 @@ const AvatarSchema = new Schema(
 // Add any media specific data here - i.e. video ratings, audioi duration etc
 const MediaSchema = new Schema({}, { _id: false, strict: false });
 
+const ViewsSchema = new Schema(
+	{
+		total: Number,
+	},
+	{
+		_id: false,
+		strict: false,
+	},
+);
+
+const MetadataSchema = new Schema(
+	{ views: ViewsSchema },
+	{
+		_id: false,
+	},
+);
+
 const ArticleSchema = new Schema<CollectionItem>(
 	{
 		title: {
@@ -97,10 +114,7 @@ const ArticleSchema = new Schema<CollectionItem>(
 			type: Boolean,
 			default: false,
 		},
-		// We would like to be able to remove error articles after a certain time
-		// ttl: {
-		// 	type: Number, // Time-to-live in seconds or timestamp
-		// },
+		metadata: MetadataSchema,
 	},
 	{ timestamps: true },
 );
