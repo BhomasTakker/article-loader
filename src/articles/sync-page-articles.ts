@@ -3,6 +3,7 @@ import ArticleProvider from "../models/ArticleProvider";
 import Page from "../models/Page";
 import Article from "../models/Article";
 import { Avatar, CollectionItem, Details } from "../types/article/item";
+import { IPage } from "../types/page/page";
 
 // Valid deployment environments and their base URLs
 export const PAGE_ARTICLE_BASE_URLS: Record<string, string> = {
@@ -67,6 +68,61 @@ const getOrCreateSystemProvider = async (
 	return created._id;
 };
 
+const createArticle = async (
+	page: IPage & { _id: Types.ObjectId },
+	baseUrl: string,
+	systemProviderId: Types.ObjectId,
+): Promise<SyncPageArticleResult> => {
+	const title = page.meta?.pageTitle || normalizeRouteToTitle(page.route);
+	const description = page.meta?.pageDescription || "";
+	const src = `${baseUrl}${page.route}`;
+
+	const categories = page.meta?.pageKeywords
+		? page.meta.pageKeywords
+				.split(",")
+				.map((k: string) => k.trim())
+				.filter(Boolean)
+		: [];
+
+	const articleData: PageArticleData = {
+		guid: String(page._id),
+		title,
+		src,
+		description,
+		variant: "page",
+		provider: systemProviderId,
+		disabled: !page.live,
+		avatar: {
+			src: page.meta?.pageImage || FALLBACK_IMAGE,
+			alt: title,
+		},
+		media: {
+			type: page.pageType || "Content",
+			views: page.totalViewCount || 0,
+		},
+		details: {
+			published: page.createdAt,
+			modified: page.updatedAt,
+			categories,
+			publishers: ["Datatattat"],
+		},
+	};
+
+	try {
+		const result = await Article.updateOne(
+			{ src },
+			{ $set: articleData },
+			{ upsert: true },
+		);
+
+		if (result.upsertedCount > 0) return { status: "created" };
+		if (result.modifiedCount > 0) return { status: "updated" };
+		return { status: "unchanged" };
+	} catch (err: any) {
+		return { status: "error", error: err.message };
+	}
+};
+
 // Syncs a page-variant Article for every live Page in the DB.
 // Articles are upserted keyed on src, so this is safe to call repeatedly.
 export const syncPageArticles = async (
@@ -81,59 +137,41 @@ export const syncPageArticles = async (
 	let errors = 0;
 
 	for (const page of pages) {
-		const title = page.meta?.pageTitle || normalizeRouteToTitle(page.route);
-		const description = page.meta?.pageDescription || "";
+		const typedPage = page as unknown as IPage & { _id: Types.ObjectId };
+		const result = await createArticle(typedPage, baseUrl, systemProviderId);
 
-		const src = `${baseUrl}${page.route}`;
-
-		const categories = page.meta?.pageKeywords
-			? page.meta.pageKeywords
-					.split(",")
-					.map((k: string) => k.trim())
-					.filter(Boolean)
-			: [];
-
-		const articleData: PageArticleData = {
-			guid: String(page._id),
-			title,
-			src,
-			description,
-			variant: "page",
-			provider: systemProviderId,
-			disabled: !page.live,
-			avatar: {
-				src: page.meta?.pageImage || FALLBACK_IMAGE,
-				alt: title,
-			},
-			media: {
-				type: page.pageType || "Content",
-				views: page.totalViewCount || 0,
-			},
-			details: {
-				published: page.createdAt,
-				modified: page.updatedAt,
-				categories,
-				publishers: ["Datatattat"],
-			},
-		};
-
-		try {
-			const result = await Article.updateOne(
-				{ src },
-				{ $set: articleData },
-				{ upsert: true },
-			);
-
-			if (result.upsertedCount > 0) {
-				created++;
-			} else if (result.modifiedCount > 0) {
-				updated++;
-			}
-		} catch {
-			errors++;
-		}
+		if (result.status === "created") created++;
+		else if (result.status === "updated") updated++;
+		else if (result.status === "error") errors++;
 	}
 
 	const unchanged = pages.length - created - updated - errors;
 	return { created, updated, unchanged, errors };
+};
+
+export type SyncPageArticleResult = {
+	status: "created" | "updated" | "unchanged" | "error";
+	error?: string;
+};
+
+// Syncs a page-variant Article for a single Page, identified by _id or route.
+export const syncPageArticle = async (
+	baseUrl: string,
+	{ id, route }: { id?: string; route?: string },
+): Promise<SyncPageArticleResult> => {
+	if (!id && !route) {
+		return { status: "error", error: "Must provide 'id' or 'route'" };
+	}
+
+	const query = id ? Page.findById(id).lean() : Page.findOne({ route }).lean();
+
+	const page = (await query) as (IPage & { _id: Types.ObjectId }) | null;
+
+	if (!page) {
+		return { status: "error", error: "Page not found" };
+	}
+
+	const systemProviderId = await getOrCreateSystemProvider(baseUrl);
+
+	return createArticle(page, baseUrl, systemProviderId);
 };
