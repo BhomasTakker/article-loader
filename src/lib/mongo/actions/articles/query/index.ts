@@ -2,6 +2,7 @@ import { GetLatestArticlesProps } from "../search";
 import { PipelineStage } from "mongoose";
 import Article from "../../../../../models/Article";
 import { createSearchAggregate } from "./searchAggregate";
+import { cloneDeepSerializable } from "../../../../../utils/object";
 
 // Aggregation course 2 hour
 // https://www.youtube.com/watch?v=vx1C8EyTa7Y
@@ -9,11 +10,11 @@ import { createSearchAggregate } from "./searchAggregate";
 export type Aggregator = PipelineStage[];
 
 export const buildArticleSearchQuery = async (
-	queryParams: GetLatestArticlesProps
+	queryParams: GetLatestArticlesProps,
 ) => {
 	const res = await Article.aggregate(
-		await createSearchAggregate(queryParams, [] as Aggregator)
+		await createSearchAggregate(queryParams, [] as Aggregator),
 	);
 
-	return res;
+	return cloneDeepSerializable(res);
 };
