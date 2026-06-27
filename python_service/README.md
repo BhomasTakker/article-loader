@@ -11,13 +11,33 @@ Runs on port `8001` by default (override with `PYTHON_SERVICE_URL` env var on th
 - Python 3.9+
 - pip
 
+### Verify Python is installed (AWS / Linux)
+
+```bash
+python3 --version
+```
+
+If pip is not available (`pip3: command not found`), install it first:
+
+```bash
+# Amazon Linux 2 / AL2023
+sudo yum install python3-pip -y
+# or
+sudo dnf install python3-pip -y
+
+# Ubuntu
+sudo apt update && sudo apt install python3-pip -y
+```
+
+If `pip3` remains unavailable after install, use `python3 -m pip` in place of `pip3` for all commands below.
+
 ---
 
 ## Install dependencies
 
 ```bash
 # Linux / AWS
-pip3 install -r python_service/requirements.txt
+python3 -m pip install -r python_service/requirements.txt
 
 # Windows (local)
 py -m pip install -r python_service/requirements.txt
@@ -29,7 +49,7 @@ py -m pip install -r python_service/requirements.txt
 
 ```bash
 # Linux / AWS
-pip3 install --upgrade -r python_service/requirements.txt
+python3 -m pip install --upgrade -r python_service/requirements.txt
 
 # Windows (local)
 py -m pip install --upgrade -r python_service/requirements.txt
