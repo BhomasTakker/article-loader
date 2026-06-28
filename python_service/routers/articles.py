@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query, HTTPException
-from python_service.db import articles_collection
-from python_service.models.article import Article
+from db import articles_collection
+from models.article import Article
 
 router = APIRouter()
 

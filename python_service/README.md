@@ -65,16 +65,16 @@ Run from the **project root**:
 
 ```bash
 # Linux / AWS
-python3 -m uvicorn python_service.app:app --host 0.0.0.0 --port 8001
+python3 -m uvicorn python_service.main:app --host 0.0.0.0 --port 8001
 
 # Windows (local)
-py -m uvicorn python_service.app:app --host 0.0.0.0 --port 8001
+py -m uvicorn python_service.main:app --host 0.0.0.0 --port 8001
 ```
 
 Add `--reload` during development to auto-restart on file changes:
 
 ```bash
-py -m uvicorn python_service.app:app --port 8001 --reload
+py -m uvicorn python_service.main:app --port 8001 --reload
 ```
 
 ---
@@ -96,7 +96,7 @@ To start them separately:
 npm run dev:start
 
 # Terminal 2 — Python/FastAPI
-py -m uvicorn python_service.app:app --port 8001 --reload
+py -m uvicorn python_service.main:app --port 8001 --reload
 ```
 
 ### AWS / Production (PM2)

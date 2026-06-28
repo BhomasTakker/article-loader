@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from python_service.routers import articles, groups, health
+from routers import articles, groups, health
 
 app = FastAPI()
 

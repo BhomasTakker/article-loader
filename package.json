@@ -18,7 +18,7 @@
 		"build": "rimraf dist && npx tsc",
 		"predev:start": "npm run build",
 		"dev:start": "nodemon dist/index.js",
-		"dev:services": "concurrently --names \"node,python\" --prefix-colors \"cyan,yellow\" \"npm run dev:start\" \"py -m uvicorn python_service.main:app --port 8001 --reload\"",
+		"dev:services": "concurrently --names \"node,python\" --prefix-colors \"cyan,yellow\" \"npm run dev:start\" \"cd python_service && py -m uvicorn main:app --reload\"",
 		"start": "node dist/index.js",
 		"aws:stop": "pm2 stop article-loader",
 		"stop:services": "pm2 stop article-loader && pm2 stop python-service",
