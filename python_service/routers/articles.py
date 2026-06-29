@@ -4,7 +4,7 @@ from models.article import Article
 
 router = APIRouter()
 
-@router.get("/", response_model=list[Article])
+@router.get("", response_model=list[Article])
 async def get_articles_by_region(
     region: str = Query(...),
     limit: int = Query(100, le=500),

@@ -2,6 +2,6 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
-@router.get("/")
+@router.get("")
 def get_articles_group():
     return {"message": "This endpoint will return grouped articles."}
